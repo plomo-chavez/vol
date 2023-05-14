@@ -100,5 +100,5 @@ mix.webpackConfig({
  | Refer official documentation for more information: https://laravel.com/docs/9.x/mix#browsersync-reloading
  */
 
-// mix.browserSync('https://dev-cabo.com')
-mix.browserSync('http://donjuan.local.com')
+// mix.browserSync('https://voluntariado-gro.com')
+mix.browserSync('http://voluntariado.local.com')

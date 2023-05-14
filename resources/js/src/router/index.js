@@ -25,6 +25,7 @@ const router = new VueRouter({
     return { x: 0, y: 0 }
   },
   routes: [
+    { path: '/', redirect: { name: 'home' } },
     ...routesDefault,
     ...administracion,
     // ...dashboard,
@@ -47,15 +48,13 @@ router.beforeEach((to, _, next) => {
 //   if(typeof to.meta.isOut != 'undefined' && isLoggedIn != null){
 //     return next({ name: 'home' })
 //   }
-
+console.log(to)
   if(isLoggedIn){
     useJwt
     .validateUser({ tk   : store.state.app.userData.token, })
     .then(response => {
-      console.log('response',response)
       validateUser = response.data.data;
       store.commit('app/UPDATE_USERVALIDATION', response.data.data)
-      console.log('store.state.app.userValidation',store.state.app.userValidation)
     })
     .catch(error => {
       console.log(error);
@@ -69,13 +68,13 @@ router.beforeEach((to, _, next) => {
     return next({ name: 'misc-not-authorized' })
   }
 
+
   // Redirect if logged in
   if (to.meta.redirectIfLoggedIn && isLoggedIn) {
     const userData = getUserData()
     next({ name: 'home' })
     // next(getHomeRouteForLoggedInUser(userData ? userData.role : null))
   }
-
   return next()
 })
 

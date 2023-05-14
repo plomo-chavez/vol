@@ -1,125 +1,21 @@
 export default [
-
-  {
-    path: '/',
-    name: 'inicio',
-    component: () => import('@/views/out/inicio.vue'),
-    meta: {
-        isOut: true,
-      layout: 'full',
-      resource: 'Auth',
-      action: 'read',
+    {
+      path: '/home',
+      name: 'home',
+      component: () => import('@/views/Home.vue'),
+      meta: {},
     },
-  },
-  {
-    path: '/reservar',
-    name: 'reservar',
-    component: () => import('@/views/administracion/reservaciones/Reservaciones.vue'),
-    meta: {
-      layout: 'full',
-      resource: 'Auth',
-      action: 'read',
+    {
+      path: '/error-404',
+      name: 'error-404',
+      component: () => import('@/views/error/Error404.vue'),
+      meta: {
+          isOut: true,
+        layout: 'full',
+        resource: 'Auth',
+        action: 'read',
+      },
     },
-  },
-  {
-    path: '/nosotros',
-    name: 'nosotros',
-    component: () => import('@/views/out/nosotros.vue'),
-    meta: {
-        isOut: true,
-      layout: 'full',
-      resource: 'Auth',
-      action: 'read',
-    },
-  },
-  {
-    path: '/contacto',
-    name: 'contacto',
-    component: () => import('@/views/out/contacto.vue'),
-    meta: {
-        isOut: true,
-      layout: 'full',
-      resource: 'Auth',
-      action: 'read',
-    },
-  },
-  {
-    path: '/home',
-    name: 'home',
-    component: () => import('@/views/Home.vue'),
-    meta: {
-      pageTitle: 'Inicio',
-      breadcrumb: [
-        {
-          text: 'Pages',
-          to: '/error-404',
-        },
-        {
-          text: 'Blog',
-        },
-        {
-          text: 'List',
-          active: true,
-        },
-      ],
-    },
-  },
-  {
-    path: '/usuarios',
-    name: 'usuarios',
-    component: () => import('@/views/Home.vue'),
-    meta: {
-      pageTitle: 'Trabajadores',
-    },
-  },
-  {
-    path: '/trabajadores',
-    name: 'trabajadores',
-    component: () => import('@/views/Home.vue'),
-    meta: {
-      pageTitle: 'Trabajadores',
-    },
-  },
-  {
-    path: '/trabajadores',
-    name: 'trabajadores',
-    component: () => import('@/views/Home.vue'),
-    meta: {
-      pageTitle: 'Trabajadores',
-    },
-  },
-  {
-    path: '/factory',
-    name: 'factory',
-    component: () => import('@/views/useFactory.vue'),
-    meta: {
-      pageTitle: 'Blog List',
-      breadcrumb: [
-        {
-          text: 'Pages',
-          to: '/error-404',
-        },
-        {
-          text: 'Blog',
-        },
-        {
-          text: 'List',
-          active: true,
-        },
-      ],
-    },
-  },
-  {
-    path: '/error-404',
-    name: 'error-404',
-    component: () => import('@/views/error/Error404.vue'),
-    meta: {
-        isOut: true,
-      layout: 'full',
-      resource: 'Auth',
-      action: 'read',
-    },
-  },
   {
     path: '/login',
     name: 'auth-login',

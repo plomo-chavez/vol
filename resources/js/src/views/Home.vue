@@ -7,18 +7,21 @@
     @click="callApiWithHeaders()"
   >Con headers</b-button>
   <b-button
-  
+
     size="sm"
     variant="primary"
     class="btn-tour-finish"
     @click="callApi()"
   >Sin headers</b-button>
   <!-- <ModalValidSession :openModal="openModal" /> -->
+  <Scann
+  />
 </div>
 </template>
 
 <script>
 import { BButton } from 'bootstrap-vue'
+import Scann from '@currentComponents/ScannerCode.vue'
 import ModalValidSession from '@currentComponents/ModalValidSession.vue'
 import customHelpers  from '@helpers/customHelpers'
 
@@ -28,6 +31,7 @@ export default {
   components: {
     BButton,
     ModalValidSession,
+    Scann,
   },
   data() {
     return {
