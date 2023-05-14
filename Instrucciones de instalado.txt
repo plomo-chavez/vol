@@ -1,0 +1,26 @@
+After downloading zip from ThemeForest, unzip it in your desired location.
+In uncompressed folder you will find folder named Vuexy. This will contain all versions of Vuexy Template. Move to vuexy-vuejs-bootstrap-vue-template folder and open this folder in console/terminal.
+Run below command in console:
+# For Yarn (Highly Recommended)
+yarn
+
+# For npm
+npm install
+
+# try with legacy option if error occurs
+npm install --legacy-peer-deps
+TIP
+
+If you have any issues regarding installation please search your issue in our FAQ section for instant solution and still you can't find solution, please follow our guide on getting support for our product.
+
+Now to run development server of Vuexy run below command:
+# For yarn
+yarn serve
+
+# For npm
+npm run serve
+Now you will find some output after running above command in console as below: console-output-of-development-server
+Visit http://localhost:8080/ (opens new window)to check frontend.
+NOTE
+
+Your network URL might not have same URL as screenshot and that is completely fine. It depends on your network.
