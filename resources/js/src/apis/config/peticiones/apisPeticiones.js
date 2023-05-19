@@ -33,4 +33,10 @@ export default class apiPeticiones {
   administrarReservaciones(...args) {
     return this.axiosIns.post(this.apisConfig.apiAdminReservaciones, ...args)
   }
+  getVoluntarios(...args) {
+    return this.axiosIns.post(this.apisConfig.apiGetVoluntarios, ...args)
+  }
+  administrarVoluntarios(...args) {
+    return this.axiosIns.post(this.apisConfig.apiAdminVoluntarios, ...args)
+  }
 }

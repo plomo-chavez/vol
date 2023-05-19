@@ -9,4 +9,6 @@ export default {
   apiAdminPersonas      : '/api/personas/administrar',
   apiGetReservaciones   : '/api/reservaciones/listar',
   apiAdminReservaciones : '/api/reservaciones/administrar',
+  apiGetVoluntarios     : '/api/voluntarios/listar',
+  apiAdminVoluntarios   : '/api/voluntarios/administrar',
 }

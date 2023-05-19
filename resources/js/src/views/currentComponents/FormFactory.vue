@@ -13,6 +13,8 @@
                       :key="'input-'+indxInput"
                       :class="(typeof input.classContainer != 'undefined'? input.classContainer : ' col-12 ' ) + ' mb-1' "
                   >
+                  <!-- input blank -->
+                      <div v-if="input.type === 'input-blank'" ></div>
                   <!-- input text -->
                       <div v-if="input.type === 'input-text'">
                         <validation-provider
@@ -664,6 +666,9 @@
                     });
                 }
             })
+        },
+        resetForm() {
+            this.inicializar();
         },
     },
   }

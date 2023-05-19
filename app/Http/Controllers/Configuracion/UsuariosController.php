@@ -1,9 +1,8 @@
 <?php
-
 namespace App\Http\Controllers\Configuracion;
+use App\Http\Controllers\BaseController;
 
 use App\Http\Controllers\Auth\Models\User;
-use App\Http\Controllers\BaseController;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
