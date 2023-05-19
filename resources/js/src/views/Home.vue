@@ -22,7 +22,7 @@
                 </div>
             </BCard>
             <div v-else
-                class="col-10"
+                class="col-10 mx-auto"
             >
 
                 <BCard
