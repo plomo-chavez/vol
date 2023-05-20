@@ -99,10 +99,15 @@ export default {
             }
           })
     },
-    formatoFechaYMD(value){
+    formatoFechaYMD(value,withTime = false){
         const fecha = new Date(value);
         const fechaFormateada = fecha.toISOString().slice(0,10).replace(/-/g,"/");
-        return fechaFormateada
+        if (withTime) {
+            const horaFormateada = fecha.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+            return fechaFormateada + ' ' + horaFormateada;
+        } else {
+            return fechaFormateada
+        }
     },
     formatoMoney(amount, signal = true){
         let tmp = parseInt(amount).toLocaleString("es-ES", { style: "currency", currency: "MXN" });

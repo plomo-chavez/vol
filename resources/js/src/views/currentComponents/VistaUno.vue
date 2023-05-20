@@ -72,6 +72,12 @@
         <div v-else-if="field.type === 'index'">
             <p class="fw-bolder">{{ data.index + 1 }}</p>
         </div>
+        <div v-else-if="field.type === 'fecha'">
+            <p class="fw-bolder">{{ formatoFechaYMD(data.item[field.key]) }}</p>
+        </div>
+        <div v-else-if="field.type === 'fechaTime'">
+            <p class="fw-bolder">{{ formatoFechaYMD(data.item[field.key],true) }}</p>
+        </div>
         <div v-else-if="field.type === 'object'">
             <div v-for="(item,key) in data.item[field.key] ">
                 <small clas="text-sm" v-for="(value) in item">{{ capitalize(key) }}: {{ value }}</small>

@@ -24,7 +24,6 @@
             <div v-else
                 class="col-10 mx-auto"
             >
-
                 <BCard
                     v-if="voluntario == null"
                     class="col-12 col-md-6 mx-auto p-1"
@@ -59,42 +58,15 @@
                         </div>
                     </div>
                 </BCard>
-                <BCard
+                <formVoluntario
                     v-if="voluntario != null  && !showFormHoras"
-                    class="col-12 p-2"
-                >
-                    <FormFactory
-                        ref="formVoluntario"
-                        class="col-12 mx-auto"
-                        :btnsAccion="false"
-                        :data = 'voluntario'
-                        :schema="formSchemaFormVoluntario"
-                        @formExport="handleSubmitFormVoluntario"
-                    />
-                    <div class=" col-12 d-flex flex-wrap justify-content-between">
-                        <div>
-                            <b-button
-                                size="sm"
-                                variant="outline-danger"
-                                @click="handleCancelFormVoluntario"
-                            >Cancelar</b-button>
-                        </div>
-                        <div>
-                            <b-button
-                            v-if="voluntario.id"
-                                size="sm"
-                                variant="relief-secondary"
-                                @click="() => { showFormHoras = true }"
-                            >Registrar horas voluntarias</b-button>
-                            <b-button
-                                size="sm"
-                                variant="relief-primary"
-                                @click="onSubmitFormVoluntario"
-                            >Guardar</b-button>
-                        </div>
-                    </div>
-
-                </BCard>
+                    :withCard="true"
+                    :btnRegistrarHoras="true"
+                    :data = 'voluntario'
+                    @handleSubmit="handleSubmitFormVoluntario"
+                    @handleCancelar="handleCancelFormVoluntario"
+                    @handleShowFormHoras="() => { showFormHoras = true }"
+                />
                 <BCard
                     v-if="voluntario != null  && showFormHoras"
                     class="col-12 p-2"
@@ -131,7 +103,7 @@
                             :data = 'registroHoras[index -1]'
                             :schema="formSchemaFormHoras"
                             @exportLive="copyForm($event,index)"
-                            @formExport="handleSubmitFormVoluntario"
+                            @formExport="handleSubmitFormHoras"
                         />
                     </div>
                     <div class=" col-12 d-flex flex-wrap justify-content-between mt-1">
@@ -160,6 +132,7 @@
         import FormFactory from '@currentComponents/FormFactory.vue'
         import peticiones from '@/apis/usePeticiones'
         import customHelpers  from '@helpers/customHelpers'
+        import formVoluntario  from '@/views/voluntarios/formVoluntario.vue'
 
         import {
             BCard,
@@ -174,6 +147,7 @@
             name: "HelloWorld",
             mixins : [customHelpers],
             components: {
+                formVoluntario,
                 StreamBarcodeReader,
                 FormFactory,
                 BCard,
@@ -189,9 +163,7 @@
                     id: null,
                     showCam : false,
                     showFormHoras : false,
-                    registroHoras:[{}],
                     voluntario:null,
-                    numeroAsociado:null,
                     formSchemaFormVoluntario: [
                         {
                             classContainer:'col-4',
@@ -250,6 +222,7 @@
                             placeholder: 'Introduce un telefono celular',
                         },
                     ],
+                    numeroAsociado:null,
                     formSchemaFormBusqueda: [
                         {
                             classContainer:'col-12',
@@ -260,6 +233,7 @@
                             rules       : 'required',
                         },
                     ],
+                    registroHoras:[{}],
                     formSchemaFormHoras: [
                         {
                             classContainer:'col-12',

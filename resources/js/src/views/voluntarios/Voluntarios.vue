@@ -12,13 +12,17 @@
             />
         </div>
         <div v-if="showForm">
-            <FormFactory
-                class="col-10 mx-auto"
+            <formVoluntario
                 withCard
-                :data = 'activeRow'
-                :schema="schemaMain"
-                @formExport="save"
-                @cancelar="resetForm"
+                v-if="accion == 1"
+                :data = '{}'
+                @handleSubmit="save"
+                @handleCancelar="resetForm"
+            />
+            <detallesVoluntario
+                v-else
+                @handleAtras="resetForm"
+                :voluntario_id="activeRow.id"
             />
         </div>
     </div>
@@ -28,11 +32,15 @@
     import VistaUno from '@currentComponents/VistaUno.vue'
     import peticiones from '@/apis/usePeticiones'
     import customHelpers  from '@helpers/customHelpers'
+    import formVoluntario  from '@/views/voluntarios/formVoluntario.vue'
+    import detallesVoluntario  from '@/views/voluntarios/detallesVoluntario.vue'
 
   export default {
     components: {
         FormFactory,
-        VistaUno
+        VistaUno,
+        detallesVoluntario,
+        formVoluntario
     },
     data() {
       return {
