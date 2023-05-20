@@ -60,7 +60,7 @@
             },
             {
                 classContainer:'col-lg-4 col-md-6 col-12',
-                type        : 'text',
+                type        : 'input-text',
                 name        : 'usuario',
                 value       : 'usuario',
                 label       : 'Usuario',

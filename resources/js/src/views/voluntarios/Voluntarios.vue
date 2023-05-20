@@ -138,62 +138,38 @@
         columnas : [
             {
                 type    : 'text',
-                key     : 'usuario',
-                label   : 'Usuario',
-                sortable: true
-            },
-            {
-                key     : 'tipo_usuario.nombre',
-                label   : 'Tipo de usuario',
+                key     : 'numeroAsociado',
+                label   : 'Numero de asociado',
                 sortable: true
             },
             {
                 type    : 'text',
-                key     : 'email',
-                label   : 'Correo',
+                key     : 'nombre',
+                label   : 'Nombre',
+                sortable: true
+            },
+            {
+                type    : 'text',
+                key     : 'primerApellido',
+                label   : 'Primer apellido',
+                sortable: true
+            },
+            {
+                type    : 'text',
+                key     : 'segundoApellido',
+                label   : 'Segundo apellido',
+                sortable: true
+            },
+            {
+                type    : 'text',
+                key     : 'correo',
+                label   : 'Correo electronico',
                 sortable: true
             },
             {
                 type    : 'text',
                 key     : 'telefono',
                 label   : 'Telefono',
-                sortable: true
-            },
-            {
-                type    : 'text',
-                key     : 'persona',
-                label   : 'Persona',
-                sortable: true
-            },
-            {
-                type    : 'switch',
-                key     : 'accesoMovil',
-                label   : 'Acceso movil',
-                sortable: true
-            },
-            {
-                type    : 'switch',
-                key     : 'accesoWeb',
-                label   : 'Acceso Web',
-                sortable: true
-            },
-            {
-                type    : 'text',
-                key     : 'estatus',
-                label   : 'Estatus',
-                sortable: true
-            },
-            {
-                type    : 'text',
-                type    : 'switch',
-                key     : 'bloqueado',
-                label   : 'Bloqueado',
-                sortable: true
-            },
-            {
-                type    : 'switch',
-                key     : 'validado',
-                label   : 'Validado',
                 sortable: true
             },
         ]
@@ -210,7 +186,7 @@
         },
         reload () {
             peticiones
-                .getUsuarios({})
+                .getVoluntarios({})
                 .then(response => {
                     this.data = response.data.data
                 })
@@ -231,18 +207,23 @@
            this.peticionAdministrar(payload)
         },
         peticionAdministrar(payload){
+            this.loading()
             peticiones
                 .adminUsuarios({
                     'payload' : payload,
                 })
                 .then(response => {
+                    this.loading(false)
                     this.messageSweet({
                         message: response.data.message,
                         icon: response.data.result ? 'success' : 'error',
                     });
                     this.resetForm();
                 })
-                .catch(error   => { console.log(error); })
+                .catch(error   => {
+                    this.loading(false)
+                    console.log(error);
+                })
         },
         nuevoRegistro () {
             this.schemaMain = this.copyObject(this.formSchema)

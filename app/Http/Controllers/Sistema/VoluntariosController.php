@@ -15,8 +15,9 @@ class VoluntariosController extends BaseController
 
     public function handleListar(Request $request){
         $payload = $request->all();
+        $filtros = array_key_exists('payload', $payload) ? $payload['payload'] : [];
         $query = Modelo::query()->orderBy('nombre', 'asc');
-        foreach ($payload['payload'] as $column => $value) {
+        foreach ($filtros as $column => $value) {
             if (is_array($value)) {
                 $query->whereBetween($column, $value);
             } else {
