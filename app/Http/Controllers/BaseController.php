@@ -31,6 +31,12 @@ class BaseController extends Controller
         $modelo::create($payload);
         return self::responsee('Registro guardado corrrectamente.');
     }
+     public function insertMulti($payload, $modelo) {
+        foreach ($payload['data'] as $key => $value) {
+            $modelo::create($value);
+        }
+        return self::responsee('Registro guardado corrrectamente.');
+    }
 
     public function actualizar($payload, $modelo) {
        if($payload['id']){
@@ -61,6 +67,9 @@ class BaseController extends Controller
                     break;
                 case 3:
                     return self::eliminar($payload, $modelo);
+                    break;
+                case 4:
+                    return self::insertMulti($payload, $modelo);
                     break;
                 default:
                     return self::responsee('Acción no válida', false);

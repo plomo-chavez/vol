@@ -15,28 +15,28 @@ export default class apiPeticiones {
   adminUsuarios(...args) {
     return this.axiosIns.post(this.apisConfig.apiAdminUsuarios, ...args)
   }
-  getHabitaciones(...args) {
-    return this.axiosIns.post(this.apisConfig.apiGetHabitaciones, ...args)
-  }
-  administrarHabitaciones(...args) {
-    return this.axiosIns.post(this.apisConfig.apiAdminHabitaciones, ...args)
-  }
-  getPersonas(...args) {
-    return this.axiosIns.post(this.apisConfig.apiGetPersonas, ...args)
-  }
-  administrarPersonas(...args) {
-    return this.axiosIns.post(this.apisConfig.apiAdminPersonas, ...args)
-  }
-  getReservaciones(...args) {
-    return this.axiosIns.post(this.apisConfig.apiGetReservaciones, ...args)
-  }
-  administrarReservaciones(...args) {
-    return this.axiosIns.post(this.apisConfig.apiAdminReservaciones, ...args)
-  }
   getVoluntarios(...args) {
     return this.axiosIns.post(this.apisConfig.apiGetVoluntarios, ...args)
   }
   administrarVoluntarios(...args) {
     return this.axiosIns.post(this.apisConfig.apiAdminVoluntarios, ...args)
+  }
+  getDelegaciones(...args) {
+    return this.axiosIns.post(this.apisConfig.apiGetDelegaciones, ...args)
+  }
+  administrarDelegaciones(...args) {
+    return this.axiosIns.post(this.apisConfig.apiAdminDelegaciones, ...args)
+  }
+  getHorasVoluntarias(...args) {
+    return this.axiosIns.post(this.apisConfig.apiGetHorasVoluntarias, ...args)
+  }
+  administrarHorasVoluntarias(...args) {
+    return this.axiosIns.post(this.apisConfig.apiAdminHorasVoluntarias, ...args)
+  }
+  getCoordinaciones(...args) {
+    return this.axiosIns.post(this.apisConfig.apiGetCoordinaciones, ...args)
+  }
+  administrarCoordinaciones(...args) {
+    return this.axiosIns.post(this.apisConfig.apiAdminCoordinaciones, ...args)
   }
 }

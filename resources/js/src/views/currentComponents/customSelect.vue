@@ -102,31 +102,14 @@ export default {
                         })
                         .catch(error   => { console.log(error); })
                     break;
-                case 'estatusHabitaciones':
+                case 'coordinaciones':
                     catalogos
-                        .estatusHabitaciones({})
+                        .coordinaciones({})
                         .then(response => {
                             this.opciones = this.formatoToCatalogo(response.data.data)
                         })
                         .catch(error   => { console.log(error); })
                     break;
-                case 'habitaciones':
-                    catalogos
-                        .habitaciones({})
-                        .then(response => {
-                            this.opciones = this.formatoToCatalogo(response.data.data)
-                        })
-                        .catch(error   => { console.log(error); })
-                break;
-                case 'customPersons':
-                    catalogos
-                        .customPersons({})
-                        .then(response => {
-                            this.opciones = this.formatoToCatalogo(response.data.data,true)
-                        })
-                        .catch(error   => { console.log(error); })
-                break;
-
                 default:
                     this.errorCatalogo = 'No se encontro ningun catalogo';
                     break;

@@ -14,8 +14,16 @@ class VoluntariosController extends BaseController
     }
 
     public function handleListar(Request $request){
-        $data = Modelo::orderBy('id',"asc")
-            ->get();
+        $payload = $request->all();
+        $query = Modelo::query()->orderBy('nombre', 'asc');
+        foreach ($payload['payload'] as $column => $value) {
+            if (is_array($value)) {
+                $query->whereBetween($column, $value);
+            } else {
+                $query->where($column, $value);
+            }
+        }
+        $data = $query->get();
         return self::responsee(
             'Consulta realizada con exito.',
             true,

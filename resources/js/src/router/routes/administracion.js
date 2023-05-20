@@ -15,4 +15,12 @@ export default [
         pageTitle: 'Voluntarios',
     },
   },
+  {
+    path: '/catalogos/delegaciones',
+    name: 'catalogo-delegaciones',
+    component: () => import('@/views/configuracion/catalogos/Delegaciones.vue'),
+    meta: {
+        pageTitle: 'Delegaciones',
+    },
+  },
 ]

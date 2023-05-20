@@ -11,4 +11,10 @@ export default {
   apiAdminReservaciones : '/api/reservaciones/administrar',
   apiGetVoluntarios     : '/api/voluntarios/listar',
   apiAdminVoluntarios   : '/api/voluntarios/administrar',
+  apiGetDelegaciones    : '/api/delegaciones/listar',
+  apiAdminDelegaciones  : '/api/delegaciones/administrar',
+  apiGetHorasVoluntarias: '/api/horas/listar',
+  apiAdminHorasVoluntarias: '/api/horas/administrar',
+  apiGetCoordinaciones    : '/api/coordinaciones/listar',
+  apiAdminCoordinaciones  : '/api/coordinaciones/administrar',
 }

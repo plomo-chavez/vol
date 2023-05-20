@@ -7,10 +7,7 @@
           to="/"
         >
           <span class="brand-logo">
-            <b-img
-              :src="appLogoImage"
-              alt="logo"
-            />
+            <b-img :src="appLogoImage" class="hh-25" alt="logo" />
           </span>
           <h2 class="brand-text mb-0">
             {{ appName }}
@@ -42,5 +39,7 @@ export default {
 </script>
 
 <style>
-
+.imgLogo {
+    max-width: 25px!important;
+}
 </style>

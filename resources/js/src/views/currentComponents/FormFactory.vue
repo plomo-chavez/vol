@@ -83,7 +83,7 @@
                                 :ref="  input.name"
                                 :name=" input.name"
                                 :value="form[input.value]"
-                                @input="form[input.value] = $event"
+                                @input="changeData(input.value,$event)"
                                 :disabled=" formDisabled?true:(typeof input.disabled != 'undefined'?input.disabled:false)"
                                 :placeholder="(typeof input.placeholder != 'undefined'?input.placeholder:'Introduce un dato valido')"
                                 class="bg-white col-12"
@@ -124,7 +124,7 @@
                                 :ref="  input.name"
                                 :name=" input.name"
                                 :value="form[input.value]"
-                                @input="form[input.value] = $event"
+                                @input="changeData(input.value,$event)"
                                 :disabled=" formDisabled?true:(typeof input.disabled != 'undefined'?input.disabled:false)"
                                 :placeholder="(typeof input.placeholder != 'undefined'?input.placeholder:'Introduce un dato valido')"
                                 class="bg-white col-12"
@@ -157,7 +157,7 @@
                             :ref="  input.name"
                             :name=" input.name"
                             :value="form[input.value]"
-                            @input="form[input.value] = $event"
+                            @input="changeData(input.value,$event)"
                             class="col-12 char-textarea"
                             :disabled=" formDisabled?true:(typeof input.disabled != 'undefined'?input.disabled:false)"
                             :placeholder="(typeof input.placeholder != 'undefined'?input.placeholder:'')"
@@ -187,10 +187,10 @@
                             :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
                         >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
                         <!-- input -->
-                        <b-input-group class="mb-3 bg-white ">
+                        <b-input-group class="bg-white ">
                             <b-input-group-prepend>
                             <b-form-datepicker
-                            style="z-index: 0;"
+                                style="z-index: 0;"
                                 :id="   input.name"
                                 :ref="  input.name"
                                 :name=" input.name"
@@ -198,7 +198,7 @@
                                 :value="form[input.value]"
                                 :min="(typeof input.minDate != 'undefined'?input.minDate:'')"
                                 :max="(typeof input.maxDate != 'undefined'?input.maxDate:'')"
-                                @input="form[input.value] = $event"
+                                @input="changeData(input.value,$event)"
                                 :disabled=" formDisabled?true:(typeof input.disabled != 'undefined'?input.disabled:false) "
                                 :placeholder=" (typeof input.placeholder != 'undefined'?input.placeholder:'Introduce una fecha valida') "
                                 :show-decade-nav="true"
@@ -289,39 +289,75 @@
                               <p class="m-0 p-0"><small v-if="errorsPersonalizados[input.name]" class="m-0 p-0 font-weight-bolder text-danger col-12">{{ errorsPersonalizados[input.name] }}</small></p>
                           </validation-provider>
                       </div>
+                <!-- input input-asociado -->
+                    <div v-if="input.type === 'input-asociado'">
+                        <!-- Provider de validación -->
+                        <validation-provider
+                            #default="{ errors }"
+                            :name=" (typeof input.name  != 'undefined'?input.name:'')"
+                            :rules="(typeof input.rules != 'undefined'?  input.rules + '' : '' )"
+                        >                <!-- Label -->
+                            <p
+                                :for="input.name"
+                                :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                            >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
+                            <!-- input -->
 
-                  <!-- input input-money -->
-                  <div v-if="input.type === 'input-number'">
-                          <!-- Provider de validación -->
-                          <validation-provider
-                              #default="{ errors }"
-                              :name=" (typeof input.name  != 'undefined'?input.name:'')"
-                              :rules="(typeof input.rules != 'undefined'?  input.rules + '' : '' )"
-                          >                <!-- Label -->
-                              <p
-                                  :for="input.name"
-                                  :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
-                              >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
-                              <!-- input -->
+                            <cleave
+                            :id="input.name"
+                            :ref="input.name"
+                            :name="input.name"
+                            :value="form[input.value]"
+                            @input="changeData(input.value, $event)"
+                            class="bg-white w-100 char-textarea form-control"
+                            :disabled="formDisabled || Boolean(input.disabled)"
+                            :placeholder="input.placeholder || ''"
+                            :raw="false"
+                            :options="optionsInputAsociado"
+                        />
+                        <!-- blocks: [1]
+                            :options="optionsInputNumerico" -->
 
-                              <cleave
-                                :id="input.name"
-                                :ref="input.name"
-                                :name="input.name"
-                                :value="form[input.value]"
-                                @input="changeData(input.value, $event)"
-                                class="bg-white w-100 char-textarea form-control"
-                                :disabled="formDisabled || Boolean(input.disabled)"
-                                :placeholder="input.placeholder || ''"
-                                :raw="false"
-                                :options="optionsInputNumerico"
-                            />
+                            <!-- Errores de validación -->
+                            <p class="m-0 p-0" v-if="errors[0]"><small class=" m-0 p-0 font-weight-bolder text-danger col-12">{{ errors[0] }}</small></p>
+                            <p class="m-0 p-0"><small v-if="errorsPersonalizados[input.name]" class="m-0 p-0 font-weight-bolder text-danger col-12">{{ errorsPersonalizados[input.name] }}</small></p>
+                        </validation-provider>
+                    </div>
 
-                              <!-- Errores de validación -->
-                              <p class="m-0 p-0" v-if="errors[0]"><small class=" m-0 p-0 font-weight-bolder text-danger col-12">{{ errors[0] }}</small></p>
-                              <p class="m-0 p-0"><small v-if="errorsPersonalizados[input.name]" class="m-0 p-0 font-weight-bolder text-danger col-12">{{ errorsPersonalizados[input.name] }}</small></p>
-                          </validation-provider>
-                      </div>
+                <!-- input input-number -->
+                    <div v-if="input.type === 'input-number'">
+                        <!-- Provider de validación -->
+                        <validation-provider
+                            #default="{ errors }"
+                            :name=" (typeof input.name  != 'undefined'?input.name:'')"
+                            :rules="(typeof input.rules != 'undefined'?  input.rules + '' : '' )"
+                        >                <!-- Label -->
+                            <p
+                                :for="input.name"
+                                :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                            >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
+                            <!-- input -->
+
+                            <cleave
+                            :id="input.name"
+                            :ref="input.name"
+                            :name="input.name"
+                            :value="form[input.value]"
+                            @input="changeData(input.value, $event)"
+                            class="bg-white w-100 char-textarea form-control"
+                            :disabled="formDisabled || Boolean(input.disabled)"
+                            :placeholder="input.placeholder || ''"
+                            :raw="false"
+                            :options="optionsInputNumerico"
+                        />
+                        <!-- blocks: [1]
+                            :options="optionsInputNumerico" -->
+
+                            <!-- Errores de validación -->
+                            <p class="m-0 p-0" v-if="errors[0]"><small class=" m-0 p-0 font-weight-bolder text-danger col-12">{{ errors[0] }}</small></p>
+                            <p class="m-0 p-0"><small v-if="errorsPersonalizados[input.name]" class="m-0 p-0 font-weight-bolder text-danger col-12">{{ errorsPersonalizados[input.name] }}</small></p>
+                        </validation-provider>
+                    </div>
                   <!-- input input-select -->
                       <div v-if="input.type === 'input-select'">
                         <customSelect
@@ -510,7 +546,14 @@
             },
             optionsInputNumerico : {
                 // Configuramos el bloque de dígitos enteros
-                blocks: [1],
+                blocks: [2],
+                // Permitimos solo valores numéricos
+                numericOnly: true,
+                // Establecemos el valor mínimo y máximo
+            },
+            optionsInputAsociado : {
+                // Configuramos el bloque de dígitos enteros
+                blocks: [5],
                 // Permitimos solo valores numéricos
                 numericOnly: true,
                 // Establecemos el valor mínimo y máximo
@@ -554,6 +597,10 @@
         type    : Boolean,
         default : true,
       },
+      formLive:{
+        type    : Boolean,
+        default : false,
+      },
       btnLblSubmit : {
         type: String,
         default : 'Guardar'
@@ -563,8 +610,11 @@
     created() {},
     watch: {
       data(){
-        // this.inicializar();
+        this.inicializar();
       },
+      form(){
+      },
+
     },
     computed: {
     },
@@ -574,6 +624,11 @@
         this.inicializar();
     },
     methods: {
+        expotFormLive(){
+            if (this.formLive == true) {
+                this.$emit('exportLive', this.form)
+            }
+        },
         getOptions(input) {
             let options;
             if (input?.prefix ?? false) {
@@ -601,6 +656,7 @@
         changeData(field,valor){
             this.$set(this.form,field,valor);
             this.validacionesExternas()
+            this.expotFormLive()
         },
         changeFormat(input,valor){
             this.form[input] = valor;
@@ -654,6 +710,30 @@
             })
             return hayErrores;
         },
+        async isValid() {
+            const success = await this.$refs.simpleRules.validate();
+            const hayErrores = this.validacionesExternas();
+
+            if (hayErrores === false && success) {
+                console.log('isValid -> true');
+                return true;
+            } else {
+                console.log('isValid -> false');
+                return false;
+            }
+        },
+        // async isValid(){
+        //     this.$refs.simpleRules.validate().then(success => {
+        //         let hayErrores = this.validacionesExternas();
+        //         if (hayErrores == false && success) {
+        //             console.log('isValid -> true')
+        //             return true
+        //         } else {
+        //             console.log('isValid -> false')
+        //             return false
+        //         }
+        //     })
+        // },
         validationForm() {
             this.$refs.simpleRules.validate().then(success => {
                 let hayErrores = this.validacionesExternas();

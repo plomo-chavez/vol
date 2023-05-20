@@ -11,6 +11,9 @@ use App\Http\Controllers\Configuracion\HabitacionesController;
 use App\Http\Controllers\Configuracion\PersonasController;
 use App\Http\Controllers\Configuracion\ReservacionesController;
 use App\Http\Controllers\Sistema\VoluntariosController;
+use App\Http\Controllers\Sistema\DelegacionesController;
+use App\Http\Controllers\Sistema\HorasVoluntariasController;
+use App\Http\Controllers\Sistema\CoordinacionesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -39,12 +42,16 @@ Route::middleware([UserAuthentication::class])->post('/reservaciones/administrar
 Route::middleware([UserAuthentication::class])->post('/reservaciones/listar',       [ReservacionesController::class, 'handleListar']);
 Route::middleware([UserAuthentication::class])->post('/voluntarios/listar',         [VoluntariosController::class, 'handleListar']);
 Route::middleware([UserAuthentication::class])->post('/voluntarios/administrar',    [VoluntariosController::class, 'handleAdministrar']);
+Route::middleware([UserAuthentication::class])->post('/horas/listar',               [HorasVoluntariasController::class, 'handleListar']);
+Route::middleware([UserAuthentication::class])->post('/horas/administrar',          [HorasVoluntariasController::class, 'handleAdministrar']);
+Route::middleware([UserAuthentication::class])->post('/delegaciones/listar',        [DelegacionesController::class, 'handleListar']);
+Route::middleware([UserAuthentication::class])->post('/delegaciones/administrar',   [DelegacionesController::class, 'handleAdministrar']);
+Route::middleware([UserAuthentication::class])->post('/coordinaciones/listar',      [CoordinacionesController::class, 'handleListar']);
+Route::middleware([UserAuthentication::class])->post('/coordinaciones/administrar', [CoordinacionesController::class, 'handleAdministrar']);
 // Route::middleware([UserAuthentication::class])->post('/auth/verificar',    [AuthController::class, 'verificar']);
+Route::post('/catalogo/coordinaciones',          [CatalogosController::class, 'getCoordinaciones']);
 Route::post('/catalogo/tiposUsuarios',          [CatalogosController::class, 'getTiposUsuarios']);
-Route::post('/catalogo/estatusHabitaciones',    [CatalogosController::class, 'getEstatusHabitaciones']);
-Route::post('/catalogo/habitaciones',           [CatalogosController::class, 'getHabitaciones']);
-Route::post('/catalogo/customPersons',          [CatalogosController::class, 'customPersons']);
-Route::post('/catalogo/roomsAvailable',         [CatalogosController::class, 'roomsAvailable']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
