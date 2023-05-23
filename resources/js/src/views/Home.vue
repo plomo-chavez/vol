@@ -280,12 +280,14 @@
             methods: {
                 onDecode(a, b, c) {
                     console.log(a, b, c);
-                    this.handleSubmitFormBusqueda({numeroAsociado})
+                    this.numeroAsociado = a;
+                    this.showCam = false;
+                    this.handleSubmitFormBusqueda(a);
                     if (this.id) clearTimeout(this.id);
                     this.id = setTimeout(() => {
-                    if (this.text === a) {
-                        this.text = "";
-                    }
+                        if (this.numeroAsociado === a) {
+                            this.numeroAsociado = "";
+                        }
                     }, 5000);
                 },
                 onLoaded() {
@@ -299,20 +301,28 @@
                     this.numeroAsociado = null;
                 },
                 handleSubmitFormBusqueda(info) {
-                    this.loading()
-                    let filtro = {'numeroAsociado':info.numeroAsociado}
-                    peticiones
-                        .getVoluntarios({
-                            'payload' : filtro,
-                        })
-                        .then(response => {
-                            this.loading(false)
-                            let tmp = this.copyObject(response.data.data)
-                            this.voluntario =  this.copyObject(typeof tmp[0] != 'undefined' ?  tmp[0] : filtro)
-                        })
-                        .catch(error   => {
-                            console.log(error);
-                        })
+                    let numero  = typeof info == 'string' ? info : info.numeroAsociado;
+                    if (numero.length == 5 ){
+                        this.loading()
+                        let filtro = {'numeroAsociado':numero}
+                        peticiones
+                            .getVoluntarios({
+                                'payload' : filtro,
+                            })
+                            .then(response => {
+                                this.loading(false)
+                                let tmp = this.copyObject(response.data.data)
+                                this.voluntario =  this.copyObject(typeof tmp[0] != 'undefined' ?  tmp[0] : filtro)
+                            })
+                            .catch(error   => {
+                                console.log(error);
+                            })
+                    } else {
+                        this.messageSweet({
+                            message: 'Codigo incorrecto, escene el codigo de barras',
+                            icon: 'error',
+                        });
+                    }
                 },
                 getName(){
                     return this.voluntario.nombre + (this.voluntario?.primerApellido ?? '') + (this.voluntario?.segundoApellido ?? '');
