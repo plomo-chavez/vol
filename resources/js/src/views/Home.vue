@@ -61,6 +61,7 @@
                 <formVoluntario
                     v-if="voluntario != null  && !showFormHoras"
                     :withCard="true"
+                    exportActions
                     :btnRegistrarHoras="true"
                     :data = 'voluntario'
                     @handleSubmit="handleSubmitFormVoluntario"
@@ -279,7 +280,7 @@
             methods: {
                 onDecode(a, b, c) {
                     console.log(a, b, c);
-                    this.handleSubmitFormBusqueda({numeroAsociado:a})
+                    this.handleSubmitFormBusqueda({numeroAsociado})
                     if (this.id) clearTimeout(this.id);
                     this.id = setTimeout(() => {
                     if (this.text === a) {
@@ -298,12 +299,14 @@
                     this.numeroAsociado = null;
                 },
                 handleSubmitFormBusqueda(info) {
+                    this.loading()
                     let filtro = {'numeroAsociado':info.numeroAsociado}
                     peticiones
                         .getVoluntarios({
                             'payload' : filtro,
                         })
                         .then(response => {
+                            this.loading(false)
                             let tmp = this.copyObject(response.data.data)
                             this.voluntario =  this.copyObject(typeof tmp[0] != 'undefined' ?  tmp[0] : filtro)
                         })
@@ -311,17 +314,18 @@
                             console.log(error);
                         })
                 },
+                getName(){
+                    return this.voluntario.nombre + (this.voluntario?.primerApellido ?? '') + (this.voluntario?.segundoApellido ?? '');
+                },
                 onSubmitFormBusqueda(){
                     this.$refs.formBusqueda.validationForm()
                 },
                 handleCancelFormVoluntario() {
                     this.voluntario = null;
                 },
-                getName(){
-                    return this.voluntario.nombre + (this.voluntario?.primerApellido ?? '') + (this.voluntario?.segundoApellido ?? '');
-                },
                 handleSubmitFormVoluntario(info) {
                     let payload = {...info}
+                    console.log(this.voluntario)
                     payload.accion = typeof this.voluntario.id == 'undefined' ? 1 : 2
                     if (typeof this.voluntario.id != 'undefined'){
                         payload.id = this.voluntario.id
@@ -374,17 +378,19 @@
                     }
                 },
                 peticionAdministrar(payload){
+                    this.loading()
                     peticiones
                         .administrarVoluntarios({
                             'payload' : payload,
                         })
                         .then(response => {
+                            this.loading(false)
                             this.messageSweet({
                                 message: response.data.message,
                                 icon: response.data.result ? 'success' : 'error',
                             });
                             if (response.data.result ) {
-                                this.handleCancelForm()
+                                this.handleCancelFormVoluntario()
                             }
                         })
                         .catch(error   => { console.log(error); })

@@ -217,7 +217,7 @@
         peticionAdministrar(payload){
             this.loading()
             peticiones
-                .adminUsuarios({
+                .administrarVoluntarios({
                     'payload' : payload,
                 })
                 .then(response => {
@@ -254,6 +254,7 @@
             this.showForm = true;
         },
         onEliminar(data){
+            console.log('eliminar')
             this.messageConfirm({
                 confirmFunction: () => { this.peticionAdministrar({...data,accion : 3}) }
             })
