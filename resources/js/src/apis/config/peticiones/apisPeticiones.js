@@ -39,4 +39,7 @@ export default class apiPeticiones {
   administrarCoordinaciones(...args) {
     return this.axiosIns.post(this.apisConfig.apiAdminCoordinaciones, ...args)
   }
+  validCurp(...args) {
+    return this.axiosIns.post(this.apisConfig.apiValidCURP, ...args)
+  }
 }

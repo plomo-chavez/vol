@@ -51,6 +51,9 @@ Route::middleware([UserAuthentication::class])->post('/coordinaciones/administra
 // Route::middleware([UserAuthentication::class])->post('/auth/verificar',    [AuthController::class, 'verificar']);
 Route::post('/catalogo/coordinaciones',          [CatalogosController::class, 'getCoordinaciones']);
 Route::post('/catalogo/tiposUsuarios',          [CatalogosController::class, 'getTiposUsuarios']);
+Route::post('/catalogo/estados',          [CatalogosController::class, 'getEstados']);
+Route::post('/catalogo/tipoAsociado',          [CatalogosController::class, 'getTiposAsociado']);
+Route::post('/valid/curp',          [VoluntariosController::class, 'validCurp']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

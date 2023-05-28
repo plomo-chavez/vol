@@ -92,6 +92,7 @@ export default {
         this.$emit('changeData',{'value':data, 'field' : this.input.value})
     },
     getCatalogo(){
+        console.log(typeof this.input.catalogo)
         if (typeof this.input.catalogo == 'string') {
             switch (this.input.catalogo) {
                 case 'tiposUsuario':
@@ -110,10 +111,29 @@ export default {
                         })
                         .catch(error   => { console.log(error); })
                     break;
+                case 'tiposAsociado':
+                    catalogos
+                        .tiposAsociado({})
+                        .then(response => {
+                            this.opciones = this.formatoToCatalogo(response.data.data)
+                        })
+                        .catch(error   => { console.log(error); })
+                    break;
+                case 'estados':
+                    catalogos
+                        .estados({})
+                        .then(response => {
+                            this.opciones = this.formatoToCatalogo(response.data.data)
+                        })
+                        .catch(error   => { console.log(error); })
+                    break;
                 default:
                     this.errorCatalogo = 'No se encontro ningun catalogo';
                     break;
             }
+        }
+        if (typeof this.input.catalogo == 'object') {
+            this.opciones = this.input.catalogo
         }
     }
   },

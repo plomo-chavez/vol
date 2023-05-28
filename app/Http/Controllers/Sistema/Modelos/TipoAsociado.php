@@ -4,15 +4,9 @@ namespace App\Http\Controllers\Sistema\Modelos;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Delegaciones extends Model
+class TipoAsociado extends Model
 {
     use HasFactory;
-    protected $table        = "delegaciones";
+    protected $table        = "tiposAsociado";
     protected $primaryKey   = "id";
-
-    protected $fillable = [
-        'estado_id',
-        'ciudad',
-        'direccion',
-    ];
 }

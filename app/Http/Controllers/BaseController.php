@@ -78,4 +78,18 @@ class BaseController extends Controller
             return self::responsee('No existe una acción.', false);
         }
     }
+
+    public function filtrar(array $payload = [], Model $modelo = null,$columnOrder = 'nombre') {
+        $filtros = array_key_exists('payload', $payload) ? $payload['payload'] : [];
+        $query = $modelo::query()->orderBy($columnOrder, 'asc');
+        foreach ($filtros as $column => $value) {
+            if (is_array($value)) {
+                $query->whereBetween($column, $value);
+            } else {
+                $query->where($column, $value);
+            }
+        }
+        $data = $query->get();
+        return $data;
+    }
 }

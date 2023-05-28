@@ -10,7 +10,7 @@ export default [
       name: 'error-404',
       component: () => import('@/views/error/Error404.vue'),
       meta: {
-          isOut: true,
+          validUser: false,
         layout: 'full',
         resource: 'Auth',
         action: 'read',
@@ -21,7 +21,7 @@ export default [
     name: 'auth-login',
     component: () => import('@/views/pages/authentication/Login.vue'),
     meta: {
-        isOut: true,
+        validUser: false,
       layout: 'full',
       resource: 'Auth',
       redirectIfLoggedIn: true,
@@ -32,7 +32,7 @@ export default [
     name: 'auth-register',
     component: () => import('@/views/pages/authentication/Register.vue'),
     meta: {
-        isOut: true,
+        validUser: false,
       layout: 'full',
       resource: 'Auth',
       redirectIfLoggedIn: true,
@@ -43,7 +43,7 @@ export default [
     name: 'auth-forgot-password',
     component: () => import('@/views/pages/authentication/ForgotPassword.vue'),
     meta: {
-        isOut: true,
+        validUser: false,
       layout: 'full',
       resource: 'Auth',
       redirectIfLoggedIn: true,
@@ -54,7 +54,7 @@ export default [
     name: 'page-coming-soon',
     component: () => import('@/views/pages/miscellaneous/ComingSoon.vue'),
     meta: {
-        isOut: true,
+        validUser: false,
       layout: 'full',
     },
   },
@@ -63,7 +63,7 @@ export default [
     name: 'page-not-authorized',
     component: () => import('@/views/pages/miscellaneous/NotAuthorized.vue'),
     meta: {
-        isOut: true,
+        validUser: false,
       layout: 'full',
       resource: 'Auth',
     },
@@ -73,7 +73,7 @@ export default [
     name: 'page-under-maintenance',
     component: () => import('@/views/pages/miscellaneous/UnderMaintenance.vue'),
     meta: {
-        isOut: true,
+        validUser: false,
       layout: 'full',
     },
   },
@@ -82,7 +82,7 @@ export default [
     name: 'page-error',
     component: () => import('@/views/pages/miscellaneous/Error.vue'),
     meta: {
-        isOut: true,
+        validUser: false,
       layout: 'full',
     },
   },

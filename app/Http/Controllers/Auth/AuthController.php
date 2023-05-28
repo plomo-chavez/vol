@@ -96,9 +96,9 @@ class AuthController extends Controller{
             $user->token = $token;
             $user->save();
             $tokenBD = PersonalAccessToken::find($id);
-            $tokenBD->expires_at =  now()->addMinute(180);
+            // $tokenBD->expires_at =  now()->addMinute(180);
             // $tokenBD->expires_at =  now()->addMinute(2);  // Se agregan 3 horas en minutos.
-            // $tokenBD->expires_at =  now()->addSecond(5);  // Se agregan 3 horas en minutos.☻
+            $tokenBD->expires_at =  now()->addSecond(5);  // Se agregan 3 horas en minutos.
             $tokenBD->tokenFront =  $tokenCreated;
             $tokenBD->save();
             $data = array(

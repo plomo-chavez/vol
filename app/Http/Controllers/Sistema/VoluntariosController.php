@@ -12,23 +12,24 @@ class VoluntariosController extends BaseController
         $payload = $request->all();
         return self::administrar($payload['payload'], new Modelo());
     }
-
-    public function handleListar(Request $request){
-        $payload = $request->all();
-        $filtros = array_key_exists('payload', $payload) ? $payload['payload'] : [];
-        $query = Modelo::query()->orderBy('nombre', 'asc');
-        foreach ($filtros as $column => $value) {
-            if (is_array($value)) {
-                $query->whereBetween($column, $value);
-            } else {
-                $query->where($column, $value);
-            }
+    public function validCurp(Request $request){
+        $data = false;
+        if(array_key_exists('curp',$request->all()['payload']) ){
+            $data = self::filtrar($request->all(), new Modelo());
+            $data = sizeof($data) == 0;
         }
-        $data = $query->get();
         return self::responsee(
             'Consulta realizada con exito.',
             true,
             $data,
+        );
+    }
+
+    public function handleListar(Request $request){
+        return self::responsee(
+            'Consulta realizada con exito.',
+            true,
+            self::filtrar($request->all(), new Modelo()),
         );
     }
 }

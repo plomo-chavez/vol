@@ -1,12 +1,22 @@
 export default [
-  {
-    path: '/usuarios',
-    name: 'usuarios',
-    component: () => import('@/views/usuarios/Usuarios.vue'),
-    meta: {
-      pageTitle: 'Usuarios',
+    {
+        path: '/registro',
+        name: 'usuarios',
+        component: () => import('@/views/out/Registro.vue'),
+        meta: {
+            layout: 'full',
+            validUser: false,
+            pageTitle: 'Usuarios',
+        },
     },
-  },
+    {
+      path: '/usuarios',
+      name: 'usuarios',
+      component: () => import('@/views/usuarios/Usuarios.vue'),
+      meta: {
+        pageTitle: 'Usuarios',
+      },
+    },
   {
     path: '/voluntarios',
     name: 'voluntarios',

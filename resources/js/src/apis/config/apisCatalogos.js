@@ -24,4 +24,10 @@ export default class apisCatalogos {
   coordinaciones(...args) {
     return this.axiosIns.post(this.apisConfig.coordinacionesApi, ...args)
   }
+  estados(...args) {
+    return this.axiosIns.post(this.apisConfig.estadosApi, ...args)
+  }
+  tiposAsociado(...args) {
+    return this.axiosIns.post(this.apisConfig.tipoAsociadoApi, ...args)
+  }
 }

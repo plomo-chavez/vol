@@ -113,6 +113,10 @@ export default {
         let tmp = parseInt(amount).toLocaleString("es-ES", { style: "currency", currency: "MXN" });
         return (signal? '$ ' : '') + tmp
     },
+    esCurpValido(curp) {
+        const curpRegex = /^[A-Z]{4}\d{6}[HM][A-Z]{2}[A-Z]{3}[A-Z0-9]{1}\d{1}$/;
+        return curpRegex.test(curp);
+    },
   }
 }
 
