@@ -30,4 +30,7 @@ export default class apisCatalogos {
   tiposAsociado(...args) {
     return this.axiosIns.post(this.apisConfig.tipoAsociadoApi, ...args)
   }
+  getDelegacionesWithAreas(...args) {
+    return this.axiosIns.post(this.apisConfig.getDelegacionesWithAreasApi, ...args)
+  }
 }

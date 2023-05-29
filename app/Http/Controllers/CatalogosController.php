@@ -49,4 +49,16 @@ class CatalogosController extends BaseController
             $data,
         );
     }
+    public function getDelegacionesWithAreas(Request $request){
+        $data = Delegaciones::orderBy('ciudad',"asc")
+        ->select('id','ciudad',)
+                ->with('areas:delegacion_id,coordinacion_id')
+                ->with('areas.area:id,nombre')
+                ->get();
+        return self::responsee(
+            'Consulta realizada con exito.',
+            true,
+            $data,
+        );
+    }
 }

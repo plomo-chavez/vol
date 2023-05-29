@@ -53,6 +53,7 @@ Route::post('/catalogo/coordinaciones',          [CatalogosController::class, 'g
 Route::post('/catalogo/tiposUsuarios',          [CatalogosController::class, 'getTiposUsuarios']);
 Route::post('/catalogo/estados',          [CatalogosController::class, 'getEstados']);
 Route::post('/catalogo/tipoAsociado',          [CatalogosController::class, 'getTiposAsociado']);
+Route::post('/catalogo/delegaciones',          [CatalogosController::class, 'getDelegacionesWithAreas']);
 Route::post('/valid/curp',          [VoluntariosController::class, 'validCurp']);
 
 

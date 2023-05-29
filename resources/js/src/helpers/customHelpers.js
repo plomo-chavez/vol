@@ -117,6 +117,17 @@ export default {
         const curpRegex = /^[A-Z]{4}\d{6}[HM][A-Z]{2}[A-Z]{3}[A-Z0-9]{1}\d{1}$/;
         return curpRegex.test(curp);
     },
+
+    formatoToCatalogo(data,all = false,indexValue = 'id',indexLabel = 'nombre'){
+        let tmp = []
+        data.map((item, index) => {
+            if(all)
+                tmp.push({ ...item, 'label': item[indexLabel] ?? '', 'value': item[indexValue] ?? '' });
+            else
+                tmp.push({'label': item[indexLabel] ?? '', 'value': item[indexValue] ?? '' });
+        })
+        return tmp
+    },
   }
 }
 

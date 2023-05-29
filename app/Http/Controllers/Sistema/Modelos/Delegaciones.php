@@ -11,8 +11,13 @@ class Delegaciones extends Model
     protected $primaryKey   = "id";
 
     protected $fillable = [
-        'estado_id',
-        'ciudad',
         'direccion',
+        'ciudad',
+        'estado_id',
     ];
+
+    public function areas() {
+        return $this->hasMany(DelegacionAreas::class, 'delegacion_id', 'id')->select('id', 'delegacion_id', 'coordinacion_id')
+            ->with('area:id,nombre');
+    }
 }

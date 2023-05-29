@@ -51,7 +51,7 @@
                         <b-button
                             size="sm"
                             variant="relief-primary"
-                            @click="onSubmitFormCURP"
+                            @click="onSubmitFormVoluntario"
                         >Buscar</b-button>
                     </div>
                 </div>
@@ -78,6 +78,7 @@
 <script>
 import FormFactory from '@currentComponents/FormFactory.vue'
 import peticiones from '@/apis/usePeticiones'
+import catalogos from '@/apis/useCatalogo'
 import customHelpers  from '@helpers/customHelpers'
 import formVoluntario  from '@/views/voluntarios/formVoluntario.vue'
 
@@ -202,6 +203,14 @@ export default {
                         catalogo    : 'tiposAsociado',
                         label       : 'Tipo de asociado:'
                     },
+                    {
+                        classContainer:'col-12',
+                        type        : 'flat-pickr',
+                        value       : 'fechaIngresoInstitucion',
+                        name        : 'fecha de ingreso a la institucion',
+                        label       : 'Fecha de Ingreso a la Institución',
+                        rules       : 'required',
+                    },
             ],
         }
     },
@@ -221,30 +230,84 @@ export default {
 
     },
     methods:{
-        formCopy(dataForm){
-            if (dataForm.estado != (this.dataForm?.estado ?? null)) {
-                this.showFormVoluntario = false;
-                this.dataForm = this.copyObject(dataForm)
-                if (!(dataForm.estado === null)) {
-                    this.formSchemaVoluntario[7].catalogo = [
-                        {value:'uno',label:'Uno'},
-                        {value:'dos',label:'Dos'},
-                        {value:'tres',label:'Tres'}
-                    ]
-                    setTimeout(() => { this.showFormVoluntario = true }, 5);
-                } else {
-                    this.dataForm.delegacion = null;
-                    this.formSchemaVoluntario[7].catalogo = [];
-                    setTimeout(() => { this.showFormVoluntario = true }, 5);
-                }
-            }
-        },
+
+        formCopy(dataForm) {
+    const oldEstado = this.dataForm?.estado ?? null;
+    const oldDelegacion = this.dataForm?.delegacion ?? null;
+    this.dataForm = this.copyObject(dataForm);
+    let termino = true;
+
+  if (dataForm.estado !== oldEstado || dataForm.delegacion !== oldDelegacion) {
+    this.loading(true);
+    this.showFormVoluntario = false;
+
+
+    if (dataForm.delegacion != oldDelegacion) {
+      this.dataForm.area = null;
+      this.formSchemaVoluntario[8].catalogo = [];
+      if (!(dataForm.delegacion === null)) {
+        this.formSchemaVoluntario[8].catalogo = this.dataForm.delegacion.areas;
+      }
+    }
+    if (dataForm.estado !== oldEstado) {
+        this.dataForm.delegacion = null;
+        this.dataForm.area = null;
+        this.formSchemaVoluntario[7].catalogo = [];
+        this.formSchemaVoluntario[8].catalogo = [];
+      if (!(dataForm.estado === null)) {
+        termino = false
+        catalogos
+          .getDelegacionesWithAreas({ payload: { estado: dataForm.estado.value } })
+          .then((response) => {
+            let tmp = response.data.data;
+            let delegaciones = [];
+            let requests = tmp.map((item) => {
+              return new Promise((resolve) => {
+                let t = {
+                  label: item.ciudad,
+                  value: item.id,
+                  areas: [],
+                };
+                item.areas.map((area) => {
+                  t.areas.push({ label: area.area.nombre, value: area.area.id });
+                });
+                delegaciones.push(t);
+                resolve();
+              });
+            });
+            Promise.all(requests).then(() => {
+              console.log(delegaciones);
+              this.formSchemaVoluntario[7].catalogo = delegaciones;
+              setTimeout(() => {
+                this.showFormVoluntario = true;
+                this.loading(false);
+              }, 5);
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    }
+    if (termino) {
+              setTimeout(() => {
+                this.showFormVoluntario = true;
+                this.loading(false);
+              }, 5);
+
+    }
+  }
+},
+
+
+
         handleCancel() {
             this.showFormCURP = true;
             this.showMensaje = false;
             this.dataForm = {}
         },
         onSubmitFormCURP(){ this.$refs.formCURP.validationForm() },
+        onSubmitFormVoluntario(){ this.$refs.formVoluntario.validationForm() },
         handleCancelFormCURP() { this.$refs.formCURP.resetForm() },
         handleSubmitFormCURP(info) {
             if (this.esCurpValido(info.curp)){
@@ -276,6 +339,10 @@ export default {
         },
         handleSubmitFormVoluntario(info){
             let tmp =  this.copyObject(info)
+            tmp.estado_id = tmp.estado.value
+            tmp.delegacion_id = tmp.delegacion.value
+            tmp.tipoAsociado_id = tmp.tipoAsociado.value
+            tmp.area_id = tmp.area.value
             console.log(tmp);
         },
 

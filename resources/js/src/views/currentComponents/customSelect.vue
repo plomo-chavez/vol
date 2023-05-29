@@ -38,6 +38,7 @@
 
 import vSelect from 'vue-select'
 import catalogos from '@/apis/useCatalogo'
+import customHelpers  from '@helpers/customHelpers'
 import {
         BFormGroup,
     } from 'bootstrap-vue'
@@ -46,97 +47,88 @@ import {
       ValidationObserver,
     } from 'vee-validate'
 export default {
-  components: {
-    vSelect,
-    BFormGroup,
-    ValidationProvider,
-    ValidationObserver,
-  },
-  data() {
-    return {
-        opciones : [],
-        errorCatalogo : null,
-    }
-  },
-  props: {
-    input: {
-      type    : Object,
-      default : null
+    components: {
+        vSelect,
+        BFormGroup,
+        ValidationProvider,
+        ValidationObserver,
     },
-    formValue: {
-      default : null
+    mixins : [customHelpers],
+    data() {
+        return {
+            opciones : [],
+            errorCatalogo : null,
+        }
     },
-    formDisabled: {
-      default : null
+    props: {
+        input: {
+        type    : Object,
+        default : null
+        },
+        formValue: {
+        default : null
+        },
+        formDisabled: {
+        default : null
+        },
     },
-  },
-  created() {},
-  watch: {},
-  computed: {
-  },
-  beforeMount() {
-    this.getCatalogo()
-  },
-  methods: {
-    formatoToCatalogo(data,all = false){
-        let tmp = []
-        data.map((item, index) => {
-            if(all)
-                tmp.push({...item, 'label': item?.nombre ?? '','value': item?.id ?? '',})
-            else
-                tmp.push({ 'label': item?.nombre ?? '','value': item?.id ?? '',})
-        })
-        return tmp
+    created() {},
+    watch: {},
+    computed: {
     },
-    changeData(data) {
-        this.$emit('changeData',{'value':data, 'field' : this.input.value})
+    beforeMount() {
+        this.getCatalogo()
     },
-    getCatalogo(){
-        console.log(typeof this.input.catalogo)
-        if (typeof this.input.catalogo == 'string') {
-            switch (this.input.catalogo) {
-                case 'tiposUsuario':
-                    catalogos
-                        .tiposUsuarios({})
-                        .then(response => {
-                            this.opciones = this.formatoToCatalogo(response.data.data)
-                        })
-                        .catch(error   => { console.log(error); })
-                    break;
-                case 'coordinaciones':
-                    catalogos
-                        .coordinaciones({})
-                        .then(response => {
-                            this.opciones = this.formatoToCatalogo(response.data.data)
-                        })
-                        .catch(error   => { console.log(error); })
-                    break;
-                case 'tiposAsociado':
-                    catalogos
-                        .tiposAsociado({})
-                        .then(response => {
-                            this.opciones = this.formatoToCatalogo(response.data.data)
-                        })
-                        .catch(error   => { console.log(error); })
-                    break;
-                case 'estados':
-                    catalogos
-                        .estados({})
-                        .then(response => {
-                            this.opciones = this.formatoToCatalogo(response.data.data)
-                        })
-                        .catch(error   => { console.log(error); })
-                    break;
-                default:
-                    this.errorCatalogo = 'No se encontro ningun catalogo';
-                    break;
+    methods: {
+        changeData(data) {
+            this.$emit('changeData',{'value':data, 'field' : this.input.value})
+        },
+        getCatalogo(){
+            console.log(typeof this.input.catalogo)
+            if (typeof this.input.catalogo == 'string') {
+                switch (this.input.catalogo) {
+                    case 'tiposUsuario':
+                        catalogos
+                            .tiposUsuarios({})
+                            .then(response => {
+                                this.opciones = this.formatoToCatalogo(response.data.data)
+                            })
+                            .catch(error   => { console.log(error); })
+                        break;
+                    case 'coordinaciones':
+                        catalogos
+                            .coordinaciones({})
+                            .then(response => {
+                                this.opciones = this.formatoToCatalogo(response.data.data)
+                            })
+                            .catch(error   => { console.log(error); })
+                        break;
+                    case 'tiposAsociado':
+                        catalogos
+                            .tiposAsociado({})
+                            .then(response => {
+                                this.opciones = this.formatoToCatalogo(response.data.data)
+                            })
+                            .catch(error   => { console.log(error); })
+                        break;
+                    case 'estados':
+                        catalogos
+                            .estados({})
+                            .then(response => {
+                                this.opciones = this.formatoToCatalogo(response.data.data)
+                            })
+                            .catch(error   => { console.log(error); })
+                        break;
+                    default:
+                        this.errorCatalogo = 'No se encontro ningun catalogo';
+                        break;
+                }
+            }
+            if (typeof this.input.catalogo == 'object') {
+                this.opciones = this.input.catalogo
             }
         }
-        if (typeof this.input.catalogo == 'object') {
-            this.opciones = this.input.catalogo
-        }
-    }
-  },
+    },
 }
 </script>
 

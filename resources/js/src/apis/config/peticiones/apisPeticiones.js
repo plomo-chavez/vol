@@ -42,4 +42,7 @@ export default class apiPeticiones {
   validCurp(...args) {
     return this.axiosIns.post(this.apisConfig.apiValidCURP, ...args)
   }
+  getDelegaciones(...args) {
+    return this.axiosIns.post(this.apisConfig.apiGetDelegaciones, ...args)
+  }
 }

@@ -17,5 +17,6 @@ export default {
   apiAdminHorasVoluntarias: '/api/horas/administrar',
   apiGetCoordinaciones    : '/api/coordinaciones/listar',
   apiAdminCoordinaciones  : '/api/coordinaciones/administrar',
+//   Sin autentificacion
   apiValidCURP          : '/api/valid/curp',
 }
