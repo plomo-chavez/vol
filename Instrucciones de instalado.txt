@@ -24,3 +24,6 @@ Visit http://localhost:8080/ (opens new window)to check frontend.
 NOTE
 
 Your network URL might not have same URL as screenshot and that is completely fine. It depends on your network.
+
+
+php artisan key:generate

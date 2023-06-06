@@ -3,7 +3,9 @@ export default [
       path: '/home',
       name: 'home',
       component: () => import('@/views/Home.vue'),
-      meta: {},
+      meta: {
+        validUser: false,
+      },
     },
     {
       path: '/error-404',

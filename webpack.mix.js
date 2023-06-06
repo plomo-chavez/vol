@@ -102,4 +102,5 @@ mix.webpackConfig({
 
 // mix.browserSync('https://voluntariado-gro.com')
 // mix.browserSync('http://dev-cabo.com')
-mix.browserSync('http://voluntariado.local.com')
+// mix.browserSync('http://voluntariado.local.com')
+mix.browserSync('http://localhost:8888')

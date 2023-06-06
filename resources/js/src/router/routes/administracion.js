@@ -1,7 +1,7 @@
 export default [
     {
         path: '/registro',
-        name: 'usuarios',
+        name: 'registro',
         component: () => import('@/views/out/Registro.vue'),
         meta: {
             layout: 'full',

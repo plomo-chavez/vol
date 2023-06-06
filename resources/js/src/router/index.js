@@ -23,19 +23,27 @@ const router = new VueRouter({
 router.beforeEach(async (to, _, next) => {
     const isLoggedIn = isUserLoggedIn();
     let validUser = to.meta?.validUser ?? true;
+    console.log('validUser -> ',validUser)
+    console.log('isLoggedIn -> ',isLoggedIn)
     if (validUser) {
       if (isLoggedIn === null) {
-        next({ name: 'auth-login' });
+        console.log('      if (isLoggedIn === null) {          ')
+        // next({ name: 'auth-login' });
       } else {
         try {
           const response = await useJwt.validateUser({ tk: store.state.app.userData.token });
           if (!response.data.data) {
-            goToLogout();
+            console.log('response.data.data  ',response.data.data)
+            console.log('if (!response.data.data) { ')
+            // goToLogout();
           }
         } catch (error) { console.log(error); }
       }
     }
-    if (to.meta.redirectIfLoggedIn && isLoggedIn) { next({ name: 'home' }); }
+    if (to.meta.redirectIfLoggedIn && isLoggedIn) { 
+      console.log(' if (to.meta.redirectIfLoggedIn && isLoggedIn) { ')
+      // next({ name: 'home' }); 
+    }
     next();
   });
 router.afterEach(() => {
