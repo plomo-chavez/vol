@@ -1,35 +1,91 @@
 export default [
-    {
-      title: 'Administración',
-      icon: 'SettingsIcon',
-      children: [
+  {
+    title: 'Voluntarios',
+    icon: 'UsersIcon',
+    route: 'usuarios',
+  },
+  {
+    title: 'Horas voluntarias',
+    icon: 'ClockIcon',
+    route: 'usuarios',
+  },
+  {
+    title: 'Delelgaciones',
+    icon: 'HomeIcon',
+    route: 'usuarios',
+  },
+  {
+    title: 'Formatos',
+    icon: 'FileTextIcon',
+    route: 'usuarios',
+  },
+  {
+    title: 'Configuración',
+    icon: 'SettingsIcon',
+    children: [
+
+      {
+        title: 'Configuración general',
+        route: 'voluntarios',
+      },
+      {
+        title: 'Notificaciones',
+        children: [
           {
-            title: 'Usuarios',
-            route: 'usuarios',
+              title: 'Plantillas de correo',
+              route: 'catalogo-delegaciones',
           },
           {
-            title: 'Voluntarios',
-            route: 'voluntarios',
+              title: 'Notificaciones',
+              route: 'catalogo-delegaciones',
           },
-      ],
-    },
-    {
-      title: 'Configuración',
-      icon: 'SettingsIcon',
-      children: [
           {
-            title: 'Catalogos',
-            children: [
-                {
-                    title: 'Delegaciones',
-                    route: 'catalogo-delegaciones',
-                },
-            ],
+              title: 'Grupo de notificaciones',
+              route: 'catalogo-delegaciones',
           },
-        //   {
-        //     title: 'Voluntarios',
-        //     route: 'voluntarios',
-        //   },
-      ],
-    },
+        ],
+      },
+      {
+        title: 'Catalogos',
+        children: [
+          {
+              title: 'Areas',
+              route: 'catalogo-delegaciones',
+          },
+          {
+              title: 'Tipo de autoridades',
+              route: 'catalogo-delegaciones',
+          },
+          {
+              title: 'Tipo de sangre',
+              route: 'catalogo-delegaciones',
+          },
+          {
+              title: 'Actividades de horas voluntarias',
+              route: 'catalogo-delegaciones',
+          },
+          {
+              title: 'Estados',
+              route: 'catalogo-delegaciones',
+          },
+          {
+              title: 'Tipos de usuarios',
+              route: 'catalogo-delegaciones',
+          },
+        ],
+      },
+      {
+        title: 'Usuarios',
+        route: 'usuarios',
+      },
+      {
+        title: 'Log',
+        route: 'voluntarios',
+      },
+      //   {
+      //     title: 'Voluntarios',
+      //     route: 'voluntarios',
+      //   },
+    ],
+  },
 ]

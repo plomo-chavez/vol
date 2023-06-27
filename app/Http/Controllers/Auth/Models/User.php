@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -13,6 +14,7 @@ class User extends Authenticatable
 
     protected $table        = "usuarios";
     protected $primaryKey   = "id";
+    use SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
