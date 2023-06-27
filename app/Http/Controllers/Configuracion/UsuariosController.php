@@ -15,10 +15,6 @@ class UsuariosController extends BaseController
     public function getUsuarios(Request $request){
         $response = BaseController::response();
         $payload = $request->all();
-        // var_dump($payload);
-        // $users = User::where('age', '>', 18)
-        //      ->orderBy('name', 'asc')
-        //      ->get();
         $users = User::all();
         $response['result']    = true;
         $response['data']      = $users;
@@ -29,10 +25,6 @@ class UsuariosController extends BaseController
     public function listarUsuarios(Request $request){
         $response = BaseController::response();
         $payload = $request->all();
-        // var_dump($payload);
-        // $users = User::where('age', '>', 18)
-        //      ->orderBy('name', 'asc')
-        //      ->get();
         $users = User::with('tipoUsuario')->get();
         $response['result']    = true;
         $response['data']      = $users;
@@ -52,14 +44,13 @@ class UsuariosController extends BaseController
                     return self::insertar($payload, $modelo);
                     break;
                 case 2:
-                    if (array_key_exists('subaccion', $payload)) {
-                        return self::actualizar($payload, $modelo);
-                    } else {
-                        return self::actualizar($payload, $modelo);
-                    }
+                    return self::actualizar($payload, $modelo);
                     break;
                 case 3:
                     return self::eliminar($payload, $modelo);
+                    break;
+                case 4:
+                    return self::changePassword($payload, $modelo);
                     break;
                 default:
                     return self::responsee('Acción no válida', false);
@@ -85,6 +76,21 @@ class UsuariosController extends BaseController
         } else {
             return self::responsee('El correo ya esta registrado.', false);
 
+        }
+    }
+
+    public function changePassword($payload, $modelo) {
+        if (isset($payload['id'])) {
+            $usuario = $modelo::find($payload['id']);
+            if ($usuario != null) {
+                $usuario->password = Hash::make($payload['contraseña']);
+                $usuario->save();
+                return self::responsee('Registro actualizado corrrectamente.');
+            } else {
+                return self::responsee('No se encontro el usuario.', false);
+            }
+        } else {
+            return self::responsee('No tiene usuario id.', false);
         }
     }
 }

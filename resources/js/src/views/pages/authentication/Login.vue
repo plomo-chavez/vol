@@ -179,6 +179,7 @@ import { required, email } from '@validations'
 import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 import store  from '@/store/index'
 import { getHomeRouteForLoggedInUser } from '@/auth/utils'
+import customHelpers  from '@helpers/customHelpers'
 
 import { $themeConfig } from '@themeConfig'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
@@ -206,7 +207,7 @@ export default {
     ValidationProvider,
     ValidationObserver,
   },
-  mixins: [togglePasswordVisibility],
+  mixins: [togglePasswordVisibility,customHelpers],
   data() {
     return {
       status: '',
@@ -244,36 +245,22 @@ export default {
     login() {
       this.$refs.loginForm.validate().then(success => {
         if (success) {
+            this.loading()
           useJwt
             .login({
               email: this.userEmail,
               password: this.password,
             })
             .then(response => {
-              console.log('response',response)
               let data = response.data;
-              console.log('data',data)
+              this.loading(false)
               if(data.result){
                 const userData = data.data.user
-                console.log('userData',userData)
                 localStorage.setItem('userData', JSON.stringify(userData))
                 store.commit('app/UPDATE_USERDATA', userData)
                 localStorage.setItem('tk', data.data.user.token)
                 this.$ability.update(userData.ability)
-                console.log(getHomeRouteForLoggedInUser(userData.role))
-                this.$router.replace(getHomeRouteForLoggedInUser(userData.role)).then(() => {
-                  this.$toast({
-                    component: ToastificationContent,
-                    position: 'top-right',
-                    props: {
-                      title: `Welcome `,
-                      // title: `Welcome ${userData.fullName || userData.username}`,
-                      icon: 'CoffeeIcon',
-                      variant: 'success',
-                      text: `You have successfully logged in as ${userData.role}. Now you can start to explore!`,
-                    },
-                  })
-                })
+                this.$router.replace(getHomeRouteForLoggedInUser(userData.role)).then(() => {})
               }else{
                   this.$toast({
                     component: ToastificationContent,

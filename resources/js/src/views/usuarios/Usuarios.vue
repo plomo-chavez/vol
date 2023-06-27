@@ -5,10 +5,24 @@
             <VistaUno
                 :data="data"
                 :columnas="columnas"
+                :config="{
+                    showCellActions: true,
+                    cellActions: {
+                        btnEditar: true,
+                        btnEliminar: true,
+                        btnChangePassword: true,
+                    },
+                    index: true,
+                    buscador: true,
+                    btnNuevo: true,
+                    btnFiltrar: true,
+                    btnOtros: null,
+                }"
                 @mdoEditar="editar"
                 @mdoEliminar="onEliminar"
                 @mtdNuevo="nuevoRegistro"
                 @mtdFiltrar="reload"
+                @mdoChangePassword="changePassword"
             />
         </div>
         <div v-if="showForm">
@@ -135,15 +149,58 @@
                             },
             },
         ],
+        formSchemaChange: [
+            {
+                classContainer:'col-lg-4 col-md-6 col-12',
+                type        : 'input-label',
+                name        : 'tipo de usuario',
+                value       : 'tipoUsuario',
+                label       : 'Tipo de usuario',
+            },
+            {
+                classContainer:'col-lg-4 col-md-6 col-12',
+                type        : 'input-label',
+                name        : 'usuario',
+                value       : 'usuario',
+                label       : 'Usuario',
+            },
+            {
+                classContainer:'col-lg-4 col-md-6 col-12',
+                type        : 'input-label',
+                name        : 'correo',
+                value       : 'email',
+            },
+            {
+                classContainer:'col-lg-4 col-md-6 col-12',
+                type        : 'input-label',
+                name        : 'telefono',
+                value       : 'telefono',
+                label       : 'Telefono',
+            },
+            {
+                classContainer:'col-lg-4 col-md-6 col-12',
+                type        : 'password',
+                name        : 'contraseña',
+                value       : 'contraseña',
+                label       : 'Contraseña',
+                placeholder : 'Introduce una contraseña',
+                rules       : 'required',
+                // rules       : 'required|min:6|max:12',
+                prefixIcon  : 'LockIcon',
+            },
+        ],
         columnas : [
             {
                 type    : 'text',
                 key     : 'usuario',
                 label   : 'Usuario',
-                sortable: true
+                sortable: true,
+            // thStyle : { width: "500px" },
+            // tdStyle : { width: "500px" },
             },
             {
-                key     : 'tipo_usuario.nombre',
+                type    : 'text',
+                key     : 'tipoUsuario',
                 label   : 'Tipo de usuario',
                 sortable: true
             },
@@ -212,7 +269,11 @@
             peticiones
                 .getUsuarios({})
                 .then(response => {
-                    this.data = response.data.data
+                    let tmp = response.data.data
+                    tmp.map((item) => {
+                        item.tipoUsuario = item.tipo_usuario?.nombre ?? '';
+                    });
+                    this.data = tmp;
                 })
                 .catch(error   => { console.log(error); })
         },
@@ -224,9 +285,10 @@
         },
         save(data){
             let payload = this.copyObject(data);
-            if (this.accion == 2) {
+            if (this.accion == 2 || this.accion == 4 ) {
                 payload.id = this.activeRow.id
             }
+            payload.tipoUsuario_id = payload.tipoUsuario.value
             payload.accion = this.accion
            this.peticionAdministrar(payload)
         },
@@ -252,14 +314,14 @@
         editar (data) {
             this.accion = 2;
             let tmp = this.copyObject(data)
-            if(typeof tmp.tipo_usuario != 'undefined') {
+            if(typeof tmp.tipo_usuario != 'undefined' && tmp.tipo_usuario  != null) {
                 tmp.tipoUsuario = {value : tmp.tipoUsuario_id, label : tmp.tipo_usuario.nombre}
             }
             tmp.accesoMovil = typeof tmp.accesoMovil  == 'number' ? (tmp.accesoMovil ? true:false) : false
-            tmp.accesoWeb = typeof tmp.accesoWeb  == 'number' ? (tmp.accesoWeb ? true:false) : false
-            tmp.bloqueado = typeof tmp.bloqueado  == 'number' ? (tmp.bloqueado ? true:false) : false
-            this.activeRow = this.copyObject(tmp)
-            let tmpSchema = this.copyObject(this.formSchema)
+            tmp.accesoWeb   = typeof tmp.accesoWeb  == 'number' ? (tmp.accesoWeb ? true:false) : false
+            tmp.bloqueado   = typeof tmp.bloqueado  == 'number' ? (tmp.bloqueado ? true:false) : false
+            this.activeRow  = this.copyObject(tmp)
+            let tmpSchema   = this.copyObject(this.formSchema)
             tmpSchema.splice(3,1)
             this.schemaMain = tmpSchema
             this.showForm = true;
@@ -268,7 +330,14 @@
             this.messageConfirm({
                 confirmFunction: () => { this.peticionAdministrar({...data,accion : 3}) }
             })
-        }
+        },
+        changePassword(data){
+            this.accion = 4;
+            let tmp = this.copyObject(data)
+            this.activeRow  = this.copyObject(tmp)
+            this.schemaMain = this.copyObject(this.formSchemaChange)
+            this.showForm = true;
+        },
     },
   }
   </script>

@@ -51,11 +51,14 @@
       </div>
     </b-card-body>
 
+<!--     
+    striped
+    hover
+    responsive
+    class="position" 
+-->
+
     <b-table
-      striped
-      hover
-      responsive
-      class="position-relative"
       :per-page="perPage"
       :current-page="currentPage"
       :items="data"
@@ -86,9 +89,10 @@
         <div v-else-if="field.type === 'money'">
             <small>{{data.item[field.key]}}</small>
         </div>
-        <div v-else-if="field.type === 'actions'" class="d-flex flex-wrap">
-            <div style="padding-left: 5px;" class="text-warning fw-bolder" v-if="(typeof config.cellActions.btnEditar   == 'undefined' ? true : config.cellActions.btnEditar )"   @click=" emitirInfo('mdoEditar', data.item)"><feather-icon size="16" icon="EditIcon" /></div>
-            <div style="padding-left: 5px;" class="text-danger fw-bolder" v-if="(typeof config.cellActions.btnEliminar == 'undefined' ? true : config.cellActions.btnEliminar )" @click=" emitirInfo('mdoEliminar', data.item)"><feather-icon size="16" icon="Trash2Icon" /></div>
+        <div v-else-if="field.type === 'actions'" class="d-flex flex-wrap justify-content-center col-12">
+            <div class="iconVistaUno cursor-pointer text-warning fw-bolder" v-if="(typeof config.cellActions.btnEditar   == 'undefined' ? true : config.cellActions.btnEditar )"   @click=" emitirInfo('mdoEditar', data.item)"><feather-icon size="16" icon="EditIcon" /></div>
+            <div class="iconVistaUno cursor-pointer text-danger fw-bolder" v-if="(typeof config.cellActions.btnEliminar == 'undefined' ? true : config.cellActions.btnEliminar )" @click=" emitirInfo('mdoEliminar', data.item)"><feather-icon size="16" icon="Trash2Icon" /></div>
+            <div class="iconVistaUno cursor-pointer text-secondary fw-bolder" v-if="(typeof config.cellActions.btnChangePassword == 'undefined' ? true : config.cellActions.btnChangePassword )" @click=" emitirInfo('mdoChangePassword', data.item)"><feather-icon size="16" icon="KeyIcon" /></div>
         </div>
         <div v-else-if="field.type === 'text'" class="d-flex flex-wrap">
             <p>{{data.item[field.key]}}</p>
@@ -213,6 +217,8 @@ export default {
             key     : 'index',
             type    : 'index',
             label   : 'Index',
+            thClass : "text-center ww-80",
+            tdClass : "text-center p-0 m-0  ww-80",
         })
     }
     if (typeof this.config.index == 'undefined' ? true : this.config.index) {
@@ -220,7 +226,9 @@ export default {
             key     : 'actions',
             type    : 'actions',
             label   : 'Acciones',
-        })
+            thClass : "text-center ww-100",
+            tdClass : "text-center p-0 m-0  ww-100",
+      })
     }
     this.fields =  this.copyObject(tmp)
   },
@@ -244,8 +252,8 @@ export default {
             return {
                 showCellActions: true,
                 cellActions: {
-                btnEditar: true,
-                btnEliminar: true,
+                  btnEditar: true,
+                  btnEliminar: true,
                 },
                 index: true,
                 buscador: true,

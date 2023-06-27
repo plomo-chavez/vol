@@ -90,32 +90,50 @@ class AuthController extends Controller{
                 return response()->json($response, 200);
             }
 
-            $user = User::where('email', $request->email)->first();
-            $tokenCreated  = $user->createToken("API TOKEN")->plainTextToken;
-            [$id, $token] = explode('|', $tokenCreated, 2);
-            $user->token = $token;
-            $user->save();
-            $tokenBD = PersonalAccessToken::find($id);
-            // $tokenBD->expires_at =  now()->addMinute(180);
-            // $tokenBD->expires_at =  now()->addMinute(2);  // Se agregan 3 horas en minutos.
-            $tokenBD->expires_at =  now()->addSecond(5);  // Se agregan 3 horas en minutos.
-            $tokenBD->tokenFront =  $tokenCreated;
-            $tokenBD->save();
-            $data = array(
-                'user'  => $user,
-                'token' =>  $token
-            );
-            $user->role = 'admin';
-            $user->ability = [
-                array(
-                  "action"  => "manage",
-                  "subject" => "all"
-                )
-            ];
-            $response['result']    = true;
-            $response['data']      = $data;
-            $response['message']      =  'User Logged In Successfully';
+            // $user = User::where('email', $request->email)->with('tipoUsuario')->first();
+
+            $users = User::where('email', $request->email)->with('tipoUsuario')->get();
+            if (sizeof($users) == 1) {
+                $tmp  = $users[0];
+                $user = $users[0]->toArray();
+                $tokenCreated  = $tmp->createToken("API TOKEN")->plainTextToken;
+                [$id, $token] = explode('|', $tokenCreated, 2);
+                $user['tipoUsuario'] = $user['tipo_usuario']['nombre'] ?? 'Sin tipo de usuario';
+                $user['token'] = $token;
+                $tmp->token = $token;
+                $tmp->save();
+                $tokenBD = PersonalAccessToken::find($id);
+                $tokenBD->expires_at =  now()->addMinute(180);
+                // $tokenBD->expires_at =  now()->addMinute(2);  // Se agregan 3 horas en minutos.
+                // $tokenBD->expires_at =  now()->addSecond(5);  // Se agregan 3 horas en minutos.
+                $tokenBD->tokenFront =  $tokenCreated;
+                $tokenBD->save();
+                $user['role'] = 'admin';
+                $user['ability'] = [
+                    array(
+                    "action"  => "manage",
+                    "subject" => "all"
+                    )
+                ];
+                $data = array(
+                    'user'  => $user,
+                    'token' =>  $token
+                );
+                $response['result']    = true;
+                $response['data']      = $data;
+                $response['message']      =  'User Logged In Successfully';
+            } else {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'No existe el usuario'
+                ], 500);
+            }
             return response()->json($response, 200);
+        } catch (\PDOException $exception) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'Error de base de datos: ' . $exception->getMessage()
+            ], 500);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
@@ -123,24 +141,30 @@ class AuthController extends Controller{
             ], 500);
         }
     }
+
     public function detailsUser(Request $request){
         $payload = $request->all();
         $token = $payload['token'];
-        // if (strpos($token, '|') === false) {
-        //     return $user->tokens()-where('token', hash('sha256', $token))->first();
-        // }
-
         [$id, $token] = explode('|', $token, 2);
-
-        // // $tmp =
-        // $tmp = $user->currentAccessToken()->plainTextToken;
-        // dd($tmp);
     }
+    
     public function verificar(Request $request){
         $response = BaseController::response();
-        $payload = $request->all();
-        $token = $payload['tk'] ?? null;
-        $response['data'] = AuthResources::validateSession($token);
-        return response()->json($response, 200);
+        try {
+            $payload = $request->all();
+            $token = $payload['tk'] ?? null;
+            $response['data'] = AuthResources::validateSession($token);
+            return response()->json($response, 200);
+        } catch (\PDOException $exception) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'Error de base de datos: ' . $exception->getMessage()
+            ], 500);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 }

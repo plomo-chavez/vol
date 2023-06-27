@@ -99,7 +99,7 @@ export default {
   },
 
   beforeMount(){
-    this.user = store.state.app.userData.name;
+    this.user = store.state.app.userData?.name ?? '';
   },
   methods: {
     goToLogout(){

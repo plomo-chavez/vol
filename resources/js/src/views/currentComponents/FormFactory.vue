@@ -15,6 +15,22 @@
                   >
                   <!-- input blank -->
                       <div v-if="input.type === 'input-blank'" ></div>
+                  <!-- Label -->
+                      <div v-if="input.type === 'input-label'">
+                        <validation-provider
+                            #default="{ errors }"
+                            :name=" (typeof input.name  != 'undefined'?input.name:'')"
+                            :rules="(typeof input.rules != 'undefined'?input.rules:'')"
+                        >
+                        <p
+                            :for="input.name"
+                            :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                        >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
+                            <label class="bg-white col-12 p-0 m-0">
+                                {{ form[input.value] }}
+                            </label>
+                            </validation-provider>
+                      </div>
                   <!-- input text -->
                       <div v-if="input.type === 'input-text'">
                         <validation-provider
@@ -38,14 +54,15 @@
                                 <feather-icon :icon="input.prefixIcon" />
                                 </b-input-group-prepend>
                                 <b-form-input
-                                :id="   input.name"
-                                :ref="  input.name"
-                                :name=" input.name"
-                                :value="form[input.value]"
-                                @input="changeData(input.value,$event)"
-                                :disabled=" formDisabled?true:(typeof input.disabled != 'undefined'?input.disabled:false)"
-                                :placeholder="(typeof input.placeholder != 'undefined'?input.placeholder:'Introduce un dato valido')"
-                                class="bg-white col-12"
+                                    :id="   input.name"
+                                    :autocomplete="'false'"
+                                    :ref="  input.name"
+                                    :name=" input.name"
+                                    :value="form[input.value]"
+                                    @input="changeData(input.value,$event)"
+                                    :disabled=" formDisabled?true:(typeof input.disabled != 'undefined'?input.disabled:false)"
+                                    :placeholder="(typeof input.placeholder != 'undefined'?input.placeholder:'Introduce un dato valido')"
+                                    class="bg-white col-12"
                                 />
                                 <b-input-group-append v-if="(typeof input.sufijoIcon != 'undefined')" is-text>
                                 <feather-icon :icon="input.sufijoIcon" />

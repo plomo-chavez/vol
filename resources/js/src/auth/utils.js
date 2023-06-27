@@ -1,4 +1,5 @@
 import useJwt from '@/auth/jwt/useJwt'
+import customHelpers  from '@helpers/customHelpers'
 
 import store from '@/store/index'
 /**
@@ -10,6 +11,9 @@ import store from '@/store/index'
 export const isUserLoggedIn = () => {
   return localStorage.getItem('userData') && localStorage.getItem('tk')
   // return store.state.app.userData != null
+}
+export const loading = (valor = true) => {
+  document.getElementById("loading-bg").style.display = valor?"block":"none";
 }
 export let goToLogout = () =>{
   store.commit('app/UPDATE_USERDATA', null)

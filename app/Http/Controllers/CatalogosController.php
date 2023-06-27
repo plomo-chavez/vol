@@ -9,10 +9,20 @@ use App\Http\Controllers\Sistema\Modelos\Delegaciones;
 use App\Http\Controllers\Sistema\Modelos\Coordinaciones;
 use App\Http\Controllers\Sistema\Modelos\TipoAsociado;
 use App\Http\Controllers\Sistema\Modelos\Estado;
+use App\Http\Controllers\Auth\Models\TipoUsuario;
 use App\Http\Controllers\BaseController;
 
 class CatalogosController extends BaseController
 {
+    public function getTiposUsuarios(Request $request){
+        $data = TipoUsuario::orderBy('nombre',"asc")
+                ->get();
+        return self::responsee(
+            'Consulta realizada con exito.',
+            true,
+            $data,
+        );
+    }
     public function getDelegaciones(Request $request){
         $data = Delegaciones::orderBy('nombre',"asc")
                 ->get();

@@ -4,7 +4,7 @@ export default [
       name: 'home',
       component: () => import('@/views/Home.vue'),
       meta: {
-        validUser: false,
+        validUser: true,
       },
     },
     {
@@ -65,7 +65,7 @@ export default [
     name: 'page-not-authorized',
     component: () => import('@/views/pages/miscellaneous/NotAuthorized.vue'),
     meta: {
-        validUser: false,
+      validUser: false,
       layout: 'full',
       resource: 'Auth',
     },

@@ -1,7 +1,7 @@
 import Vue              from 'vue'
 import VueRouter        from 'vue-router'
 // Routes
-import { isUserLoggedIn, goToLogout } from '@/auth/utils'
+import { isUserLoggedIn, goToLogout, loading } from '@/auth/utils'
 import routesDefault    from './routes/routesDefault'
 import useJwt           from '@/auth/jwt/useJwt'
 import store            from '@/store'
@@ -21,26 +21,24 @@ const router = new VueRouter({
 router.beforeEach(async (to, _, next) => {
     const isLoggedIn = isUserLoggedIn();
     let validUser = to.meta?.validUser ?? true;
-    console.log('validUser -> ',validUser)
-    console.log('isLoggedIn -> ',isLoggedIn)
     if (validUser) {
       if (isLoggedIn === null) {
-        console.log('      if (isLoggedIn === null) {          ')
-        // next({ name: 'auth-login' });
+        next({ name: 'auth-login' });
       } else {
         try {
+          loading()
           const response = await useJwt.validateUser({ tk: store.state.app.userData.token });
+          
+          loading(false)
+          console.log('!response.data.data', !response.data.data);
           if (!response.data.data) {
-            console.log('response.data.data  ',response.data.data)
-            console.log('if (!response.data.data) { ')
             // goToLogout();
           }
         } catch (error) { console.log(error); }
       }
     }
     if (to.meta.redirectIfLoggedIn && isLoggedIn) { 
-      console.log(' if (to.meta.redirectIfLoggedIn && isLoggedIn) { ')
-      // next({ name: 'home' }); 
+      next({ name: 'home' }); 
     }
     next();
   });

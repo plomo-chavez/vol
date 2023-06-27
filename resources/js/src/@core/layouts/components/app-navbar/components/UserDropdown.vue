@@ -1,5 +1,6 @@
 <template>
   <b-nav-item-dropdown
+    v-if="userData != null"
     right
     toggle-class="d-flex align-items-center dropdown-user-link"
     class="dropdown-user"
@@ -7,7 +8,7 @@
     <template #button-content>
       <div class="d-sm-flex d-none user-nav">
         <p class="user-name font-weight-bolder mb-0"> {{ userData.usuario || userData.username }}</p>
-        <span class="user-status">{{ userData.role }}</span>
+        <span class="user-status">{{ userData.tipoUsuario }}</span>
       </div>
       <b-avatar
         size="40"
