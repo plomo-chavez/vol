@@ -6,7 +6,6 @@ import routesDefault    from './routes/routesDefault'
 import useJwt           from '@/auth/jwt/useJwt'
 import store            from '@/store'
 import administracion   from './routes/administracion'
-import uiElements       from './routes/ui-elements/index'
 Vue.use(VueRouter)
 const router = new VueRouter({
   mode: 'history',
@@ -15,7 +14,6 @@ const router = new VueRouter({
   routes: [
       ...routesDefault,
       ...administracion,
-      ...uiElements,
       { path: '/', redirect: { name: 'home' } },
       { path: '*', redirect: 'error-404', },
   ],

@@ -1,15 +1,5 @@
 export default [
     {
-        path: '/registro',
-        name: 'registro',
-        component: () => import('@/views/out/Registro.vue'),
-        meta: {
-            layout: 'full',
-            validUser: false,
-            pageTitle: 'Usuarios',
-        },
-    },
-    {
       path: '/usuarios',
       name: 'usuarios',
       component: () => import('@/views/usuarios/Usuarios.vue'),
