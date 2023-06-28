@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Sistema;
 use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Email\MailController;
 
 use App\Http\Controllers\Sistema\Modelos\Voluntarios as Modelo;
 
@@ -12,6 +13,70 @@ class VoluntariosController extends BaseController
         $payload = $request->all();
         return self::administrar($payload['payload'], new Modelo());
     }
+    
+    public function insertVoluntarioWithCorreo($data){
+        // dd('insertVoluntarioWithCorreo');
+        $data['codeEmail'] = self::generateCode();
+        Modelo::create($data);
+        $data['link'] = $_SERVER['HTTP_HOST'].'/registro'.'/'.$data['codeEmail'];
+        MailController::sendMailWithTemplate($data,'new-voluntario-out');
+        return self::responsee(
+            'Voluntario registrado correctamente.',
+            true,
+            [],
+        );
+    }
+
+    public function ifExisteVoluntario($data){
+        if (($data['numeroAsociado'] ?? false ) && strlen($data['numeroAsociado']) === 5) {
+            $query = Modelo::where('numeroAsociado', [$data['numeroAsociado']]);
+            $query = $query->get();
+            if (sizeof($query) == 0) {
+                // dd('ifExisteVoluntario -> if');
+                return self::insertVoluntarioWithCorreo($data);
+            } else {
+                return self::responsee(
+                    'El numero de asociado ya esta registrado',
+                    true,
+                    $data,
+                );
+            }
+        }else {
+            $query = Modelo::where('curp', [$data['curp']]);
+            $query = $query->get();
+            if (sizeof($query) == 0) {
+                $query = Modelo::where('correo', [$data['correo']]);
+                $query = $query->get();
+                if (sizeof($query) == 0) {
+                    // dd('ifExisteVoluntario -> else');
+                    return self::insertVoluntarioWithCorreo($data);
+                } else {
+                    return self::responsee(
+                        'El correo electronico ya esta registrado',
+                        true,
+                        $data,
+                    );
+                }
+            } else {
+                return self::responsee(
+                    'La curp ya esta registrada',
+                    true,
+                    $data,
+                );
+            }
+        }
+    }
+
+
+
+
+
+    public function registroOut(Request $request){
+        $payload = $request->all();
+        $payload = $payload['data'];
+        return self::ifExisteVoluntario($payload);
+    }
+
     public function validCurp(Request $request){
         $data = false;
         if(array_key_exists('curp',$request->all()['payload']) ){

@@ -47,6 +47,13 @@ class BaseController extends Controller
        }
    }
 
+    public function generateCode($num = 12) {
+        $date = date('YmdHis');
+        $code = uniqid($date);
+        $generatedCode = substr($code, 0, $num); // Extraer los primeros "desiredLength" caracteres del código generado
+        return $generatedCode;
+   }
+
     public function eliminar($payload, $modelo) {
         if($payload['id']){
             $modelo::whereIn('id', [$payload['id']])->delete();

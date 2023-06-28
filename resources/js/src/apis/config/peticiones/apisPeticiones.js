@@ -51,4 +51,7 @@ export default class apiPeticiones {
   administrarTemplatesEmail(...args) {
     return this.axiosIns.post(this.apisConfig.apiAdminTemplatesEmail, ...args)
   }
+  registroOut(...args) {
+    return this.axiosIns.post(this.apisConfig.apiRegistroOut, ...args)
+  }
 }

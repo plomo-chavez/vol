@@ -12,10 +12,10 @@
             />
         </div>
         <div v-if="showForm">
-            <!-- <GeneratorTemplateEmail
+            <GeneratorTemplateEmail
                 :data="activeRow"
                 @cancelar="handleCancelar"
-            /> -->
+            />
         </div>
     </div>
   </template>

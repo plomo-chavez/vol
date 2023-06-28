@@ -18,6 +18,7 @@ export default {
   apiAdminCoordinaciones  : '/api/coordinaciones/administrar',
   apiGetTemplatesEmail    : '/api/templates-email/listar',
   apiAdminTemplatesEmail  : '/api/templates-email/administrar',
+  apiRegistroOut          : '/api/out/registro',
 //   Sin autentificacion
   apiValidCURP          : '/api/valid/curp',
 }

@@ -17,5 +17,6 @@ class Voluntarios extends Model
         'numeroAsociado',
         'telefono',
         'correo',
+        'codeEmail',
     ];
 }

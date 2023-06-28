@@ -60,6 +60,7 @@
               <b-form-group
                 label="Correo electronico"
                 label-for="login-email"
+                class="mb-1"
               >
                 <validation-provider
                   #default="{ errors }"
@@ -79,7 +80,9 @@
               </b-form-group>
 
               <!-- forgot password -->
-              <b-form-group>
+              <b-form-group
+                class="mb-1"
+              >
                 <div class="d-flex justify-content-between">
                   <label for="login-password">Contraseña</label>
                   <b-link :to="{name:'auth-forgot-password'}">
@@ -142,7 +145,7 @@
 
           <b-card-text class="text-center mt-2">
             <span>Aun no tienes acceso? </span>
-            <b-link :to="{name:'auth-register'}">
+            <b-link :to="{name:'registro'}">
               <span>&nbsp;Solicita tu acceso aqui !!</span>
             </b-link>
           </b-card-text>
