@@ -45,4 +45,10 @@ export default class apiPeticiones {
   getDelegaciones(...args) {
     return this.axiosIns.post(this.apisConfig.apiGetDelegaciones, ...args)
   }
+  getTemplatesEmail(...args) {
+    return this.axiosIns.post(this.apisConfig.apiGetTemplatesEmail, ...args)
+  }
+  administrarTemplatesEmail(...args) {
+    return this.axiosIns.post(this.apisConfig.apiAdminTemplatesEmail, ...args)
+  }
 }

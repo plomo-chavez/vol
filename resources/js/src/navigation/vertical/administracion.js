@@ -33,7 +33,7 @@ export default [
         children: [
           {
               title: 'Plantillas de correo',
-              route: 'catalogo-delegaciones',
+              route: 'config-notificaciones-templateEmail',
           },
           {
               title: 'Notificaciones',

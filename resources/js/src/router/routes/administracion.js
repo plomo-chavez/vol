@@ -23,4 +23,12 @@ export default [
         pageTitle: 'Delegaciones',
     },
   },
+  {
+    path: '/config/notificaciones/template-email',
+    name: 'config-notificaciones-templateEmail',
+    component: () => import('@/views/configuracion/notificaciones/template/TemplateEmails.vue'),
+    meta: {
+        pageTitle: 'Delegaciones',
+    },
+  },
 ]

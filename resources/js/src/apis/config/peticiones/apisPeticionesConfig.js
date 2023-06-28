@@ -16,6 +16,8 @@ export default {
   apiAdminHorasVoluntarias: '/api/horas/administrar',
   apiGetCoordinaciones    : '/api/coordinaciones/listar',
   apiAdminCoordinaciones  : '/api/coordinaciones/administrar',
+  apiGetTemplatesEmail    : '/api/templates-email/listar',
+  apiAdminTemplatesEmail  : '/api/templates-email/administrar',
 //   Sin autentificacion
   apiValidCURP          : '/api/valid/curp',
 }

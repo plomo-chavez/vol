@@ -14,6 +14,8 @@ use App\Http\Controllers\Sistema\VoluntariosController;
 use App\Http\Controllers\Sistema\DelegacionesController;
 use App\Http\Controllers\Sistema\HorasVoluntariasController;
 use App\Http\Controllers\Sistema\CoordinacionesController;
+use App\Http\Controllers\Configuracion\TemplateEmailController;
+use App\Http\Controllers\Email\MailController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -43,6 +45,8 @@ Route::middleware([UserAuthentication::class])->post('/reservaciones/listar',   
 Route::middleware([UserAuthentication::class])->post('/voluntarios/listar',         [VoluntariosController::class, 'handleListar']);
 Route::middleware([UserAuthentication::class])->post('/voluntarios/administrar',    [VoluntariosController::class, 'handleAdministrar']);
 Route::middleware([UserAuthentication::class])->post('/horas/listar',               [HorasVoluntariasController::class, 'handleListar']);
+Route::middleware([UserAuthentication::class])->post('/templates-email/administrar',[TemplateEmailController::class, 'handleAdministrar']);
+Route::middleware([UserAuthentication::class])->post('/templates-email/listar',     [TemplateEmailController::class, 'handleListar']);
 Route::middleware([UserAuthentication::class])->post('/horas/administrar',          [HorasVoluntariasController::class, 'handleAdministrar']);
 Route::middleware([UserAuthentication::class])->post('/delegaciones/listar',        [DelegacionesController::class, 'handleListar']);
 Route::middleware([UserAuthentication::class])->post('/delegaciones/administrar',   [DelegacionesController::class, 'handleAdministrar']);
