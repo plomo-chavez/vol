@@ -27,3 +27,12 @@ Your network URL might not have same URL as screenshot and that is completely fi
 
 
 php artisan key:generate
+
+
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+php artisan clear-compiled
+php artisan optimize:clear
+php artisan optimize
