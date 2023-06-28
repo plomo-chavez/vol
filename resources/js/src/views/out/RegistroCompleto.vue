@@ -1,5 +1,6 @@
 <template>
   <div class="">
+    <pre>{{ activeRow }}</pre>
   </div>
 </template>
 
@@ -55,14 +56,31 @@ export default {
   data() {
     return {
       code : '',
+      activeRow : null,
     }
   },
   beforeMount(){
     this.code = this.$route.params.code;
+    this.getRegistro();
   },
   computed: {
   },
   methods: {
+    getRegistro(){
+      this.loading();
+      peticiones
+            .validCode({code:this.code})
+            .then(response => {
+                this.loading(false);
+                let tmp = response.data.data
+                this.activeRow = tmp;
+            })
+            .catch(error   => {
+                this.loading(false);
+                console.log(error); 
+            })
+    },
+    
   },
 }
 /* eslint-disable global-require */

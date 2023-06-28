@@ -193,19 +193,11 @@ export default {
             },
         ],
       status: false,
-      username: '',
-      userEmail: '',
-      password: '',
+      activeRow: null,
       sideImg: require('@/assets/images/pages/register-v2.svg'),
-      // validation
-      required,
-      email,
     }
   },
   computed: {
-    passwordToggleIcon() {
-      return this.passwordFieldType === 'password' ? 'EyeIcon' : 'EyeOffIcon'
-    },
     imgUrl() {
       if (store.state.appConfig.layout.skin === 'dark') {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -220,18 +212,28 @@ export default {
           this.$refs.formRegistro.validationForm()
       },
       onCancelar(){
-        this.$router.push({ name: 'login' });
+        this.$router.push('/login');
       },
       save(data){
         if (this.status) {
+          this.loading();
           peticiones
             .registroOut({data})
             .then(response => {
-                let tmp = response.data.data
-                tmp.map((item) => {
-                    item.tipoUsuario = item.tipo_usuario?.nombre ?? '';
-                });
-                this.data = tmp;
+                this.loading(false);
+                this.messageConfirm({
+                    message:response.data.message,
+                    title:'Información del sistema',
+                    icon:response.data.result ? 'success' : 'error',
+                    showCancelButton: false,
+                    confirmButtonText: 'Okay',
+                    cancelButtonText: 'No, cancelar',
+                    cancelFunction : null,
+                    messageCancel : false,
+                    confirmFunction: () => {
+                      response.data.result ? this.onCancelar() : null;
+                    }
+                })
             })
             .catch(error   => { console.log(error); })
         } else {
@@ -241,28 +243,6 @@ export default {
           });
         }
       },
-    register() {
-      this.$refs.registerForm.validate().then(success => {
-        if (success) {
-          useJwt
-            .register({
-              username: this.username,
-              email: this.userEmail,
-              password: this.password,
-            })
-            .then(response => {
-              useJwt.setToken(response.data.accessToken)
-              useJwt.setRefreshToken(response.data.refreshToken)
-              localStorage.setItem('userData', JSON.stringify(response.data.userData))
-              this.$ability.update(response.data.userData.ability)
-              this.$router.push('/')
-            })
-            .catch(error => {
-              this.$refs.registerForm.setErrors(error.response.data.error)
-            })
-        }
-      })
-    },
   },
 }
 /* eslint-disable global-require */

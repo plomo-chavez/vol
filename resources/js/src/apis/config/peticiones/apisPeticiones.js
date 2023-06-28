@@ -54,4 +54,7 @@ export default class apiPeticiones {
   registroOut(...args) {
     return this.axiosIns.post(this.apisConfig.apiRegistroOut, ...args)
   }
+  validCode(...args) {
+    return this.axiosIns.post(this.apisConfig.apiValidCode, ...args)
+  }
 }

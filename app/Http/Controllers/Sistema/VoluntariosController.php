@@ -13,6 +13,15 @@ class VoluntariosController extends BaseController
         $payload = $request->all();
         return self::administrar($payload['payload'], new Modelo());
     }
+    public function validCode(Request $request){
+        $payload = $request->all();
+        $tmp = Modelo::where('codeEmail',$payload['code'])->get();
+        return self::responsee(
+            sizeof($tmp) == 1 ? 'Codigo valido':'Ocurrio un error, codigo invalido',
+            true,
+            sizeof($tmp) == 1 ? $tmp[0]:[],
+        );
+    }
     
     public function insertVoluntarioWithCorreo($data){
         // dd('insertVoluntarioWithCorreo');
@@ -37,8 +46,8 @@ class VoluntariosController extends BaseController
             } else {
                 return self::responsee(
                     'El numero de asociado ya esta registrado',
-                    true,
-                    $data,
+                    false,
+                    [],
                 );
             }
         }else {
@@ -53,15 +62,15 @@ class VoluntariosController extends BaseController
                 } else {
                     return self::responsee(
                         'El correo electronico ya esta registrado',
-                        true,
-                        $data,
+                        false,
+                        [],
                     );
                 }
             } else {
                 return self::responsee(
                     'La curp ya esta registrada',
-                    true,
-                    $data,
+                    false,
+                    [],
                 );
             }
         }

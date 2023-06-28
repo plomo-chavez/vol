@@ -33,6 +33,7 @@ Route::post('/auth/details',    [AuthController::class, 'detailsUser']);
 Route::post('/auth/pruebas',    [AuthController::class, 'verificar']);
 Route::post('/auth/verificar',  [AuthController::class, 'verificar']);
 Route::post('/out/registro',    [VoluntariosController::class, 'registroOut']);
+Route::post('/out/valid/code',  [VoluntariosController::class, 'validCode']);
 Route::middleware([UserAuthentication::class])->post('/auth/pruebas2',              [AuthController::class, 'verificar']);
 Route::middleware([UserAuthentication::class])->post('/get/usuarios',               [UsuariosController::class, 'getUsuarios']);
 Route::middleware([UserAuthentication::class])->post('/usuarios/listar',            [UsuariosController::class, 'listarUsuarios']);

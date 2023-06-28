@@ -81,7 +81,7 @@
         activeRow : null,
         tools: {
           image: {
-            enabled: false,
+            enabled: true,
           },
         },
         options: {

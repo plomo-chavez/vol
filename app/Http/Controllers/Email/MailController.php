@@ -57,10 +57,9 @@ class MailController extends BaseController
     public static   function sendEmail($payload){
         try {
             $tmp = Mail::to($payload['correos'])->send(new PlantillaEmail($payload['template']));
-            dd($tmp);
             return self::responsee('Correo enviado correctamente.',true);
         } catch (\Exception $e) {
-            var_dump($e->getMessage());
+            // var_dump($e->getMessage());
             return self::responsee( $e->getMessage(),false);
         }
     }

@@ -19,6 +19,7 @@ export default {
   apiGetTemplatesEmail    : '/api/templates-email/listar',
   apiAdminTemplatesEmail  : '/api/templates-email/administrar',
   apiRegistroOut          : '/api/out/registro',
+  apiValidCode            : '/api/out/valid/code',
 //   Sin autentificacion
   apiValidCURP          : '/api/valid/curp',
 }
