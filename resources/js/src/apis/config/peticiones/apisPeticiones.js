@@ -18,6 +18,15 @@ export default class apiPeticiones {
   getVoluntarios(...args) {
     return this.axiosIns.post(this.apisConfig.apiGetVoluntarios, ...args)
   }
+  getVoluntario(...args) {
+    return this.axiosIns.post(this.apisConfig.apiGetVoluntario, ...args)
+  }
+  getVoluntarioOut(...args) {
+    return this.axiosIns.post(this.apisConfig.apiGetVoluntarioOut, ...args)
+  }
+  adminVoluntarioOut(...args) {
+    return this.axiosIns.post(this.apisConfig.apiAdminVoluntarioOut, ...args)
+  }
   administrarVoluntarios(...args) {
     return this.axiosIns.post(this.apisConfig.apiAdminVoluntarios, ...args)
   }

@@ -20,4 +20,8 @@ class Delegaciones extends Model
         return $this->hasMany(DelegacionAreas::class, 'delegacion_id', 'id')->select('id', 'delegacion_id', 'coordinacion_id')
             ->with('area:id,nombre');
     }
+
+    public function estado() {
+        return $this->belongsTo(Estado::class, 'estado_id', 'id')->select('id', 'nombre');
+    }
 }

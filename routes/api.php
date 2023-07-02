@@ -34,6 +34,8 @@ Route::post('/auth/pruebas',    [AuthController::class, 'verificar']);
 Route::post('/auth/verificar',  [AuthController::class, 'verificar']);
 Route::post('/out/registro',    [VoluntariosController::class, 'registroOut']);
 Route::post('/out/valid/code',  [VoluntariosController::class, 'validCode']);
+Route::post('/out/get/voluntario',  [VoluntariosController::class, 'getVoluntario']);
+Route::post('/out/admin/voluntario',  [VoluntariosController::class, 'handleAdministrar']);
 Route::middleware([UserAuthentication::class])->post('/auth/pruebas2',              [AuthController::class, 'verificar']);
 Route::middleware([UserAuthentication::class])->post('/get/usuarios',               [UsuariosController::class, 'getUsuarios']);
 Route::middleware([UserAuthentication::class])->post('/usuarios/listar',            [UsuariosController::class, 'listarUsuarios']);
@@ -54,13 +56,19 @@ Route::middleware([UserAuthentication::class])->post('/delegaciones/listar',    
 Route::middleware([UserAuthentication::class])->post('/delegaciones/administrar',   [DelegacionesController::class, 'handleAdministrar']);
 Route::middleware([UserAuthentication::class])->post('/coordinaciones/listar',      [CoordinacionesController::class, 'handleListar']);
 Route::middleware([UserAuthentication::class])->post('/coordinaciones/administrar', [CoordinacionesController::class, 'handleAdministrar']);
+Route::middleware([UserAuthentication::class])->post('/get/voluntario', [VoluntariosController::class, 'getVoluntario']);
 // Route::middleware([UserAuthentication::class])->post('/auth/verificar',    [AuthController::class, 'verificar']);
 Route::post('/catalogo/coordinaciones',     [CatalogosController::class, 'getCoordinaciones']);
 Route::post('/catalogo/tiposUsuarios',      [CatalogosController::class, 'getTiposUsuarios']);
 Route::post('/catalogo/estados',            [CatalogosController::class, 'getEstados']);
 Route::post('/catalogo/tipoAsociado',       [CatalogosController::class, 'getTiposAsociado']);
 Route::post('/catalogo/delegaciones',       [CatalogosController::class, 'getDelegacionesWithAreas']);
+Route::post('/catalogo/nacionalidad',       [CatalogosController::class, 'getNacionalidad']);
+Route::post('/catalogo/sexo',               [CatalogosController::class, 'getSexo']);
+Route::post('/catalogo/tipoSangre',         [CatalogosController::class, 'getTipoSangre']);
+Route::post('/catalogo/estadoCivil',         [CatalogosController::class, 'getEstadoCivil']);
 Route::post('/valid/curp',                  [VoluntariosController::class, 'validCurp']);
+Route::post('/catalogo/especial/delegaciones', [CatalogosController::class, 'delegacionesXTipoCoordinador']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

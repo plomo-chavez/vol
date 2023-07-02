@@ -23,6 +23,55 @@ class CatalogosController extends BaseController
             $data,
         );
     }
+    public function getNacionalidad(Request $request){
+        $data = [
+            ['id' => 'Mexicana', 'nombre' => 'Mexicana'],
+        ];
+        return self::responsee(
+            'Consulta realizada con exito.',
+            true,
+            $data,
+        );
+    }
+    public function getSexo(Request $request){
+        $data = [
+            ['id' => 'Masculino', 'nombre' => 'Masculino'],
+            ['id' => 'Femenino', 'nombre' => 'Femenino'],
+        ];
+        return self::responsee(
+            'Consulta realizada con exito.',
+            true,
+            $data,
+        );
+    }
+    public function getEstadoCivil(Request $request){
+        $data = [
+            ['id' => 'Soltero', 'nombre' => 'Soltero'],
+            ['id' => 'Casado', 'nombre' => 'Casado'],
+        ];
+        return self::responsee(
+            'Consulta realizada con exito.',
+            true,
+            $data,
+        );
+    }
+    public function getTipoSangre(Request $request){
+        $data = [
+            ['id' => 'AB+', 'nombre' => 'AB+'],
+            ['id' => 'AB-', 'nombre' => 'AB-'],
+            ['id' => 'A*', 'nombre' => 'A*'],
+            ['id' => 'A-', 'nombre' => 'A-'],
+            ['id' => 'B+', 'nombre' => 'B+'],
+            ['id' => 'B-', 'nombre' => 'B-'],
+            ['id' => 'O+', 'nombre' => 'O+'],
+            ['id' => 'O-', 'nombre' => 'O-'],
+        ];
+        return self::responsee(
+            'Consulta realizada con exito.',
+            true,
+            $data,
+        );
+    }
     public function getDelegaciones(Request $request){
         $data = Delegaciones::orderBy('nombre',"asc")
                 ->get();
@@ -65,6 +114,36 @@ class CatalogosController extends BaseController
                 ->with('areas:delegacion_id,coordinacion_id')
                 ->with('areas.area:id,nombre')
                 ->get();
+        return self::responsee(
+            'Consulta realizada con exito.',
+            true,
+            $data,
+        );
+    }
+    public function delegacionesXTipoCoordinador(Request $request){
+        $tipoUsuarioID = null;
+        $payload = $request->all();
+        if (isset($payload['tipoUsuario_id'])) {
+            $tipoUsuarioID = $payload['tipoUsuario_id'];
+        }
+        $data = [];
+        if ($tipoUsuarioID != null) {
+            $idsDelegaciones = self::idsDelegacionesXTipoUsuario($tipoUsuarioID);
+            $data = Delegaciones::whereIn('id',$idsDelegaciones)
+            ->orderBy('ciudad',"asc")
+            ->select('id','ciudad','estado_id','isLocal')
+                ->with('areas:delegacion_id,coordinacion_id')
+                ->with('areas.area:id,nombre')
+                ->with('estado')
+                ->get()
+                ->toArray();
+                foreach ($data as $index => $item) {
+                    $data[$index] = self::getNombreDelegacion($item);
+                    $areas = [];
+                    foreach ($item['areas'] as $area) { array_push($areas, $area['area']); }
+                    $data[$index]['areas'] = $areas;
+                }
+        }
         return self::responsee(
             'Consulta realizada con exito.',
             true,

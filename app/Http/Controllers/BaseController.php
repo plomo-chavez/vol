@@ -4,15 +4,56 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\Sistema\Modelos\Delegaciones;
+use App\Http\Controllers\Sistema\Modelos\Coordinadores;
+use App\Http\Controllers\Sistema\Modelos\Voluntarios;
+use App\Http\Controllers\Sistema\Modelos\ContadorNumeroInterno;
+use App\Http\Controllers\Auth\Models\User;
 
-class BaseController extends Controller
-{
+
+class BaseController extends Controller{
     public static function response($message = 'Tenemos un error'){
         return array(
             'result'    => false,
             'message'   => $message,
             'data'      => null,
         );
+    }
+
+    public static function getNombreDelegacion($delegacion = null){
+        if ($delegacion != null) {
+            $delegacion['nombre'] = 
+                $delegacion['isLocal'] ? 
+                    ('Local de ' . $delegacion['ciudad']) : 
+                    ('Estatal de ' . ($delegacion['estado']['nombre'] ?? ''));
+        }
+        return $delegacion;
+    }
+
+    public static function getNumeroInerno($delegacionID = null){
+        // VOL-Año-Estado-XXXX
+        // VOL23120001
+        $numeroInterno = null;
+        if ($delegacionID != null) {
+            $delegacion = Delegaciones::find($delegacionID);
+            if ($delegacion != null) {
+                $registro = ContadorNumeroInterno::where('estado_id',$delegacion->estado_id)->get();
+                $isNuevo = sizeof($registro) == 0;
+                $contador = $isNuevo ? 0 : $registro[0]->numero;
+                $contador = $contador + 1;
+                if ($isNuevo) {
+                    ContadorNumeroInterno::create([
+                        'estado_id' => $delegacion->estado_id,
+                        'numero' => $contador,
+                    ]);
+                } else {
+                    $registro[0]->numero = $contador;
+                    $registro[0]->save();
+                }
+                $numeroInterno = 'VOL'.date('y').str_pad($delegacion->estado_id, 2, '0', STR_PAD_LEFT).str_pad($contador, 4, '0', STR_PAD_LEFT);
+            }
+        }
+        return $numeroInterno;
     }
 
     public static function responsee(
@@ -27,11 +68,11 @@ class BaseController extends Controller
         ), 200);
     }
 
-     public function insertar($payload, $modelo) {
+    public function insertar($payload, $modelo) {
         $modelo::create($payload);
         return self::responsee('Registro guardado corrrectamente.');
     }
-     public function insertMulti($payload, $modelo) {
+    public function insertMulti($payload, $modelo) {
         foreach ($payload['data'] as $key => $value) {
             $modelo::create($value);
         }
@@ -45,7 +86,7 @@ class BaseController extends Controller
        } else {
            return self::responsee('Actualizar no tiene id.', false);
        }
-   }
+    }
 
     public function generateCode($num = 12) {
         $date = date('YmdHis');
@@ -53,7 +94,7 @@ class BaseController extends Controller
         $generatedCode = substr($code, -$num); // Extraer los últimos "num" caracteres del código generado
         // $generatedCode = substr($code, 0, $num); // Extraer los primeros "desiredLength" caracteres del código generado
         return $generatedCode;
-   }
+    }
 
     public function eliminar($payload, $modelo) {
         if($payload['id']){
@@ -99,5 +140,67 @@ class BaseController extends Controller
         }
         $data = $query->get();
         return $data;
+    }
+
+    public function getDelegacionIDXUsuario($userID) {
+        $userID = 17;
+        $response = null;
+        if (isset($userID)) {
+            $user = User::find($userID);
+            if($user != null){
+                switch($user->tipoUsuario_id){
+                    case 1:
+                        $response =  null;
+                        break;
+                    case 2:
+                        $response =  null;
+                        break;
+                    case 3:
+                        $coordinador =  Coordinadores::where('usuario_id',$userID)->get();
+                        $response = $coordinador == null ? null : (sizeof($coordinador) == 1 ? $coordinador[0]->delegacion_id : null);
+                        break;
+                    case 4:
+                        $coordinador =  Coordinadores::where('usuario_id',$userID)->get();
+                        $response = $coordinador == null ? null : (sizeof($coordinador) == 1 ? $coordinador[0]->delegacion_id : null);
+                        break;
+                    case 5:
+                        $user = User::find($userID);
+                        if ($user != null){
+                            $voluntario = Voluntarios::find($user->voluntario_id);
+                            if ($voluntario != null) {
+                                $response = $voluntario->delegacion_id;
+                            }
+                        } 
+                        break;
+                }
+            }
+        }
+        return $response;
+        
+    }
+
+    public function idsDelegacionesXTipoUsuario($tipoUsuarioID) {
+        // '1', 'Administrador'
+        // '2', 'CN -  Coordinador Nacional' 
+        // '3', 'CE -  Coordinador Estatal'
+        // '4', 'CL -  Coordinador Local'
+        // '5', 'Verificador Horas Voluntarias'
+        switch($tipoUsuarioID){
+            case 1:
+                return Delegaciones::pluck('id')->toArray();
+                break;
+            case 2:
+                return Delegaciones::pluck('id')->toArray();
+                break;
+            case 3:
+                return Delegaciones::pluck('id')->toArray();
+                break;
+            case 4:
+                return Delegaciones::pluck('id')->toArray();
+                break;
+            case 5:
+                return Delegaciones::pluck('id')->toArray();
+                break;
+        }
     }
 }

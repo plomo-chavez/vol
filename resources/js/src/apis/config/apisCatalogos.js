@@ -30,7 +30,22 @@ export default class apisCatalogos {
   tiposAsociado(...args) {
     return this.axiosIns.post(this.apisConfig.tipoAsociadoApi, ...args)
   }
+  tiposSangre(...args) {
+    return this.axiosIns.post(this.apisConfig.tiposSangreApi, ...args)
+  }
+  nacionalidad(...args) {
+    return this.axiosIns.post(this.apisConfig.nacionalidadesApi, ...args)
+  }
+  sexo(...args) {
+    return this.axiosIns.post(this.apisConfig.sexoApi, ...args)
+  }
+  estadoCivil(...args) {
+    return this.axiosIns.post(this.apisConfig.estadoCivilApi, ...args)
+  }
   getDelegacionesWithAreas(...args) {
     return this.axiosIns.post(this.apisConfig.getDelegacionesWithAreasApi, ...args)
+  }
+  delegacionesXTipoCoordinador(...args) {
+    return this.axiosIns.post(this.apisConfig.apiDelegacionesXTipoCoordinador, ...args)
   }
 }

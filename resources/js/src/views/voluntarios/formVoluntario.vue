@@ -44,6 +44,7 @@
     import FormFactory from '@currentComponents/FormFactory.vue'
     import peticiones from '@/apis/usePeticiones'
     import customHelpers  from '@helpers/customHelpers'
+    import store from '@/store'
 
     import {
         BCard,
@@ -70,15 +71,15 @@
         mounted() {},
         data() {
             return {
+                userData: store.state.app.userData,
                 formSchemaFormVoluntario: [
                     {
                         classContainer:'col-4',
-                        type        : 'input-text',
+                        type        : 'input-asociado',
                         name        : 'numeroAsociado',
                         value       : 'numeroAsociado',
                         label       : 'Numero de asociado',
-                        rules       : 'required',
-                        disabled    : true,
+                        placeholder : 'Introduce un numero de asociado',
                     },
                     {
                         classContainer:'col-8',
@@ -120,12 +121,11 @@
                     },
                     {
                         classContainer:'col-lg-6 col-md-6 col-12',
-                        type        : 'input-phone',
-                        name        : 'telefono',
-                        value       : 'telefono',
-                        label       : 'Telefono',
+                        type        : 'input-text',
+                        name        : 'curp',
+                        value       : 'curp',
+                        label       : 'CURP',
                         rules       : 'required',
-                        placeholder: 'Introduce un telefono celular',
                     },
                 ],
             }
@@ -162,7 +162,6 @@
 
         },
         beforeMount(){
-
         },
         methods:{
             handleCancel() {
@@ -173,22 +172,21 @@
                     this.$emit('handleSubmit',info)
                 } else {
                     let payload = {...info}
-                    payload.accion = typeof this.voluntario.id == 'undefined' ? 1 : 2
-                    if (typeof this.voluntario.id != 'undefined'){
-                        payload.id = this.voluntario.id
-                    }
+                    payload.accion  = 1
+                    payload.userID  = this.userData.id ?? null
                     this.peticionAdministrar(payload)
                 }
             },
             onSubmitFormVoluntario(){
                 this.$refs.formVoluntario.validationForm()
-            },
+                },
             peticionAdministrar(payload){
+                this.loading();
                 peticiones
                     .administrarVoluntarios({
-                        'payload' : payload,
-                    })
+                        'payload' : payload,})
                     .then(response => {
+                        this.loading(false);
                         this.messageSweet({
                             message: response.data.message,
                             icon: response.data.result ? 'success' : 'error',
@@ -197,7 +195,10 @@
                             this.handleCancelForm()
                         }
                     })
-                    .catch(error   => { console.log(error); })
+                    .catch(error   => { 
+                        this.loading(false);
+                        console.log(error); 
+                    })
             },
         }
     }

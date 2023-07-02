@@ -25,7 +25,7 @@
                 >
                     <span slot="no-options">No hay opciones.</span>
                 </v-select>
-        <p v-if="errorCatalogo != null" class="col-12 text-danger ">´{{ errorCatalogo }}</p>
+        <p v-if="errorCatalogo != null" class="font-weight-bolder col-12 text-danger ">{{ errorCatalogo }}</p>
             </b-form-group>
             <!-- Errores de validación -->
             <p class="m-0 p-0" v-if="errors[0]"><small class=" m-0 p-0 font-weight-bold text-danger col-12">{{ errors[0] }}</small></p>
@@ -39,6 +39,8 @@
 import vSelect from 'vue-select'
 import catalogos from '@/apis/useCatalogo'
 import customHelpers  from '@helpers/customHelpers'
+import store from '@/store'
+
 import {
         BFormGroup,
     } from 'bootstrap-vue'
@@ -62,8 +64,8 @@ export default {
     },
     props: {
         input: {
-        type    : Object,
-        default : null
+            type    : Object,
+            default : null
         },
         formValue: {
         default : null
@@ -73,7 +75,15 @@ export default {
         },
     },
     created() {},
-    watch: {},
+    watch: {
+        input: {
+            handler(nuevoValor, antiguoValor) {
+                this.getCatalogo()
+            },
+            deep: true, // Opcional: indica si se debe realizar una observación profunda (deep watch)
+            immediate: true // Opcional: indica si se debe ejecutar el watcher inmediatamente después de su definición
+        }
+    },
     computed: {
     },
     beforeMount() {
@@ -84,7 +94,6 @@ export default {
             this.$emit('changeData',{'value':data, 'field' : this.input.value})
         },
         getCatalogo(){
-            console.log(typeof this.input.catalogo)
             if (typeof this.input.catalogo == 'string') {
                 switch (this.input.catalogo) {
                     case 'tiposUsuario':
@@ -116,6 +125,50 @@ export default {
                             .estados({})
                             .then(response => {
                                 this.opciones = this.formatoToCatalogo(response.data.data)
+                            })
+                            .catch(error   => { console.log(error); })
+                        break;
+                    case 'tiposSangre':
+                        catalogos
+                            .tiposSangre({})
+                            .then(response => {
+                                this.opciones = this.formatoToCatalogo(response.data.data)
+                            })
+                            .catch(error   => { console.log(error); })
+                        break;
+                    case 'sexo':
+                        catalogos
+                            .sexo({})
+                            .then(response => {
+                                this.opciones = this.formatoToCatalogo(response.data.data)
+                            })
+                            .catch(error   => { console.log(error); })
+                        break;
+                    case 'nacionalidad':
+                        catalogos
+                            .nacionalidad({})
+                            .then(response => {
+                                this.opciones = this.formatoToCatalogo(response.data.data)
+                            })
+                            .catch(error   => { console.log(error); })
+                        break;
+                    case 'estadoCivil':
+                        catalogos
+                            .estadoCivil({})
+                            .then(response => {
+                                this.opciones = this.formatoToCatalogo(response.data.data)
+                            })
+                            .catch(error   => { console.log(error); })
+                        break;
+                    case 'DelegacionesXTipoCoordinador':
+                        let tmp = {};
+                        if ( store.state.app.userData ?? null) {
+                            tmp.tipoUsuario_id = store.state.app.userData.tipoUsuario_id;
+                        }
+                        catalogos
+                            .delegacionesXTipoCoordinador(tmp)
+                            .then(response => {
+                                this.opciones = this.formatoToCatalogo(response.data.data,true)
                             })
                             .catch(error   => { console.log(error); })
                         break;

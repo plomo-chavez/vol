@@ -19,8 +19,9 @@
                     <feather-icon icon="ToolIcon" />
                     <span class="d-none d-sm-block">Información del voluntario</span>
                 </template>
-                <formVoluntario
+                <formDatosVoluntario
                     withCard
+                    :isRegistro="isRegistro"
                     :data = 'voluntario'
                     :btnCancel="false"
                     exportActions
@@ -33,7 +34,7 @@
                 </template>
                 <h3 class="col-12 text-center">Proximamente</h3>
             </b-tab>
-            <b-tab>
+            <b-tab v-if="!isRegistro">
                 <template #title>
                     <feather-icon icon="ToolIcon" />
                     <span class="d-none d-sm-block">Horas voluntarias</span>
@@ -42,10 +43,10 @@
                     :voluntario_id="voluntario_id"
                 />
             </b-tab>
-            <b-tab>
+            <b-tab v-if="!isRegistro">
                 <template #title>
                     <feather-icon icon="ToolIcon" />
-                    <span class="d-none d-sm-block">Formación</span>
+                    <span class="d-none d-sm-block">Expediente</span>
                 </template>
                 <h3 class="col-12 text-center">Proximamente</h3>
             </b-tab>
@@ -57,7 +58,7 @@
 
 <script>
     import { BTabs, BTab, BCard, BButton } from 'bootstrap-vue'
-    import formVoluntario  from '@/views/voluntarios/formVoluntario.vue'
+    import formDatosVoluntario  from '@/views/voluntarios/formDatosVoluntario.vue'
     import tabHoras  from '@/views/voluntarios/tabHorasVoluntarias.vue'
     import peticiones from '@/apis/usePeticiones'
     import customHelpers  from '@helpers/customHelpers'
@@ -70,7 +71,7 @@
             BTabs,
             BTab,
             BButton,
-            formVoluntario,
+            formDatosVoluntario,
             tabHoras,
         },
         mounted() {},
@@ -83,6 +84,10 @@
             voluntario_id: {
                 type    : Number,
                 default : null
+            },
+            isRegistro: {
+                type    : Boolean,
+                default : false
             },
         },
         watch: {
@@ -97,17 +102,61 @@
         beforeMount(){
             if (this.voluntario_id != null) {
                 this.loading()
-                peticiones
-                    .getVoluntarios({
-                        'payload' : {id: this.voluntario_id},
-                    })
+                if (this.isRegistro) {
+                    peticiones.getVoluntarioOut({'payload' : {id: this.voluntario_id},})
                     .then(response => {
                         this.loading(false)
-                        if (response.data.data.length == 1 ) {
-                            this.voluntario = response.data.data[0];
+                        if (response.data.data != null) {
+                            let tmp = this.copyObject(response.data.data);
+                            if (tmp.delegacion != null) {
+                                tmp.delegacion = {
+                                    'value':tmp.delegacion.id,
+                                    'label':tmp.delegacion.nombre,
+                                    'areas':tmp.delegacion.areas,
+                                };
+
+                                let tmpAreas = []
+                                tmp.delegacion.areas.map((item,index) => { tmpAreas.push(item.area) })
+                                tmp.delegacion.areas = tmpAreas;
+                            }
+                            tmp.nacionalidad    = tmp.nacionalidad != null ? { value: tmp.nacionalidad, label : tmp.nacionalidad} : null;
+                            tmp.tipoSangre      = tmp.tipoSangre != null ? { value: tmp.tipoSangre, label : tmp.tipoSangre} : null;
+                            tmp.sexo            = tmp.sexo != null ? { value: tmp.sexo, label : tmp.sexo} : null;
+                            tmp.estadoCivil     = tmp.estadoCivil != null ? { value: tmp.estadoCivil, label : tmp.estadoCivil} : null;
+                            tmp.area            = tmp.area != null ? { label: tmp.area.nombre, value : tmp.area.id} : null;
+
+                            this.voluntario = tmp;
                         }
                     })
                     .catch(error   => { console.log(error); })
+                } else {
+                    peticiones.getVoluntario({'payload' : {id: this.voluntario_id},})
+                    .then(response => {
+                        this.loading(false)
+                        if (response.data.data != null) {
+                            let tmp = this.copyObject(response.data.data);
+                            if (tmp.delegacion != null) {
+                                tmp.delegacion = {
+                                    'value':tmp.delegacion.id,
+                                    'label':tmp.delegacion.nombre,
+                                    'areas':tmp.delegacion.areas,
+                                };
+
+                                let tmpAreas = []
+                                tmp.delegacion.areas.map((item,index) => { tmpAreas.push(item.area) })
+                                tmp.delegacion.areas = tmpAreas;
+                            }
+                            tmp.nacionalidad    = tmp.nacionalidad != null ? { value: tmp.nacionalidad, label : tmp.nacionalidad} : null;
+                            tmp.tipoSangre      = tmp.tipoSangre != null ? { value: tmp.tipoSangre, label : tmp.tipoSangre} : null;
+                            tmp.sexo            = tmp.sexo != null ? { value: tmp.sexo, label : tmp.sexo} : null;
+                            tmp.estadoCivil     = tmp.estadoCivil != null ? { value: tmp.estadoCivil, label : tmp.estadoCivil} : null;
+                            tmp.area            = tmp.area != null ? { label: tmp.area.nombre, value : tmp.area.id} : null;
+
+                            this.voluntario = tmp;
+                        }
+                    })
+                    .catch(error   => { console.log(error); })
+                }                
             }
         },
         methods:{

@@ -31,6 +31,12 @@
                             </label>
                             </validation-provider>
                       </div>
+                      <div v-if="input.type === 'titulo-seccion'">
+                        <p
+                            :for="input.name"
+                            :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0 borderPrimary' "
+                        >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
+                        </div>
                   <!-- input text -->
                       <div v-if="input.type === 'input-text'">
                         <validation-provider
@@ -61,6 +67,7 @@
                                     :value="form[input.value]"
                                     @input="changeData(input.value,$event)"
                                     :disabled=" formDisabled?true:(typeof input.disabled != 'undefined'?input.disabled:false)"
+                                    :class=" typeof input.classElement != 'undefined'?input.classElement:''"
                                     :placeholder="(typeof input.placeholder != 'undefined'?input.placeholder:'Introduce un dato valido')"
                                     class="bg-white col-12"
                                 />
@@ -212,6 +219,7 @@
                                 :ref="  input.name"
                                 :name=" input.name"
                                 button-only
+                                :calendar-opts="calendarOptions"
                                 :value="form[input.value]"
                                 :min="(typeof input.minDate != 'undefined'?input.minDate:'')"
                                 :max="(typeof input.maxDate != 'undefined'?input.maxDate:'')"
@@ -550,6 +558,9 @@
     },
     data() {
         return {
+            calendarOptions: {
+                'z-index': 9999,
+            },
             errorsPersonalizados : {},
             form : {},
             openModal:false,
@@ -774,10 +785,23 @@
   <style lang="scss">
     @import '~@resources/scss/vue/libs/vue-select.scss';
     @import '~@resources/scss/vue/libs/vue-flatpicker.scss';
+    @import '~@resources/scss/base/core/colors/palette-variables.scss';
+
+    @import "../../../../scss/base/bootstrap-extended/_variables.scss";
+    .wizard-icon-circle.md.checked{
+        border-color: $primary!important;
+    }
     .form-group{
         margin-bottom:0px;
     }
     .card-body{
         padding: 0px;
+    }
+    .borderPrimary {
+        margin-top: 10px!important;
+        margin-bottom: 5px!important;
+        border-bottom: 2px solid $primary!important;
+        color: $primary!important;
+        font-size: large;
     }
   </style>

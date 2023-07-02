@@ -2,7 +2,7 @@ export default [
   {
     title: 'Voluntarios',
     icon: 'UsersIcon',
-    route: 'usuarios',
+    route: 'voluntarios',
   },
   {
     title: 'Horas voluntarias',
