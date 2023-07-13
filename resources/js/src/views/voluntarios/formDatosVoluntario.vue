@@ -137,7 +137,7 @@
                         rules       : 'required',
                     },
                     {
-                        classContainer:'col-lg-3 col-md-3 col-12',
+                        classContainer:' ww-180 ',
                         type        : 'flat-pickr',
                         value       : 'fechaNacimiento',
                         label       : 'Fecha de nacimiento',
@@ -145,7 +145,7 @@
                         rules       : 'required',
                     },
                     {
-                        classContainer:'col-lg-3 col-md-3 col-12',
+                        classContainer:' ww-150 ',
                         classElement: 'text-right',
                         type        : 'input-text',
                         name        : 'edad',

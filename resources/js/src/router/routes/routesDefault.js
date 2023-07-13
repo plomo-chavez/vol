@@ -51,7 +51,17 @@ export default [
     },
   },
   {
-    path: '/registro/:code',
+    path: '/registro/code',
+    name: 'registro-with-code',
+    component: () => import('@/views/out/RegistroCompleto.vue'),
+    meta: {
+      layout: 'full',
+      validUser: false,
+      resource: 'Auth',
+    },
+  },
+  {
+    path: '/completo/:code',
     name: 'registro-with-code',
     component: () => import('@/views/out/RegistroCompleto.vue'),
     meta: {

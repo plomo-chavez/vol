@@ -71,6 +71,7 @@ class GuardiasHorasController extends BaseController {
                 if ($voluntario != null) {
                     $area = Coordinaciones::where('nombre','Socorros')->get();
                     if(sizeof($area) == 1){
+                        $fechaFin = $item->fechaFin == null ? Carbon::now() : $item->fechaFin;
                         $area = $area[0];
                         $timestamp1 = Carbon::parse($item->fechaInicio);
                         $timestamp2 = Carbon::parse($item->fechaFin);
@@ -81,10 +82,11 @@ class GuardiasHorasController extends BaseController {
                             'actividad'         => 'Tiempo en servicio',
                             'fecha'             => Carbon::now(),
                             'horaInicio'        => $item->fechaInicio,
-                            'horaFin'           => $item->fechaFin,
+                            'horaFin'           => $fechaFin,
                             'numeroHoras'       => $diferencia->h,
                         ]);
                         $registros[$index]->isRegistrada = 1;
+                        $registros[$index]->fechaFin = $fechaFin;
                         $registros[$index]->save();
                     }
                 }

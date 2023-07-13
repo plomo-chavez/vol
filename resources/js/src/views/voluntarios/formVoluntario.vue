@@ -162,6 +162,7 @@
 
         },
         beforeMount(){
+            console.log('formVoluntario');
         },
         methods:{
             handleCancel() {
@@ -192,7 +193,7 @@
                             icon: response.data.result ? 'success' : 'error',
                         });
                         if (response.data.result ) {
-                            this.handleCancelForm()
+                            this.handleCancel()
                         }
                     })
                     .catch(error   => { 
