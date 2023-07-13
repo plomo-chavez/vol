@@ -100,13 +100,17 @@ export default {
           })
     },
     formatoFechaYMD(value,withTime = false){
-        const fecha = new Date(value);
-        const fechaFormateada = fecha.toISOString().slice(0,10).replace(/-/g,"/");
-        if (withTime) {
-            const horaFormateada = fecha.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-            return fechaFormateada + ' ' + horaFormateada;
+        if (value != null) {
+            const fecha = new Date(value);
+            const fechaFormateada = fecha.toISOString().slice(0,10).replace(/-/g,"/");
+            if (withTime) {
+                const horaFormateada = fecha.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+                return fechaFormateada + ' ' + horaFormateada;
+            } else {
+                return fechaFormateada
+            }
         } else {
-            return fechaFormateada
+            return '';
         }
     },
     formatoMoney(amount, signal = true){

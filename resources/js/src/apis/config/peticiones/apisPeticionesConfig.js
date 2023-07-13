@@ -23,6 +23,9 @@ export default {
   apiAdminTemplatesEmail  : '/api/templates-email/administrar',
   apiRegistroOut          : '/api/out/registro',
   apiValidCode            : '/api/out/valid/code',
+  apiGetUltimaGuardiaHoras: '/api/horasVoluntarias/guardias/getUltimo',
+  apiGetGuardiaHoras      : '/api/horasVoluntarias/guardias/listar',
+  apiAdminGuardiaHoras    : '/api/horasVoluntarias/guardias/administrar',
 //   Sin autentificacion
   apiValidCURP          : '/api/valid/curp',
 }

@@ -7,14 +7,22 @@ export default [
         pageTitle: 'Usuarios',
       },
     },
-  {
-    path: '/voluntarios',
-    name: 'voluntarios',
-    component: () => import('@/views/voluntarios/Voluntarios.vue'),
-    meta: {
-        pageTitle: 'Voluntarios',
+    {
+      path: '/voluntarios',
+      name: 'voluntarios',
+      component: () => import('@/views/voluntarios/Voluntarios.vue'),
+      meta: {
+          pageTitle: 'Voluntarios',
+      },
     },
-  },
+    {
+      path: '/horas',
+      name: 'horas',
+      component: () => import('@/views/horas/Horas.vue'),
+      meta: {
+          pageTitle: 'Horas voluntarias',
+      },
+    },
   {
     path: '/catalogos/delegaciones',
     name: 'catalogo-delegaciones',

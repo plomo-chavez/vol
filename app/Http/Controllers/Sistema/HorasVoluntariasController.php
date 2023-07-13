@@ -24,6 +24,8 @@ class HorasVoluntariasController extends BaseController
                 $query->where($column, $value);
             }
         }
+        $query = $query->with('area');
+        $query = $query->with('voluntario');
         $data = $query->get();
         return self::responsee(
             'Consulta realizada con exito.',

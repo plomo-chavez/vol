@@ -10788,6 +10788,11 @@ vue-observe-visibility@^0.4.4:
   resolved "https://registry.yarnpkg.com/vue-observe-visibility/-/vue-observe-visibility-0.4.6.tgz#878cb8ebcf3078e40807af29774e97105ebd519e"
   integrity sha512-xo0CEVdkjSjhJoDdLSvoZoQrw/H2BlzB5jrCBKGZNXN2zdZgMuZ9BKrxXDjNP2AxlcCoKc8OahI3F3r3JGLv2Q==
 
+vue-onoff-toggle@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/vue-onoff-toggle/-/vue-onoff-toggle-1.1.1.tgz#72bc9715eba813ed1833a8a7c9076468d677d31e"
+  integrity sha512-/uC+demEwR5p1XbfHByxhMQGu1axCuGTn3kGZVaxS8wMJFwgdkBKM4Uamto6yGiOUm5QAuK/IwszRaKSF+h7VQ==
+
 vue-perfect-scrollbar@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/vue-perfect-scrollbar/-/vue-perfect-scrollbar-0.2.1.tgz#2fecab975512f7c8c37e1610dee48faf46d649f3"

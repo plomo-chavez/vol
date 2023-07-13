@@ -7,7 +7,7 @@ export default [
   {
     title: 'Horas voluntarias',
     icon: 'ClockIcon',
-    route: 'usuarios',
+    route: 'horas',
   },
   {
     title: 'Delelgaciones',

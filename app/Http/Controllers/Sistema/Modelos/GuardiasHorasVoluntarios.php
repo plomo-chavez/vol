@@ -4,24 +4,18 @@ namespace App\Http\Controllers\Sistema\Modelos;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HorasVoluntarias extends Model
-{
+class GuardiasHorasVoluntarios extends Model {
     use HasFactory;
-    protected $table        = "horasVoluntarias";
+    protected $table        = "guardiasHorasVoluntarios";
     protected $primaryKey   = "id";
-
     protected $fillable = [
-        'coordinacion_id',
+        'guardia_id',
         'voluntario_id',
-        'actividad',
-        'fecha',
-        'horaInicio',
-        'horaFin',
-        'numeroHoras',
+        'fechaInicio',
     ];
-    public function area() {
-        return $this->hasOne(Coordinaciones::class,'id','coordinacion_id')->select('id','nombre');
-    }
+    // public function delegacion() {
+    //     return $this->hasOne(Delegaciones::class,'id','delegacion_id');
+    // }
     public function voluntario() {
         return $this->hasOne(Voluntarios::class,'id','voluntario_id');
     }

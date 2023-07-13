@@ -20,6 +20,28 @@ class BaseController extends Controller{
         );
     }
 
+    public static function findVoluntarioIDPorCodigoEscaneado($codigo = null){
+        $tmp = null;
+        if ($codigo != null) {
+            $busqueda = "http://sccrm.mx";
+            if (strpos($codigo, $busqueda) !== false) {
+                $ultimoIgual = strrpos($codigo, "=");
+                if ($ultimoIgual !== false) {
+                    $textoExtraido = substr($codigo, $ultimoIgual + 1);
+                    $data = Voluntarios::where('codigoCredencial', $textoExtraido)
+                    ->select('id')
+                    ->get();
+                    $tmp = sizeof($data) == 1 ? $data[0]->id : null;
+                }
+            } else {
+                $data = Voluntarios::where('numeroAsociado', $textoExtcodigoaido)
+                ->select('id')
+                ->get();
+                $tmp = sizeof($data) == 1 ? $data[0]->id : null;
+            }
+        }
+        return $tmp;
+    }
     public static function getNombreDelegacion($delegacion = null){
         if ($delegacion != null) {
             $delegacion['nombre'] = 
@@ -71,6 +93,15 @@ class BaseController extends Controller{
     public function insertar($payload, $modelo) {
         $modelo::create($payload);
         return self::responsee('Registro guardado corrrectamente.');
+    }
+    public function getVoluntariosXDelegacion($delegacionID = null) {
+        $data = [];
+        if ($delegacionID != null) {
+            $data = Voluntarios::where('delegacion_id', $delegacionID)
+            ->select('id','delegacion_id','nombre','primerApellido','segundoApellido','numeroAsociado','numeroInterno')
+            ->get();
+        }
+        return $data;
     }
     public function insertMulti($payload, $modelo) {
         foreach ($payload['data'] as $key => $value) {

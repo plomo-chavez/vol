@@ -79,7 +79,7 @@
             <p class="fw-bolder">{{ formatoFechaYMD(data.item[field.key]) }}</p>
         </div>
         <div v-else-if="field.type === 'fechaTime'">
-            <p class="fw-bolder">{{ formatoFechaYMD(data.item[field.key],true) }}</p>
+            <small><p class="fw-bolder">{{ formatoFechaYMD(data.item[field.key],true) }}</p></small>
         </div>
         <div v-else-if="field.type === 'object'">
             <div v-for="(item,key) in data.item[field.key] ">
