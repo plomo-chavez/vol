@@ -36,7 +36,7 @@ class MailController extends BaseController
                         'title' => $plantilla->title ?? 'Titulo del correo',
                         'html' => $plantillaHTML,
                     ),
-                    "correos"   => ['jesus.r.chavez.q.94@gmail.com']
+                    "correos"   => [$payload['correoEnvio']]
                 );
                 return self::sendEmail($data);
             } else {

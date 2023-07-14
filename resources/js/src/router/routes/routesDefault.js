@@ -51,26 +51,6 @@ export default [
     },
   },
   {
-    path: '/registro/code',
-    name: 'registro-with-code',
-    component: () => import('@/views/out/RegistroCompleto.vue'),
-    meta: {
-      layout: 'full',
-      validUser: false,
-      resource: 'Auth',
-    },
-  },
-  {
-    path: '/completo/:code',
-    name: 'registro-with-code',
-    component: () => import('@/views/out/RegistroCompleto.vue'),
-    meta: {
-      layout: 'full',
-      validUser: false,
-      resource: 'Auth',
-    },
-  },
-  {
     path: '/forgot-password',
     name: 'auth-forgot-password',
     component: () => import('@/views/pages/authentication/ForgotPassword.vue'),
