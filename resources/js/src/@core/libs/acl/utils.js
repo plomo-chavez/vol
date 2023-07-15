@@ -1,4 +1,6 @@
 import { getCurrentInstance } from '@vue/composition-api'
+
+import { validarRutaPorTipoUsuarioEnMeta } from '@/auth/utils'
 import store from '@/store'
 export const can = (action, subject) => {
   const vm = getCurrentInstance().proxy
@@ -21,32 +23,9 @@ export const otra = (item, rutas) => {
   return response
 } 
 export const validarRuta = (item, rutas) => {
-  // console.log('title: ',item.title)
   let role = store.state.app.userData.role;
   let ruta = rutas.find(r => item.route === r.name);
-  let response = null;
-  if(role == 'administrador'){
-    response = true;;
-  } else {
-    if(typeof ruta != 'undefined'){
-      if(typeof ruta.meta != 'undefined'){
-        if(typeof ruta.meta.permitidos != 'undefined'){
-          if(typeof ruta.meta.permitidos == 'string'){
-            response = ruta.meta.permitidos.toLowerCase() == role.toLowerCase()
-          } else {
-            response = ruta.meta.permitidos.some(tipo => tipo.toLowerCase() === role.toLowerCase());
-          }
-        } else {
-          response = false;
-        }
-      } else {
-        response = false;
-      }
-    } else {
-      response = false;
-    }
-  }
-  // console.log('Final:     ',response);
+  let response = validarRutaPorTipoUsuarioEnMeta(ruta,role);
   return response
 } 
 

@@ -1,7 +1,7 @@
 import Vue              from 'vue'
 import VueRouter        from 'vue-router'
 // Routes
-import { isUserLoggedIn, goToLogout, loading } from '@/auth/utils'
+import { isUserLoggedIn, goToLogout, loading, validarRutaPorTipoUsuarioEnMeta } from '@/auth/utils'
 import routesDefault    from './routes/routesDefault'
 import useJwt           from '@/auth/jwt/useJwt'
 import store            from '@/store'
@@ -25,16 +25,19 @@ router.beforeEach(async (to, _, next) => {
       if (isLoggedIn === null) {
         next({ name: 'auth-login' });
       } else {
-        try {
-          loading()
-          const response = await useJwt.validateUser({ tk: store.state.app.userData.token });
-          
-          loading(false)
-          console.log('!response.data.data', !response.data.data);
-          if (!response.data.data) {
-            // goToLogout();
-          }
-        } catch (error) { console.log(error); }
+        if (!validarRutaPorTipoUsuarioEnMeta(to,store.state.app.userData.role)) {
+          next({ name: 'home' }); 
+        } else {  
+          try {
+            loading()
+            const response = await useJwt.validateUser({ tk: store.state.app.userData.token });
+            
+            loading(false)
+            if (!response.data.data) {
+              goToLogout();
+            }
+          } catch (error) { console.log(error); }
+        }
       }
     }
     if (to.meta.redirectIfLoggedIn && isLoggedIn) { 

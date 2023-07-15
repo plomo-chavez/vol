@@ -26,6 +26,31 @@ export let goToLogout = () =>{
 }
 
 export const getUserData = () => JSON.parse(localStorage.getItem('userData'))
+export const validarRutaPorTipoUsuarioEnMeta = (ruta,role) => {
+  let response = null
+  if(role == 'administrador'){
+    response = true;;
+  } else {
+    if(typeof ruta != 'undefined'){
+      if(typeof ruta.meta != 'undefined'){
+        if(typeof ruta.meta.permitidos != 'undefined'){
+          if(typeof ruta.meta.permitidos == 'string'){
+            response = ruta.meta.permitidos == 'all' ? true : ruta.meta.permitidos.toLowerCase() == role.toLowerCase() 
+          } else {
+            response = ruta.meta.permitidos.some(tipo => tipo.toLowerCase() === role.toLowerCase());
+          }
+        } else {
+          response = false;
+        }
+      } else {
+        response = false;
+      }
+    } else {
+      response = false;
+    }
+  }
+  return response;
+}
 
 /**
  * This function is used for demo purpose route navigation

@@ -34,7 +34,7 @@ class BaseController extends Controller{
                     $tmp = sizeof($data) == 1 ? $data[0]->id : null;
                 }
             } else {
-                $data = Voluntarios::where('numeroAsociado', $textoExtcodigoaido)
+                $data = Voluntarios::where('numeroAsociado', $codigo)
                 ->select('id')
                 ->get();
                 $tmp = sizeof($data) == 1 ? $data[0]->id : null;

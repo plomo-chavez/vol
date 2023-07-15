@@ -5,6 +5,7 @@ export default [
       component: () => import('@/views/Home.vue'),
       meta: {
         validUser: true,
+        permitidos : 'all',
       },
     },
     {
