@@ -100,7 +100,60 @@ class VoluntariosController extends BaseController {
             $data,
         );
     }
+
+
+    public function generatePDFVoluntarios(Request $request){
+        $payload = $request->all();
+        $pdfContent = self::generateFichaRegistro($payload);
+        if (isset($pdfContent['status']) && !$pdfContent['status']) {
+            return self::responsee(
+                $pdfContent['message'],
+                $pdfContent['status'],
+               [] ,
+            );
+        } else {
+            $response = response($pdfContent, 200, [ 'Content-Type' => 'application/pdf', ]);
+            return $response;
+        }
+    }
     
+    public static function generateFichaRegistro($payload) {
+        \Carbon\Carbon::setLocale('es');
+try {
+    if (!($payload['voluntario_id'] ?? false)) {
+        return array(
+            'file'      => null,
+            'nombre'    => null,
+            'status'    => false,
+            'message'   => 'Falta voluntario_id',
+        );
+    } else {
+        $data = Modelo::find($payload['voluntario_id'])->toArray();
+        if ($data != null) {
+            $view = view('pdf.voluntario-fichaRegistro', $data)->render();
+            $pdf = PDF::loadHtml($view);
+            return $pdf->output();
+        } else {
+            return array(
+                'file'      => null,
+                'nombre'    => null,
+                'status'    => false,
+                'message'   => 'Problemas con la resevación',
+            );
+        }
+    }
+} catch (Exception $e) {
+    // Manejar la excepción aquí
+    return array(
+        'file'      => null,
+        'nombre'    => null,
+        'status'    => false,
+        'message'   => 'Ha ocurrido una excepción: ' . $e->getMessage(),
+    );
+}
+
+    }
+
     public function insertVoluntarioWithCorreo($data){
         // dd('insertVoluntarioWithCorreo');
         $data['codeEmail'] = self::generateCode();

@@ -51,6 +51,7 @@
         BButton
     } from 'bootstrap-vue'
 
+    import generatePDF from '@/apis/useGeneratePDF'
     import store from '@/store'
     export default {
         name: "FormVoluntario",
@@ -405,16 +406,12 @@
             },
             handleExportFichaRegistro(){
                 let payload = {
-                    payload : {
-                        voluntario_id : this.data.id,
-                        accion : 5
-                    }
+                    voluntario_id : this.data.id,
+                    type:'fichaRegistro',
                 };
-                this.peticion(payload)
-            },
-            peticion(payload){
+
                 this.loading();
-                peticiones.administrarVoluntarios(payload)
+                generatePDF.generatePDFVoluntarios(payload)
                 .then(response => {
                     this.loading(false)
                     console.log(payload)

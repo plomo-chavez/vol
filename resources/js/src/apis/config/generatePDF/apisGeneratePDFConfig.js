@@ -1,4 +1,4 @@
 export default {
   // Endpoints
-  apiGeneratePruebas           : '/api/generate/pruebas',
+  apiGeneratePDFVoluntarios           : '/api/generate/voluntarios',
 }

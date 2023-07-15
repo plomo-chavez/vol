@@ -9,7 +9,7 @@ export default class apiPeticiones {
     this.axiosIns = axiosIns
     this.apisConfig = { ...this.apisConfig, ...jwtOverrideConfig }
   }
-  pruebas(...args) {
-    return this.axiosIns.post(this.apisConfig.apiGeneratePruebas, ...args, { responseType: 'blob' })
+  generatePDFVoluntarios(...args) {
+    return this.axiosIns.post(this.apisConfig.apiGeneratePDFVoluntarios, ...args, { responseType: 'blob' })
   }
 }
