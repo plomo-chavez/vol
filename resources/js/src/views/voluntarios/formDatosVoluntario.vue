@@ -20,7 +20,7 @@
                     v-if="!isRegistro"
                         size="sm"
                         variant="relief-primary"
-                        @click="onSubmitFormVoluntario"
+                        @click="handleExportFichaRegistro"
                     >Generar ficha de registro</b-button>
                 </div>
                 <div>
@@ -403,6 +403,34 @@
                     })
                 }
             },
+            handleExportFichaRegistro(){
+                let payload = {
+                    payload : {
+                        voluntario_id : this.data.id,
+                        accion : 5
+                    }
+                };
+                this.peticion(payload)
+            },
+            peticion(payload){
+                this.loading();
+                peticiones.administrarVoluntarios(payload)
+                .then(response => {
+                    this.loading(false)
+                    console.log(payload)
+                    switch (payload.payload.accion) {
+                        case 1:
+                            this.init();
+                            break;
+                        default:
+                            break;
+                    }
+                })
+                .catch(error   => {
+                    this.loading(false)
+                    console.log(error);
+                })
+            }
         }
     }
 </script>

@@ -192,44 +192,29 @@ export default {
             .then(response => {
                 this.loading(false)
                 console.log(payload)
-                if (payload.payload.accion == 1){
-                    let data = response.data.data;
-                    // console.log('data',data)
-                    // this.guardia = data.guardia;
-                    // this.voluntarios = data.guardia.voluntarios;
-                    this.init();
-                }
-                if (payload.payload.accion == 5){
-                    this.messageConfirm({
-                        message:response.data.message,
-                        title:'Información del sistema',
-                        icon:response.data.result ? 'success' : 'error',
-                        showCancelButton: false,
-                        confirmButtonText: 'Okay',
-                        cancelButtonText: 'No, cancelar',
-                        cancelFunction : null,
-                        messageCancel : false,
-                        confirmFunction: () => {
-                            this.init();
-                        }
-                    })
-                    this.init()
-                }
-                if (payload.payload.accion > 5){
-                    this.messageConfirm({
-                        message:response.data.message,
-                        title:'Información del sistema',
-                        icon:response.data.result ? 'success' : 'error',
-                        showCancelButton: false,
-                        confirmButtonText: 'Okay',
-                        cancelButtonText: 'No, cancelar',
-                        cancelFunction : null,
-                        messageCancel : false,
-                        confirmFunction: () => {
-                            this.init();
-                        }
-                    })
-                    this.init()
+                switch (payload.payload.accion) {
+                    case 1:
+                        this.init();
+                        break;
+                    case 5:
+                    case 6:
+                    case 7:
+                        this.messageConfirm({
+                            message: response.data.message,
+                            title: 'Información del sistema',
+                            icon: response.data.result ? 'success' : 'error',
+                            showCancelButton: false,
+                            confirmButtonText: 'Okay',
+                            cancelButtonText: 'No, cancelar',
+                            cancelFunction: null,
+                            messageCancel: false,
+                            confirmFunction: () => {
+                                this.init();
+                            }
+                        });
+                        break;
+                    default:
+                        break;
                 }
             })
             .catch(error   => {

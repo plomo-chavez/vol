@@ -14,6 +14,41 @@ class VoluntariosController extends BaseController {
         $payload = $request->all();
         return self::administrar($payload['payload'], new Modelo());
     }
+
+    public function handleListar(Request $request){
+        return self::responsee(
+            'Consulta realizada con exito.',
+            true,
+            self::filtrar($request->all(), new Modelo()),
+        );
+    }
+
+    public function administrar(array $payload = [], Model $modelo = null) {
+        if (isset($payload['accion'])) {
+            switch($payload['accion']){
+                case 1:
+                    return self::ifExisteVoluntario($payload);
+                    break;
+                case 2:
+                    return self::actualizar($payload, $modelo);
+                    break;
+                case 3:
+                    return self::eliminar($payload, $modelo);
+                    break;
+                case 4:
+                    return self::insertMulti($payload, $modelo);
+                    break;
+                case 5:
+                    return self::exportarFichaRegistro($payload, $modelo);
+                    break;
+                default:
+                    return self::responsee('Acción no válida', false);
+            }
+        } else {
+            return self::responsee('No existe una acción.', false);
+        }
+    }
+    
     public function getVoluntario(Request $request){
         $payload = $request->all();
         $payload = $payload['payload'];
@@ -53,35 +88,17 @@ class VoluntariosController extends BaseController {
         return self::ifExisteVoluntario($payload);
     }
 
-    public function handleListar(Request $request){
+    public function validCurp(Request $request){
+        $data = false;
+        if(array_key_exists('curp',$request->all()['payload']) ){
+            $data = self::filtrar($request->all(), new Modelo());
+            $data = sizeof($data) == 0;
+        }
         return self::responsee(
             'Consulta realizada con exito.',
             true,
-            self::filtrar($request->all(), new Modelo()),
+            $data,
         );
-    }
-
-    public function administrar(array $payload = [], Model $modelo = null) {
-        if (isset($payload['accion'])) {
-            switch($payload['accion']){
-                case 1:
-                    return self::ifExisteVoluntario($payload);
-                    break;
-                case 2:
-                    return self::actualizar($payload, $modelo);
-                    break;
-                case 3:
-                    return self::eliminar($payload, $modelo);
-                    break;
-                case 4:
-                    return self::insertMulti($payload, $modelo);
-                    break;
-                default:
-                    return self::responsee('Acción no válida', false);
-            }
-        } else {
-            return self::responsee('No existe una acción.', false);
-        }
     }
     
     public function insertVoluntarioWithCorreo($data){
@@ -143,16 +160,7 @@ class VoluntariosController extends BaseController {
         }
     }
 
-    public function validCurp(Request $request){
-        $data = false;
-        if(array_key_exists('curp',$request->all()['payload']) ){
-            $data = self::filtrar($request->all(), new Modelo());
-            $data = sizeof($data) == 0;
-        }
-        return self::responsee(
-            'Consulta realizada con exito.',
-            true,
-            $data,
-        );
+    public function exportarFichaRegistro($payload, $modelo){
+        
     }
 }
