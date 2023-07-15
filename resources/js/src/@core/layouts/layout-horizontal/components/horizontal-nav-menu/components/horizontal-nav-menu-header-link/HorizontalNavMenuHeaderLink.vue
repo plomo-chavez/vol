@@ -1,6 +1,6 @@
 <template>
   <li
-    v-if="canViewHorizontalNavMenuHeaderLink(item)"
+    v-if="canViewHorizontalNavMenuHeaderLink(item,router)"
     class="nav-item"
     :class="{'sidebar-group-active active': isActive}"
   >
@@ -34,6 +34,14 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      router : null,
+    }
+  },
+  beforeMount() {
+    this.router = this.$router.options.routes;
   },
   setup(props) {
     const { isActive, updateIsActive } = useHorizontalNavMenuHeaderLink(props.item)

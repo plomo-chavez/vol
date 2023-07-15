@@ -1,6 +1,6 @@
 <template>
   <li
-    v-if="canViewHorizontalNavMenuLink(item)"
+    v-if="canViewHorizontalNavMenuLink(item,router)"
     :class="{
       'active': isActive,
       'disabled': item.disabled
@@ -36,6 +36,14 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      router : null,
+    }
+  },
+  beforeMount() {
+    this.router = this.$router.options.routes;
   },
   setup(props) {
     const { isActive, linkProps, updateIsActive } = useHorizontalNavMenuLink(props.item)

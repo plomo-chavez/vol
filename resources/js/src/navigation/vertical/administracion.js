@@ -23,7 +23,6 @@ export default [
     title: 'Configuración',
     icon: 'SettingsIcon',
     children: [
-
       {
         title: 'Configuración general',
         route: 'voluntarios',

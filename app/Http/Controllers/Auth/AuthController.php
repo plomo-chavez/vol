@@ -108,11 +108,12 @@ class AuthController extends Controller{
                 // $tokenBD->expires_at =  now()->addSecond(5);  // Se agregan 3 horas en minutos.
                 $tokenBD->tokenFront =  $tokenCreated;
                 $tokenBD->save();
-                $user['role'] = 'admin';
+                $user['role'] = strtolower($user['tipoUsuario']);
+                $user['role'] = 'verificador';
                 $user['ability'] = [
                     array(
                     "action"  => "manage",
-                    "subject" => "all"
+                    "subject" => "verificador"
                     )
                 ];
                 $data = array(

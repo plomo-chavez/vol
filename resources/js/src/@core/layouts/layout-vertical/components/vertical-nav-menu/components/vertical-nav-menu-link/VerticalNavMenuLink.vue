@@ -1,6 +1,6 @@
 <template>
   <li
-    v-if="canViewVerticalNavMenuLink(item)"
+    v-if="canViewVerticalNavMenuLink(item,router)"
     class="nav-item"
     :class="{
       'active': isActive,
@@ -43,6 +43,14 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      router : null,
+    }
+  },
+  beforeMount() {
+    this.router = this.$router.options.routes;
   },
   setup(props) {
     const { isActive, linkProps, updateIsActive } = useVerticalNavMenuLink(props.item)

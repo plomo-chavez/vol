@@ -1,6 +1,6 @@
 <template>
   <li
-    v-if="canViewVerticalNavMenuGroup(item)"
+    v-if="canViewVerticalNavMenuGroup(item,router)"
     class="dropdown dropdown-submenu"
     :class="{
       'show': isOpen,
@@ -58,6 +58,14 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      router : null,
+    }
+  },
+  beforeMount() {
+    this.router = this.$router.options.routes;
   },
   setup(props) {
     const {

@@ -1,6 +1,6 @@
 <template>
   <li
-    v-if="canViewHorizontalNavMenuHeaderGroup(item)"
+    v-if="canViewHorizontalNavMenuHeaderGroup(item,router)"
     class="dropdown nav-item"
     :class="{
       'sidebar-group-active active open': isActive,
@@ -50,6 +50,14 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      router : null,
+    }
+  },
+  beforeMount() {
+    this.router = this.$router.options.routes;
   },
   setup(props) {
     const {
