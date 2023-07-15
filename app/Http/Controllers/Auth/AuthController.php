@@ -109,7 +109,7 @@ class AuthController extends Controller{
                 $tokenBD->tokenFront =  $tokenCreated;
                 $tokenBD->save();
                 $user['role'] = strtolower($user['tipoUsuario']);
-                $user['role'] = 'verificador';
+                // $user['role'] = 'verificador';
                 $user['ability'] = [
                     array(
                     "action"  => "manage",

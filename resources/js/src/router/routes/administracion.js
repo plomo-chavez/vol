@@ -13,8 +13,14 @@ export default [
       component: () => import('@/views/voluntarios/Voluntarios.vue'),
       meta: {
           pageTitle: 'Voluntarios',
-          permitidos: 'Verificador',
-          action: 'read',
+      },
+    },
+    {
+      path: '/voluntarios',
+      name: 'confguracionGeneral',
+      component: () => import('@/views/voluntarios/Voluntarios.vue'),
+      meta: {
+          pageTitle: 'Voluntarios',
       },
     },
     {
@@ -22,8 +28,8 @@ export default [
       name: 'horas',
       component: () => import('@/views/horas/Horas.vue'),
       meta: {
-          permitidos: ['Verificador'],
           pageTitle: 'Horas voluntarias',
+          permitidos: 'verificador horas voluntarias',
       },
     },
   {
@@ -32,7 +38,6 @@ export default [
     component: () => import('@/views/configuracion/catalogos/Delegaciones.vue'),
     meta: {
         pageTitle: 'Delegaciones',
-        permitidos: 'Verificador',
     },
   },
   {

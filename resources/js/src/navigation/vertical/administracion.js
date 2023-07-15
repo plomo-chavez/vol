@@ -25,7 +25,7 @@ export default [
     children: [
       {
         title: 'Configuración general',
-        route: 'voluntarios',
+        route: 'confguracionGeneral',
       },
       {
         title: 'Notificaciones',
@@ -79,7 +79,7 @@ export default [
       },
       {
         title: 'Log',
-        route: 'voluntarios',
+        route: 'log',
       },
       //   {
       //     title: 'Voluntarios',
