@@ -414,14 +414,7 @@
                 generatePDF.generatePDFVoluntarios(payload)
                 .then(response => {
                     this.loading(false)
-                    console.log(payload)
-                    switch (payload.payload.accion) {
-                        case 1:
-                            this.init();
-                            break;
-                        default:
-                            break;
-                    }
+                    this.descargarPDF(response,this.data.id,'fichaRegistro')
                 })
                 .catch(error   => {
                     this.loading(false)

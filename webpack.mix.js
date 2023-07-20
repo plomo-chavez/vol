@@ -46,9 +46,8 @@ mix
           loaders: {
             loader: 'file-loader',
             options: {
-              name: 'images/[path][name].[ext]',
+              name: 'images/[folder]/[name].[ext]',
               context: '../vuexy-vuejs-bootstrap-vue-template/src/assets/images',
-              //   context: 'frontend/src/assets/images'
             },
           },
         },

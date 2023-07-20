@@ -9,7 +9,8 @@ use App\Http\Controllers\Sistema\Modelos\Coordinadores;
 use App\Http\Controllers\Sistema\Modelos\Voluntarios;
 use App\Http\Controllers\Sistema\Modelos\ContadorNumeroInterno;
 use App\Http\Controllers\Auth\Models\User;
-
+use Dompdf\Dompdf;
+use PDF;
 
 class BaseController extends Controller{
     public static function response($message = 'Tenemos un error'){
@@ -173,6 +174,12 @@ class BaseController extends Controller{
         return $data;
     }
 
+    public static function getMainURL() {
+        $isSecure = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
+        $protocol = $isSecure ? 'https://' : 'http://';
+        return $protocol . $_SERVER['HTTP_HOST'];
+        
+    }
     public function getDelegacionIDXUsuario($userID) {
         $userID = 17;
         $response = null;

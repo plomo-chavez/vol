@@ -1,13 +1,17 @@
 <?php
 namespace App\Http\Controllers\Sistema;
 use App\Http\Controllers\BaseController;
+use App\Http\Controllers\QRController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\Email\MailController;
 
 use App\Http\Controllers\Sistema\Modelos\Voluntarios as Modelo;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
+use Dompdf\Dompdf;
+use PDF;
 
 class VoluntariosController extends BaseController {
     public function handleAdministrar(Request $request){
@@ -119,38 +123,26 @@ class VoluntariosController extends BaseController {
     
     public static function generateFichaRegistro($payload) {
         \Carbon\Carbon::setLocale('es');
-try {
-    if (!($payload['voluntario_id'] ?? false)) {
-        return array(
-            'file'      => null,
-            'nombre'    => null,
-            'status'    => false,
-            'message'   => 'Falta voluntario_id',
-        );
-    } else {
-        $data = Modelo::find($payload['voluntario_id'])->toArray();
-        if ($data != null) {
-            $view = view('pdf.voluntario-fichaRegistro', $data)->render();
-            $pdf = PDF::loadHtml($view);
-            return $pdf->output();
-        } else {
-            return array(
-                'file'      => null,
-                'nombre'    => null,
-                'status'    => false,
-                'message'   => 'Problemas con la resevación',
-            );
+        try {
+            if (!($payload['voluntario_id'] ?? false)) {
+                return self::response($message = 'Falta voluntario_id');
+            } else {
+                $data = Modelo::find($payload['voluntario_id'])->toArray();
+                if ($data != null) {
+                    $data['qrCode'] = QRController::generateAndSaveQR($data['numeroAsociado'],'fichasRegistro',$data['numeroAsociado']);
+                    return array(
+                        'result'    => true,
+                        'message'   => 'PDF generado con exito',
+                        'data'      => PDFController::generatePDF($data,'pdf.voluntario-fichaRegistro','voluntario-fichaRegistro.pdf'),
+                    );
+                } else {
+                    return self::response($message = 'Problemas con la resevación');
+                }
+            }
+        } catch (Exception $e) {
+            // Manejar la excepción aquí
+            return self::response($message = 'Ha ocurrido una excepción: ' . $e->getMessage());
         }
-    }
-} catch (Exception $e) {
-    // Manejar la excepción aquí
-    return array(
-        'file'      => null,
-        'nombre'    => null,
-        'status'    => false,
-        'message'   => 'Ha ocurrido una excepción: ' . $e->getMessage(),
-    );
-}
 
     }
 

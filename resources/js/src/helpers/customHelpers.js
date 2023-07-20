@@ -132,6 +132,31 @@ export default {
         })
         return tmp
     },
+    descargarPDF(response,id = '',name = ''){
+      let tmpName = String(id).padStart(6, '0');
+      tmpName = name + '-' + tmpName + '.pdf'
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', tmpName); // Nombre del archivo descargado
+      document.body.appendChild(link);
+      link.click();
+      this.loading(false);
+    },
+    errorPDF(response){
+      this.loading(false)
+      const reader = new FileReader();
+      reader.onload = (event) => {
+          const result = event.target.result;
+          const obj = JSON.parse(result);
+          this.messageSweet({
+              message: obj.message,
+              icon: 'warning',
+          });
+      };
+
+      reader.readAsText(response.data);
+    }
   }
 }
 

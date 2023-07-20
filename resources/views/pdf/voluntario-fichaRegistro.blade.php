@@ -1,194 +1,281 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Reservación # {{ $folio }}</title>
-
-<style type="text/css">
-    * {
-        font-family: Verdana, Arial, sans-serif;
-    }
-    table{
-        font-size: x-small;
-    }
-    tfoot tr td{
-        font-weight: bold;
-        font-size: x-small;
-    }
-    tr td{
-      height: 15px!important;
-    }
-    td{
-      width: 33.3333%!important;
-    }
-    tdFull{
-      width: 100%!important;
-    }
-    .gray {
-        background-color: lightgray
-    }
-    .trHead {
-        background-color: #c2c2c2!important;
-        text-align:center!important;
-    }
-    .imgResponsivo {
-      max-width: 100%;
-      height: auto;
-    }
-    .textJustify {
-        text-align:justify!important;
-    }
-    .textCenter {
-        text-align:center!important;
-    }
-</style>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./styleCR.css" />
+  <title>Ficha de registro #</title>
 </head>
+
 <body>
-  <table width="100%">
+
+  <table class="tableTitulo">
     <tbody>
       <tr>
         <td>
           <p>
-            <img 
-              class="imgResponsivo" 
-              style="width: 100px!important;"
-              src="./images/_/_/_/_/donjuan/resources/js/src/assets/images/logo/logoCompleto.png" 
-              alt="" 
-            />
           </p>
         </td>
-        <td width="60%">
-          <h4 class="text-center" width="100%" style=" margin-bottom:0px!important; text-align: right;">TARJETA DE REGISTRO / REGISTRATION CARD</h4>
-          <h4 class="text-center" width="100%" style=" margin:0px!important; text-align: right;">Folio: {{$folio}}</h4>
-          <h4 class="text-center" width="100%" style=" margin:0px!important; text-align: right;">Fecha: {{$fechaRegistro}}</h4>
+        <td style="width:90%">
+          <h4 class="tituloFormato" width="100%" style="">Gestión del Voluntariado</h4>
+          <h3 class="tituloFormato text-primary">PRIMER CONTACTO Y REGISTRO DE ASPIRANTE</h3>
         </td>
       </tr>
     </tbody>
   </table>
-  <table border="1" style="border-collapse: collapse; width: 100%;">
+  <table class="table">
     <tbody>
-      <tr class="trHead">
-        <td style="" colspan="3"><strong>NOMBRE COMPLETO / FULL NAME</strong></td>
+      <tr class="titulo">
+        <td style="" colspan="3">
+          <h2>DATOS GENERALES</h2>
+        </td>
+      </tr>
+      <tr class="subtitulo">
+        <td>Nombre (s):</td>
+        <td>Apellido paterno:</td>
+        <td>Apellido materno:</td>
       </tr>
       <tr class="">
-        <td  class="textCenter" colspan="3">{{ $reserva['nombre'] }} {{ $reserva['primerApellido'] }} {{ $reserva['segundoApellido'] }}</td>
-      </tr>
-      <tr class="trHead">
-        <td style=" "><strong>LLEGADA / ARRIVAL</strong></td>
-        <td style=" "><strong>SALIDA / DEPARTURE</strong></td>
-        <td style=" "><strong> NOCHES/NIGHTS </strong></td>
-      </tr>
-      <tr class="">
-        <td  class="textCenter">{{ $fechaInicio }}</td>
-        <td  class="textCenter">{{ $fechaFin }}</td>
-        <td  class="textCenter">{{ $noches }}</td>
-      </tr>
-      <tr class="trHead">
-        <td  class="textCenter"><strong>TEL / PHONE NUMBER</strong></td>
-        <td  class="textCenter"><strong>CORREO ELECTRONICO / EMAIL</strong></td>
-        <td  class="textCenter"><strong>MOTIVO DE VIAJE / PURPOSE OF TRIP</strong></td>
-      </tr>
-      <tr class="">
-        <td  class="textCenter">{{ $reserva['telefono'] }}</td>
-        <td  class="textCenter">{{ $reserva['correo'] }}</td>
-        <td  class="textCenter">Falta</td>
-      </tr>
-      <tr class="trHead">
-        <td style="" colspan="3"><strong>DIRECCI&Oacute;N / ADDRESS</strong></td>
-      </tr>
-      <tr class="">
-        <td style="" colspan="3">Falta</td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
-  <table border="1" style="border-collapse: collapse; width: 100%;">
+  <table class="table">
     <tbody>
-      <tr class="trHead">
-        <td style=""><strong>CIUDAD / CITY</strong></td>
-        <td style=""><strong>PAIS / COUNTRY</strong></td>
-        <td style=""><strong>NACIONALIDAD / NACIONALITY</strong></td>
+      <tr class="subtitulo">
+        <td >Fecha de nacimiento:</td>
+        <td >Edad:</td>
+        <td >Lugar de nacimiento:</td>
+        <td >Nacionalidad:</td>
       </tr>
-      <tr class="">
-        <td style=""></td>
-        <td style=""></td>
-        <td style=""></td>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
-  <table border="1" style="border-collapse: collapse; width: 100%;">
+  <table class="table">
     <tbody>
-      <tr class="trHead">
-        <td style=""><strong> ACOMPA&Ntilde;ANTES / ROOMATES </strong></td>
+      <tr class="subtitulo">
+        <td>Sexo:</td>
+        <td>Estado civil:</td>
+        <td>Grupo sanguineo:</td>
       </tr>
-      @if ($acompaniantes)
-        @foreach ($acompaniantes as $item)
-          <tr class="">
-            <td>Con acompañantes</td>
-          </tr>
-        @endforeach
-      @else
-        <tr class="">
-          <td class="textCenter" >Sin acompañantes</td>
-        </tr>
-      @endif
-    </tbody>
-  </table>
-  <table border="1" style="border-collapse: collapse; width: 100%;">
-    <tbody>
-      <tr class="trHead">
-        <td style="" colspan="3"><strong> HABITACIONES / ROOMS </strong></td>
-      </tr>
-      <tr class="trHead">
-        <td style="width:50%!important;"><strong>HABITACI&Oacute;N</strong></td>
-        <td style="width:25%!important;"><strong>TARIFA</strong></td>
-        <td style="width:25%!important;"><strong>TOTAL</strong></td>
-      </tr>
-      @if ($habitaciones)
-        @foreach ($habitaciones as $item)
-          <tr class="">
-            <td style="">{{$item['nombre']}}</td>
-            <td class="textCenter">$ {{$item['tarifa']}}</td>
-            <td class="textCenter">$ {{$item['total']}}</td>
-          </tr>
-        @endforeach
-      @else
       <tr class="">
-        <td class="textCenter" colspan="3">No se registraron habitaciones</td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
-      @endif
+      <tr class="subtitulo">
+        <td>Capacidades diferentes:</td>
+        <td>Enfermedades:</td>
+        <td>Alergias:</td>
+      </tr>
       <tr class="">
-        <td colspan="2"class="trHead"><strong>SUBTOTAL</strong></td>
-        <td class="textCenter"><strong>$ {{$totalMoney}}</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
-  <table  border="0" style="width: 100%;">
-  <tbody>
-    <tr class="tdFull">
-      <td class="textJustify tdFull" style="" colspan="3">
-        <p>
-          He convenido con el hotel que el precio de hospedaje señalado en el recuadro respectivo, no quedando comprendido en este, precio de alimentos ni otros gastos originados. El hotel no se hace responsable por objetos olvidados en las habitaciones y para prevenir cualquier situación me ha sido recomendado el uso de caja de seguridad. Se dispone de estacionamiento. El hotel no se hace responsable por daños causados al vehículo ni por objetos olvidados en su interior. La tarifa diaria está sujeta a un 16% de impuesto Federal y un cargo local del 3% por concepto del impuesto al hospedaje. Por favor ver al reverso.
-          <br>
-          <br>
-          I have agreed with the Hotel to the daily rate specified in the corresponding space and which does not include food and miscellaneous expenses. The Hotel is not responsible for valuables left in the rooms and I have received advice to use the safety deposit boxes. Parking space is available. The Hotel is not responsible for any damages or objects left in your vehicle. Daily rates are subject to 16% State Tax and local charge of 3% corresponding to hospitality tax. Please read the reverse side.
-        </p>
-      </td>
-    </tr>
-    <tr class="textCenter" >
-      <td style="" colspan="3"><strong> Firma de quien reserva </strong></td>
-    </tr>
-    <tr class="">
-      <td style=""></td>
-      <td style="border-bottom: 1px solid black;"></td>
-      <td style=""></td>
-    </tr>
-    <tr class="">
-      <td style=""></td>
-      <td class="textCenter">{{ $reserva['nombre'] }} {{ $reserva['primerApellido'] }} {{ $reserva['segundoApellido'] }}</td>
-      <td style=""></td>
-    </tr>
-  </tbody>
-</table>
+  <table class="table">
+    <tbody>
+      <tr class="titulo">
+        <td colspan="2">
+          <h2>DATOS PROFESIONALES</h2>
+        </td>
+      </tr>
+      <tr class="subtitulo">
+        <td class="celda50">Grado de estudios:</td>
+        <td class="celda50">Profesión:</td>
+      </tr>
+      <tr class="">
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="subtitulo">
+        <td class="celda50">Ocupación actual:</td>
+        <td class="celda50">Empresa o institución en donde laboras:</td>
+      </tr>
+      <tr class="">
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td class="subtitulo celda8">Idioma extranjero:</td>
+        <td class="celda8"></td>
+        <td class="subtitulo celda8">Nivel %:</td>
+        <td class="celda8"></td>
+        <td class="subtitulo celda8">Pasaporte:</td>
+        <td class="celda8"></td>
+        <td class="subtitulo celda8">Vence:</td>
+        <td class="celda8"></td>
+      </tr>
+      <tr>
+        <td class="subtitulo celda8">Idioma extranjero:</td>
+        <td class="celda8"></td>
+        <td class="subtitulo celda8">Nivel %:</td>
+        <td class="celda8"></td>
+        <td class="subtitulo celda8">Licencia:</td>
+        <td class="celda8"></td>
+        <td class="subtitulo celda8">Vence:</td>
+        <td class="celda8"></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table">
+    <tbody>
+      <tr class="subtitulo">
+        <td class="celda50">¿Cómo te enteraste de Cruz Roja y su Voluntariado?:</td>
+        <td class="celda50">¿Por qué te interesa ser voluntario en Cruz Roja?:</td>
+      </tr>
+      <tr class="">
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="subtitulo">
+        <td class="celda50">Qué espera recibir de la Cruz Roja:</td>
+        <td class="celda50">Qué crees poder aportar a la Cruz Roja:</td>
+      </tr>
+      <tr class="">
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table">
+    <tbody>
+      <tr class="">
+        <td style="width:50%"class="subtitulo">¿Alguna vez has sido voluntario de alguna institución?:</td>
+        <td style="width:10%" class=""></td>
+        <td style="width:20%" class="subtitulo">¿Cual?:</td>
+        <td style="width:20%"></td>
+      </tr>
+    </tbody>
+  </table>
+  <table style="border-collapse: collapse; width: 100%;">
+    <tbody>
+      <tr class="">
+        <td>
+          <table class="table">
+            <tbody>
+              <tr class="titulo">
+                <td colspan="2">
+                  <h2>DISPONIBILIDAD</h2>
+                </td>
+              </tr>
+              <tr class="subtitulo">
+                <td>Dias</td>
+                <td>Turno</td>
+              </tr>
+              <tr class="">
+                <td></td>
+                <td></td>
+              </tr>
+              <tr class="">
+                <td class="subtitulo">Horario:</td>
+                <td ></td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td>
+          <table class="table">
+            <tbody>
+              <tr class="titulo">
+                <td colspan="2">
+                  <h2>CONTACTO DE EMERGENCIA</h2>
+                </td>
+              </tr>
+              <tr>
+                <td style="width:25%" class="subtitulo">Nombre:</td>
+                <td style="width:75%"></td>
+              </tr>
+              <tr>
+                <td style="width:25%" class="subtitulo">Celular:</td>
+                <td style="width:75%"></td>
+              </tr>
+              <tr>
+                <td style="width:25%" class="subtitulo">Parentesco:</td>
+                <td style="width:75%"></td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table">
+    <tbody>
+      <tr class="titulo">
+        <td colspan="2">
+          <h2>ESPACIO EXCLUSIVO DEL ÁREA DE VOLUNTARIADO (NO LLENAR)</h2>
+        </td>
+      </tr>
+    </tbody>
+  </table>  
+  <table class="table">
+    <tbody>
+      <tr>
+        <td style="width:25%" class="subtitulo">Recibio y atendido por:</td>
+        <td style="width:75%"></td>
+        <td style="width:200px!important" class="subtitulo">Codigo QR:</td>
+      </tr>
+      <tr>
+        <td style="width:25%" class="subtitulo">Area canalizada:</td>
+        <td style="width:75%"></td>
+        <td rowspan="5" style="width:200px!important">
+        {{$qrCode}}
+            <img src="{{$qrCode}}" alt="codigo QR">
+            <img src="{{ $qrCode }}" alt="">
+        </td>
+      </tr>
+      <tr>
+        <td style="width:25%" class="subtitulo">Fecha de llenado:</td>
+        <td style="width:75%"></td>
+      </tr>
+      <tr>
+        <td style="width:25%" class="subtitulo">Fecha de recepcion:</td>
+        <td style="width:75%"></td>
+      </tr>
+      <tr>
+        <td style="width:25%" class="subtitulo">Fecha de entrevista - orientación:</td>
+        <td style="width:75%"></td>
+      </tr>
+      <tr>
+        <td style="width:25%" class="subtitulo">Fecha incorporación a Cruz Roja:</td>
+        <td style="width:75%">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <table class="table">
+    <tbody>
+      <tr>
+        <td class="subtitulo">Observaciones</td>
+        <td class="subtitulo">Certifico que la información y datos proporcionados anteriores son
+          verdaderos y doy
+          mi consentimiento a Cruz Roja Mexicana para que los archive en sus expedientes.</td>
+      </tr>
+      <tr>
+      <td>
+          <p class="textCenter nombreFirma" style="width:100%"></p>
+        </td>
+        <td>
+          <p class="textCenter nombreFirma" style="width:100%">Nombre y firma del aspirante.</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </body>
 </html>
