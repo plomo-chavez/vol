@@ -18,9 +18,9 @@ class QRController extends BaseController {
             ->size(200)->errorCorrection('H')
             ->margin(3) // Establece el tamaño del margen en píxeles
             ->generate($data);
-        Storage::disk('local')->put($output_file, $image);
-        // $url = self::getMainURL().'/storage'.'/'.$output_file;
-        $url = $output_file;
+        Storage::disk(app()->environment('local')?'local':'public')->put($output_file, $image);
+        $url = self::getMainURL().'/storage'.'/'.$output_file;
+        // $url = $output_file;
         return $url; 
     }
 }
