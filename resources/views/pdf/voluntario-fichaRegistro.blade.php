@@ -234,9 +234,9 @@
         <td style="width:25%" class="subtitulo">Area canalizada:</td>
         <td style="width:75%"></td>
         <td rowspan="5" style="width:200px!important">
-        {{$qrCode}}
-            <img src="{{$qrCode}}" alt="codigo QR">
-            <img src="{{ $qrCode }}" alt="">
+            {{ Storage::url($qrCode) }}<br>
+            <img src="{{ Storage::url($qrCode) }}" alt="Imagen"><br>
+            <img src="{{ (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'] }}" alt="Imagen"><br>
         </td>
       </tr>
       <tr>
