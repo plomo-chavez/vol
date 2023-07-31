@@ -10,7 +10,7 @@ class QRController extends BaseController {
         switch ($ubicacion) {
             case 'fichasRegistro':
                 $name = ($name == null) ? time() : $name;
-                $output_file = 'qrcode/fichasRegistro/qr-' . $name . '.png';
+                $output_file = '/qr-' . $name . '.png';
                 break;
         }
         
@@ -18,9 +18,8 @@ class QRController extends BaseController {
             ->size(200)->errorCorrection('H')
             ->margin(3) // Establece el tamaño del margen en píxeles
             ->generate($data);
-        Storage::disk(app()->environment('local')?'local':'public')->put($output_file, $image);
-        $url = self::getMainURL().'/storage'.'/'.$output_file;
-        // $url = $output_file;
+        Storage::disk('local')->put('/public'.$output_file, $image);
+        $url = self::getMainURL().'/storage'.$output_file;
         return $url; 
     }
 }
