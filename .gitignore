@@ -1,12 +1,4 @@
 /node_modules
-/public/hot
-/public/storage
-/public/js
-/public/css
-/public/fonts
-/public/images
-/storage/*.key
-/vendor
 .phpunit.result.cache
 docker-compose.override.yml
 Homestead.json
