@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use Dompdf\Dompdf;
+use Carbon\Carbon;
 use PDF;
 
 class VoluntariosController extends BaseController {
@@ -129,6 +130,7 @@ class VoluntariosController extends BaseController {
             } else {
                 $data = Modelo::find($payload['voluntario_id'])->toArray();
                 if ($data != null) {
+                    $data['fechaImpresa'] = self::fechaWithHora();
                     $data['qrCode'] = QRController::generateAndSaveQR($data['numeroAsociado'],'fichasRegistro',$data['numeroAsociado']);
                     return array(
                         'result'    => true,

@@ -5,11 +5,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./styleCR.css" />
-  <title>Ficha de registro #</title>
+  <title>Ficha de registro #{{$numeroAsociado}}</title>
 </head>
-
-<body>
-
+<body> 
+<footer> @include('pdf.includes.footer', ['fechaImpresa' => $fechaImpresa]) </footer>
+<main>
   <table class="tableTitulo">
     <tbody>
       <tr>
@@ -17,7 +17,7 @@
           <p>
           </p>
         </td>
-        <td style="width:90%">
+        <td class="celda90">
           <h4 class="tituloFormato" width="100%" style="">Gestión del Voluntariado</h4>
           <h3 class="tituloFormato text-primary">PRIMER CONTACTO Y REGISTRO DE ASPIRANTE</h3>
         </td>
@@ -37,9 +37,9 @@
         <td>Apellido materno:</td>
       </tr>
       <tr class="">
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{$nombre}}</td>
+        <td>{{$primerApellido}}</td>
+        <td>{{$segundoApellido}}</td>
       </tr>
     </tbody>
   </table>
@@ -52,10 +52,10 @@
         <td >Nacionalidad:</td>
       </tr>
       <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{$fechaNacimiento}}</td>
+        <td>{{$edad}} años</td>
+        <td>{{$lugarNacimiento}}</td>
+        <td>{{$nacionalidad}}</td>
       </tr>
     </tbody>
   </table>
@@ -67,9 +67,9 @@
         <td>Grupo sanguineo:</td>
       </tr>
       <tr class="">
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{$sexo}}</td>
+        <td>{{$estadoCivil}}</td>
+        <td>{{$tipoSangre}}</td>
       </tr>
       <tr class="subtitulo">
         <td>Capacidades diferentes:</td>
@@ -77,9 +77,9 @@
         <td>Alergias:</td>
       </tr>
       <tr class="">
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{$capacidadesDiferentes}}</td>
+        <td>{{$enfermedades}}</td>
+        <td>{{$alergias}}</td>
       </tr>
     </tbody>
   </table>
@@ -95,16 +95,16 @@
         <td class="celda50">Profesión:</td>
       </tr>
       <tr class="">
-        <td></td>
-        <td></td>
+        <td>{{$nacionalidad}}</td>
+        <td>{{$nacionalidad}}</td>
       </tr>
       <tr class="subtitulo">
         <td class="celda50">Ocupación actual:</td>
         <td class="celda50">Empresa o institución en donde laboras:</td>
       </tr>
       <tr class="">
-        <td></td>
-        <td></td>
+        <td>{{$nacionalidad}}</td>
+        <td>{{$nacionalidad}}</td>
       </tr>
     </tbody>
   </table>
@@ -275,5 +275,6 @@
       </tr>
     </tbody>
   </table>
+</main>
 </body>
 </html>

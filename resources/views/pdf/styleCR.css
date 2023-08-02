@@ -1,47 +1,77 @@
 
-* {
-  font-family: Verdana, Arial, sans-serif;
+* { font-family: Verdana, Arial, sans-serif; }
+/** 
+    Set the margins of the page to 0, so the footer and the header
+    can be of the full height and width !
+ **/
+@page { margin: 0cm 0cm; }
+
+/** Define now the real margins of every page in the PDF **/
+body {
+    margin-top: 1cm;
+    margin-left: 1cm;
+    margin-right: 1cm;
+    margin-bottom: 1cm;
 }
-.tableTitulo{
-font-size: small;
-border-collapse: collapse;
-width: 100%;
+
+/** Define the header rules **/
+header {
+    position: fixed;
+    top: 0cm;
+    left: 0cm;
+    right: 0cm;
+    height: 3cm;
 }
-.tableTitulo h4{
-font-size: small;
-border-collapse: collapse;
-line-height: 0!important;
-width: 100%;
+
+/** Define the footer rules **/
+footer {
+    position: fixed; 
+    bottom: 0cm; 
+    left: 0cm; 
+    right: 0cm;
+    height: 1.5cm;
 }
-.table {
-font-size: x-small;
-border-collapse: collapse;
-width: 100%;
-border-collapse: collapse;
-width: 100%;
+.textFooter {
+  font-size: 10px; /* Tamaño de letra deseado */
+  line-height: 0!important;
 }
+.celda8 { width: 12.5%!important; }
+.celda90 { width: 90%!important; }
+.celda50 { width: 50%!important; }
+tr td{ height: 15px!important; }
+td{ width: 33.3333%!important; }
+.tdFull{ width: 100%!important; }
+.gray { background-color: lightgray }
+.text-primary { color: #DD0000!important; }
+.textJustify { text-align:justify!important; }
+.textCenter { text-align:center!important; }
 
 .table td,
 .table th {
-border: 0.5px solid black;
+  border: 0.5px solid black;
+}
+.tableTitulo{
+  font-size: small;
+  border-collapse: collapse;
+  width: 100%;
+}
+.tableTitulo h4{
+  font-size: small;
+  border-collapse: collapse;
+  line-height: 0!important;
+  width: 100%;
+}
+.table {
+  font-size: x-small;
+  border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
 tfoot tr td{
   font-weight: bold;
   font-size: x-small;
 }
-tr td{
-height: 15px!important;
-}
-td{
-width: 33.3333%!important;
-}
-tdFull{
-width: 100%!important;
-}
-.gray {
-  background-color: lightgray
-}
-.text-primary { color: #DD0000!important;}
 .titulo {
   background-color: #DD0000!important;
   color: #FFFFFF!important;
@@ -49,15 +79,9 @@ width: 100%!important;
   text-align:center!important;
   line-height: 0!important;
 }
-.celda8 {
-    width: 12.5%!important;
-}
-.celda50 {
-    width: 50%!important;
-}
 .tituloFormato {
-margin-bottom:0px!important; 
-text-align: right;
+  margin-bottom:0px!important; 
+  text-align: right;
   font-weight: bold!important;
 }
 .subtitulo {
@@ -66,15 +90,8 @@ text-align: right;
   font-weight: bold!important;
 }
 .imgResponsivo {
-max-width: 100%;
-height: auto;
-}
-.textJustify {
-  text-align:justify!important;
-}
-
-.textCenter {
-  text-align:center!important;
+  max-width: 100%;
+  height: auto;
 }
 .nombreFirma {
   margin-bottom:0!important;

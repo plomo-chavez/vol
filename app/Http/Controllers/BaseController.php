@@ -10,6 +10,7 @@ use App\Http\Controllers\Sistema\Modelos\Voluntarios;
 use App\Http\Controllers\Sistema\Modelos\ContadorNumeroInterno;
 use App\Http\Controllers\Auth\Models\User;
 use Dompdf\Dompdf;
+use Carbon\Carbon;
 use PDF;
 
 class BaseController extends Controller{
@@ -21,6 +22,12 @@ class BaseController extends Controller{
         );
     }
 
+    public static function fechaWithHora(){
+        // Obtener la fecha actual utilizando Carbon
+        $fechaActual = Carbon::now('America/Mexico_City');
+        // Formatear la fecha como cadena (opcional)
+        return $fechaActual->format('Y-m-d h:i:s A');
+    }
     public static function findVoluntarioIDPorCodigoEscaneado($codigo = null){
         $tmp = null;
         if ($codigo != null) {
