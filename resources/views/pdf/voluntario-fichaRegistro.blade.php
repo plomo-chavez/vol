@@ -233,7 +233,7 @@
       <tr>
         <td style="width:25%" class="subtitulo">Area canalizada:</td>
         <td style="width:75%"></td>
-        <td rowspan="5" style="width:200px!important">
+        <td rowspan="5" style="width:200px!important" class="textCenter">
           <img src="{{$qrCode}}" alt="Imagen" style="height: 100px;">
         </td>
       </tr>
