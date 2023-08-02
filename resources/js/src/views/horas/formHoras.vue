@@ -4,7 +4,7 @@
             <b-button
                 size="sm"
                 variant="relief-secondary"
-                @click="() => { tipoRegistro = 'porGaurdia'}"
+                @click="() => { tipoRegistro = 'porGuardia'}"
             >Por Guardia</b-button>
 
             <b-button
@@ -19,7 +19,7 @@
                 @click="() => { tipoRegistro = 'porHora'}"
             >Por Hora</b-button>
         </div>
-        <div v-if="tipoRegistro == 'porGaurdia'">
+        <div v-if="tipoRegistro == 'porGuardia'">
             <FormPorGuardia 
             />
         </div>

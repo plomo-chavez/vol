@@ -34,7 +34,7 @@ export default [
     {
       path: '/verificador/horas',
       name: 'verificador-horas',
-      component: () => import('@/views/horas/formHoras.vue'),
+      component: () => import('@/views/horas/formPorGuardia.vue'),
       meta: {
           pageTitle: 'Agregar horas voluntarias',
           permitidos: 'verificador horas voluntarias',

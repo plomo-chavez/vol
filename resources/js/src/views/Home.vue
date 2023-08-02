@@ -1,5 +1,5 @@
     <template>
-        <div class="hello">
+        <!-- <div class="hello">
             <BCard v-if="showCam"
                 class="col-10 col-lg-6 mx-auto p-2"
             >
@@ -125,7 +125,7 @@
                     </div>
                 </BCard>
             </div>
-        </div>
+        </div> -->
     </template>
 
     <script>

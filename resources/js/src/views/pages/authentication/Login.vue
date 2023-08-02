@@ -73,7 +73,7 @@
                     v-model="userEmail"
                     :state="errors.length > 0 ? false:null"
                     name="login-email"
-                    placeholder="john@example.com"
+                    placeholder="email@example.com"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -214,8 +214,8 @@ export default {
   data() {
     return {
       status: '',
-      password: 'demo123',
-      userEmail: 'plomo@gmail.com',
+      password: '',
+      userEmail: '',
       sideImg: require('@/assets/images/login/login.png'),
 
       // validation rules

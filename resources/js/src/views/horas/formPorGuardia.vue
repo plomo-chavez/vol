@@ -3,12 +3,14 @@
 
         <div v-if="guardia == null" class=" ">
             <h3 class=" font-weight-bolder class-12 text-center">No hay un turno abierto.</h3>
-            <b-button
-                size="sm"
-                variant="relief-secondary"
-                class="mx-auto"
-                @click="handleOpenGuardia"
-            >Abrir guardia</b-button>
+            <div class="col-12 p-0 m-0 d-flex flex-wrap">
+                <b-button
+                    size="sm"
+                    variant="relief-secondary"
+                    class="mx-auto"
+                    @click="handleOpenGuardia"
+                >Abrir guardia</b-button>
+            </div>
         </div>
         <div class="col-12 p-0 m-0"  v-else>
             <b-card class="col-6 mx-auto p-1 mb-2">
