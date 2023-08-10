@@ -71,7 +71,7 @@ class GuardiasHorasController extends BaseController {
                 if ($voluntario != null) {
                     $area = Coordinaciones::where('nombre','Socorros')->get();
                     if(sizeof($area) == 1){
-                        $fechaFin = $item->fechaFin == null ? Carbon::now() : $item->fechaFin;
+                        $fechaFin = $item->fechaFin == null ? self::fechaNow() : $item->fechaFin;
                         $area = $area[0];
                         $timestamp1 = Carbon::parse($item->fechaInicio);
                         $timestamp2 = Carbon::parse($item->fechaFin);
@@ -80,7 +80,7 @@ class GuardiasHorasController extends BaseController {
                             'coordinacion_id'   => $area->id,
                             'voluntario_id'     => $voluntario->id,
                             'actividad'         => 'Tiempo en servicio',
-                            'fecha'             => Carbon::now(),
+                            'fecha'             => self::fechaNow(),
                             'horaInicio'        => $item->fechaInicio,
                             'horaFin'           => $fechaFin,
                             'numeroHoras'       => $diferencia->h,
@@ -93,7 +93,7 @@ class GuardiasHorasController extends BaseController {
             }
         }
         $guardia = $modelo::find($payload['guardia_id']);
-        $guardia->fin = Carbon::now();
+        $guardia->fin = self::fechaNow();
         $guardia->save();
 
         
@@ -109,7 +109,7 @@ class GuardiasHorasController extends BaseController {
         $tmp = GuardiasHorasVoluntarios::find($payload['registroGuardiaVoluntario']);
         if ($tmp != null) {
             if ($tmp->fechaFin == null) {
-                $tmp->fechaFin = Carbon::now();
+                $tmp->fechaFin = self::fechaNow();
                 $tmp->save();
                 $msg = 'Registro de salid exitoso.';
             } else { $msg = 'Este registro ya esta cerrado';}
@@ -136,7 +136,7 @@ class GuardiasHorasController extends BaseController {
                     $data = GuardiasHorasVoluntarios::create([
                         'guardia_id' => $payload['guardia_id'],
                         'voluntario_id' => $voluntarioID,
-                        'fechaInicio' => Carbon::now(),
+                        'fechaInicio' => self::fechaNow(),
                     ]);
                     $msg = 'Se registro con exito el voluntario '.$voluntario->nombre;
                 } else { $msg = 'El usuario ya esta registrado en la guardia';}
@@ -175,8 +175,7 @@ class GuardiasHorasController extends BaseController {
     public function getUltimaGuardia(Request $request){
         $usuarioID = $request->all()['usuario_id'];
         $delegacionID = self::getDelegacionIDXUsuario($usuarioID);
-        $today = date('Y-m-d'); // Obtener la fecha de hoy en el formato 'YYYY-MM-DD'
-        $data = Modelo::whereDate('inicio', $today)
+        $data = Modelo::whereDate('inicio', self::fechaYMD())
             ->where('delegacion_id', $delegacionID)
             ->where('fin', null)
             ->with('delegacion')

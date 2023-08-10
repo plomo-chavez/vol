@@ -21,12 +21,25 @@ class BaseController extends Controller{
             'data'      => null,
         );
     }
-
-    public static function fechaWithHora(){
+    public static function fechaWithHora($AM = true){
         // Obtener la fecha actual utilizando Carbon
         $fechaActual = Carbon::now('America/Mexico_City');
         // Formatear la fecha como cadena (opcional)
-        return $fechaActual->format('Y-m-d h:i:s A');
+        $formtato = 'Y-m-d h:i:s';
+        $formtato = $formtato . ($AM ? 'A' : '');
+        return $fechaActual->format($formtato);
+    }
+    public static function fechaYMD(){
+        // Obtener la fecha actual utilizando Carbon
+        $fechaActual = Carbon::now('America/Mexico_City');
+        // Formatear la fecha como cadena (opcional)
+        return $fechaActual->format('Y-m-d');
+    }
+    public static function fechaNow(){
+        // Obtener la fecha actual utilizando Carbon
+        $fechaActual = Carbon::now('America/Mexico_City');
+        // Formatear la fecha como cadena (opcional)
+        return $fechaActual;
     }
     public static function findVoluntarioIDPorCodigoEscaneado($codigo = null){
         $tmp = null;
@@ -59,7 +72,6 @@ class BaseController extends Controller{
         }
         return $delegacion;
     }
-
     public static function getNumeroInerno($delegacionID = null){
         // VOL-Año-Estado-XXXX
         // VOL23120001
@@ -85,7 +97,6 @@ class BaseController extends Controller{
         }
         return $numeroInterno;
     }
-
     public static function responsee(
         $message = 'Tenemos un error',
         $result = true,
@@ -97,7 +108,6 @@ class BaseController extends Controller{
             'data'      => $data,
         ), 200);
     }
-
     public function insertar($payload, $modelo) {
         $modelo::create($payload);
         return self::responsee('Registro guardado corrrectamente.');
@@ -117,7 +127,6 @@ class BaseController extends Controller{
         }
         return self::responsee('Registro guardado corrrectamente.');
     }
-
     public function actualizar($payload, $modelo) {
        if($payload['id']){
            $modelo::updateOrCreate(['id' => $payload['id']],$payload);
@@ -126,7 +135,6 @@ class BaseController extends Controller{
            return self::responsee('Actualizar no tiene id.', false);
        }
     }
-
     public function generateCode($num = 12) {
         $date = date('YmdHis');
         $code = uniqid($date);
@@ -134,7 +142,6 @@ class BaseController extends Controller{
         // $generatedCode = substr($code, 0, $num); // Extraer los primeros "desiredLength" caracteres del código generado
         return $generatedCode;
     }
-
     public function eliminar($payload, $modelo) {
         if($payload['id']){
             $modelo::whereIn('id', [$payload['id']])->delete();
@@ -143,7 +150,6 @@ class BaseController extends Controller{
             return self::responsee('Para poder eliminar se requiere el id.', false);
         }
     }
-
     public function administrar(array $payload = [], Model $modelo = null) {
         if (isset($payload['accion'])) {
             switch($payload['accion']){
@@ -166,7 +172,6 @@ class BaseController extends Controller{
             return self::responsee('No existe una acción.', false);
         }
     }
-
     public function filtrar(array $payload = [], Model $modelo = null,$columnOrder = 'nombre') {
         $filtros = array_key_exists('payload', $payload) ? $payload['payload'] : [];
         $query = $modelo::query()->orderBy($columnOrder, 'asc');
@@ -180,7 +185,6 @@ class BaseController extends Controller{
         $data = $query->get();
         return $data;
     }
-
     public static function getMainURL() {
         $isSecure = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
         $protocol = $isSecure ? 'https://' : 'http://';
@@ -223,7 +227,6 @@ class BaseController extends Controller{
         return $response;
         
     }
-
     public function idsDelegacionesXTipoUsuario($tipoUsuarioID) {
         // '1', 'Administrador'
         // '2', 'CN -  Coordinador Nacional' 
