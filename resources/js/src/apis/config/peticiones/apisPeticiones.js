@@ -30,12 +30,6 @@ export default class apiPeticiones {
   administrarVoluntarios(...args) {
     return this.axiosIns.post(this.apisConfig.apiAdminVoluntarios, ...args)
   }
-  getDelegaciones(...args) {
-    return this.axiosIns.post(this.apisConfig.apiGetDelegaciones, ...args)
-  }
-  administrarDelegaciones(...args) {
-    return this.axiosIns.post(this.apisConfig.apiAdminDelegaciones, ...args)
-  }
   getHorasVoluntarias(...args) {
     return this.axiosIns.post(this.apisConfig.apiGetHorasVoluntarias, ...args)
   }
@@ -53,6 +47,9 @@ export default class apiPeticiones {
   }
   getDelegaciones(...args) {
     return this.axiosIns.post(this.apisConfig.apiGetDelegaciones, ...args)
+  }
+  administrarDelegaciones(...args) {
+    return this.axiosIns.post(this.apisConfig.apiAdminDelegaciones, ...args)
   }
   getTemplatesEmail(...args) {
     return this.axiosIns.post(this.apisConfig.apiGetTemplatesEmail, ...args)

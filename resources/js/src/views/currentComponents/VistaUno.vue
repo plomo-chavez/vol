@@ -89,10 +89,11 @@
         <div v-else-if="field.type === 'money'">
             <small>{{data.item[field.key]}}</small>
         </div>
-        <div v-else-if="field.type === 'actions'" class="d-flex flex-wrap justify-content-center col-12">
-            <div class="iconVistaUno cursor-pointer text-warning fw-bolder" v-if="(typeof config.cellActions.btnEditar   == 'undefined' ? true : config.cellActions.btnEditar )"   @click=" emitirInfo('mdoEditar', data.item)"><feather-icon size="16" icon="EditIcon" /></div>
-            <div class="iconVistaUno cursor-pointer text-danger fw-bolder" v-if="(typeof config.cellActions.btnEliminar == 'undefined' ? true : config.cellActions.btnEliminar )" @click=" emitirInfo('mdoEliminar', data.item)"><feather-icon size="16" icon="Trash2Icon" /></div>
-            <div class="iconVistaUno cursor-pointer text-secondary fw-bolder" v-if="(typeof config.cellActions.btnChangePassword == 'undefined' ? true : config.cellActions.btnChangePassword )" @click=" emitirInfo('mdoChangePassword', data.item)"><feather-icon size="16" icon="KeyIcon" /></div>
+        <div v-else-if="field.type === 'actions' && showCellActions" class="d-flex flex-wrap justify-content-center col-12">
+            <div class="iconVistaUno cursor-pointer text-warning fw-bolder"   v-if="(typeof config.cellActions.btnEditar          == 'undefined' ? true : config.cellActions.btnEditar )"         @click=" emitirInfo('mdoEditar', data.item)"><feather-icon size="16" icon="EditIcon" /></div>
+            <div class="iconVistaUno cursor-pointer text-danger fw-bolder"    v-if="(typeof config.cellActions.btnEliminar        == 'undefined' ? true : config.cellActions.btnEliminar )"       @click=" emitirInfo('mdoEliminar', data.item)"><feather-icon size="16" icon="Trash2Icon" /></div>
+            <div class="iconVistaUno cursor-pointer text-info fw-bolder"      v-if="(typeof config.cellActions.btnView            == 'undefined' ? true : config.cellActions.btnView )"       @click=" emitirInfo('mdoView', data.item)"><feather-icon size="16" icon="EyeIcon" /></div>
+            <div class="iconVistaUno cursor-pointer text-secondary fw-bolder" v-if="(typeof config.cellActions.btnChangePassword  == 'undefined' ? true : config.cellActions.btnChangePassword )" @click=" emitirInfo('mdoChangePassword', data.item)"><feather-icon size="16" icon="KeyIcon" /></div>
         </div>
         <div v-else-if="field.type === 'text'" class="d-flex flex-wrap">
             <p>{{data.item[field.key]}}</p>
@@ -212,7 +213,16 @@ export default {
     // Set the initial number of items
     this.totalRows = this.data.length
     let tmp = this.copyObject(this.columnas)
-    if (typeof this.config.cellActions == 'undefined' ? true : this.config.cellActions) {
+    if (this.showCellActions) {
+      tmp.unshift({
+            key     : 'actions',
+            type    : 'actions',
+            label   : 'Acciones',
+            thClass : "text-center ww-100",
+            tdClass : "text-center p-0 m-0  ww-100",
+      })
+    }
+    if (typeof this.config.index == 'undefined' ? true : this.config.index) {
         tmp.unshift({
             key     : 'index',
             type    : 'index',
@@ -220,15 +230,6 @@ export default {
             thClass : "text-center ww-80",
             tdClass : "text-center p-0 m-0  ww-80",
         })
-    }
-    if (typeof this.config.index == 'undefined' ? true : this.config.index) {
-        tmp.unshift({
-            key     : 'actions',
-            type    : 'actions',
-            label   : 'Acciones',
-            thClass : "text-center ww-100",
-            tdClass : "text-center p-0 m-0  ww-100",
-      })
     }
     this.fields =  this.copyObject(tmp)
   },
@@ -244,6 +245,10 @@ export default {
     title: {
       type: String,
       default : 'Titulo por defecto',
+    },
+    showCellActions: {
+      type: Boolean,
+      default : true,
     },
     config: {
         type: Object,

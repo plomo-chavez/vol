@@ -3,6 +3,7 @@
         <div v-if="!showForm">
             <!-- <pre>{{ data[0].tipo_usuario }}</pre> -->
             <VistaUno
+                :config="config"
                 :data="data"
                 :columnas="columnas"
                 @mdoEditar="editar"
@@ -13,10 +14,18 @@
         </div>
         <div v-if="showForm">
             <FormFactory
+                v-if="accion == 1"
                 class="col-10 mx-auto"
                 withCard
                 :data = 'activeRow'
-                :schema="schemaMain"
+                :schema="formSchema"
+                @formExport="save"
+                @cancelar="resetForm"
+            />
+            <detallesDelegacion
+                v-else 
+                :data="activeRow"
+                :schema="formSchema"
                 @formExport="save"
                 @cancelar="resetForm"
             />
@@ -24,39 +33,90 @@
     </div>
   </template>
   <script>
-    import FormFactory from '@currentComponents/FormFactory.vue'
-    import VistaUno from '@currentComponents/VistaUno.vue'
-    import peticiones from '@/apis/usePeticiones'
-    import customHelpers  from '@helpers/customHelpers'
+    import FormDelegacion   from './FormDelegacion.vue'
+    import detallesDelegacion from './detallesDelegacion.vue'
+    import FormFactory      from '@currentComponents/FormFactory.vue'
+    import VistaUno         from '@currentComponents/VistaUno.vue'
+    import peticiones       from '@/apis/usePeticiones'
+    import customHelpers    from '@helpers/customHelpers'
 
   export default {
     components: {
         FormFactory,
-        VistaUno
+        VistaUno,
+        FormDelegacion,
+        detallesDelegacion
     },
     data() {
       return {
+        config:{
+            cellActions: {
+                btnEditar: true,
+                btnEliminar: true,
+                btnView: false,
+                btnChangePassword: false,
+            },
+            index: true,
+            buscador: true,
+            btnNuevo: true,
+            btnFiltrar: false,
+            btnOtros: null,
+        },
         accion: 1,
         activeRow : null,
         schemaMain : null,
         showForm : false,
         data:[],
         formSchema: [
+
             {
-                classContainer:'col-lg-4 col-md-6 col-12',
+                classContainer:' col-lg-6 col-md-6 col-sm-12 col-12',
+                type        : 'input-switch',
+                name        : 'tipo delegacion',
+                value       : 'isEstatal',
+                label       : '¿La coordinacion es estatal?',
+                rules       : 'required',
+                labels      : {
+                                'on' : "Si",
+                                'off': "No"
+                            },
+            },
+            {
+                classContainer:' col-lg-6 col-md-6 col-sm-12 col-12',
+                type        : 'input-select',
+                name        : 'estado',
+                value       : 'estado',
+                label       : 'Estado:',
+                rules       : 'required',
+                catalogo    : 'estados',
+            },
+            {
+                classContainer:' col-12 ',
                 type        : 'input-text',
-                name        : 'nombre',
-                value       : 'nombre',
-                label       : 'Nombre',
-                placeholder : 'Introduce un usuario',
+                name        : 'ciudad',
+                value       : 'ciudad',
+                label       : 'Ciudad',
+                placeholder : 'Introduce una ciudad',
                 rules       : 'required',
             },
         ],
         columnas : [
             {
                 type    : 'text',
-                key     : 'nombre',
-                label   : 'Nombre',
+                key     : 'tipo',
+                label   : 'Coordinación',
+                sortable: true
+            },
+            {
+                type    : 'text',
+                key     : 'estado',
+                label   : 'Estado',
+                sortable: true
+            },
+            {
+                type    : 'text',
+                key     : 'ciudad',
+                label   : 'Ciudad',
                 sortable: true
             },
         ]
@@ -68,12 +128,11 @@
     },
     methods: {
         inicializar(){
-            this.schemaMain = this.copyObject(this.formSchema)
             this.reload()
         },
         reload () {
             peticiones
-                .getCoordinaciones({})
+                .getDelegaciones({})
                 .then(response => {
                     this.data = response.data.data
                 })
@@ -94,18 +153,23 @@
            this.peticionAdministrar(payload)
         },
         peticionAdministrar(payload){
+            this.loading();
             peticiones
-                .administrarCoordinaciones({
+                .administrarDelegaciones({
                     'payload' : payload,
                 })
                 .then(response => {
+                    this.loading(false);
                     this.messageSweet({
                         message: response.data.message,
                         icon: response.data.result ? 'success' : 'error',
                     });
                     this.resetForm();
                 })
-                .catch(error   => { console.log(error); })
+                .catch(error   => { 
+                    this.loading(false);
+                    console.log(error); 
+                })
         },
         nuevoRegistro () {
             this.schemaMain = this.copyObject(this.formSchema)
@@ -115,16 +179,7 @@
         editar (data) {
             this.accion = 2;
             let tmp = this.copyObject(data)
-            if(typeof tmp.tipo_usuario != 'undefined') {
-                tmp.tipoUsuario = {value : tmp.tipoUsuario_id, label : tmp.tipo_usuario.nombre}
-            }
-            tmp.accesoMovil = typeof tmp.accesoMovil  == 'number' ? (tmp.accesoMovil ? true:false) : false
-            tmp.accesoWeb = typeof tmp.accesoWeb  == 'number' ? (tmp.accesoWeb ? true:false) : false
-            tmp.bloqueado = typeof tmp.bloqueado  == 'number' ? (tmp.bloqueado ? true:false) : false
             this.activeRow = this.copyObject(tmp)
-            let tmpSchema = this.copyObject(this.formSchema)
-            tmpSchema.splice(3,1)
-            this.schemaMain = tmpSchema
             this.showForm = true;
         },
         onEliminar(data){

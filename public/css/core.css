@@ -23124,6 +23124,10 @@ ul.list-inline.list-inline-pipe > li + li:before {
   padding: 20px !important;
 }
 
+[dir] .mm-1 {
+  margin: 2px !important;
+}
+
 [dir] .mmb-1 {
   margin-bottom: 2px !important;
 }
@@ -23146,6 +23150,10 @@ ul.list-inline.list-inline-pipe > li + li:before {
 
 [dir] .mmb-6 {
   margin-bottom: 64px !important;
+}
+
+.wwfull {
+  width: 100% !important;
 }
 
 .ww-50 {

@@ -1,0 +1,212 @@
+/* Resetear márgenes y padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.contenedor {
+    background-color: beige;
+    width: 430px;
+    height: 322px;
+  display: flex;
+    /* justify-content: space-between; */ 
+}
+
+.columna {
+    border: 0.5px solid #000; 
+    width: 208px; 
+    height: 322px; 
+    border-radius: 5px;
+    margin: 10px;
+    width: 50%;
+    float: left;
+}
+
+.p2{ padding: 5px;}
+.mb{ margin-bottom: 3px;}
+.texto-negritas { font-weight: 700;}
+.texto-small { font-size: 8px;}
+.text { line-height: 1;}
+.texto-white { color: white;}
+.texto-red { color: red;}
+.texto-black { color: black;}
+.texto-center{ text-align: center; }
+.itemCentradoH { margin: 0 auto; /* Aplica margen horizontal automático para centrar */ }
+
+/* Estilos generales */
+body {
+    line-height: 1.5!important;
+    font-weight: 400!important;
+    font-size: 10px!important;
+    font-family: "Droid Sans", sans-serif!important;
+    word-wrap: break-word!important
+}
+.contentCards {
+    width: 430px;
+    height: 322px;
+}
+.spaceBetween{
+    display: flex;
+    justify-content: space-between;
+}
+.card {
+    border: 0.5px solid #000; 
+    width: 208px; 
+    height: 322px; 
+    border-radius: 5px;
+}
+
+.texto-indicaciones {
+    text-align: center; 
+    color: black; 
+    font-size: 8px!important; 
+    word-wrap: break-word"
+}
+
+.texto-dias {
+    text-align: center; 
+    color: white; 
+    font-weight: 700;
+    font-size: 11px!important; 
+    word-wrap: break-word"
+}
+
+.items-center{
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+}
+
+.titulo {
+    text-align: center;
+    font-size: 16.5px;
+    line-height: 1;
+    font-weight: 700;
+}
+.nombre {
+    /* text-align: center; */
+    font-size: 13px;
+    font-weight: 700;
+}
+.subtitulo{
+    text-align: center;
+    font-size: 5px;
+    /* font-weight: 700; */
+}
+.texto-firma{
+    text-align: center;
+    font-size: 3px;
+    line-height: 1.5;
+    /* font-weight: 700; */
+}
+
+.divQR{
+    width: 50%; 
+    margin: 0 auto; /* Aplica margen horizontal automático para centrar */
+    height: 50px; 
+    display: flex;
+    justify-content: center; /* Centrar verticalmente */
+    justify-content: space-between;
+    align-items: center; /* Centrar horizontalmente */
+}
+.divMensajeRojo {
+    width: 207px;
+    height: 40px;
+    background: #E10918;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrar verticalmente */
+    align-items: center; /* Centrar horizontalmente */
+}
+
+
+
+/* Estilos para imágenes */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+/* Otros estilos específicos */
+
+
+#mensaje {
+    text-align: center;
+    color: black;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+#vigencia {
+    text-align: center;
+    color: black;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 18px;
+}
+
+#autoriza {
+    text-align: center;
+    color: #E10918;
+    font-size: 5px;
+    font-weight: 700;
+}
+
+/* Estilos para los elementos con fondo de color */
+#barraRoja {
+    width: 208px;
+    height: 36px;
+    background: #E10918;
+}
+
+#mensajeFondo {
+    width: 180px;
+    height: 34px;
+    left: 20px;
+    top: 77px;
+    text-align: center;
+    background: #E10918;
+}
+
+/* Estilos para los códigos de control */
+.codigoControl {
+    position: absolute;
+    text-align: center;
+    font-size: 6px;
+    font-weight: 700;
+}
+
+/* Estilos para las fechas */
+.fecha {
+    position: absolute;
+    text-align: center;
+    font-size: 6px;
+    font-weight: 700;
+}
+
+/* Estilos para el nombre */
+#nombre {
+    text-align: center;
+    color: black;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* Estilos para la firma y el sello */
+.firmaSello {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    left: 11px;
+    top: 9px;
+}
+
+.sello {
+    position: absolute;
+    width: 37px;
+    height: 37px;
+    left: 34px;
+    top: 8px;
+}

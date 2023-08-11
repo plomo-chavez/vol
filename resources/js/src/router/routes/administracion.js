@@ -29,6 +29,7 @@ export default [
       component: () => import('@/views/horas/Horas.vue'),
       meta: {
           pageTitle: 'Horas voluntarias',
+          permitidos: 'all',
       },
     },
     {
@@ -37,13 +38,13 @@ export default [
       component: () => import('@/views/horas/formPorGuardia.vue'),
       meta: {
           pageTitle: 'Agregar horas voluntarias',
-          permitidos: 'verificador horas voluntarias',
+          // permitidos: 'verificador horas voluntarias',
       },
     },
   {
-    path: '/catalogos/delegaciones',
-    name: 'catalogo-delegaciones',
-    component: () => import('@/views/configuracion/catalogos/Delegaciones.vue'),
+    path: '/delegaciones',
+    name: 'delegaciones',
+    component: () => import('@/views/delegaciones/Delegaciones.vue'),
     meta: {
         pageTitle: 'Delegaciones',
     },

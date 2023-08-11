@@ -4,6 +4,8 @@
             <!-- <pre>{{ data[0].tipo_usuario }}</pre> -->
             <VistaUno
                 :data="data"
+                :config="config"
+                :showCellActions="!isVerificador"
                 :columnas="columnas"
                 @mdoEditar="editar"
                 @mdoEliminar="onEliminar"
@@ -38,6 +40,21 @@
     },
     data() {
       return {
+        config:{
+            cellActions: {
+                btnEditar: false,
+                btnEliminar: false,
+                btnView: false,
+                btnChangePassword: false,
+            },
+            index: true,
+            buscador: true,
+            btnNuevo: true,
+            btnFiltrar: false,
+            btnOtros: null,
+        },
+        userData: JSON.parse(localStorage.getItem('userData')),
+        isVerificador : true,
         accion: 1,
         activeRow : null,
         schemaMain : null,
@@ -185,6 +202,7 @@
     },
     mixins : [customHelpers],
     beforeMount() {
+        // this.isVerificador = this.userData.tipoUsuario == 'Verificador Horas Voluntarias';
         this.inicializar()
     },
     methods: {

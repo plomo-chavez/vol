@@ -22,7 +22,7 @@
       </b-avatar>
     </template>
 
-    <b-dropdown-item :to="{ name: 'pages-profile'}" link-class="d-flex align-items-center" >
+    <b-dropdown-item :to="{ name: 'perfil'}" link-class="d-flex align-items-center" >
       <feather-icon size="16" icon="UserIcon" class="mr-50" />
       <span>Perfil</span>
     </b-dropdown-item>

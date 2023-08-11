@@ -8,9 +8,9 @@
                 ref="formVoluntario"
                 class="col-12 mx-auto"
                 :btnsAccion="false"
-                :formLive="true"
                 :data = 'dataForm'
                 :schema="formSchemaFormVoluntario"
+                :formLive="true"
                 @exportLive="changeForm"
                 @formExport="handleSubmitFormVoluntario"
             />

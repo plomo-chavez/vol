@@ -17,12 +17,12 @@ export default [
   {
     title: 'Delelgaciones',
     icon: 'HomeIcon',
-    route: 'usuarios',
+    route: 'delegaciones',
   },
   {
     title: 'Formatos',
     icon: 'FileTextIcon',
-    route: 'usuarios',
+    route: 'formatos',
   },
   {
     title: 'Configuración',
