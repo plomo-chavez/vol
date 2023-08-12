@@ -36,11 +36,11 @@ export default class apiPeticiones {
   administrarHorasVoluntarias(...args) {
     return this.axiosIns.post(this.apisConfig.apiAdminHorasVoluntarias, ...args)
   }
-  getCoordinaciones(...args) {
-    return this.axiosIns.post(this.apisConfig.apiGetCoordinaciones, ...args)
+  getAreas(...args) {
+    return this.axiosIns.post(this.apisConfig.apiGetAreas, ...args)
   }
-  administrarCoordinaciones(...args) {
-    return this.axiosIns.post(this.apisConfig.apiAdminCoordinaciones, ...args)
+  administrarAreas(...args) {
+    return this.axiosIns.post(this.apisConfig.apiAdminAreas, ...args)
   }
   validCurp(...args) {
     return this.axiosIns.post(this.apisConfig.apiValidCURP, ...args)

@@ -2,11 +2,11 @@
 namespace App\Http\Controllers\Sistema;
 use App\Http\Controllers\BaseController;
 
-use App\Http\Controllers\Sistema\Modelos\Coordinaciones as Modelo;
+use App\Http\Controllers\Sistema\Modelos\Areas as Modelo;
 
 use Illuminate\Http\Request;
 
-class CoordinacionesController extends BaseController
+class AreasController extends BaseController
 {
     public function handleAdministrar(Request $request){
         $payload = $request->all();

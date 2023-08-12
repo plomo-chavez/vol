@@ -104,9 +104,9 @@ export default {
                             })
                             .catch(error   => { console.log(error); })
                         break;
-                    case 'coordinaciones':
+                    case 'areas':
                         catalogos
-                            .coordinaciones({})
+                            .areas({})
                             .then(response => {
                                 this.opciones = this.formatoToCatalogo(response.data.data)
                             })

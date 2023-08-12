@@ -14,7 +14,7 @@ use App\Http\Controllers\Sistema\VoluntariosController;
 use App\Http\Controllers\Sistema\DelegacionesController;
 use App\Http\Controllers\Sistema\HorasVoluntariasController;
 use App\Http\Controllers\Sistema\GuardiasHorasController;
-use App\Http\Controllers\Sistema\CoordinacionesController;
+use App\Http\Controllers\Sistema\AreasController;
 use App\Http\Controllers\Configuracion\TemplateEmailController;
 use App\Http\Controllers\Email\MailController;
 /*
@@ -56,13 +56,13 @@ Route::middleware([UserAuthentication::class])->post('/templates-email/listar', 
 Route::middleware([UserAuthentication::class])->post('/horas/administrar',          [HorasVoluntariasController::class, 'handleAdministrar']);
 Route::middleware([UserAuthentication::class])->post('/delegaciones/listar',        [DelegacionesController::class, 'handleListar']);
 Route::middleware([UserAuthentication::class])->post('/delegaciones/administrar',   [DelegacionesController::class, 'handleAdministrar']);
-Route::middleware([UserAuthentication::class])->post('/coordinaciones/listar',      [CoordinacionesController::class, 'handleListar']);
-Route::middleware([UserAuthentication::class])->post('/coordinaciones/administrar', [CoordinacionesController::class, 'handleAdministrar']);
+Route::middleware([UserAuthentication::class])->post('/areas/listar',      [AreasController::class, 'handleListar']);
+Route::middleware([UserAuthentication::class])->post('/areas/administrar', [AreasController::class, 'handleAdministrar']);
 Route::middleware([UserAuthentication::class])->post('/horasVoluntarias/guardias/listar',      [GuardiasHorasController::class, 'handleListar']);
 Route::middleware([UserAuthentication::class])->post('/horasVoluntarias/guardias/administrar', [GuardiasHorasController::class, 'handleAdministrar']);
 Route::middleware([UserAuthentication::class])->post('/get/voluntario', [VoluntariosController::class, 'getVoluntario']);
 // Route::middleware([UserAuthentication::class])->post('/auth/verificar',    [AuthController::class, 'verificar']);
-Route::post('/catalogo/coordinaciones',     [CatalogosController::class, 'getCoordinaciones']);
+Route::post('/catalogo/areas',     [CatalogosController::class, 'getAreas']);
 Route::post('/catalogo/tiposUsuarios',      [CatalogosController::class, 'getTiposUsuarios']);
 Route::post('/catalogo/estados',            [CatalogosController::class, 'getEstados']);
 Route::post('/catalogo/tipoAsociado',       [CatalogosController::class, 'getTiposAsociado']);

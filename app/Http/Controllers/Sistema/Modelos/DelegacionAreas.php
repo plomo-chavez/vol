@@ -12,10 +12,10 @@ class DelegacionAreas extends Model
 
     protected $fillable = [
         'delegacion_id',
-        'coordinacion_id',
+        'area_id',
     ];
     public function area() {
-        return $this->hasOne(Coordinaciones::class,'id','coordinacion_id');
+        return $this->hasOne(Areas::class,'id','area_id');
     }
 
 }

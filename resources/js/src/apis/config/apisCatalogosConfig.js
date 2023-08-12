@@ -1,7 +1,7 @@
 export default {
   // Endpoints
   apiTiposUsuarios              : '/api/catalogo/tiposUsuarios',
-  coordinacionesApi             : '/api/catalogo/coordinaciones',
+  areasApi             : '/api/catalogo/areas',
   estadosApi                    : '/api/catalogo/estados',
   tipoAsociadoApi               : '/api/catalogo/tipoAsociado',
   nacionalidadesApi             : '/api/catalogo/nacionalidad',

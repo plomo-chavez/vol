@@ -21,8 +21,8 @@ export default class apisCatalogos {
   customPersons(...args) {
     return this.axiosIns.post(this.apisConfig.customPersonsApi, ...args)
   }
-  coordinaciones(...args) {
-    return this.axiosIns.post(this.apisConfig.coordinacionesApi, ...args)
+  areas(...args) {
+    return this.axiosIns.post(this.apisConfig.areasApi, ...args)
   }
   estados(...args) {
     return this.axiosIns.post(this.apisConfig.estadosApi, ...args)

@@ -44,6 +44,6 @@ class Voluntarios extends Model
         return $this->hasOne(Delegaciones::class,'id','delegacion_id');
     }
     public function area() {
-        return $this->hasOne(Coordinaciones::class,'id','area_id')->select('id','nombre');
+        return $this->hasOne(Areas::class,'id','area_id')->select('id','nombre');
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Configuracion\Modelos\Habitacion ;
 use App\Http\Controllers\Configuracion\Modelos\HabitacionEstatus;
 use App\Http\Controllers\Sistema\Modelos\Delegaciones;
-use App\Http\Controllers\Sistema\Modelos\Coordinaciones;
+use App\Http\Controllers\Sistema\Modelos\Areas;
 use App\Http\Controllers\Sistema\Modelos\TipoAsociado;
 use App\Http\Controllers\Sistema\Modelos\Estado;
 use App\Http\Controllers\Auth\Models\TipoUsuario;
@@ -81,8 +81,8 @@ class CatalogosController extends BaseController
             $data,
         );
     }
-    public function getCoordinaciones(Request $request){
-        $data = Coordinaciones::orderBy('nombre',"asc")
+    public function getAreas(Request $request){
+        $data = Areas::orderBy('nombre',"asc")
                 ->get();
         return self::responsee(
             'Consulta realizada con exito.',

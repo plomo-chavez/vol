@@ -11,7 +11,7 @@ class HorasVoluntarias extends Model
     protected $primaryKey   = "id";
 
     protected $fillable = [
-        'coordinacion_id',
+        'area_id',
         'voluntario_id',
         'actividad',
         'fecha',
@@ -20,7 +20,7 @@ class HorasVoluntarias extends Model
         'numeroHoras',
     ];
     public function area() {
-        return $this->hasOne(Coordinaciones::class,'id','coordinacion_id')->select('id','nombre');
+        return $this->hasOne(Areas::class,'id','area_id')->select('id','nombre');
     }
     public function voluntario() {
         return $this->hasOne(Voluntarios::class,'id','voluntario_id');

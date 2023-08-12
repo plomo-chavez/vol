@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use App\Http\Controllers\Sistema\Modelos\GuardiasHoras as Modelo;
 use App\Http\Controllers\Sistema\Modelos\GuardiasHorasVoluntarios;
 use App\Http\Controllers\Sistema\Modelos\Voluntarios;
-use App\Http\Controllers\Sistema\Modelos\Coordinaciones;
+use App\Http\Controllers\Sistema\Modelos\Areas;
 use App\Http\Controllers\Sistema\Modelos\HorasVoluntarias;
 use App\Http\Controllers\Auth\Models\User;
 
@@ -69,7 +69,7 @@ class GuardiasHorasController extends BaseController {
             if($item->isRegistrada == 0){
                 $voluntario = Voluntarios::find($item->voluntario_id);
                 if ($voluntario != null) {
-                    $area = Coordinaciones::where('nombre','Socorros')->get();
+                    $area = Areas::where('nombre','Socorros')->get();
                     if(sizeof($area) == 1){
                         $fechaFin = $item->fechaFin == null ? self::fechaNow() : $item->fechaFin;
                         $area = $area[0];
