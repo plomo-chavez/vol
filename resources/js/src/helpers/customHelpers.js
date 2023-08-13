@@ -159,8 +159,15 @@ export default {
       };
 
       reader.readAsText(response.data);
-    }
-  }
+    },
+
+    peticionGeneralAdministrar(metodo,payload){
+        this.loading();
+        metodo({ payload: payload, })
+        .then((response) => { return response; })
+        .catch((error) => { this.loading(false); console.log(error); });
+    },
+  } 
 }
 
 

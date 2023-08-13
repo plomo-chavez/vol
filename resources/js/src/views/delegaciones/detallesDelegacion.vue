@@ -13,7 +13,7 @@
         </div>
     </div>
     <b-card class="col-12 p-2">
-        <b-tabs content-class="pt-1" fill v-if="activeData != null" >
+        <b-tabs content-class="pt-1" fill v-if="activeData != null" @input="handleTabChange">
             <b-tab>
                 <template #title>
                     <feather-icon icon="ToolIcon" />
@@ -49,6 +49,7 @@
     import FormFactory      from '@currentComponents/FormFactory.vue'
     import peticiones from '@/apis/usePeticiones'
     import customHelpers  from '@helpers/customHelpers'
+import { platform } from 'chart.js'
 
     export default {
         name: 'detallesDelegacion',
@@ -97,8 +98,31 @@
             }
         },
         methods:{
+            handleTabChange(tabID) {
+                if(tabID == 1){
+                    this.getAutoridades();
+                }
+            },
             mtdSave(data){ this.$emit('formExport',data) },
             mtdCancelar(){ this.$emit('cancelar') },
+            getAutoridades(){ 
+                let payload = {accion:5}
+                // this.peticionGeneralAdministrar(peticiones.administrarDelegaciones,payload)
+                let response = this.peticionAdministrar(payload)
+            },
+            peticionAdministrar(payload){
+                this.loading();
+                peticiones
+                    .administrarDelegaciones({ 'payload' : payload, })
+                    .then(response => {
+                        this.loading(false);
+                        return response
+                    })
+                    .catch(error   => { 
+                        this.loading(false);
+                        console.log(error); 
+                    })
+            },
 
         }
     }

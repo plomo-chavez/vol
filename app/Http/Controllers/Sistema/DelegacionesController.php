@@ -1,16 +1,42 @@
 <?php
 namespace App\Http\Controllers\Sistema;
 use App\Http\Controllers\BaseController;
-
+use App\Http\Controllers\Sistema\Modelos\DelegacionAreasCoordinadores;
 use App\Http\Controllers\Sistema\Modelos\Delegaciones as Modelo;
-
+use App\Http\Controllers\Sistema\Modelos\Areas;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class DelegacionesController extends BaseController
-{
+class DelegacionesController extends BaseController {
     public function handleAdministrar(Request $request){
         $payload = $request->all();
         return self::administrar($payload['payload'], new Modelo());
+    }
+    public function administrar(array $payload = [], Model $modelo = null) {
+        if (isset($payload['accion'])) {
+            switch($payload['accion']){
+                case 1:
+                    return self::insertar($payload, $modelo);
+                    break;
+                case 2:
+                    return self::actualizar($payload, $modelo);
+                    break;
+                case 3:
+                    return self::eliminar($payload, $modelo);
+                    break;
+                case 4:
+                    return self::insertMulti($payload, $modelo);
+                    break;
+                case 5:
+                    // Solicita la informacion para la tab autoridades de detalles de delegacion
+                    return self::getDelegacionCoordinadores($payload);
+                    break;
+                default:
+                    return self::responsee('Acción no válida', false);
+            }
+        } else {
+            return self::responsee('No existe una acción.', false);
+        }
     }
 
     public function handleListar(Request $request){
@@ -32,4 +58,36 @@ class DelegacionesController extends BaseController
             $resp,
         );    
     }
+
+    public function getDelegacionCoordinadores($payload)
+    {
+        $areas = Areas::orderBy('id', 'asc')->select('id','nombre')->get();
+        
+        $registros = DelegacionAreasCoordinadores::orderBy('id', 'asc')
+            ->with('voluntario')
+            ->get();
+        
+        $data = [];
+        
+        foreach ($areas as $area) {
+            $id = $area->id;
+            $encontrados = $registros->where('area_id', $id);
+            
+            if ($encontrados->isEmpty()) {
+                $tmp = ['area' => $area];
+            } else {
+                $tmp = array_merge($encontrados->first()->toArray(), ['area' => $area]);
+            }
+            
+            $data[] = $tmp;
+        }
+        
+        return self::responsee(
+            'Consulta realizada con exito.',
+            true,
+            $data
+        );    
+    }
+    
+    
 }
