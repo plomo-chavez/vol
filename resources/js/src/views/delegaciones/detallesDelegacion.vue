@@ -32,24 +32,73 @@
             <b-tab>
                 <template #title>
                     <feather-icon icon="ToolIcon" />
-                    <span class="d-none d-sm-block">Autoridades</span>
+                    <span class="d-none d-sm-block">Coordinadores</span>
                 </template>
-                <h3 class="col-12 text-center">Proximamente</h3>
+                <div>
+                    <div v-for="(item) in coordinadores" class="mb-2">
+                        <h3 class="wwfull">{{ item.area.nombre }}</h3>
+                        <div v-if="item.voluntario">
+                            <h5  class="wwfull">{{ item.voluntario.nombreCompleto }}</h5>
+                            <div v-if="item.pedirArchivos">
+                                
+                                <b-button
+                                    variant="danger"
+                                    v-b-modal.modal-archivos
+                                    @click="() => {administrarArchivos(item)}"
+                                >Atrás</b-button>
+                            </div>
+                        </div>
+                        <h3 v-else class="wwfull">No hay coordinador</h3>
+                    </div>
+                </div>
+                <div>
+
+                </div>
             </b-tab>
         </b-tabs>
         <h1 v-else class="col-12 text-center"> No se encontró el voluntario.</h1>
     </b-card>
+        <!-- disable animation-->
+        <b-modal
+      id="modal-archivos"
+      content-class="shadow"
+      title="Disabled Animation"
+      no-fade
+      ok-only
+      ok-title="Accept"
+    >
+      <b-card-text>
+        Chocolate bar jelly dragée cupcake chocolate bar I love donut liquorice.
+        Powder I love marzipan donut candy canes jelly-o.
+        Dragée liquorice apple pie candy biscuit danish lemon drops sugar plum.
+      </b-card-text>
+      <b-alert
+        show
+        variant="success"
+      >
+      <pre>{{ activeRow }}</pre>
+        <div class="alert-body">
+          Well done! You successfully read this important alert message.
+        </div>
+      </b-alert>
+    </b-modal>
   </div>
 </template>
 
 <script>
-    import { BTabs, BTab, BCard, BButton } from 'bootstrap-vue'
+    import { 
+        BTabs, 
+        BTab, 
+        BCard, 
+        BButton,
+        BModal, 
+        VBModal, 
+        BAlert, 
+        BCardText } from 'bootstrap-vue'
     import formDatosVoluntario  from '@/views/voluntarios/formDatosVoluntario.vue'
     import tabHoras  from '@/views/voluntarios/tabHorasVoluntarias.vue'
     import FormFactory      from '@currentComponents/FormFactory.vue'
-    import peticiones from '@/apis/usePeticiones'
     import customHelpers  from '@helpers/customHelpers'
-import { platform } from 'chart.js'
 
     export default {
         name: 'detallesDelegacion',
@@ -59,14 +108,23 @@ import { platform } from 'chart.js'
             BTabs,
             BTab,
             BButton,
+            BModal, 
+            VBModal, 
+            BAlert, 
+            BCardText, 
             FormFactory,
             formDatosVoluntario,
             tabHoras,
+        },    
+        directives: {
+            'b-modal': VBModal,
         },
         mounted() {},
         data() {
             return {
                 activeData : null,
+                activeRow : null,
+                coordinadores : [],
             }
         },
         props: {
@@ -86,12 +144,8 @@ import { platform } from 'chart.js'
         watch: {
 
         },
-        computed: {
-
-        },
-        created() {
-
-        },
+        computed: {},
+        created() {},
         beforeMount(){
             if (this.data != null) {
                 this.activeData = this.copyObject(this.data)               
@@ -100,30 +154,24 @@ import { platform } from 'chart.js'
         methods:{
             handleTabChange(tabID) {
                 if(tabID == 1){
-                    this.getAutoridades();
+                    this.getCoordinadores();
                 }
             },
             mtdSave(data){ this.$emit('formExport',data) },
             mtdCancelar(){ this.$emit('cancelar') },
-            getAutoridades(){ 
-                let payload = {accion:5}
-                // this.peticionGeneralAdministrar(peticiones.administrarDelegaciones,payload)
-                let response = this.peticionAdministrar(payload)
+            async getCoordinadores(){ 
+                let payload = { 
+                    payload : {
+                        accion : 5,
+                        delegacion_id : this.data.id
+                    }
+                };
+                let tmp =  await this.peticionGeneral('administrarDelegaciones',payload)
+                this.coordinadores = tmp.data;
             },
-            peticionAdministrar(payload){
-                this.loading();
-                peticiones
-                    .administrarDelegaciones({ 'payload' : payload, })
-                    .then(response => {
-                        this.loading(false);
-                        return response
-                    })
-                    .catch(error   => { 
-                        this.loading(false);
-                        console.log(error); 
-                    })
+            administrarArchivos(data){
+                this.activeRow = this.copyObject(data);
             },
-
         }
     }
 </script>

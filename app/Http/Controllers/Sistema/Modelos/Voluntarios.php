@@ -9,6 +9,7 @@ class Voluntarios extends Model
     use HasFactory;
     protected $table        = "voluntarios";
     protected $primaryKey   = "id";
+    protected $appends = ['nombreCompleto'];
 
     protected $fillable = [
         'nombre',
@@ -46,4 +47,10 @@ class Voluntarios extends Model
     public function area() {
         return $this->hasOne(Areas::class,'id','area_id')->select('id','nombre');
     }
+    // Define el atributo accesor para concatenar nombre y primerApellido
+    public function getNombreCompletoAttribute()
+    {
+        return $this->attributes['nombre'] . ' ' . $this->attributes['primerApellido'];
+    }
+
 }

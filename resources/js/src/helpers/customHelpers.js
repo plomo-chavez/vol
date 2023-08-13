@@ -1,8 +1,12 @@
 
+import peticiones from '@/apis/usePeticiones'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 import '@resources/scss/vue/libs/vue-sweetalert.scss';
+import helpersPeticiones    from '@helpers/customHelpersPeticiones'
 
 export default {
+
+    mixins : [helpersPeticiones],
   methods: {
     loading(tipo = true){
       document.getElementById("loading-bg").style.display = tipo?"block":"none";
@@ -159,13 +163,6 @@ export default {
       };
 
       reader.readAsText(response.data);
-    },
-
-    peticionGeneralAdministrar(metodo,payload){
-        this.loading();
-        metodo({ payload: payload, })
-        .then((response) => { return response; })
-        .catch((error) => { this.loading(false); console.log(error); });
     },
   } 
 }
