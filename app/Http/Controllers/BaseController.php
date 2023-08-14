@@ -192,6 +192,10 @@ class BaseController extends Controller{
         return $protocol . $_SERVER['HTTP_HOST'];
         
     }
+    public static function getURLCodeInterno($code) {
+        return self::getMainURL().'/scan?code='.$code;
+
+    }
     public function getDelegacionIDXUsuario($userID) {
         $userID = 17;
         $response = null;

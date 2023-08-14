@@ -22,6 +22,12 @@
                         variant="relief-primary"
                         @click="handleExportFichaRegistro"
                     >Generar ficha de registro</b-button>
+                    <b-button
+                    v-if="!isRegistro"
+                        size="sm"
+                        variant="relief-primary"
+                        @click="handreCreateCredencialTemporal"
+                    >Generar Credencial Temporal</b-button>
                 </div>
                 <div>
                     <b-button
@@ -420,7 +426,32 @@
                     this.loading(false)
                     console.log(error);
                 })
-            }
+            },
+            handreCreateCredencialTemporal(){
+                let payload = {
+                    voluntario_id : this.data.id,
+                    type:'credencialTemporal',
+                };
+
+                this.loading();
+                generatePDF.generatePDFCredencialTemporal(payload)
+                .then(response => {
+                    this.loading(false)
+                    this.descargarPDF(response,this.data.id,'credencialTemporal')
+                })
+                .catch(error   => {
+                    this.loading(false)
+                    console.log(error);
+                })
+            },
+            // async handreCreateCredencialTemporal(){
+            //     let payload = {
+            //         voluntario_id : this.data.id,
+            //         type:'credencialTemporal',
+            //     };
+            //     let response =  await this.peticionGeneral('generatePDFCredencialTemporal',payload)
+            //     this.descargarPDF(response,this.data.id,'fichaRegistro')
+            // },
         }
     }
 </script>

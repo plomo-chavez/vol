@@ -1,6 +1,8 @@
 
 import peticiones from '@/apis/usePeticiones'
 import uploadFiles from '@/apis/useUploadFiles'
+import generatePDF from '@/apis/useGeneratePDF'
+
 export default {
     methods: {
         catchError(error) {
@@ -25,6 +27,12 @@ export default {
                     break;
                     case 'administrarVoluntarios':
                         response = await peticiones.administrarVoluntarios(payload);
+                    break;
+                    case 'generatePDFVoluntarios':
+                        response = await  generatePDF.generatePDFVoluntarios(payload)
+                    break;
+                    case 'generatePDFCredencialTemporal':
+                        response = await  generatePDF.generatePDFCredencialTemporal(payload)
                     break;
                     case 'administarFilesDelegacionesCoordinadores':
                         response = await uploadFiles.administarFilesDelegacionesCoordinadores(payload);

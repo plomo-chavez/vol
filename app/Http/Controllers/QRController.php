@@ -5,21 +5,24 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
 
 class QRController extends BaseController {
-    public static function generateAndSaveQR($data,$ubicacion,$name = null)
-    {
-        switch ($ubicacion) {
-            case 'fichasRegistro':
-                $name = ($name == null) ? time() : $name;
-                $output_file = '/qr-' . $name . '.png';
-                break;
-        }
-        
-        $image = \QrCode::format('png')
+    public static function generateAndSaveQR($data,$ubicacion,$name = null) {
+        $name = ($name == null) ? time() : $name;
+        $name = $name . '.png';
+    
+        $qrCodeContent = \QrCode::format('png')
             ->size(200)->errorCorrection('H')
-            ->margin(3) // Establece el tamaño del margen en píxeles
+            ->margin(3)
             ->generate($data);
-        Storage::disk('local')->put('/public'.$output_file, $image);
-        $url = self::getMainURL().'/storage'.$output_file;
+    
+        // Almacenar el archivo en el almacenamiento
+        $path = Storage::disk('public')->put($ubicacion . '/' . $name, $qrCodeContent);
+    
+        // Obtener la URL interna del archivo
+        $url = Storage::disk('public')->url($ubicacion . '/' . $name);
+        // Verificar si estás en entorno local
+        if (strstr($url, 'localhost')) {
+            $url = self::getMainURL().(str_replace('http://localhost', '', $url));
+        }
         return $url; 
     }
 }

@@ -1,0 +1,63 @@
+
+.celda8 { width: 12.5%!important; }
+.celda90 { width: 90%!important; }
+.celda50 { width: 50%!important; }
+tr td{ height: 15px!important; }
+td{ width: 33.3333%!important; }
+.tdFull{ width: 100%!important; }
+.gray { background-color: lightgray }
+.text-primary { color: #DD0000!important; }
+.textJustify { text-align:justify!important; }
+.textCenter { text-align:center!important; }
+
+.table td,
+.table th {
+  border: 0.5px solid black;
+}
+.tableTitulo{
+  font-size: small;
+  border-collapse: collapse;
+  width: 100%;
+}
+.tableTitulo h4{
+  font-size: small;
+  border-collapse: collapse;
+  line-height: 0!important;
+  width: 100%;
+}
+.table {
+  font-size: x-small;
+  border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
+  width: 100%;
+}
+tfoot tr td{
+  font-weight: bold;
+  font-size: x-small;
+}
+.titulo {
+  background-color: #DD0000!important;
+  color: #FFFFFF!important;
+  font-weight: bold!important;
+  text-align:center!important;
+  line-height: 0!important;
+}
+.tituloFormato {
+  margin-bottom:0px!important; 
+  text-align: right;
+  font-weight: bold!important;
+}
+.subtitulo {
+  background-color:lightgray!important;
+  text-align:center!important;
+  font-weight: bold!important;
+}
+.imgResponsivo {
+  max-width: 100%;
+  height: auto;
+}
+.nombreFirma {
+  margin-bottom:0!important;
+  margin-top:40px!important;
+}

@@ -65,9 +65,11 @@ class VoluntariosController extends BaseController {
         ->get();
         $tmp = sizeof($tmp) == 1 ? $tmp[0]->toArray() : null;
         if ($tmp != null) {
-            $name = self::getNombreDelegacion($tmp['delegacion']);
-            if ($name != null) {
-                $tmp['delegacion'] = $name;
+            if($tmp['delegacion_id'] != 0){
+                $name = self::getNombreDelegacion($tmp['delegacion']);
+                if ($name != null) {
+                    $tmp['delegacion'] = $name;
+                }
             }
         }
         return self::responsee(
@@ -123,19 +125,64 @@ class VoluntariosController extends BaseController {
     }
     
     public static function generateFichaRegistro($payload) {
-        \Carbon\Carbon::setLocale('es');
         try {
             if (!($payload['voluntario_id'] ?? false)) {
                 return self::response($message = 'Falta voluntario_id');
             } else {
                 $data = Modelo::find($payload['voluntario_id'])->toArray();
                 if ($data != null) {
-                    $data['fechaImpresa'] = self::fechaWithHora();
-                    $data['qrCode'] = QRController::generateAndSaveQR($data['numeroAsociado'],'fichasRegistro',$data['numeroAsociado']);
+                    $path = 'voluntarios'.'/'.$data['numeroInterno'];
+                    $urlCodigoInterno = self::getURLCodeInterno($data['numeroInterno']);
+                    $data['qrCode'] = QRController::generateAndSaveQR($urlCodigoInterno,$path,'qrScanVoluntario');
                     return array(
                         'result'    => true,
                         'message'   => 'PDF generado con exito',
                         'data'      => PDFController::generatePDF($data,'pdf.voluntario-fichaRegistro','voluntario-fichaRegistro.pdf'),
+                    );
+                } else {
+                    return self::response($message = 'Problemas con la resevación');
+                }
+            }
+        } catch (Exception $e) {
+            // Manejar la excepción aquí
+            return self::response($message = 'Ha ocurrido una excepción: ' . $e->getMessage());
+        }
+
+    }
+    public function generatePDFCRedencialTemporal(Request $request){
+        $payload = $request->all();
+        $pdfContent = self::generateCredencialTemporal($payload);
+        if (isset($pdfContent['status']) && !$pdfContent['status']) {
+            return self::responsee(
+                $pdfContent['message'],
+                $pdfContent['status'],
+               [] ,
+            );
+        } else {
+            $response = response($pdfContent, 200, [ 'Content-Type' => 'application/pdf', ]);
+            return $response;
+        }
+    }
+    public static function generateCredencialTemporal($payload) {
+        try {
+            if (!($payload['voluntario_id'] ?? false)) {
+                return self::response($message = 'Falta voluntario_id');
+            } else {
+                $data = Modelo::find($payload['voluntario_id'])->toArray();
+                if ($data != null) {
+                    if (($data['delegacion_id'] == 0 || $data['delegacion_id'] == null)) {
+                        return self::response($message = 'Este voluntario no pertenece a una delegación');
+                    }
+                    if (($data['numeroInterno'] == null)) {
+                        return self::response($message = 'Este voluntario no tiene un numero interno');
+                    }
+                    $urlCodigoInterno = self::getURLCodeInterno($data['numeroInterno']);
+                    $path = 'voluntarios'.'/'.$data['numeroInterno'];
+                    $data['qrCode'] = QRController::generateAndSaveQR($urlCodigoInterno,$path,'qrCredencialTemporal');
+                    return array(
+                        'result'    => true,
+                        'message'   => 'PDF generado con exito',
+                        'data'      => PDFController::generatePDF($data,'pdf.voluntario-credencialTemporal','voluntario-credencialTemporal.pdf'),
                     );
                 } else {
                     return self::response($message = 'Problemas con la resevación');

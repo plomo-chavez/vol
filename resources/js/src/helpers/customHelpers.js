@@ -139,17 +139,24 @@ export default {
         })
         return tmp
     },
-    descargarPDF(response,id = '',name = ''){
-      let tmpName = String(id).padStart(6, '0');
-      tmpName = name + '-' + tmpName + '.pdf'
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', tmpName); // Nombre del archivo descargado
-      document.body.appendChild(link);
-      link.click();
-      this.loading(false);
+    descargarPDF(response, id = '', name = '') {
+        const tmpName = id !== '' ? String(id).padStart(6, '0') : String(new Date().getTime());
+        const fileName = (name !== '' ? name + '-' : '') + tmpName + '.pdf';
+    
+        const url = URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', fileName);
+        
+        document.body.appendChild(link);
+        link.click();
+        
+        // Eliminar el enlace después de descargar
+        document.body.removeChild(link);
+    
+        this.loading(false);
     },
+    
     errorPDF(response){
       this.loading(false)
       const reader = new FileReader();

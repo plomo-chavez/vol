@@ -17,7 +17,7 @@ class Delegaciones extends Model
     ];
 
     public function areas() {
-        return $this->hasMany(DelegacionAreas::class, 'delegacion_id', 'id')->select('id', 'delegacion_id', 'coordinacion_id')
+        return $this->hasMany(DelegacionAreas::class, 'delegacion_id', 'id')->select('id', 'delegacion_id', 'area_id')
             ->with('area:id,nombre');
     }
 

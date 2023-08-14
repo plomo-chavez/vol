@@ -11,7 +11,7 @@
 <footer> @include('pdf.includes.footer', ['fechaImpresa' => $fechaImpresa]) </footer>
 <main>
     <div class="contenedor spaceBetween">
-        <!-- <div class="columna">
+        <div class="columna">
             <div class="texto-center">
                 <img style="width: 170px; height: 30px; " src="https://voluntariado-gro.com/images/elementos/cr.png" />
             </div>
@@ -60,8 +60,8 @@
                     <p class="subtitulo texto-negritas">DELEGACIÓN ESTATAL GUERRERO</p>
                 </div>
             </div>
-        </div> -->
-        <div class="columna p2">
+        </div>
+        <!-- <div class="columna p2">
             <div class="texto-center">
                 <img style="width: 170px; height: 30px; " src="https://voluntariado-gro.com/images/elementos/cr.png" />
             </div>
@@ -81,7 +81,7 @@
                 <img style="width: 40px; height: 40px; " src="https://voluntariado-gro.com/images/elementos/qr.png" />
                 <img style="width: 40px; height: 45px; "src="https://voluntariado-gro.com/images/elementos/voluntariado.png" />
             </div>
-        </div>
+        </div> -->
         <div class="columna p2">
             <div class="texto-center">
                 <img style="width: 170px; height: 30px; " src="https://voluntariado-gro.com/images/elementos/cr.png" />
