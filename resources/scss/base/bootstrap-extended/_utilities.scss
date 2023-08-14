@@ -51,7 +51,11 @@ $sizes-per: (
   90: 90%,
   95: 95%
 ) !default;
-
+.divBorde {
+  border: 2px solid #ccc; /* Grosor y color del borde */
+  border-radius: 10px; /* Radio de las esquinas redondeadas */
+  padding: 10px; /* Espacio interno para evitar que el contenido se superponga al borde */
+}
 
 // .mx-auto {
 //     margin-left: auto!important;

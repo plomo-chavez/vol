@@ -23108,6 +23108,18 @@ ul.list-inline.list-inline-pipe > li + li:before {
   left: 1px;
 }
 
+.divBorde {
+  /* Grosor y color del borde */
+  /* Radio de las esquinas redondeadas */
+  /* Espacio interno para evitar que el contenido se superponga al borde */
+}
+
+[dir] .divBorde {
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+}
+
 [dir] .pp-custom {
   padding: 5px !important;
 }

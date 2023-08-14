@@ -28,6 +28,7 @@
                 :schema="formSchema"
                 @formExport="save"
                 @cancelar="resetForm"
+                @handleAtras="resetForm"
             />
         </div>
     </div>

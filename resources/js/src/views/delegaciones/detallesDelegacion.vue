@@ -15,42 +15,46 @@
         <b-tabs content-class="pt-1" fill v-if="activeData != null" @input="handleTabChange">
             <b-tab>
                 <template #title>
-                    <feather-icon icon="ToolIcon" />
+                    <font-awesome-icon icon="fa-solid fa-house" />
                     <span class="d-none d-sm-block">Información de la delegación</span>
                 </template>
-                <FormFactory
-                    class="col-10 mx-auto"
-                    withCard
-                    :data = 'activeData'
-                    :schema="schema"
-                    @formExport="mtdSave"
-                    @cancelar="mtdCancelar"
-                />
+                <div class="d-flex text-center">
+                    <FormFactory
+                        class="ww-600 mx-auto"
+                        withCard
+                        :data = 'activeData'
+                        :schema="schema"
+                        @formExport="mtdSave"
+                        @cancelar="mtdCancelar"
+                    />
+                </div>
             </b-tab>
             <b-tab>
                 <template #title>
-                    <feather-icon icon="UsersIcon" />
+                    <font-awesome-icon :icon="['fas', 'users']" />
                     <span class="d-none d-sm-block">Coordinadores</span>
                 </template>
-                <div>
-                    <div v-for="(item) in coordinadores" class="mb-2">
-                        <h3 class="wwfull">{{ item.area.nombre }}</h3>
-                        <div v-if="item.voluntario">
-                            <h5  class="wwfull">{{ item.voluntario.nombreCompleto }}</h5>
-                            <div v-if="item.pedirArchivos">
-                                
+                <div class="d-flex flex-wrap">
+                    <div v-for="(item) in coordinadores" class="mb-2 wwfull d-flex justify-content-center ">
+                        <div class="d-flex flex-wrap divBorde p-1 ww-500">
+                            <div class="ww-100 d-flex justify-content-center align-items-center" >
                                 <b-button
-                                    variant="danger"
+                                    v-if="item.pedirArchivos"
+                                    v-ripple.400="'rgba(113, 102, 240, 0.15)'"
+                                    variant="outline-primary"
                                     v-b-modal.modal-archivos
                                     @click="() => {administrarArchivos(item)}"
-                                >Atrás</b-button>
+                                >
+                                    <font-awesome-icon icon="fa-solid fa-laptop-file" />
+                                </b-button>
+                            </div>
+                            <div class="ww-100A">
+                                <h3 class="wwfull">{{ item.area.nombre }}</h3>
+                                <h5 v-if="item.voluntario" class="wwfull">{{ item.voluntario.nombreCompleto }}</h5>
+                                <p v-else class="wwfull text-center">No hay coordinador</p>
                             </div>
                         </div>
-                        <h3 v-else class="wwfull">No hay coordinador</h3>
                     </div>
-                </div>
-                <div>
-
                 </div>
             </b-tab>
         </b-tabs>
@@ -70,7 +74,7 @@
             <b-tabs content-class="pt-1" fill class="wwfull">
                 <b-tab>
                     <template #title>
-                        <feather-icon icon="Edit3Icon" />
+                        <font-awesome-icon icon="fa-solid fa-signature" />
                         <span class="d-none d-sm-block">Firma</span>
                     </template>
                     <div class="col-12">
@@ -84,7 +88,7 @@
                 </b-tab>
                 <b-tab>
                     <template #title>
-                        <feather-icon icon="HashIcon" />
+                        <font-awesome-icon icon="fa-solid fa-stamp" />
                         <span class="d-none d-sm-block">Sello</span>
                     </template>
                     <div class="col-12">
@@ -117,6 +121,7 @@
     import FormFactory      from '@currentComponents/FormFactory.vue'
     import customHelpers  from '@helpers/customHelpers'
     import FileUpload from '@currentComponents/FileUpload.vue'
+    import Ripple from 'vue-ripple-directive'
 
     export default {
         name: 'detallesDelegacion',
@@ -137,6 +142,7 @@
         },    
         directives: {
             'b-modal': VBModal,
+            Ripple,
         },
         mounted() {},
         data() {
