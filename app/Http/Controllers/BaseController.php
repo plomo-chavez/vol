@@ -9,6 +9,7 @@ use App\Http\Controllers\Sistema\Modelos\Coordinadores;
 use App\Http\Controllers\Sistema\Modelos\Voluntarios;
 use App\Http\Controllers\Sistema\Modelos\ContadorNumeroInterno;
 use App\Http\Controllers\Auth\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Dompdf\Dompdf;
 use Carbon\Carbon;
 use PDF;
@@ -250,5 +251,27 @@ class BaseController extends Controller{
                 return Delegaciones::pluck('id')->toArray();
                 break;
         }
+    }
+
+    public static function sendStorage($file,$folder,$filename) {
+        if($filename == null){
+            $filename = $file->getClientOriginalName();
+        } else{
+            $extension = $file->getClientOriginalExtension();
+            $filename = $filename.'.'.$extension;
+        }
+        // Almacenar el archivo en el almacenamiento
+        $path = Storage::disk('public')->putFileAs($folder, $file, $filename);
+        // Obtener la URL interna del archivo
+        $url = Storage::disk('public')->url($path);
+
+        $currentHost = request()->getHost();
+
+        if (request()->getHost() === 'localhost') {
+            // Estás en localhost
+            $url = self::getMainURL().(str_replace('http://localhost', '', $url));
+        }
+        return  $url;
+        
     }
 }

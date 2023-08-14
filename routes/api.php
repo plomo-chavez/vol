@@ -75,6 +75,8 @@ Route::post('/valid/curp',                  [VoluntariosController::class, 'vali
 Route::post('/catalogo/especial/delegaciones', [CatalogosController::class, 'delegacionesXTipoCoordinador']);
 
 Route::middleware([UserAuthentication::class])->post('/generate/voluntarios', [VoluntariosController::class, 'generatePDFVoluntarios']);
+// UploadFiles
+Route::post('/upload/delegacion/coordinadores',                  [DelegacionesController::class, 'uploadFilesDelegacionesCoordinadores']);
 
 
 

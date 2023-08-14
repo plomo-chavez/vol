@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div class=" col-12 d-flex flex-wrap justify-content-between mb-2">
         <div>
             <b-button
@@ -19,7 +18,6 @@
                     <feather-icon icon="ToolIcon" />
                     <span class="d-none d-sm-block">Información de la delegación</span>
                 </template>
-                
                 <FormFactory
                     class="col-10 mx-auto"
                     withCard
@@ -31,7 +29,7 @@
             </b-tab>
             <b-tab>
                 <template #title>
-                    <feather-icon icon="ToolIcon" />
+                    <feather-icon icon="UsersIcon" />
                     <span class="d-none d-sm-block">Coordinadores</span>
                 </template>
                 <div>
@@ -58,29 +56,48 @@
         </b-tabs>
         <h1 v-else class="col-12 text-center"> No se encontró el voluntario.</h1>
     </b-card>
-        <!-- disable animation-->
-        <b-modal
-      id="modal-archivos"
-      content-class="shadow"
-      title="Disabled Animation"
-      no-fade
-      ok-only
-      ok-title="Accept"
+    <!-- disable animation-->
+    <b-modal
+        v-if="activeRow != null"
+        id="modal-archivos"
+        content-class="shadow"
+        title="Administrador de archivos del coordinador"
+        no-fade
+        ok-only
+        ok-title="Cerrar"
     >
-      <b-card-text>
-        Chocolate bar jelly dragée cupcake chocolate bar I love donut liquorice.
-        Powder I love marzipan donut candy canes jelly-o.
-        Dragée liquorice apple pie candy biscuit danish lemon drops sugar plum.
-      </b-card-text>
-      <b-alert
-        show
-        variant="success"
-      >
-      <pre>{{ activeRow }}</pre>
-        <div class="alert-body">
-          Well done! You successfully read this important alert message.
+        <div class="d-flex flex-wrap">
+            <b-tabs content-class="pt-1" fill class="wwfull">
+                <b-tab>
+                    <template #title>
+                        <feather-icon icon="Edit3Icon" />
+                        <span class="d-none d-sm-block">Firma</span>
+                    </template>
+                    <div class="col-12">
+                        <FileUpload 
+                            btnSave
+                            :tipoArchivo="'jpg,jpeg,png'"
+                            :url="activeRow.uriFirma"
+                            @saveFile="(event) => { guardarArchivo(event,'Firma')}"
+                        />
+                    </div>
+                </b-tab>
+                <b-tab>
+                    <template #title>
+                        <feather-icon icon="HashIcon" />
+                        <span class="d-none d-sm-block">Sello</span>
+                    </template>
+                    <div class="col-12">
+                        <FileUpload 
+                            btnSave
+                            :tipoArchivo="'jpg,jpeg,png'"
+                            :url="activeRow.uriSello"
+                            @saveFile="(event) => { guardarArchivo(event,'Sello')}"
+                        />
+                    </div>
+                </b-tab>
+            </b-tabs>
         </div>
-      </b-alert>
     </b-modal>
   </div>
 </template>
@@ -99,6 +116,7 @@
     import tabHoras  from '@/views/voluntarios/tabHorasVoluntarias.vue'
     import FormFactory      from '@currentComponents/FormFactory.vue'
     import customHelpers  from '@helpers/customHelpers'
+    import FileUpload from '@currentComponents/FileUpload.vue'
 
     export default {
         name: 'detallesDelegacion',
@@ -115,6 +133,7 @@
             FormFactory,
             formDatosVoluntario,
             tabHoras,
+            FileUpload
         },    
         directives: {
             'b-modal': VBModal,
@@ -141,9 +160,7 @@
                 default : false
             },
         },
-        watch: {
-
-        },
+        watch: {},
         computed: {},
         created() {},
         beforeMount(){
@@ -172,8 +189,16 @@
             administrarArchivos(data){
                 this.activeRow = this.copyObject(data);
             },
+            async guardarArchivo(data,tipo){
+                const formData = new FormData();
+                formData.append('filee',data.url);
+                formData.append('file', data.file, data.name);
+                formData.append('newName', tipo);
+                formData.append('registro_id', this.activeRow.id);
+                let resp =  await this.peticionGeneral('administarFilesDelegacionesCoordinadores',formData)
+                this.messageSweet({message:resp.message})
+            },
         }
     }
 </script>
-<style>
-</style>
+<style></style>

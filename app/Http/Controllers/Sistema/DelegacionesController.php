@@ -90,6 +90,35 @@ class DelegacionesController extends BaseController {
             $data
         );    
     }
+    public function uploadFilesDelegacionesCoordinadores(Request $request){
+        $msg = 'No se ha proporcionado ningún archivo';
+        $boolResp = false;
+        // Obtener el archivo del formulario
+        $uploadedFile   = $request->file('file');
+        $coordi_id      = $request->input('registro_id');
+        $filename       = $request->input('newName') ?? null;
+        // Validar que se haya enviado un archivo
+        if ($uploadedFile) {
+            $folder = 'delegaciones/coordinadores/'.$coordi_id;
+            $url = self::sendStorage($uploadedFile,$folder,$filename);
+            $isFirma = strtolower($filename) == 'firma';
+            DelegacionAreasCoordinadores::where('id', $coordi_id)->update([($isFirma ? 'uriFirma':'uriSello') => $url]);
+            return self::responsee(
+                'Archivo subido correctamente',
+                true,
+                []
+                // ['url' => $url]
+            );
+        } else{
+            return self::responsee(
+                'Problemas al subir el archivo',
+                false,
+            );
+        }
+
+        
+    }
+    
     
     
 }

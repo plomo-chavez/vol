@@ -961,6 +961,11 @@
   resolved "https://registry.yarnpkg.com/@casl/vue/-/vue-1.2.3.tgz#ba835f71746334cddc6a97aa879e7b77d7472451"
   integrity sha512-vdDa2UN79+b4NHa6pseaVJOxFcrVKvZBzpVYAdXqB71l+NzK6l76gLKqCFe7r+u6KiabY8ZwqGhfZ4MYfbMoBg==
 
+"@fortawesome/fontawesome-free@^6.4.2":
+  version "6.4.2"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.4.2.tgz#36b6a9cb5ffbecdf89815c94d0c0ffa489ac5ecb"
+  integrity sha512-m5cPn3e2+FDCOgi1mz0RexTUvvQibBebOUlUlW0+YrMjDTPkiJ6VTKukA1GRsvRw+12KyJndNjj0O4AgTxm2Pg==
+
 "@fullcalendar/common@~5.11.3":
   version "5.11.3"
   resolved "https://registry.yarnpkg.com/@fullcalendar/common/-/common-5.11.3.tgz#6d555a06925b8a6d1556570c9f039960539908d5"
