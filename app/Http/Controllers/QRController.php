@@ -20,9 +20,7 @@ class QRController extends BaseController {
         // Obtener la URL interna del archivo
         $url = Storage::disk('public')->url($ubicacion . '/' . $name);
         // Verificar si estás en entorno local
-        if (strstr($url, 'localhost')) {
-            $url = self::getMainURL().(str_replace('http://localhost', '', $url));
-        }
+        $url = self::getMainURL().(str_replace('http://localhost', '', $url));
         return $url; 
     }
 }

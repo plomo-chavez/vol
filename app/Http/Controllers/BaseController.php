@@ -229,7 +229,8 @@ class BaseController extends Controller{
                 }
             }
         }
-        return $response;
+        return 1;
+        // return $response;
         
     }
     public function idsDelegacionesXTipoUsuario($tipoUsuarioID) {
@@ -268,13 +269,7 @@ class BaseController extends Controller{
         $path = Storage::disk('public')->putFileAs($folder, $file, $filename);
         // Obtener la URL interna del archivo
         $url = Storage::disk('public')->url($path);
-
-        $currentHost = request()->getHost();
-
-        if (request()->getHost() === 'localhost') {
-            // Estás en localhost
-            $url = self::getMainURL().(str_replace('http://localhost', '', $url));
-        }
+        $url = self::getMainURL().(str_replace('http://localhost', '', $url));
         return  $url;
         
     }
