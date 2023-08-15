@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Credencial Temporal #{{$numeroAsociado}}</title>
+  <title>Credencial Temporal #{{$numeroInterno}}</title>
 </head>
 <body> 
 <footer> @include('pdf.includes.footer', ['fechaImpresa' => $fechaImpresa]) </footer>
@@ -13,7 +13,7 @@
         <div class="columnaL">
             <div class="card">
                 <div class="wwfull p2">
-                    <div class="wwfull texto-center mp0 mt-1">
+                    <div class="wwfull texto-center mp0 mt-1 mb-1"> 
                     <img style="width: 170px; height: 30px; " src="{{$imgCR}}" />
                     </div>
                     <div class="wwfull texto-black mp0">
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="divMensajeRojo mp0">
-                    <p class="texto-center texto-dias mp0"> PARA PRESTAR SERVICIOS POR <br> 60 DÍAS</p>
+                    <p class="texto-center texto-dias mp0"> PARA PRESTAR SERVICIOS POR <br> {{$dias}} DÍAS</p>
                 </div>
                 <div class="wwfull mp0">
                     <p class="texto-center texto-negritas mp0">ADSCRITO (A) A: VOLUNTARIADO </p>
@@ -79,7 +79,7 @@
         <div class="columnaR">
             <div class="card">
                 <div class="p2">
-                    <div class="wwfull texto-center mp0 mt-1">
+                    <div class="wwfull texto-center mp0 mt-1 mb-1">
                         <img style="width: 170px; height: 30px; " src="{{$imgCR}}" />
                     </div>
                     <div class="mb-2">

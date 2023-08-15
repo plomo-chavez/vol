@@ -186,15 +186,19 @@ class VoluntariosController extends BaseController {
                     if (($registros->count() == 0)) {
                         return self::response($message = 'Error con el coordinador, checar datos de la delegación.');
                     } else {
-                        $data['coordinador']    = $registros[0]['voluntario']['nombre'].' '.$registros[0]['voluntario']['primerApellido'].' '.$registros[0]['voluntario']['segundoApellido'];
+                        $data['coordinador']    = strtoupper($registros[0]['voluntario']['nombre']).' '.strtoupper($registros[0]['voluntario']['primerApellido']).' '.strtoupper($registros[0]['voluntario']['segundoApellido']);
                         $data['uriFirma']       = $registros[0]['uriFirma'];
                         $data['uriSello']       = $registros[0]['uriSello'];
+                        $data['dias']           = 30;
                         $data['fechaInicio']    = self::fechaNow()->format('d/m/Y');
-                        $data['fechaFin']       = self::fechaNow()->copy()->addDays(60)->format('d/m/Y');
+                        $data['fechaFin']       = self::fechaNow()->copy()->addDays($data['dias'])->format('d/m/Y');
+                        $data['nombre']         = strtoupper($data['nombre']);
+                        $data['primerApellido'] = strtoupper($data['primerApellido']);
+                        $data['segundoApellido']= strtoupper($data['segundoApellido']);
                     }
                     $urlCodigoInterno = self::getURLCodeInterno($data['numeroInterno']);
                     $path = 'voluntarios'.'/'.$data['numeroInterno'];
-                    $data['qrCode'] = QRController::generateAndSaveQR($urlCodigoInterno,$path,'qrCredencialTemporal');
+                    $data['qrCode'] = QRController::generateAndSaveQR($data['numeroInterno'],$path,'qrCredencialTemporal');
                     return array(
                         'result'    => true,
                         'message'   => 'PDF generado con exito',
