@@ -4,6 +4,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\QRController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\Email\MailController;
+use App\Http\Controllers\Sistema\Modelos\DelegacionAreasCoordinadores;
 
 use App\Http\Controllers\Sistema\Modelos\Voluntarios as Modelo;
 
@@ -175,6 +176,21 @@ class VoluntariosController extends BaseController {
                     }
                     if (($data['numeroInterno'] == null)) {
                         return self::response($message = 'Este voluntario no tiene un numero interno');
+                    }
+                    $registros = DelegacionAreasCoordinadores::where('delegacion_id', $data['delegacion_id'])
+                        ->where('area_id',2)
+                        ->with(['voluntario' => function ($query) {
+                            $query->select('id', 'nombre', 'primerApellido', 'segundoApellido');
+                        }])
+                        ->get();                    
+                    if (($registros->count() == 0)) {
+                        return self::response($message = 'Error con el coordinador, checar datos de la delegación.');
+                    } else {
+                        $data['coordinador']    = $registros[0]['voluntario']['nombre'].' '.$registros[0]['voluntario']['primerApellido'].' '.$registros[0]['voluntario']['segundoApellido'];
+                        $data['uriFirma']       = $registros[0]['uriFirma'];
+                        $data['uriSello']       = $registros[0]['uriSello'];
+                        $data['fechaInicio']    = self::fechaNow()->format('d/m/Y');
+                        $data['fechaFin']       = self::fechaNow()->copy()->addDays(60)->format('d/m/Y');
                     }
                     $urlCodigoInterno = self::getURLCodeInterno($data['numeroInterno']);
                     $path = 'voluntarios'.'/'.$data['numeroInterno'];

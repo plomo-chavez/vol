@@ -9,6 +9,11 @@ class PDFController extends BaseController {
     public static function generatePDF($data,$viewTemplate,$fileName) {
         try {
             $dompdf = new Dompdf();
+            if (strpos($viewTemplate,'credencialTemporal') !== false) {
+                $data['imgCR'] = self::getMainURL().'/images/elementos/crHorizontal.jpeg';
+                $data['imgVoluntariado'] = self::getMainURL().'/images/elementos/voluntariado.png';
+                $data['imgVoluntario'] = self::getMainURL().'/images/elementos/perfilDefault.jpg';
+            }
             // Renderizar la vista a HTML
             $data['fechaImpresa'] = self::fechaWithHora();
             $html = View::make($viewTemplate, $data)->render();

@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="wwfull p2">
                     <div class="wwfull texto-center mp0 mt-1">
-                        <img style="width: 170px; height: 30px; " src="https://voluntariado-gro.com/images/elementos/cr.png" />
+                    <img style="width: 170px; height: 30px; " src="{{$imgCR}}" />
                     </div>
                     <div class="wwfull texto-black mp0">
                         <p class="titulo text mp0">TARJETA DE PERMISO PROVISIONAL</p>
@@ -29,22 +29,22 @@
                 </div>
                 <div  class="wwCard h100px">
                     <div class="columnaL h100px">
-                        <img class="imgVoluntario" src="https://voluntariado-gro.com/images/elementos/voluntario.png" />
+                        <img class="imgVoluntario" src="{{$imgVoluntario}}" />
                     </div>
                     <div class="columnaR h100px " >
-                        <p class="nombre">Emitida:</p>
-                        <p class="nombre">Emitida:</p>
-                        <p class="nombre">Emitida:</p>
+                        <p class="nombre">{{$nombre}}</p>
+                        <p class="nombre">{{$primerApellido}}</p>
+                        <p class="nombre">{{$segundoApellido}}</p>
                     </div>
                 </div>
                 <div  class="wwCard ">
                     <div class="columnaL">
                         <p class="subtitulo texto-red">AUTORIZA </p>
                         <div style="height: 35px; width: 100%; margin: 0 auto;">
-                            <img class="imgFirma" src="https://voluntariado-gro.com/images/elementos/firma.png" />
-                            <img class="imgSello" src="https://voluntariado-gro.com/images/elementos/sello.png" />
+                            <img class="imgFirma" src="{{$uriFirma}}" />
+                            <img class="imgSello" src="{{$uriSello}}" />
                         </div>
-                        <p class="texto-firma texto-negritas">ING.ANTONIO CÁRDENAS VALENCIA </p>
+                        <p class="texto-firma texto-negritas">{{$coordinador}}</p>
                         <p class="texto-firma">COORDINADOR ESTATAL DE VOLUNTARIADO </p>
                     </div>
                     <div class="columnaR">
@@ -53,20 +53,20 @@
                                 <p class="subtitulo texto-negritas mp0">Vigencia</p>
                             </div>
                             <div class="wwCard2 mb-1">
-                                <div class="columnaR">
-                                    <p class="subtitulo wwfull mp0">Emitida:</p>
-                                    <p class="subtitulo wwfull mp0 texto-red">01/08/2023</p>
-                                </div>
                                 <div class="columnaL">
+                                    <p class="subtitulo wwfull mp0">Emitida:</p>
+                                    <p class="subtitulo wwfull mp0 texto-red">{{$fechaInicio}}</p>
+                                </div>
+                                <div class="columnaR">
                                     <p class="subtitulo wwfull mp0">Vigencia:</p>
-                                    <p class="subtitulo wwfull mp0 texto-red">01/08/2023</p>
+                                    <p class="subtitulo wwfull mp0 texto-red">{{$fechaFin}}</p>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="wwCard2 texto-negritas mb-1">
                             <p class="subtitulo wwfull mp0  ">Código de Control:</p>
-                            <p class="subtitulo wwfull mp0 texto-red">VOL23120021</p>
+                            <p class="subtitulo wwfull mp0 texto-red">{{$numeroInterno}}</p>
                         </div>
                         
                         <div class="wwCard2 texto-negritas mb-1">
@@ -80,7 +80,7 @@
             <div class="card">
                 <div class="p2">
                     <div class="wwfull texto-center mp0 mt-1">
-                        <img style="width: 170px; height: 30px; " src="https://voluntariado-gro.com/images/elementos/cr.png" />
+                        <img style="width: 170px; height: 30px; " src="{{$imgCR}}" />
                     </div>
                     <div class="mb-2">
                         <p class="texto-indicaciones mp0">
@@ -95,8 +95,8 @@
                         </p>
                     </div>
                     <div class="divQR mp0">
-                        <img style="width: 40px; height: 40px; " src="https://voluntariado-gro.com/images/elementos/qr.png" />
-                        <img style="width: 40px; height: 45px; "src="https://voluntariado-gro.com/images/elementos/voluntariado.png" />
+                        <img style="width: 40px; height: 40px; " src="{{$qrCode}}" />
+                        <img style="width: 40px; height: 45px; " src="{{$imgVoluntariado}}" />
                     </div>
                 </div>
             </div>
