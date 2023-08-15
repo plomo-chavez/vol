@@ -16,14 +16,15 @@ class PDFController extends BaseController {
             $cssPathDefault = resource_path('views/pdf/styles/styleDefault.css');
             $cssDefault = file_get_contents($cssPathDefault);
             $html = $html . '<style>' . $cssDefault . '</style>';
-            // Cargar el archivo CSS externo
-            $cssPathDefault = resource_path('views/pdf/styles/styleCR.css');
-            $cssDefault = file_get_contents($cssPathDefault);
-            $html = $html . '<style>' . $cssDefault . '</style>';
             if (strpos($viewTemplate,'credencialTemporal') !== false) {
                 $cssPath = resource_path('views/pdf/styles/styleCredencialTemporal.css');
                 $css = file_get_contents($cssPath);
                 $html = $html . '<style>' . $css . '</style>';
+            } else {
+                // Cargar el archivo CSS externo
+                $cssPathDefault = resource_path('views/pdf/styles/styleCR.css');
+                $cssDefault = file_get_contents($cssPathDefault);
+                $html = $html . '<style>' . $cssDefault . '</style>';
             }
             $dompdf->loadHtml($html);
             // Habilitar el procesamiento de CSS

@@ -3,17 +3,6 @@
         <component v-bind:is="withCard ? 'b-card' : 'div'"
             class="col-12 p-2"
         >
-            <FormFactory
-                v-if="viewForm"
-                ref="formVoluntario"
-                class="col-12 mx-auto"
-                :btnsAccion="false"
-                :data = 'dataForm'
-                :schema="formSchemaFormVoluntario"
-                :formLive="true"
-                @exportLive="changeForm"
-                @formExport="handleSubmitFormVoluntario"
-            />
             <div class=" col-12 d-flex flex-wrap justify-content-between">
                 <div>
                     <b-button
@@ -28,6 +17,23 @@
                         variant="relief-primary"
                         @click="handreCreateCredencialTemporal"
                     >Generar Credencial Temporal</b-button>
+                </div>
+                <div>
+                </div>
+            </div>
+            <FormFactory
+                v-if="viewForm"
+                ref="formVoluntario"
+                class="col-12 mx-auto"
+                :btnsAccion="false"
+                :data = 'dataForm'
+                :schema="formSchemaFormVoluntario"
+                :formLive="true"
+                @exportLive="changeForm"
+                @formExport="handleSubmitFormVoluntario"
+            />
+            <div class=" col-12 d-flex flex-wrap justify-content-between">
+                <div>
                 </div>
                 <div>
                     <b-button
