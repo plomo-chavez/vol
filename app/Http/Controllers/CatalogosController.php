@@ -9,6 +9,7 @@ use App\Http\Controllers\Sistema\Modelos\Delegaciones;
 use App\Http\Controllers\Sistema\Modelos\Areas;
 use App\Http\Controllers\Sistema\Modelos\TipoAsociado;
 use App\Http\Controllers\Sistema\Modelos\Estado;
+use App\Http\Controllers\Sistema\Modelos\Voluntarios;
 use App\Http\Controllers\Auth\Models\TipoUsuario;
 use App\Http\Controllers\BaseController;
 
@@ -108,6 +109,34 @@ class CatalogosController extends BaseController
             $data,
         );
     }
+    public function voluntariosXDelegacion(Request $request) {
+        $payload = $request->all();
+        $data = null; // Inicializamos $data fuera de las condiciones
+    
+        if ($payload['isLocal']) {
+            $data = Voluntarios::where('delegacion_id', $payload['delegacion_id']);
+        } else {
+            $ids = self::idsDelegacionXEstado($payload['estado_id']);
+            $data = Voluntarios::whereIn('delegacion_id',$ids);
+        }
+        $data = $data->select('id','nombre','primerApellido','segundoApellido','numeroInterno','numeroAsociado')->get()->toArray();
+        foreach ($data as $index => $item) {
+            $data[$index]['label'] = ($item['numeroInterno'] ?? '').' - '.($item['numeroAsociado'] ?? '').' - '.($item['nombreCompleto'] ?? '');
+        }
+        if ($data !== null) { // Verificamos si se asignó un valor a $data
+            return self::responsee(
+                'Consulta realizada con éxito.',
+                true,
+                $data
+            );
+        } else {
+            return self::responsee(
+                'No se encontraron datos.',
+                false
+            );
+        }
+    }
+    
     public function getDelegacionesWithAreas(Request $request){
         $data = Delegaciones::orderBy('ciudad',"asc")
         ->select('id','ciudad',)

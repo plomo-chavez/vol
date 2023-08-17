@@ -95,6 +95,8 @@ export default {
         },
         getCatalogo(){
             if (typeof this.input.catalogo == 'string') {
+
+                let tmp = {};
                 switch (this.input.catalogo) {
                     case 'tiposUsuario':
                         catalogos
@@ -161,7 +163,7 @@ export default {
                             .catch(error   => { console.log(error); })
                         break;
                     case 'DelegacionesXTipoCoordinador':
-                        let tmp = {};
+                        tmp = {};
                         if ( store.state.app.userData ?? null) {
                             tmp.tipoUsuario_id = store.state.app.userData.tipoUsuario_id;
                         }
@@ -169,6 +171,15 @@ export default {
                             .delegacionesXTipoCoordinador(tmp)
                             .then(response => {
                                 this.opciones = this.formatoToCatalogo(response.data.data,true)
+                            })
+                            .catch(error   => { console.log(error); })
+                        break;
+                    case 'voluntariosXDelegacion':
+                        tmp = {...this.input.data}
+                        catalogos
+                            .voluntariosXDelegacion(tmp)
+                            .then(response => {
+                                this.opciones = this.formatoToCatalogo(response.data.data,true,'id','label')
                             })
                             .catch(error   => { console.log(error); })
                         break;

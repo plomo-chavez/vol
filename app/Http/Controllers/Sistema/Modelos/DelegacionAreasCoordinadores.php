@@ -17,6 +17,7 @@ class DelegacionAreasCoordinadores extends Model {
         'pedirArchivos',
         'uriFirma',
         'uriSello',
+        'isLocal',
     ];
     public function area() {
         return $this->hasOne(Areas::class,'id','area_id');

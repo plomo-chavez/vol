@@ -92,7 +92,10 @@ class AuthController extends Controller{
 
             // $user = User::where('email', $request->email)->with('tipoUsuario')->first();
 
-            $users = User::where('email', $request->email)->with('tipoUsuario')->get();
+            $users = User::where('email', $request->email)
+                ->with('tipoUsuario')
+                ->with('voluntario:id,delegacion_id')
+                ->get();
             if (sizeof($users) == 1) {
                 $tmp  = $users[0];
                 $user = $users[0]->toArray();

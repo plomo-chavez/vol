@@ -28,6 +28,7 @@ export let goToLogout = () =>{
 export const getUserData = () => JSON.parse(localStorage.getItem('userData'))
 export const validarRutaPorTipoUsuarioEnMeta = (ruta,role) => {
   let response = null
+  // console.log(role)
   if(role == 'administrador'){
     response = true;;
   } else {

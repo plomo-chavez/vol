@@ -73,6 +73,7 @@ Route::post('/catalogo/tipoSangre',         [CatalogosController::class, 'getTip
 Route::post('/catalogo/estadoCivil',         [CatalogosController::class, 'getEstadoCivil']);
 Route::post('/valid/curp',                  [VoluntariosController::class, 'validCurp']);
 Route::post('/catalogo/especial/delegaciones', [CatalogosController::class, 'delegacionesXTipoCoordinador']);
+Route::post('/catalogo/especial/voluntarios', [CatalogosController::class, 'voluntariosXDelegacion']);
 // Generador PDF
 Route::middleware([UserAuthentication::class])->post('/generate/voluntarios',           [VoluntariosController::class, 'generatePDFVoluntarios']);
 Route::middleware([UserAuthentication::class])->post('/generate/credencial-temporal',   [VoluntariosController::class, 'generatePDFCRedencialTemporal']);

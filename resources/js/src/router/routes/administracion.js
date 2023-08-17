@@ -13,6 +13,11 @@ export default [
       component: () => import('@/views/voluntarios/Voluntarios.vue'),
       meta: {
           pageTitle: 'Voluntarios',
+          permitidos: [
+            'CL -  Coordinador Local',
+            'CE -  Coordinador Estatal',
+            'CN -  Coordinador Nacional',
+          ],
       },
     },
     {

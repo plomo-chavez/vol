@@ -219,14 +219,14 @@ class VoluntariosController extends BaseController {
         // dd('insertVoluntarioWithCorreo');
         $data['codeEmail'] = self::generateCode();
         $delegacionIDXUsuario = self::getDelegacionIDXUsuario($data['userID'] ?? null);
-        $data['delegacion_id'] = $delegacionIDXUsuario == null ? (isset($data['delegacion_id']) ? $data['delegacion_id'] : null) : $delegacionIDXUsuario;
+        // $data['delegacion_id'] = $delegacionIDXUsuario == null ? (isset($data['delegacion_id']) ? $data['delegacion_id'] : null) : $delegacionIDXUsuario;
         $data['numeroInterno'] = self::getNumeroInerno($data['delegacion_id']);
         Modelo::create($data);
         $isSecure = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
         $protocol = $isSecure ? 'https://' : 'http://';
         $data['link'] = $protocol . $_SERVER['HTTP_HOST'] . '/registro?code=' . $data['codeEmail'];
         $data['correoEnvio'] = $data['correo'];
-        MailController::sendMailWithTemplate($data,'new-voluntario-out');
+        // MailController::sendMailWithTemplate($data,'new-voluntario-out');
         return self::responsee(
             'Voluntario registrado correctamente.',
             true,

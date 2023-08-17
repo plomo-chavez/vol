@@ -15,7 +15,7 @@ export default [
     route: 'verificador-horas',
   },
   {
-    title: 'Delelgaciones',
+    title: 'Delegaciones',
     icon: 'HomeIcon',
     route: 'delegaciones',
   },

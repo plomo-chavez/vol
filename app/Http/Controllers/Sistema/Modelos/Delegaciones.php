@@ -14,6 +14,7 @@ class Delegaciones extends Model
         'direccion',
         'ciudad',
         'estado_id',
+        'isLocal',
     ];
 
     public function areas() {

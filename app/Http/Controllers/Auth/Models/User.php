@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers\Auth\Models;
+use App\Http\Controllers\Sistema\Modelos\Voluntarios;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,7 +22,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'poersona_id',
+        'persona_id',
         'tipoUsuario_id',
         'usuario',
         'email',
@@ -39,6 +40,9 @@ class User extends Authenticatable
 
     public function tipoUsuario() {
         return $this->belongsTo(TipoUsuario::class, 'tipoUsuario_id');
+    }
+    public function voluntario() {
+        return $this->belongsTo(Voluntarios::class, 'persona_id','id');
     }
 
     public function getTipoUsuarioAttribute(){

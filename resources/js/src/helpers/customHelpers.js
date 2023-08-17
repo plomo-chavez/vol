@@ -11,6 +11,19 @@ export default {
     loading(tipo = true){
       document.getElementById("loading-bg").style.display = tipo?"block":"none";
     },
+    isTypeUser(tipo){
+        let response = false;
+        let user = JSON.parse(localStorage.getItem('userData'))
+        const local     = 'CL -  Coordinador Local';
+        const estatal   = 'CE -  Coordinador Estal';
+        switch (tipo) {
+            case 'local':               response = (user.tipoUsuario == local); break;
+            case 'estatal':             response = (user.tipoUsuario == estatal); break;
+            case 'local y estatal':     response = (user.tipoUsuario == local || user.tipoUsuario == estatal); break;
+            // case '':  response = (user.tipoUsuario == local || user.tipoUsuario == estatal); break;
+        }
+        return response;
+    },
     messageToast ({message='',color='success',title='Notificación de sistema',icon='MessageCircleIcon',time=''}) {
 
       this.$toast({
@@ -129,6 +142,9 @@ export default {
         return curpRegex.test(curp);
     },
 
+    hideModal(modal) {
+        this.$refs[modal].hide()
+      },
     formatoToCatalogo(data,all = false,indexValue = 'id',indexLabel = 'nombre'){
         let tmp = []
         data.map((item, index) => {

@@ -34,7 +34,6 @@
     </div>
   </template>
   <script>
-    import FormDelegacion   from './FormDelegacion.vue'
     import detallesDelegacion from './detallesDelegacion.vue'
     import FormFactory      from '@currentComponents/FormFactory.vue'
     import VistaUno         from '@currentComponents/VistaUno.vue'
@@ -45,7 +44,6 @@
     components: {
         FormFactory,
         VistaUno,
-        FormDelegacion,
         detallesDelegacion
     },
     data() {
@@ -151,6 +149,8 @@
                 payload.id = this.activeRow.id
             }
             payload.accion = this.accion
+            payload.estado_id = payload.estado.value
+            payload.isLocal = !payload.isEstatal
            this.peticionAdministrar(payload)
         },
         peticionAdministrar(payload){
@@ -165,7 +165,7 @@
                         message: response.data.message,
                         icon: response.data.result ? 'success' : 'error',
                     });
-                    this.resetForm();
+                    response.data.result ? this.resetForm() : '';
                 })
                 .catch(error   => { 
                     this.loading(false);
@@ -180,6 +180,8 @@
         editar (data) {
             this.accion = 2;
             let tmp = this.copyObject(data)
+            tmp.isEstatal = !tmp.isLocal
+            tmp.estado = {label:tmp.estado,value:tmp.estado_id,}
             this.activeRow = this.copyObject(tmp)
             this.showForm = true;
         },

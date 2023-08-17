@@ -233,6 +233,10 @@ class BaseController extends Controller{
         // return $response;
         
     }
+
+    public function idsDelegacionXEstado($estado_id) {
+       return Delegaciones::where('estado_id',$estado_id)->pluck('id')->toArray();
+    }
     public function idsDelegacionesXTipoUsuario($tipoUsuarioID) {
         // '1', 'Administrador'
         // '2', 'CN -  Coordinador Nacional' 
@@ -253,7 +257,7 @@ class BaseController extends Controller{
                 return Delegaciones::pluck('id')->toArray();
                 break;
             case 5:
-                return Delegaciones::pluck('id')->toArray();
+                return [];
                 break;
         }
     }

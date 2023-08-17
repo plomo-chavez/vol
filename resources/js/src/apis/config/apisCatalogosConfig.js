@@ -10,4 +10,5 @@ export default {
   sexoApi                       : '/api/catalogo/sexo',
   getDelegacionesWithAreasApi   : '/api/catalogo/delegaciones',
   apiDelegacionesXTipoCoordinador   : '/api/catalogo/especial/delegaciones',
+  apiVoluntariosXDelegacion   : '/api/catalogo/especial/voluntarios',
 }

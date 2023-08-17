@@ -48,4 +48,7 @@ export default class apisCatalogos {
   delegacionesXTipoCoordinador(...args) {
     return this.axiosIns.post(this.apisConfig.apiDelegacionesXTipoCoordinador, ...args)
   }
+  voluntariosXDelegacion(...args) {
+    return this.axiosIns.post(this.apisConfig.apiVoluntariosXDelegacion, ...args)
+  }
 }

@@ -4,7 +4,6 @@ import { goToLogout } from '@/auth/utils'
     let axiosCurrent = axios;
     let userData  = JSON.parse(localStorage.getItem('userData'));
     // Request Interceptor
-    console.log(store.state.app.userData);
     axiosCurrent.interceptors.request.use(
         config => {
           config.headers.tk = store.state.app.userData?.token;

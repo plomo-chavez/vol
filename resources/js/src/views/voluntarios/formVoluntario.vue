@@ -71,6 +71,7 @@
         mounted() {},
         data() {
             return {
+                viewInputDelegacion:false,
                 userData: store.state.app.userData,
                 formSchemaFormVoluntario: [
                     {
@@ -162,13 +163,29 @@
 
         },
         beforeMount(){
-            console.log('formVoluntario');
+            this.viewInputDelegacion = !this.isTypeUser('local');
+            if (this.viewInputDelegacion) {
+                this.formSchemaFormVoluntario.unshift(
+            {
+                classContainer:'col-12',
+                type        : 'input-select',
+                name        : 'delegacion',
+                value       : 'delegacion',
+                label       : 'Delegación:',
+                rules       : 'required',
+                catalogo    : 'DelegacionesXTipoCoordinador',
+            },);
+
+            }
+            console.log('viewInputDelegacion: ', );
         },
         methods:{
             handleCancel() {
                 this.$emit('handleCancelar')
             },
             handleSubmitFormVoluntario(info) {
+                info['delegacion_id'] = this.viewInputDelegacion ? info['delegacion']['value'] : JSON.parse(localStorage.getItem('userData')).delegacion_id;
+
                 if (this.exportActions) {
                     this.$emit('handleSubmit',info)
                 } else {

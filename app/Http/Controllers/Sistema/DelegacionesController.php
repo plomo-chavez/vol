@@ -16,10 +16,11 @@ class DelegacionesController extends BaseController {
         if (isset($payload['accion'])) {
             switch($payload['accion']){
                 case 1:
-                    return self::insertar($payload, $modelo);
+                    return self::ifExiste($payload);
                     break;
                 case 2:
-                    return self::actualizar($payload, $modelo);
+                    return self::ifExiste($payload,true);
+                    // return self::actualizar($payload, $modelo);
                     break;
                 case 3:
                     return self::eliminar($payload, $modelo);
@@ -30,7 +31,10 @@ class DelegacionesController extends BaseController {
                 case 5:
                     // Solicita la informacion para la tab autoridades de detalles de delegacion
                     return self::getDelegacionCoordinadores($payload);
-                    break;
+                case 6:
+                    // Solicita la informacion para la tab autoridades de detalles de delegacion
+                    return self::addCoordinador($payload);
+                break;
                 default:
                     return self::responsee('Acción no válida', false);
             }
@@ -65,7 +69,7 @@ class DelegacionesController extends BaseController {
         
         $registros = DelegacionAreasCoordinadores::orderBy('id', 'asc')
             ->with(['voluntario' => function ($query) {
-                $query->select('id', 'nombre', 'primerApellido', 'segundoApellido');
+                $query->select('id', 'nombre', 'primerApellido', 'segundoApellido', 'numeroInterno', 'numeroAsociado');
             }])
             ->get();
         
@@ -90,6 +94,34 @@ class DelegacionesController extends BaseController {
             $data
         );    
     }
+    public function addCoordinador($payload) {
+        if ($payload['subAccion'] == 1) {
+            return self::insertar($payload, new DelegacionAreasCoordinadores());
+        } else {
+            return self::actualizar($payload, new DelegacionAreasCoordinadores());
+        }
+    }
+    public function ifExiste($payload, $incluyeActual = false) {
+        $existe = Modelo::where('estado_id', $payload['estado_id'])
+            ->where('ciudad', $payload['ciudad'])
+            ->where('isLocal', $payload['isLocal']);
+    
+        if ($incluyeActual) {
+            $existe->where('id', '<>', $payload['id']);
+        }
+    
+        $existe = $existe->get(); // Asignar el resultado de la consulta a $existe
+    
+        if ($existe->isEmpty()) {
+            return $incluyeActual ? self::actualizar($payload, new Modelo()) : self::insertar($payload, new Modelo());
+        } else {
+            return self::responsee(
+                'Ya existe esta delegación',
+                false
+            );
+        }
+    }
+    
     public function uploadFilesDelegacionesCoordinadores(Request $request){
         $msg = 'No se ha proporcionado ningún archivo';
         $boolResp = false;
