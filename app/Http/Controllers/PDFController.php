@@ -43,7 +43,11 @@ class PDFController extends BaseController {
             return $dompdf->stream($fileName);
         } catch (\Exception $e) {
             // Manejo de excepciones
-            return "Error al generar el PDF: " . $e->getMessage();
+            return array(
+                'result'    => false,
+                'message'   => "Error al generar el PDF: " . $e->getMessage(),
+                'data'      => [],
+            );
         }        
     }
 }

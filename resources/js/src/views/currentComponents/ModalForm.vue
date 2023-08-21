@@ -55,10 +55,7 @@ export default {
     Ripple,
   },
   data() {
-    return {
-      user    : null,
-      password: 'demo123',
-    }
+    return {}
   },
   mixins : [customHelpers],
   props: {
@@ -84,6 +81,8 @@ export default {
         console.log(value)
       if(value){
         this.showModal();
+      } else {
+        this.hideModal();
       }
     },
   },
@@ -96,81 +95,7 @@ export default {
         this.$emit('handleSubmit',data)
     },
     handleCancelar(){
-        console.log('handleCancelar')
         this.$emit('handleCancelar');
-    },
-    async goToRefreshSession(){
-      if(this.password == null){
-        this.messageToast({message :'Introduce la contraseña para continuar.',color:"danger"});
-      }else{
-          // useJwt
-          //   .login({
-          //     email   : store.state.app.userData.email,
-          //     password: this.password,
-          //   })
-          //   .then(response => {
-          //     console.log(response);
-          //     // let data = response.data;
-          //     // if(data.result){
-          //     //   const userData = data.data.user
-          //     //   localStorage.setItem('userData', JSON.stringify(userData))
-          //     //   localStorage.setItem('tk', data.data.user.token)
-          //     //   this.$ability.update(userData.ability)
-          //     //   this.messageToast({message :`Bienvenido ${userData.name } !`,color:"success"});
-          //     //   setTimeout(() => { goToLogout(); }, 500);
-          //     // }else{
-          //     //   this.messageToast({message :'Ocurrio un problema, intenta de nuevo', color:"danger"});
-          //     //   setTimeout(() => { goToLogout(); }, 500);
-          //     // }
-          //   })
-          //   .catch(error => {
-          //     console.log(error);
-          //     this.$refs.loginForm.setErrors(error.response.data.error)
-          //   })
-
-
-          useJwt
-            .login({
-              email   : store.state.app.userData.email,
-              password: this.password,
-            })
-            .then(response => {
-              console.log('response',response)
-              let data = response.data;
-              console.log('data',data)
-              if(data.result){
-                const userData = data.data.user
-                console.log('userData',userData)
-                localStorage.setItem('userData', JSON.stringify(userData))
-                store.commit('app/UPDATE_USERDATA', userData)
-                localStorage.setItem('tk', data.data.user.token)
-                this.$ability.update(userData.ability)
-                this.messageToast({message:'Sesión refrescada con exito.'});
-                setTimeout(() => {
-                  window.location.reload();
-                }, );
-              }else{
-                  this.$toast({
-                    component: ToastificationContent,
-                    position: 'top-right',
-                    props: {
-                      title: data.message,
-                      // title: `Welcome ${userData.fullName || userData.username}`,
-                      icon: 'CoffeeIcon',
-                      variant: 'danger',
-                      text: data.data,
-                    },
-                  })
-              }
-            })
-            .catch(error => {
-              console.log(error);
-              this.$refs.loginForm.setErrors(error.response.data.error)
-            })
-      }
-    },
-    login(){
-      goToLogout();
     },
     showModal() {
       this.$refs['my-modal'].show()

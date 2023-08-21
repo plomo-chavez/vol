@@ -26,6 +26,8 @@ export default {
   apiGetUltimaGuardiaHoras: '/api/horasVoluntarias/guardias/getUltimo',
   apiGetGuardiaHoras      : '/api/horasVoluntarias/guardias/listar',
   apiAdminGuardiaHoras    : '/api/horasVoluntarias/guardias/administrar',
+  apiGetCatalogos         : '/api/catalogos/listar',
+  apiAdminCatalogos       : '/api/catalogos/administrar',
 //   Sin autentificacion
   apiValidCURP          : '/api/valid/curp',
 }

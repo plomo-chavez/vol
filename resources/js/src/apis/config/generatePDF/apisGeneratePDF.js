@@ -11,6 +11,7 @@ export default class apiPeticiones {
   }
   generatePDFVoluntarios(...args) {
     return this.axiosIns.post(this.apisConfig.apiGeneratePDFVoluntarios, ...args, { responseType: 'blob' })
+    // return this.axiosIns.post(this.apisConfig.apiGeneratePDFVoluntarios, ...args, { responseType: 'blob' })
   }
   generatePDFCredencialTemporal(...args) {
     return this.axiosIns.post(this.apisConfig.apiGeneratePDFCredencialTemporal, ...args, { responseType: 'blob' })

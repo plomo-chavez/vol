@@ -1,3 +1,33 @@
+<!-- 
+    withCard: Propiedad booleana que determina si se utiliza un componente de tarjeta (b-card) o un div para envolver el contenido del formulario.
+    classForm: Clase CSS que se aplica al elemento que envuelve el formulario.
+    title y subtitle: Texto utilizado para el título y el subtítulo del formulario.
+    schema: Un array que contiene la configuración de los diferentes campos de entrada y elementos del formulario.
+    form: Objeto que almacena los valores de los campos del formulario.
+    formDisabled: Propiedad booleana que controla si el formulario está habilitado o deshabilitado.
+    btnsAccion: Propiedad booleana que determina si se muestran los botones de acción del formulario.
+    btnLblSubmit: Texto utilizado para etiquetar el botón
+
+    tipos de inputs:
+    input-blank: Campo de entrada en blanco, que no muestra ningún contenido. Esencialmente, se utiliza para crear un espacio en blanco en el formulario.
+    input-label: Campo de entrada que muestra un valor de datos (como un nombre) en un elemento <label>.
+    titulo-seccion: Campo de entrada que muestra un título de sección en negrita.
+    input-text: Campo de entrada de texto normal.
+    password: Campo de entrada de contraseña.
+    email: Campo de entrada de dirección de correo electrónico.
+    text-area: Campo de entrada de área de texto.
+    flat-pickr: Campo de entrada para seleccionar fechas utilizando el componente b-form-datepicker.
+    input-phone: Campo de entrada para números de teléfono.
+    input-money: Campo de entrada para valores monetarios.
+    input-asociado: Campo de entrada para datos asociados.
+    input-number: Campo de entrada para números.
+    input-select: Campo de entrada de selección personalizado utilizando un componente llamado customSelect.
+    input-checkbox: Campo de entrada de casilla de verificación.
+    input-switch: Campo de entrada de interruptor. 
+-->
+
+
+
 <template>
     <component v-bind:is="withCard ? 'b-card' : 'div'" :class="classForm">
         <!-- Title & SubTitle -->

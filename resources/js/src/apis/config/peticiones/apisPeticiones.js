@@ -72,4 +72,10 @@ export default class apiPeticiones {
   getUltimaGuardiaHoras(...args) {
     return this.axiosIns.post(this.apisConfig.apiGetUltimaGuardiaHoras, ...args)
   }
+  administrarCatalogos(...args) {
+    return this.axiosIns.post(this.apisConfig.apiAdminCatalogos, ...args)
+  }
+  getCatalogos(...args) {
+    return this.axiosIns.post(this.apisConfig.apiGetCatalogos, ...args)
+  }
 }

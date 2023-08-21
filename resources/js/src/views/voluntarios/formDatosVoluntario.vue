@@ -377,87 +377,35 @@
                     hayModificaciones = true;
                 }
                 if (hayModificaciones) {
-                    this.dataForm = this.copyObject(data)
-                    // this.viewForm = false;
-                    // setTimeout(() => { this.viewForm = true; }, 1);
+                    this.dataForm = this.copyObject(data);
                 }
             },
-            peticionAdministrar(payload){
+            async peticionAdministrar(payload){
                 console.log(payload)
                 this.loading();
                 if (this.isRegistro) {
                     payload['codeEmail'] = null;
-                    peticiones
-                    .adminVoluntarioOut({ 'payload' : payload, })
-                    .then(response => {
-                        this.loading(false);
-                        this.messageSweet({
-                            message: response.data.message,
-                            icon: response.data.result ? 'success' : 'error',
-                        });
-                    })
-                    .catch(error   => { 
-                        this.loading(false);
-                        console.log(error); 
-                    })
+                    await this.peticionGeneral('adminVoluntarioOut',payload,true,false);
                 } else {
-                    peticiones
-                    .administrarVoluntarios({ 'payload' : payload, })
-                    .then(response => {
-                        this.loading(false);
-                        this.messageSweet({
-                            message: response.data.message,
-                            icon: response.data.result ? 'success' : 'error',
-                        });
-                    })
-                    .catch(error   => { 
-                        this.loading(false);
-                        console.log(error); 
-                    })
+                    await this.peticionGeneral('administrarVoluntarios',payload,true,false);
                 }
             },
-            handleExportFichaRegistro(){
-                let payload = {
-                    voluntario_id : this.data.id,
-                    type:'fichaRegistro',
-                };
-
-                this.loading();
-                generatePDF.generatePDFVoluntarios(payload)
-                .then(response => {
-                    this.loading(false)
-                    this.descargarPDF(response,this.data.id,'fichaRegistro')
-                })
-                .catch(error   => {
-                    this.loading(false)
-                    console.log(error);
-                })
-            },
-            handreCreateCredencialTemporal(){
+            async handleExportFichaRegistro(){
                 let payload = {
                     voluntario_id : this.data.id,
                     type:'credencialTemporal',
                 };
-
-                this.loading();
-                generatePDF.generatePDFCredencialTemporal(payload)
-                .then(response => {
-                    this.loading(false)
-                    this.descargarPDF(response,this.data.id,'credencialTemporal')
-                })
-                .catch(error   => {
-                    this.loading(false)
-                    console.log(error);
-                })
+                let response =  await this.peticionPDF('generatePDFVoluntarios',payload)
+                this.descargarPDF(response,this.data.id,'fichaRegistro',false)
             },
-            // async handreCreateCredencialTemporal(){
-            //     let payload = {
-            //         voluntario_id : this.data.id,
-            //         type:'credencialTemporal',
-            //     };
-            //     let response =  await this.peticionGeneral('generatePDFCredencialTemporal',payload)
-            //     this.descargarPDF(response,this.data.id,'fichaRegistro')
-            // },
+            async handreCreateCredencialTemporal(){
+                let payload = {
+                    voluntario_id : this.data.id,
+                    type:'credencialTemporal',
+                };
+                let response =  await this.peticionPDF('generatePDFCredencialTemporal',payload)
+                this.descargarPDF(response,this.data.id,'fichaRegistro')
+            },
         }
     }
 </script>

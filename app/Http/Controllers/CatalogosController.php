@@ -1,20 +1,77 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-use App\Http\Controllers\Configuracion\Modelos\Habitacion ;
-use App\Http\Controllers\Configuracion\Modelos\HabitacionEstatus;
 use App\Http\Controllers\Sistema\Modelos\Delegaciones;
-use App\Http\Controllers\Sistema\Modelos\Areas;
 use App\Http\Controllers\Sistema\Modelos\TipoAsociado;
-use App\Http\Controllers\Sistema\Modelos\Estado;
 use App\Http\Controllers\Sistema\Modelos\Voluntarios;
 use App\Http\Controllers\Auth\Models\TipoUsuario;
+use App\Http\Controllers\Sistema\Modelos\Estado;
+use App\Http\Controllers\Sistema\Modelos\Areas;
 use App\Http\Controllers\BaseController;
+use Illuminate\Database\Eloquent\Model;
 
-class CatalogosController extends BaseController
-{
+class CatalogosController extends BaseController {
+    public function getModelo($payload) {
+        switch ($payload['catalogo']) {
+            case 'catalogo-areas': 
+                return new Areas(); 
+            break;
+            case 'catalogo-tipo-autoridades': 
+                return new modelo(); 
+            break;
+            case 'catalogo-tipo-sangre': 
+                return new TipoUsuario(); 
+            break;
+            case 'catalogo-actividades-horas-voluntarias': 
+                return new modelo(); 
+            break;
+            case 'catalogo-estados': 
+                return new Estado(); 
+            break;
+            case 'catalogo-tipo-usuarios': 
+                return new TipoUsuario(); 
+            break;
+        }
+    }
+    public function handleListar(Request $request){
+        $payload = $request->all();
+        $modelo = self::getModelo($payload);
+        $data = $modelo::orderBy('id',"asc")
+            ->get();
+        return self::responsee(
+            'Consulta realizada con exito.',
+            true,
+            $data,
+        );
+    }
+    public function handleAdministrar(Request $request){
+        $payload = $request->all();
+        $modelo = self::getModelo($payload);
+        return self::administrar($payload, $modelo);
+    }
+
+    public function administrar(array $payload = [], Model $modelo = null) {
+        if (isset($payload['accion'])) {
+            switch($payload['accion']){
+                case 1:
+                    return self::insertar($payload, $modelo);
+                    break;
+                case 2:
+                    return self::actualizar($payload, $modelo);
+                    break;
+                case 3:
+                    return self::eliminar($payload, $modelo);
+                    break;
+                case 4:
+                    return self::insertMulti($payload, $modelo);
+                    break;
+                default:
+                    return self::responsee('Acción no válida', false);
+            }
+        } else {
+            return self::responsee('No existe una acción.', false);
+        }
+    }
     public function getTiposUsuarios(Request $request){
         $data = TipoUsuario::orderBy('nombre',"asc")
                 ->get();

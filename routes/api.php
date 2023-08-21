@@ -28,15 +28,15 @@ use App\Http\Controllers\Email\MailController;
 |
 */
 Route::get('/newPass',   [AuthController::class, 'newPass']);
-Route::post('/auth/register',   [AuthController::class, 'createUser']);
-Route::post('/auth/login',      [AuthController::class, 'loginUser']);
-Route::post('/auth/details',    [AuthController::class, 'detailsUser']);
-Route::post('/auth/pruebas',    [AuthController::class, 'verificar']);
-Route::post('/auth/verificar',  [AuthController::class, 'verificar']);
-Route::post('/out/registro',    [VoluntariosController::class, 'registroOut']);
-Route::post('/out/valid/code',  [VoluntariosController::class, 'validCode']);
-Route::post('/out/get/voluntario',  [VoluntariosController::class, 'getVoluntario']);
-Route::post('/out/admin/voluntario',  [VoluntariosController::class, 'handleAdministrar']);
+Route::post('/auth/register',           [AuthController::class, 'createUser']);
+Route::post('/auth/login',              [AuthController::class, 'loginUser']);
+Route::post('/auth/details',            [AuthController::class, 'detailsUser']);
+Route::post('/auth/pruebas',            [AuthController::class, 'verificar']);
+Route::post('/auth/verificar',          [AuthController::class, 'verificar']);
+Route::post('/out/registro',            [VoluntariosController::class, 'registroOut']);
+Route::post('/out/valid/code',          [VoluntariosController::class, 'validCode']);
+Route::post('/out/get/voluntario',      [VoluntariosController::class, 'getVoluntario']);
+Route::post('/out/admin/voluntario',    [VoluntariosController::class, 'handleAdministrar']);
 Route::post('/horasVoluntarias/guardias/getUltimo',  [GuardiasHorasController::class, 'getUltimaGuardia']);
 Route::middleware([UserAuthentication::class])->post('/auth/pruebas2',              [AuthController::class, 'verificar']);
 Route::middleware([UserAuthentication::class])->post('/get/usuarios',               [UsuariosController::class, 'getUsuarios']);
@@ -61,6 +61,8 @@ Route::middleware([UserAuthentication::class])->post('/areas/administrar', [Area
 Route::middleware([UserAuthentication::class])->post('/horasVoluntarias/guardias/listar',      [GuardiasHorasController::class, 'handleListar']);
 Route::middleware([UserAuthentication::class])->post('/horasVoluntarias/guardias/administrar', [GuardiasHorasController::class, 'handleAdministrar']);
 Route::middleware([UserAuthentication::class])->post('/get/voluntario', [VoluntariosController::class, 'getVoluntario']);
+Route::middleware([UserAuthentication::class])->post('/catalogos/listar',      [CatalogosController::class, 'handleListar']);
+Route::middleware([UserAuthentication::class])->post('/catalogos/administrar', [CatalogosController::class, 'handleAdministrar']);
 // Route::middleware([UserAuthentication::class])->post('/auth/verificar',    [AuthController::class, 'verificar']);
 Route::post('/catalogo/areas',     [CatalogosController::class, 'getAreas']);
 Route::post('/catalogo/tiposUsuarios',      [CatalogosController::class, 'getTiposUsuarios']);

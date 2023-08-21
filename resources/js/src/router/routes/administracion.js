@@ -46,14 +46,62 @@ export default [
           // permitidos: 'verificador horas voluntarias',
       },
     },
-  {
-    path: '/delegaciones',
-    name: 'delegaciones',
-    component: () => import('@/views/delegaciones/Delegaciones.vue'),
-    meta: {
-        pageTitle: 'Delegaciones',
+    {
+      path: '/delegaciones',
+      name: 'delegaciones',
+      component: () => import('@/views/delegaciones/Delegaciones.vue'),
+      meta: {
+          pageTitle: 'Delegaciones',
+      },
     },
-  },
+    {
+      path: '/catalogo/areas',
+      name: 'catalogo-areas',
+      component: () => import('@/views/GestorCatalogos.vue'),
+      meta: {
+          pageTitle: 'Areas',
+      },
+    },
+    {
+      path: '/catalogo/tipo-autoridades',
+      name: 'catalogo-tipo-autoridades',
+      component: () => import('@/views/GestorCatalogos.vue'),
+      meta: {
+          pageTitle: 'Tipo de autoridades',
+      },
+    },
+    {
+      path: '/catalogo/actividades-horas-voluntarias',
+      name: 'catalogo-actividades-horas-voluntarias',
+      component: () => import('@/views/GestorCatalogos.vue'),
+      meta: {
+          pageTitle: 'Actividades de horas voluntarias',
+      },
+    },
+    {
+      path: '/catalogo/estados',
+      name: 'catalogo-estados',
+      component: () => import('@/views/GestorCatalogos.vue'),
+      meta: {
+          pageTitle: 'Estados',
+      },
+    },
+    {
+      path: '/catalogo/tipo-autoridades',
+      name: 'catalogo-tipo-usuarios',
+      component: () => import('@/views/GestorCatalogos.vue'),
+      meta: {
+          pageTitle: 'Tipos de usuarios',
+      },
+    },
+    {
+      path: '/catalogo/tipo-sangre',
+      name: 'catalogo-tipo-sangre',
+      component: () => import('@/views/GestorCatalogos.vue'),
+      meta: {
+          pageTitle: 'Tipos de sangre',
+      },
+    },
   {
     path: '/config/notificaciones/template-email',
     name: 'config-notificaciones-templateEmail',

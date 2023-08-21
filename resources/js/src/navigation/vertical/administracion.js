@@ -54,27 +54,27 @@ export default [
         children: [
           {
               title: 'Areas',
-              route: 'catalogo-delegaciones',
+              route: 'catalogo-areas',
           },
           {
               title: 'Tipo de autoridades',
-              route: 'catalogo-delegaciones',
+              route: 'catalogo-tipo-autoridades',
           },
           {
               title: 'Tipo de sangre',
-              route: 'catalogo-delegaciones',
+              route: 'catalogo-tipo-sangre',
           },
           {
               title: 'Actividades de horas voluntarias',
-              route: 'catalogo-delegaciones',
+              route: 'catalogo-actividades-horas-voluntarias',
           },
           {
               title: 'Estados',
-              route: 'catalogo-delegaciones',
+              route: 'catalogo-estados',
           },
           {
               title: 'Tipos de usuarios',
-              route: 'catalogo-delegaciones',
+              route: 'catalogo-tipo-usuarios',
           },
         ],
       },
