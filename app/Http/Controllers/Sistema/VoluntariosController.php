@@ -182,33 +182,28 @@ class VoluntariosController extends BaseController {
                 return self::response($message = 'Falta voluntario_id');
             } else {
                 $data = Modelo::find($payload['voluntario_id'])->toArray();
+                $delegacion_id = $data['delegacion_id']; 
                 if ($data != null) {
-                    if (($data['delegacion_id'] == 0 || $data['delegacion_id'] == null)) {
+                    if (($delegacion_id == 0 || $delegacion_id == null)) {
                         return self::response($message = 'Este voluntario no pertenece a una delegación');
                     }
                     if (($data['numeroInterno'] == null)) {
                         return self::response($message = 'Este voluntario no tiene un numero interno');
                     }
-                    $registros = DelegacionAreasCoordinadores::where('delegacion_id', $data['delegacion_id'])
-                        ->where('area_id',2)
-                        ->with(['voluntario' => function ($query) {
-                            $query->select('id', 'nombre', 'primerApellido', 'segundoApellido');
-                        }])
-                        ->get();                    
-                    if (($registros->count() == 0)) {
+                    $coordinador = self::coordinadorParaFirmas($delegacion_id);                 
+                    if ($coordinador == null) {
                         return self::response($message = 'Error con el coordinador, checar datos de la delegación.');
                     }
-                    $coordinador = $registros[0];
                     if ($coordinador['uriFirma'] == null || $coordinador['uriSello'] == null ) {
                         return self::response($message = 'Faltan archivos del coordinador.');
                     }
-
-                    $data['coordinador']    = strtoupper($coordinador['voluntario']['nombre']).' '.strtoupper($coordinador['voluntario']['primerApellido']).' '.strtoupper($coordinador['voluntario']['segundoApellido']);
+                    $duracion = $payload['duracion'] ?? 60;
+                    $data['coordinador']    = strtoupper($coordinador['nombre']);
                     $data['uriFirma']       = $coordinador['uriFirma'];
                     $data['uriSello']       = $coordinador['uriSello'];
-                    $data['dias']           = 30;
-                    $data['fechaInicio']    = self::fechaNow()->format('d/m/Y');
-                    $data['fechaFin']       = self::fechaNow()->copy()->addDays($data['dias'])->format('d/m/Y');
+                    $data['dias']           = $duracion;
+                    $data['fechaInicio']    = self::fechaNow($payload['duracion'] ?? null,'d/m/Y');
+                    $data['fechaFin']       = self::fechaNow($payload['duracion'] ?? null,'d/m/Y',$duracion);
                     $data['nombre']         = strtoupper($data['nombre']);
                     $data['primerApellido'] = strtoupper($data['primerApellido']);
                     $data['segundoApellido']= strtoupper($data['segundoApellido']);

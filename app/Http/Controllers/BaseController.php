@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\Sistema\Modelos\Delegaciones;
+use App\Http\Controllers\Sistema\Modelos\DelegacionAreasCoordinadores;
 use App\Http\Controllers\Sistema\Modelos\Coordinadores;
 use App\Http\Controllers\Sistema\Modelos\Voluntarios;
 use App\Http\Controllers\Sistema\Modelos\ContadorNumeroInterno;
@@ -36,11 +37,20 @@ class BaseController extends Controller{
         // Formatear la fecha como cadena (opcional)
         return $fechaActual->format('Y-m-d');
     }
-    public static function fechaNow(){
+    public static function fechaNow($fecha = null, $formato = null,$aumentoDias = null){
         // Obtener la fecha actual utilizando Carbon
-        $fechaActual = Carbon::now('America/Mexico_City');
-        // Formatear la fecha como cadena (opcional)
-        return $fechaActual;
+        if ($fecha == null){
+            $response = Carbon::now('America/Mexico_City');
+        } else {
+            $response = Carbon::createFromFormat('d-m-Y', $fecha);
+        }
+        if($aumentoDias != null){
+            $response = $response->addDays($aumentoDias);
+        }
+        if($formato != null){
+            $response = $response->format($formato);
+        }
+        return $response;
     }
     public static function findVoluntarioIDPorCodigoEscaneado($codigo = null){
         $tmp = null;
@@ -276,5 +286,26 @@ class BaseController extends Controller{
         $url = self::getMainURL().(str_replace('http://localhost', '', $url));
         return  $url;
         
+    }
+
+    public static function coordinadorParaFirmas($delegacionID,$areaID = 2){
+        // $delegacion = Delegaciones::find($delegacionID);
+        $response = null;
+        $coordinador = DelegacionAreasCoordinadores::where('delegacion_id', $delegacionID)
+        ->where('area_id',$areaID)
+        ->with(['voluntario' => function ($query) {
+            $query->select('id', 'nombre', 'primerApellido', 'segundoApellido');
+        }])
+        ->get();
+        if ($coordinador->count() == 1){
+            $coordinador =$coordinador->toArray()[0];
+            $response = [
+                'nombre'   => $coordinador['voluntario']['nombreCompleto'],
+                'uriFirma' => $coordinador['uriFirma'],
+                'uriSello' => $coordinador['uriSello'],
+            ];
+        }
+        // dd($registros);
+        return $response;
     }
 }
