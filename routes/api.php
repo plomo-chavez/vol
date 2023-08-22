@@ -64,7 +64,7 @@ Route::middleware([UserAuthentication::class])->post('/get/voluntario', [Volunta
 Route::middleware([UserAuthentication::class])->post('/catalogos/listar',      [CatalogosController::class, 'handleListar']);
 Route::middleware([UserAuthentication::class])->post('/catalogos/administrar', [CatalogosController::class, 'handleAdministrar']);
 // Route::middleware([UserAuthentication::class])->post('/auth/verificar',    [AuthController::class, 'verificar']);
-Route::post('/catalogo/areas',     [CatalogosController::class, 'getAreas']);
+Route::post('/catalogo/areas',              [CatalogosController::class, 'getAreas']);
 Route::post('/catalogo/tiposUsuarios',      [CatalogosController::class, 'getTiposUsuarios']);
 Route::post('/catalogo/estados',            [CatalogosController::class, 'getEstados']);
 Route::post('/catalogo/tipoAsociado',       [CatalogosController::class, 'getTiposAsociado']);

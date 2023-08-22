@@ -241,35 +241,29 @@
                             :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
                         >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
                         <!-- input -->
-                        <b-input-group class="bg-white ">
-                            <b-input-group-prepend>
-                            <b-form-datepicker
-                                style="z-index: 0;"
-                                :id="   input.name"
-                                :ref="  input.name"
-                                :name=" input.name"
-                                button-only
-                                :calendar-opts="calendarOptions"
-                                :value="form[input.value]"
-                                :min="(typeof input.minDate != 'undefined'?input.minDate:'')"
-                                :max="(typeof input.maxDate != 'undefined'?input.maxDate:'')"
-                                @input="changeData(input.value,$event)"
-                                :disabled=" formDisabled?true:(typeof input.disabled != 'undefined'?input.disabled:false) "
-                                :placeholder=" (typeof input.placeholder != 'undefined'?input.placeholder:'Introduce una fecha valida') "
-                                :show-decade-nav="true"
-                                :hide-header="true"
-                                size="sm"
-                                locale="es"
-                            />
-                            </b-input-group-prepend>
-                            <b-form-input
-                            :value="form[input.value]"
-                            type="text"
-                            disabled
-                            :placeholder="(typeof input.placeholder != 'undefined'?input.placeholder:'Introduce una fecha valida')"
+                        <VueDatePicker
+                            :class="' form-control col-12 '"
+                            :id="   input.name"
+                            :ref="  input.name"
+                            :name=" input.name"
+                            @onOpen="menu = true"
+                            @onClose="menu = false"
+                            no-calendar-icon
+                            fullscreen-mobile
+                            :color="'#ff0000d4'"
+                            :format="getFormato(input)"
+                            :min-date="getDate(input,'min')"
+                            :max-date="getDate(input,'max')"
+                            :visible-years-number="100"
+                            v-model="form[input.value]"
+                            @onChange=" changeValueDatePicker(input.value) "
+                            :disabled=" formDisabled?true:(typeof input.disabled != 'undefined'?input.disabled:false) "
+                            :placeholder=" (typeof input.placeholder != 'undefined'?input.placeholder:'Introduce una fecha valida') "
                             autocomplete="off"
-                            />
-                        </b-input-group>
+                        />
+                            <!-- :min="(typeof input.minDate != 'undefined'?input.minDate:'')"
+                            :max="(typeof input.maxDate != 'undefined'?input.maxDate:'')" -->
+
                         <!-- Errores de validación -->
                         <p class="m-0 p-0" v-if="errors[0]"><small class=" m-0 p-0 font-weight-bolder text-danger">{{ errors[0] }}</small></p>
                         </validation-provider>
@@ -555,6 +549,7 @@
     import 'cleave.js/dist/addons/cleave-phone.us'
     import apis from '@/apis/useApis'
     import customSelect from '@currentComponents/customSelect.vue'
+import { data } from 'vue-echarts'
 
   export default {
     directives: {
@@ -682,6 +677,32 @@
         this.inicializar();
     },
     methods: {
+        getFormato(input){
+            let response = 'DD-MM-YYYY';
+            // switch (input.typeDate) {
+            //     case 'date': $response = '';break;
+            
+            //     default:
+            //         break;
+            // }
+            return input.formato ?? response;
+        },
+        getDate(input,type){
+            if (type == 'min'){
+                return input.min ?? null ;
+            } else {
+                return input.max ?? null ;
+            }
+            // let typeDate = input.typeDate ??  'date';
+            // if (type == 'min'){»
+            //         case 'date': return input.min ?? null ; break;
+            //         case 'date': return input.min ?? null ; break;
+            //     }
+            // } else if (type == 'min'){ 
+            // } else {
+            //     return null;
+            // }
+        },
         expotFormLive(){
             if (this.formLive == true) {
                 this.$emit('exportLive', this.form)
@@ -702,6 +723,9 @@
         },
         changeValueSelect(data){
             this.changeData(data.field,data.value)
+        },
+        changeValueDatePicker(field){
+            this.changeData(field,this.form[field])
         },
         getLabelSwitch(valor,labels){
             let texto = 'Faltan los labels'

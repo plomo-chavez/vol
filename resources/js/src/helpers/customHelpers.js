@@ -133,6 +133,34 @@ export default {
             return '';
         }
     },
+    ajustarFecha(masMenos = '+', años = 0, meses = 0, dias = 0) {
+        // Obtener la fecha de hoy
+        var fechaHoy = new Date();
+    
+        // Obtener el día, mes y año por separado
+        var día = fechaHoy.getDate();
+        var mes = fechaHoy.getMonth() + 1; // Sumar 1 ya que los meses son indexados desde 0
+        var año = fechaHoy.getFullYear();
+    
+        // Calcular ajustes de años, meses y días según los parámetros
+        if (masMenos === '+') {
+            año += años;
+            mes += meses;
+            día += dias;
+        } else if (masMenos === '-') {
+            año -= años;
+            mes -= meses;
+            día -= dias;
+        }
+    
+        // Crear una nueva fecha ajustada
+        var fechaAjustada = new Date(año, mes - 1, día); // Restar 1 al mes ya que es indexado desde 0
+    
+        // Formatear la fecha en formato "DD-MM-YYYY"
+        var fechaFormateada = (día < 10 ? '0' : '') + día + '-' + (mes < 10 ? '0' : '') + mes + '-' + año;
+    
+        return fechaFormateada;
+    },
     formatoMoney(amount, signal = true){
         let tmp = parseInt(amount).toLocaleString("es-ES", { style: "currency", currency: "MXN" });
         return (signal? '$ ' : '') + tmp

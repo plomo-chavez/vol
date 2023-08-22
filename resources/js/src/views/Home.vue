@@ -1,5 +1,6 @@
 <template>
   <div>
+
       <FormPorGuardia  v-if="layoutVerificador"/>
       <div v-else class="d-flex justify-content-center">
           <div class="ww-600">
@@ -117,8 +118,9 @@ export default {
   },
   data() {
       return {
-      userData: JSON.parse(localStorage.getItem('userData')),
-      avatarText,
+        date: new Date([2019, 5, 16]),
+        userData: JSON.parse(localStorage.getItem('userData')),
+        avatarText,
       }
   },
   

@@ -154,6 +154,9 @@
                         type        : 'flat-pickr',
                         value       : 'fechaNacimiento',
                         label       : 'Fecha de nacimiento',
+                        formato     : 'DD-MM-YYYY',
+                        // min         : this.ajustarFecha('-',120),
+                        // max         : this.ajustarFecha(),
                         name        : 'fecha de nacimiento',
                         rules       : 'required',
                     },
@@ -264,8 +267,7 @@
                         value       : 'area',
                         label       : 'Area:',
                         rules       : 'required',
-                        catalogo    : [],
-                        disabled    : true,
+                        catalogo    : 'areas',
                     },
                     {
                         classContainer:'col-12',
@@ -319,6 +321,9 @@
 
         },
         beforeMount(){
+        },
+        mounted(){
+            console.log(this.formSchemaFormVoluntario);
         },
         methods:{
             init(){
