@@ -68,6 +68,7 @@ class DelegacionesController extends BaseController {
         $areas = Areas::orderBy('id', 'asc')->select('id','nombre')->get();
         
         $registros = DelegacionAreasCoordinadores::orderBy('id', 'asc')
+        ->where('delegacion_id',$payload['delegacion_id'])
             ->with(['voluntario' => function ($query) {
                 $query->select('id', 'nombre', 'primerApellido', 'segundoApellido', 'numeroInterno', 'numeroAsociado');
             }])

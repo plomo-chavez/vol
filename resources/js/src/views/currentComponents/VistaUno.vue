@@ -5,6 +5,7 @@
     no-body
   >
     <b-card-body class="p-1 pb-0">
+      <h4 v-if="title != null" class="col-12 m-0 p-0 mb-1">{{ title }} </h4>
       <div class="d-flex justify-content-between  flex-wrap">
         <div>
             <b-button
@@ -244,7 +245,7 @@ export default {
     },
     title: {
       type: String,
-      default : 'Titulo por defecto',
+      default : null,
     },
     showCellActions: {
       type: Boolean,
@@ -257,14 +258,16 @@ export default {
             return {
                 showCellActions: true,
                 cellActions: {
-                  btnEditar: true,
-                  btnEliminar: true,
+                  btnEditar         : true,
+                  btnEliminar       : true,
+                  btnView           : true,
+                  btnChangePassword : true,
                 },
-                index: true,
-                buscador: true,
-                btnNuevo: true,
+                index     : true,
+                buscador  : true,
+                btnNuevo  : true,
                 btnFiltrar: true,
-                btnOtros: null,
+                btnOtros  : null,
             };
         }
     }

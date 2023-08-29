@@ -52,28 +52,53 @@ class BaseController extends Controller{
         }
         return $response;
     }
-    public static function findVoluntarioIDPorCodigoEscaneado($codigo = null){
+    /**
+     * Encuentra el ID de un voluntario basado en un código escaneado.
+     *
+     * @param string|null $codigo El código escaneado.
+     * @return int|null El ID del voluntario si se encuentra, o null si no se encuentra.
+     */
+    public static function findVoluntarioIDPorCodigoEscaneado($codigo = null) {
         $tmp = null;
         if ($codigo != null) {
             $busqueda = "http://sccrm.mx";
+            // Verifica si el código contiene la URL de búsqueda
             if (strpos($codigo, $busqueda) !== false) {
                 $ultimoIgual = strrpos($codigo, "=");
+                // Extrae el texto después del último signo igual (=)
                 if ($ultimoIgual !== false) {
                     $textoExtraido = substr($codigo, $ultimoIgual + 1);
+                    // Busca en la base de datos por el código de credencial extraído
                     $data = Voluntarios::where('codigoCredencial', $textoExtraido)
-                    ->select('id')
-                    ->get();
+                        ->select('id')
+                        ->get();
+                    // Asigna el ID del voluntario si se encuentra un resultado único
                     $tmp = sizeof($data) == 1 ? $data[0]->id : null;
                 }
             } else {
-                $data = Voluntarios::where('numeroAsociado', $codigo)
-                ->select('id')
-                ->get();
-                $tmp = sizeof($data) == 1 ? $data[0]->id : null;
+                $busqueda = "VOL";
+                // Verifica si el código contiene la cadena "VOL"
+                if (strpos($codigo, $busqueda) !== false) {
+                    // Busca en la base de datos por el número de asociado
+                    $data = Voluntarios::where('numeroInterno', $codigo)
+                        ->select('id')
+                        ->get();
+                    // Asigna el ID del voluntario si se encuentra un resultado único
+                    $tmp = sizeof($data) == 1 ? $data[0]->id : null;
+                } else {
+                    // Busca en la base de datos por el número interno
+                    $data = Voluntarios::where('numeroAsociado', $codigo)
+                        ->select('id')
+                        ->get();
+                    // Asigna el ID del voluntario si se encuentra un resultado único
+                    $tmp = sizeof($data) == 1 ? $data[0]->id : null;
+                }
             }
         }
+        // Devuelve el ID del voluntario o null si no se encuentra
         return $tmp;
     }
+
     public static function getNombreDelegacion($delegacion = null){
         if ($delegacion != null) {
             $delegacion['nombre'] = 
@@ -122,15 +147,6 @@ class BaseController extends Controller{
     public function insertar($payload, $modelo) {
         $modelo::create($payload);
         return self::responsee('Registro guardado corrrectamente.');
-    }
-    public function getVoluntariosXDelegacion($delegacionID = null) {
-        $data = [];
-        if ($delegacionID != null) {
-            $data = Voluntarios::where('delegacion_id', $delegacionID)
-            ->select('id','delegacion_id','nombre','primerApellido','segundoApellido','numeroAsociado','numeroInterno')
-            ->get();
-        }
-        return $data;
     }
     public function insertMulti($payload, $modelo) {
         foreach ($payload['data'] as $key => $value) {
@@ -243,33 +259,50 @@ class BaseController extends Controller{
         // return $response;
         
     }
+    public function getVoluntariosXDelegacion($delegacionID = null) {
+        $data = [];
+        if ($delegacionID != null) {
+            $data = Voluntarios::where('delegacion_id', $delegacionID)
+            ->select('id','delegacion_id','nombre','primerApellido','segundoApellido','numeroAsociado','numeroInterno')
+            ->get();
+        }
+        return $data;
+    }
 
     public function idsDelegacionXEstado($estado_id) {
        return Delegaciones::where('estado_id',$estado_id)->pluck('id')->toArray();
     }
-    public function idsDelegacionesXTipoUsuario($tipoUsuarioID) {
-        // '1', 'Administrador'
-        // '2', 'CN -  Coordinador Nacional' 
-        // '3', 'CE -  Coordinador Estatal'
-        // '4', 'CL -  Coordinador Local'
-        // '5', 'Verificador Horas Voluntarias'
+    public function idsDelegacionesXTipoUsuario($tipoUsuarioID, $delegacionID = null) {
         switch($tipoUsuarioID){
-            case 1:
+            case 1:     // '1', 'Administrador'
                 return Delegaciones::pluck('id')->toArray();
                 break;
-            case 2:
+            case 2:     // '2', 'CN -  Coordinador Nacional' 
                 return Delegaciones::pluck('id')->toArray();
                 break;
-            case 3:
-                return Delegaciones::pluck('id')->toArray();
+            case 3:     // '3', 'CE -  Coordinador Estatal'
+                $delegacion = elegaciones::find($delegacionID);
+                return $delegacion == null ? null : Delegaciones::where('estado_id',$delegacion->estado_id)->pluck('id')->toArray();
                 break;
-            case 4:
-                return Delegaciones::pluck('id')->toArray();
+            case 4:     // '4', 'CL -  Coordinador Local'
+                return $delegacionID;
                 break;
-            case 5:
-                return [];
+            case 5:     // '5', 'Verificador Horas Voluntarias'
+                return null;
                 break;
         }
+    }
+    public function idsDelegacionesXVoluntarioID($voluntario_id) {
+        $response = null;
+        $voluntario = Voluntarios::where('id',$voluntario_id)
+            ->with('usuario:voluntario_id,tipoUsuario_id')
+            ->get();
+        if ($voluntario->count() == 1) {
+            $voluntario = $voluntario[0];
+            $tipoUsuario_id = $voluntario->usuario->tipoUsuario_id;
+            $response = self::idsDelegacionesXTipoUsuario($voluntario->usuario->tipoUsuario_id,$voluntario->delegacion_id);
+        }
+        return $response;
     }
 
     public static function sendStorage($file,$folder,$filename) {

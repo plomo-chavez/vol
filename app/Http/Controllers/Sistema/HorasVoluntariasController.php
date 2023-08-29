@@ -3,6 +3,8 @@ namespace App\Http\Controllers\Sistema;
 use App\Http\Controllers\BaseController;
 
 use App\Http\Controllers\Sistema\Modelos\HorasVoluntarias as Modelo;
+use App\Http\Controllers\Sistema\Modelos\HorasVoluntariasContadores;
+use App\Http\Controllers\Sistema\Modelos\Voluntarios;
 
 use Illuminate\Http\Request;
 
@@ -14,19 +16,17 @@ class HorasVoluntariasController extends BaseController
     }
 
     public function handleListar(Request $request){
+        $data = [];
         $payload = $request->all();
-        $filtros = array_key_exists('payload', $payload) ? $payload['payload'] : [];
-        $query = Modelo::query()->orderBy('created_at', 'asc');
-        foreach ($filtros as $column => $value) {
-            if (is_array($value)) {
-                $query->whereBetween($column, $value);
-            } else {
-                $query->where($column, $value);
+        $idsDelegacion = self::idsDelegacionesXVoluntarioID($payload['voluntario_id']);
+        if($idsDelegacion != null){
+            $voluntariosID = Voluntarios::whereIn('delegacion_id',$idsDelegacion)->pluck('id')->toArray();
+            $data = HorasVoluntariasContadores::whereIn('voluntario_id',$voluntariosID)->with('voluntario:id,nombre,primerApellido,segundoApellido')->get();
+            $data = $data->toArray();
+            foreach ($data as $index => $item) {
+                $data[$index]['voluntario'] = $data[$index]['voluntario']['nombreCompleto'];
             }
         }
-        $query = $query->with('area');
-        $query = $query->with('voluntario');
-        $data = $query->get();
         return self::responsee(
             'Consulta realizada con exito.',
             true,

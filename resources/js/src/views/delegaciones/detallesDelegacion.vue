@@ -197,7 +197,7 @@
                     name        : 'voluntario',
                     value       : 'voluntario',
                     label       : 'Volunatario:',
-                    rules       : 'required',
+                    rules       : '',
                     catalogo    : 'voluntariosXDelegacion',
                     data        : {
                         delegacion_id   : this.data.id,
@@ -245,7 +245,7 @@
                         delegacion_id : this.data.id
                     }
                 };
-                let response =  await this.peticionGeneral('administrarDelegaciones',payload)
+                let response =  await this.peticionGeneral('administrarDelegaciones',payload,false)
                 this.coordinadores = response.data;
             },
             administrarArchivos(data){
@@ -268,7 +268,7 @@
                 this.activeRow = tmp
             },
             async addCoordinador(data){
-                data.voluntario_id  = data.voluntario.value;
+                data.voluntario_id  = data.voluntario?.value ?? null;
                 data.isLocal        = this.data.isLocal;
                 data.delegacion_id  = this.data.id;
                 data.area_id        = this.activeRow.area.id;

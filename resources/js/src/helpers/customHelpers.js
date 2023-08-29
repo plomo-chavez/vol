@@ -76,7 +76,6 @@ export default {
         messageCancel = true
     }){
 
-        console.log(message)
         this.$swal({
             title: title,
             text: message,
@@ -119,9 +118,7 @@ export default {
     formatoFechaYMD(value,withTime = false){
         if (value != null) {
             const fecha = new Date(value);
-            console.log('formatoFechaYMD -> ', fecha);
             const fechaFormateada = fecha.toISOString().slice(0,10).replace(/-/g,"/");
-            console.log('fechaFormateada -> ', fechaFormateada);
             if (withTime) {
                 const horaFormateada = fecha.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 
@@ -172,7 +169,11 @@ export default {
 
     hideModal(modal) {
         this.$refs[modal].hide()
-      },
+    },
+
+    showModal(modal) {
+        this.$refs[modal].show()
+    },
     formatoToCatalogo(data,all = false,indexValue = 'id',indexLabel = 'nombre'){
         let tmp = []
         data.map((item, index) => {
@@ -185,7 +186,6 @@ export default {
     },
     descargarPDF(response, id = '', name = '',downloadFile = true) {
         this.loading(false);
-        console.log(response);
         if(typeof response != 'undefined'){
             const tmpName = id !== '' ? String(id).padStart(6, '0') : String(new Date().getTime());
             const fileName = (name !== '' ? name + '-' : '') + tmpName + '.pdf';

@@ -42,11 +42,17 @@ export default {
                     case 'administrarVoluntarios':
                         response = await peticiones.administrarVoluntarios(payload);
                     break;
-                    case 'generatePDFVoluntarios':
-                        response = await  generatePDF.generatePDFVoluntarios(payload)
+                    case 'getHorasVoluntarias':
+                        response = await peticiones.getHorasVoluntarias(payload);
                     break;
-                    case 'generatePDFCredencialTemporal':
-                        response = await  generatePDF.generatePDFCredencialTemporal(payload)
+                    case 'administrarHorasVoluntarias':
+                        response = await peticiones.administrarHorasVoluntarias(payload);
+                    break;
+                    case 'administrarGuardiaHoras':
+                        response = await  peticiones.administrarGuardiaHoras(payload)
+                    break;
+                    case 'getUltimaGuardiaHoras':
+                        response = await  peticiones.getUltimaGuardiaHoras(payload)
                     break;
                     case 'administarFilesDelegacionesCoordinadores':
                         response = await uploadFiles.administarFilesDelegacionesCoordinadores(payload);

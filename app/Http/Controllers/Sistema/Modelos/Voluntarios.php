@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers\Sistema\Modelos;
+use App\Http\Controllers\Auth\Models\User;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -43,6 +44,9 @@ class Voluntarios extends Model
     // }
     public function delegacion() {
         return $this->hasOne(Delegaciones::class,'id','delegacion_id');
+    }
+    public function usuario() {
+        return $this->hasOne(User::class,'voluntario_id','id');
     }
     public function area() {
         return $this->hasOne(Areas::class,'id','area_id')->select('id','nombre');

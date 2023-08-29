@@ -1,11 +1,10 @@
 <template>
     <div>
-        <div v-if="!showForm">
+        <div v-if="!showForm && !showDetails">
             <!-- <pre>{{ data[0].tipo_usuario }}</pre> -->
             <VistaUno
                 :data="data"
                 :config="config"
-                :showCellActions="!isVerificador"
                 :columnas="columnas"
                 @mdoEditar="editar"
                 @mdoEliminar="onEliminar"
@@ -22,6 +21,12 @@
                 @handleCancelar="resetForm"
             />
         </div>
+        <div v-if="showDetails">
+            <formDetailsHorasVoluntarias
+                :data="activeRow"
+                @handleCancelar="resetForm"
+            />
+        </div>
     </div>
   </template>
   <script>
@@ -31,18 +36,20 @@
     import customHelpers  from '@helpers/customHelpers'
     import formVoluntario  from '@/views/voluntarios/formVoluntario.vue'
     import formHoras  from '@/views/horas/formHoras.vue'
+    import formDetailsHorasVoluntarias  from '@/views/horas/formDetailsHorasVoluntarias.vue'
 
   export default {
     components: {
         FormFactory,
         VistaUno,
-        formHoras
+        formHoras,
+        formDetailsHorasVoluntarias,
     },
     data() {
       return {
         config:{
             cellActions: {
-                btnEditar: false,
+                btnEditar: true,
                 btnEliminar: false,
                 btnView: false,
                 btnChangePassword: false,
@@ -57,10 +64,10 @@
         isVerificador : true,
         accion: 1,
         activeRow : null,
-        schemaMain : null,
         showForm : false,
+        showDetails : false,
         data:[],
-        formSchema: [
+        schemaMain: [
             {
                 classContainer:'col-lg-4 col-md-6 col-12',
                 type        : 'input-select',
@@ -157,73 +164,37 @@
         columnas : [
             {
                 type    : 'text',
-                key     : 'numeroAsociado',
-                label   : 'Numero de asociado',
-                sortable: true
-            },
-            {
-                type    : 'text',
                 key     : 'voluntario',
                 label   : 'Voluntario',
                 sortable: true
             },
             {
                 type    : 'text',
-                key     : 'actividad',
-                label   : 'Actividad',
-                sortable: true
-            },
-            {
-                type    : 'fechaTime',
-                key     : 'fecha',
-                label   : 'Fecha',
-                sortable: true
-            },
-            {
-                type    : 'fechaTime',
-                key     : 'horaInicio',
-                label   : 'Hora de inicio',
-                sortable: true
-            },
-            {
-                type    : 'fechaTime',
-                key     : 'horaFin',
-                label   : 'Hora de fin',
+                key     : 'tiempo_mes',
+                label   : 'Mes actual',
                 sortable: true
             },
             {
                 type    : 'text',
-                key     : 'numeroHoras',
-                label   : 'Horas registradas',
+                key     : 'tiempo_total',
+                label   : 'Tiempo total',
                 sortable: true
-            },
+            }
         ]
       }
     },
     mixins : [customHelpers],
     beforeMount() {
-        // this.isVerificador = this.userData.tipoUsuario == 'Verificador Horas Voluntarias';
         this.inicializar()
     },
     methods: {
         inicializar(){
-            this.schemaMain = this.copyObject(this.formSchema)
             this.reload()
         },
-        reload () {
-            peticiones
-                .getHorasVoluntarias({})
-                .then(response => {
-                    let data = response.data.data;
-                    data.forEach((element,index) => {
-                        if(element['voluntario'] != null) {
-                            data[index]['voluntario'] = element.voluntario.nombre + ' ' + element.voluntario.primerApellido + ' ' + element.voluntario.segundoApellido;      
-                            data[index]['numeroAsociado'] = element.voluntario.numeroAsociado; 
-                        }     
-                    });
-                    this.data = data;
-                })
-                .catch(error   => { console.log(error); })
+        async reload () {
+            let response = await this.peticionGeneral('getHorasVoluntarias',{voluntario_id:this.userData.voluntario_id},false);
+            let data = response.data;
+            this.data = data;
         },
         resetForm(){
             this.accion = 1;
@@ -239,50 +210,20 @@
             payload.accion = this.accion
            this.peticionAdministrar(payload)
         },
-        peticionAdministrar(payload){
-            this.loading()
-            peticiones
-                .administrarVoluntarios({
-                    'payload' : payload,
-                })
-                .then(response => {
-                    this.loading(false)
-                    this.messageSweet({
-                        message: response.data.message,
-                        icon: response.data.result ? 'success' : 'error',
-                    });
-                    this.resetForm();
-                })
-                .catch(error   => {
-                    this.loading(false)
-                    console.log(error);
-                })
+        async peticionAdministrar(payload){
+            await this.peticionGeneral('administrarVoluntarios',payload);
+            this.resetForm();
         },
         nuevoRegistro () {
-            this.schemaMain = this.copyObject(this.formSchema)
             this.activeRow = {};
             setTimeout(() => { this.showForm = true; }, 10);
         },
         editar (data) {
-            this.accion = 2;
-            let tmp = this.copyObject(data)
-            if(typeof tmp.tipo_usuario != 'undefined') {
-                tmp.tipoUsuario = {value : tmp.tipoUsuario_id, label : tmp.tipo_usuario.nombre}
-            }
-            tmp.accesoMovil = typeof tmp.accesoMovil  == 'number' ? (tmp.accesoMovil ? true:false) : false
-            tmp.accesoWeb = typeof tmp.accesoWeb  == 'number' ? (tmp.accesoWeb ? true:false) : false
-            tmp.bloqueado = typeof tmp.bloqueado  == 'number' ? (tmp.bloqueado ? true:false) : false
-            this.activeRow = this.copyObject(tmp)
-            let tmpSchema = this.copyObject(this.formSchema)
-            tmpSchema.splice(3,1)
-            this.schemaMain = tmpSchema
-            this.showForm = true;
+            this.activeRow = this.copyObject(data)
+            this.showDetails = true;
         },
         onEliminar(data){
-            console.log('eliminar')
-            this.messageConfirm({
-                confirmFunction: () => { this.peticionAdministrar({...data,accion : 3}) }
-            })
+            this.messageConfirm({ confirmFunction: () => { this.peticionAdministrar({...data,accion : 3}) } })
         }
     },
   }
