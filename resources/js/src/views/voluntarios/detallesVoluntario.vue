@@ -39,7 +39,10 @@
                     <feather-icon icon="ToolIcon" />
                     <span class="d-none d-sm-block">Horas voluntarias</span>
                 </template>
-                <tabHoras
+                <!-- <tabHoras
+                    :voluntario_id="voluntario_id"
+                /> -->
+                <HorasVoluntarias
                     :voluntario_id="voluntario_id"
                 />
             </b-tab>
@@ -57,16 +60,19 @@
 </template>
 
 <script>
-    import { BTabs, BTab, BCard, BButton } from 'bootstrap-vue'
+    import { BTabs, BTab, BCard, BButton, VBModal } from 'bootstrap-vue'
     import formDatosVoluntario  from '@/views/voluntarios/formDatosVoluntario.vue'
     import tabHoras  from '@/views/voluntarios/tabHorasVoluntarias.vue'
     import peticiones from '@/apis/usePeticiones'
     import customHelpers  from '@helpers/customHelpers'
+    import HorasVoluntarias from '@currentComponents/HorasVoluntarias.vue'
+    import Ripple from 'vue-ripple-directive'
 
     export default {
         name: 'detallesVoluntario',
         mixins : [customHelpers],
         components: {
+            HorasVoluntarias,
             BCard,
             BTabs,
             BTab,

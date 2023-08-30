@@ -18,7 +18,7 @@ class HorasVoluntariasController extends BaseController
     public function handleListar(Request $request){
         $data = [];
         $payload = $request->all();
-        $idsDelegacion = self::idsDelegacionesXVoluntarioID($payload['voluntario_id']);
+        $idsDelegacion = self::idsDelegacionesXVoluntarioID($payload['voluntario_id'] ?? null);
         if($idsDelegacion != null){
             $voluntariosID = Voluntarios::whereIn('delegacion_id',$idsDelegacion)->pluck('id')->toArray();
             $data = HorasVoluntariasContadores::whereIn('voluntario_id',$voluntariosID)->with('voluntario:id,nombre,primerApellido,segundoApellido')->get();

@@ -64,12 +64,8 @@
                             <div>
                             </div>
                         </div>
-                        <VistaUno
-                            :title="'Registro de horas voluntarias  '"
-                            :data="horas"
-                            :config="configHistorico"
-                            :columnas="columnasMes"
-                            @mdoView="viewDetailsRegistro"
+                        <HorasVoluntarias
+                            :voluntario_id="data.voluntario_id"
                         />
                     </div>
                 </div>
@@ -92,7 +88,7 @@
                             </div>
                         </div>
                         <VistaUno
-                            v-if="panelHistorico != 0 "
+                            v-if="panelHistorico == 1 "
                             class=" col-12 text-sm"
                             :title="titulo"
                             :data="dataActive"
@@ -100,51 +96,14 @@
                             :columnas="columnasActivas"
                             @mdoView="viewDetails"
                         />
-                        <b-modal
-                            v-model="modalShow"
-                            title="Detalles del registro de actividad"
-                            no-fade
-                            hide-footer
-                            no-close-on-backdrop
-                        >
-                        <b-card-text>
-                            <div v-if="actividad != null" class="ww-300 p-1 mx-auto">
-                                <h3 class="mb-2 col-12 text-center">Detalles del registro de hora voluntaria</h3>
-                                <div class="mb-3 d-flex flex-wrap justify-content-between ">
-                                    <p class="col-12 m-0 p-0  font-weight-bolder mr-1 text-center mmb-1 ">{{ actividad.tiempoLabel }}</p>
-                                </div>
-                                <div class="mb-1 d-flex flex-wrap justify-content-between ">
-                                    <p class="col-12 m-0 p-0  font-weight-bolder mr-1 ">Tipo de actividad:</p>
-                                    <p class="col-12 m-0 p-0 " > {{ actividad.actividad }} </p>
-                                </div>
-                                <div class="mb-1 d-flex flex-wrap justify-content-between ">
-                                    <p class="col-12 m-0 p-0  font-weight-bolder mr-1 ">Area:</p>
-                                    <p class="col-12 m-0 p-0 " > {{ actividad.area }} </p>
-                                </div>
-                                <div v-if="actividad.guardia != null">
-                                    <div class=" d-flex flex-wrap justify-content-between ">
-                                        <p class="col-12 m-0 p-0  font-weight-bolder mr-1 text-center ">Guardia</p>
-                                    </div>
-                                    <div class="mb-1 d-flex flex-wrap justify-content-between ">
-                                        <p class="col-12 m-0 p-0  font-weight-bolder mr-1 ">Fecha inicio:</p>
-                                        <p class="col-12 m-0 p-0 " > {{ formatoFechaYMD(actividad.guardia.inicio,true) }} </p>
-                                    </div>
-                                    <div class="mb-1 d-flex flex-wrap justify-content-between ">
-                                        <p class="col-12 m-0 p-0  font-weight-bolder mr-1 ">Fecha fin:</p>
-                                        <p class="col-12 m-0 p-0 " > {{ formatoFechaYMD(actividad.guardia.fin,true) }} </p>
-                                    </div>
-                                    <div class="mb-1 d-flex flex-wrap justify-content-between ">
-                                        <p class="col-12 m-0 p-0  font-weight-bolder mr-1 ">Delegación:</p>
-                                        <p class="col-12 m-0 p-0 " > {{ actividad.guardia.delegacion.nombreLabel }} </p>
-                                    </div>
-                                    <div class="mb-1 d-flex flex-wrap justify-content-between ">
-                                        <p class="col-12 m-0 p-0  font-weight-bolder mr-1 ">Verificador:</p>
-                                        <p class="col-12 m-0 p-0 " > {{ actividad.guardia.verificador.nombreCompleto }} </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </b-card-text>
-                        </b-modal>
+
+                        <HorasVoluntarias
+                            v-if="panelHistorico == 3 || panelHistorico == 2"
+                            showMesLabel
+                            :mes="mesSelect.mesNumero"
+                            :anio="mesSelect.anio"
+                            :voluntario_id="data.voluntario_id"
+                        />
                     </div>
                 </div>
             </b-tab>
@@ -161,7 +120,7 @@ import tabHoras  from '@/views/voluntarios/tabHorasVoluntarias.vue'
 import peticiones from '@/apis/usePeticiones'
 import customHelpers  from '@helpers/customHelpers'
 import VistaUno from '@currentComponents/VistaUno.vue'
-import { useWindowSize, useCssVar } from '@vueuse/core'
+import HorasVoluntarias from '@currentComponents/HorasVoluntarias.vue'
 import Ripple from 'vue-ripple-directive'
 
 export default {
@@ -169,6 +128,7 @@ export default {
     mixins : [customHelpers],
     components: {
         BCard,
+        HorasVoluntarias,
         BTabs,
         BTab,
         BAvatar,
@@ -188,6 +148,7 @@ export default {
             windowInnerWidth: window.innerWidth,
             panelHistorico  : 0,
             voluntario      : null,
+            mesSelect       : null,
             titulo          : null,
             modalShow       : false,
             detalleRegistro : null,
@@ -386,6 +347,7 @@ export default {
             let tmp = this.panelHistorico;
             this.panelHistorico = 0;
             if(tmp == 1){
+                this.mesSelect = this.copyObject(data);
                 let payload = {
                     payload : {
                         anio            : data.anio,
@@ -402,9 +364,7 @@ export default {
                 this.panelHistorico  = 2;
             } else {
                 this.panelHistorico = 3;
-                this.viewDetailsRegistro(data)
             }
-            // this.showModal('modal-detalles')
         },
         viewDetailsRegistro(data){
             this.actividad = this.copyObject(data);
