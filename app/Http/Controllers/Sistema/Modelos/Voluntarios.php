@@ -52,8 +52,7 @@ class Voluntarios extends Model
         return $this->hasOne(Areas::class,'id','area_id')->select('id','nombre');
     }
     // Define el atributo accesor para concatenar nombre y primerApellido
-    public function getNombreCompletoAttribute()
-    {
+    public function getNombreCompletoAttribute() {
         return ($this->attributes['nombre'] ?? '' ) . ' ' .($this->attributes['primerApellido'] ?? '' ) . ' ' .($this->attributes['segundoApellido'] ?? '' );
     }
 

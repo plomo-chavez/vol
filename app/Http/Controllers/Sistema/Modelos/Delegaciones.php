@@ -9,6 +9,8 @@ class Delegaciones extends Model
     use HasFactory;
     protected $table        = "delegaciones";
     protected $primaryKey   = "id";
+    protected $appends = [
+        'nombreLabel'];
 
     protected $fillable = [
         'direccion',
@@ -25,4 +27,16 @@ class Delegaciones extends Model
     public function estado() {
         return $this->belongsTo(Estado::class, 'estado_id', 'id')->select('id', 'nombre');
     }
+    // public function getNombreLabelAttribute(){
+    //     $estado = Estado::find($this->attributes['estado_id']);
+    //     return $this->attributes['isLocal'] ? 'Coordinación local de ' . ($this->attributes['ciudad']) . ' en ' . ($estado->nombre) : 'Coordinación estatal de ' . ($estado->nombre) ;
+    // }
+    public function getNombreLabelAttribute() {
+        $estadoNombre = $this->estado->nombre; // Usar la relación estado para obtener el nombre
+
+        $labelPrefix = $this->attributes['isLocal'] ? 'Coordinación local de ' : 'Coordinación estatal de ';
+
+        return $labelPrefix . ($this->attributes['isLocal'] ? $this->attributes['ciudad'] . ' en ' . $estadoNombre : $estadoNombre);
+    }
+
 }

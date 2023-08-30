@@ -13,6 +13,18 @@
             />
         </div>
         <div v-if="showForm">
+            <div class=" col-12 d-flex flex-wrap justify-content-between mb-2">
+                <div class="ww-100">
+                    <b-button
+                        size="sm"
+                        variant="outline-danger"
+                        @click="() => { resetForm() }"
+                    >Atrás</b-button>
+                </div>
+                <div class="ww-100A">
+                    <h3>Formularios de registros de hora voluntarias</h3>
+                </div>
+            </div>
             <formHoras
                 withCard
                 v-if="accion == 1"
@@ -30,17 +42,17 @@
     </div>
   </template>
   <script>
+  import { BButton, } from 'bootstrap-vue'
     import FormFactory from '@currentComponents/FormFactory.vue'
     import VistaUno from '@currentComponents/VistaUno.vue'
-    import peticiones from '@/apis/usePeticiones'
     import customHelpers  from '@helpers/customHelpers'
-    import formVoluntario  from '@/views/voluntarios/formVoluntario.vue'
     import formHoras  from '@/views/horas/formHoras.vue'
     import formDetailsHorasVoluntarias  from '@/views/horas/formDetailsHorasVoluntarias.vue'
 
   export default {
     components: {
         FormFactory,
+        BButton,
         VistaUno,
         formHoras,
         formDetailsHorasVoluntarias,
@@ -199,6 +211,7 @@
         resetForm(){
             this.accion = 1;
             this.showForm = false
+            this.showDetails = false
             this.activeRow = null
             this.reload();
         },

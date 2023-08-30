@@ -5,61 +5,53 @@
     no-body
   >
     <b-card-body class="p-1 pb-0">
-      <h4 v-if="title != null" class="col-12 m-0 p-0 mb-1">{{ title }} </h4>
-      <div class="d-flex justify-content-between  flex-wrap">
-        <div>
-            <b-button
-                v-if="config.btnNuevo"
-                @click="() => { $emit('mtdNuevo') }"
-            >Nuevo</b-button>
-            <b-button
-                v-if="config.btnFiltrar"
-                @click="() => { $emit('mtdFiltrar') }"
-            >Filtrar</b-button>
-            <b-dropdown
-                v-if="typeof config.btnOtros == 'array'"
-                right
-                text="Otras acciones"
-            >
+      <div class="wwfull d-flex justify-content-between">
+
+        <div class=" d-flex align-items-end flex-wrap " >
+          <h4 v-if="title != null" class="col-12 m-0 p-0">{{ title }} </h4>
+          <div  v-if="config.btnNuevo || config.btnFiltrar || typeof config.btnOtros == 'array'">
+              <b-button v-if="config.btnNuevo"   @click="() => { $emit('mtdNuevo') }"   >Nuevo</b-button>
+              <b-button v-if="config.btnFiltrar" @click="() => { $emit('mtdFiltrar') }" >Filtrar</b-button>
+              <b-dropdown v-if="typeof config.btnOtros == 'array'" right text="Otras acciones">
                 <template v-for="(btnOtro, index) in config.btnOtros">
                     <b-dropdown-item v-if="typeof btnOtro.function == 'function'" :key="index" @click="btnOtro.function()">{{ btnOtro.label }}</b-dropdown-item>
                 </template>
-            </b-dropdown>
-
+              </b-dropdown>
+          </div>
         </div>
         <!-- filter -->
-        <b-form-group
-        v-if="config.buscador"
-        >
-          <b-input-group size="sm">
-            <b-form-input
-              id="filterInput"
-              v-model="filter"
-              type="search"
-              placeholder="Buscar ..."
-            />
-            <b-input-group-append>
-              <b-button
-                :disabled="!filter"
-                variant="primary"
-                @click="filter = ''"
-              >
-                <feather-icon icon="TrashIcon" />
-              </b-button>
-            </b-input-group-append>
-          </b-input-group>
-        </b-form-group>
+        <div class=" d-flex align-items-end flex-wrap " >
+        <b-form-group v-if="config.buscador" >
+            <b-input-group size="sm">
+              <b-form-input
+                id="filterInput"
+                v-model="filter"
+                type="search"
+                placeholder="Buscar ..."
+              />
+              <b-input-group-append>
+                <b-button
+                  :disabled="!filter"
+                  variant="primary"
+                  @click="filter = ''"
+                >
+                  <feather-icon icon="TrashIcon" />
+                </b-button>
+              </b-input-group-append>
+            </b-input-group>
+          </b-form-group>
+        </div>
       </div>
     </b-card-body>
 
 <!--     
-    striped
-    hover
-    responsive
-    class="position" 
+  class="position" 
 -->
 
     <b-table
+      striped
+      hover
+      responsive
       :per-page="perPage"
       :current-page="currentPage"
       :items="data"

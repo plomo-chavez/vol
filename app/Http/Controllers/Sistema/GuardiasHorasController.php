@@ -223,9 +223,11 @@ class GuardiasHorasController extends BaseController {
     public function getDetallesMes($payload) {
         $data = HorasVoluntarias::whereYear('created_at', $payload['anio'])
             ->whereMonth('created_at', $payload['mes'])
+            ->where('voluntario_id', $payload['voluntario_id'])
             ->with('guardia')
             ->with('guardia.verificador')
             ->with('guardia.delegacion')
+            ->with('guardia.delegacion.estado')
             ->get();
         // Retorna una respuesta con el mensaje y datos
         return self::responsee(
