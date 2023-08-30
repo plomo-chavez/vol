@@ -14,7 +14,7 @@
       <div class="file-preview">
         <div v-if="selectedFile">
           <div v-if="isImageFile(selectedFile)">
-            <img :src="selectedFile.url" :alt="selectedFile.name" class="responsive-image">
+            <img :src="selectedFile.url" :alt="selectedFile.name" class="ww-full">
           </div>
           <div class="file-actions">
             <p>Nombre: {{ selectedFile.name }}</p>
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div v-else>
-          <img v-if="isImageURL(url)" :src="url" alt="Archivo inicial" class="responsive-image">
+          <img v-if="isImageURL(url)" :src="url" alt="Archivo inicial" class="ww-full">
           <div class="file-actions">
             <p>Nombre: Archivo inicial</p>
             <b-button variant="primary" @click="changeFile">Cambiar archivo</b-button>

@@ -16,4 +16,11 @@ export default class apiPeticiones {
       }
     })
   }
+  apiAdminnistrarArchivosVoluntarios(...args) {
+    return this.axiosIns.post(this.apisConfig.apiAdminnistrarArchivosVoluntarios, ...args, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+  }
 }

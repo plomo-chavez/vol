@@ -8,13 +8,21 @@
                     <b-button
                     v-if="!isRegistro"
                         size="sm"
+                        v-ripple.400="'rgba(186, 191, 199, 0.15)'"
+                        v-b-modal.modalArchivos
                         variant="relief-primary"
+                    >Foto del voluntario</b-button>
+                        <!-- @click="handleExportFichaRegistro" -->
+                        <b-button
+                    v-if="!isRegistro"
+                        size="sm"
+                        variant="relief-secondary"
                         @click="handleExportFichaRegistro"
                     >Generar ficha de registro</b-button>
                     <b-button
                     v-if="!isRegistro"
                         size="sm"
-                        variant="relief-primary"
+                        variant="relief-secondary"
                         @click="handreCreateCredencialTemporal"
                     >Generar Credencial Temporal</b-button>
                 </div>
@@ -43,33 +51,56 @@
                     >Guardar</b-button>
                 </div>
             </div>
+            <!-- Modal de administrador de archivos de los coordinadores -->
+            <b-modal
+                id="modalArchivos"
+                v-model="modalArchivos"
 
+                content-class="shadow"
+                title="Selector de la foto del voluntario"
+                no-fade
+                ok-only
+                ok-title="Cerrar"
+            >
+                <div class="d-flex flex-wrap">
+                    <div class="col-12">
+                        <FileUpload 
+                            btnSave
+                            :tipoArchivo="'jpg,jpeg,png'"
+                            :url="urlImagen"
+                            @saveFile="(event) => { guardarArchivo(event,'fotoVoluntario')}"
+                        />
+                    </div>
+                </div>
+            </b-modal>
         </component>
     </div>
 </template>
 
 <script>
-    import { StreamBarcodeReader } from "vue-barcode-reader";
-    import FormFactory from '@currentComponents/FormFactory.vue'
-    import peticiones from '@/apis/usePeticiones'
-    import customHelpers  from '@helpers/customHelpers'
+    import FormFactory      from '@currentComponents/FormFactory.vue'
+    import customHelpers    from '@helpers/customHelpers'
+    import FileUpload       from '@currentComponents/FileUpload.vue'
+    import Ripple from 'vue-ripple-directive'
 
     import {
         BCard,
+        VBModal,
         BCardTitle,
         BCardSubTitle,
         BCardBody,
         BModal,
         BButton
     } from 'bootstrap-vue'
-
-    import generatePDF from '@/apis/useGeneratePDF'
-    import store from '@/store'
     export default {
         name: "FormVoluntario",
         mixins : [customHelpers],
+        directives: {
+            'b-modal': VBModal,
+            Ripple,
+        },
         components: {
-            StreamBarcodeReader,
+            FileUpload,
             FormFactory,
             BCard,
             BCardTitle,
@@ -81,9 +112,11 @@
         mounted() {},
         data() {
             return {
-                userData: JSON.parse(localStorage.getItem('userData')),
-                dataForm:{},
-                viewForm: true,
+                userData    : JSON.parse(localStorage.getItem('userData')),
+                dataForm    : {},
+                urlImagen   : null,
+                viewForm    : true,
+                modalArchivos    : false,
                 formSchemaFormVoluntario: [
                     {
                         classContainer:'col-lg-3  col-md-4 col-12',
@@ -307,9 +340,7 @@
         },
         watch: {
             data: {
-                handler(nuevoValor, antiguoValor) {
-                    this.init()
-                },
+                handler(nuevoValor, antiguoValor) { this.init(); },
                 deep: true, // Opcional: indica si se debe realizar una observación profunda (deep watch)
                 immediate: true // Opcional: indica si se debe ejecutar el watcher inmediatamente después de su definición
             }
@@ -321,6 +352,7 @@
 
         },
         beforeMount(){
+            this.urlImagen = this.data != null ? (this.data?.urlImagen ?? null) : null;
         },
         mounted(){
             console.log(this.formSchemaFormVoluntario);
@@ -336,6 +368,18 @@
                 }       
                 this.dataForm.edad = this.dataForm.edad > 0 ? this.dataForm.edad : 0 
 
+            },
+            async guardarArchivo(data,fileName){
+                const formData = new FormData();
+                formData.append('filee',data.url);
+                formData.append('file', data.file, data.name);
+                formData.append('voluntario_id', this.data.id,);
+                formData.append('fileName', fileName,);
+                let response =  await this.peticionUpload('apiAdminnistrarArchivosVoluntarios',formData)
+                console.log(response);
+                this.urlImagen = response.data.url;
+                this.messageSweet({message:response.message})
+                this.modalArchivos = !this.modalArchivos;
             },
             handleCancel() {
                 this.$emit('handleCancelar')

@@ -29,7 +29,7 @@
                 </div>
                 <div  class="wwCard h100px">
                     <div class="columnaL h100px">
-                        <img class="imgVoluntario" src="{{$imgVoluntario}}" />
+                        <img class="imgVoluntario" src="{{$urlVoluntario}}" />
                     </div>
                     <div class="columnaR h100px " >
                         <p class="nombre">{{$nombre}}</p>

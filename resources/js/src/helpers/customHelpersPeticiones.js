@@ -54,6 +54,32 @@ export default {
                     case 'getUltimaGuardiaHoras':
                         response = await  peticiones.getUltimaGuardiaHoras(payload)
                     break;
+                }
+                this.loading(false);
+                if (showMessage) {
+                    this.messageSweet({
+                        message : response.data.message,
+                        icon    : response.data.result ? 'success' : 'error',
+                    });
+                }
+                return needReturn ? response.data : null;
+            } catch (error) {
+                this.catchError(error);
+            }
+        },
+        async peticionUpload(
+                method,
+                payload,
+                showMessage = true,
+                needReturn = true,
+            ){
+            try {
+                this.loading();
+                let response;
+                switch (method) {
+                    case 'apiAdminnistrarArchivosVoluntarios':
+                        response = await  uploadFiles.apiAdminnistrarArchivosVoluntarios(payload)
+                    break;
                     case 'administarFilesDelegacionesCoordinadores':
                         response = await uploadFiles.administarFilesDelegacionesCoordinadores(payload);
                     break;

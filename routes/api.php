@@ -6,6 +6,7 @@ use App\Http\Middleware\UserAuthentication;
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CatalogosController;
+use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\Configuracion\UsuariosController;
 use App\Http\Controllers\Configuracion\HabitacionesController;
 use App\Http\Controllers\Configuracion\PersonasController;
@@ -80,7 +81,8 @@ Route::post('/catalogo/especial/voluntarios', [CatalogosController::class, 'volu
 Route::middleware([UserAuthentication::class])->post('/generate/voluntarios',           [VoluntariosController::class, 'generatePDFVoluntarios']);
 Route::middleware([UserAuthentication::class])->post('/generate/credencial-temporal',   [VoluntariosController::class, 'generatePDFCRedencialTemporal']);
 // UploadFiles
-Route::post('/upload/delegacion/coordinadores',                  [DelegacionesController::class, 'uploadFilesDelegacionesCoordinadores']);
+Route::post('/upload/delegacion/coordinadores',     [FileUploadController::class, 'uploadFilesDelegacionesCoordinadores']);
+Route::post('/upload/voluntario',                  [FileUploadController::class, 'uploadFilesVoluntarios']);
 
 
 

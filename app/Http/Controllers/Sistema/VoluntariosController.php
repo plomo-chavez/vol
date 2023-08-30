@@ -153,28 +153,10 @@ class VoluntariosController extends BaseController {
         $payload = $request->all();
         $pdfContent = self::generateCredencialTemporal($payload);
         if (isset($pdfContent['result']) && !$pdfContent['result']) {
-            // Si el PDF se generó exitosamente, devolvemos la respuesta con el PDF
-
-            
             return self::response($message = $pdfContent['message']);
         } else {
-            //     $response = response($pdfContent, 200, [ 'Content-Type' => 'application/pdf', ]);
-            // Si no se pudo generar el PDF, devolvemos un objeto de error
             return response($pdfContent['data'], 200, [ 'Content-Type' => 'application/pdf', ]);
         }
-        // if (isset($pdfContent['result']) && !$pdfContent['result']) {
-        //     // dd($pdfContent);
-        //     // return self::response($message = 'Ha ocurrido una excepción: ');Ç
-        //     $pdfContentAsString = implode('', $pdfContent);
-        //     $pdfContentBase64 = base64_encode($pdfContentAsString);
-            
-        //     return response()->json($pdfContent, 200);
-        //     // return response()->json(['error' => 'No se pudo generar el PDF'], 400);
-        //     // return $response;
-        // } else {
-        //     $response = response($pdfContent, 200, [ 'Content-Type' => 'application/pdf', ]);
-        //     return $response;
-        // }
     }
     public static function generateCredencialTemporal($payload) {
         try {
@@ -201,6 +183,7 @@ class VoluntariosController extends BaseController {
                     $data['coordinador']    = strtoupper($coordinador['nombre']);
                     $data['uriFirma']       = $coordinador['uriFirma'];
                     $data['uriSello']       = $coordinador['uriSello'];
+                    $data['urlVoluntario']  = $data['urlImagen'];
                     $data['dias']           = $duracion;
                     $data['fechaInicio']    = self::fechaNow($payload['duracion'] ?? null,'d/m/Y');
                     $data['fechaFin']       = self::fechaNow($payload['duracion'] ?? null,'d/m/Y',$duracion);

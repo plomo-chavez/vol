@@ -257,7 +257,7 @@
                 formData.append('file', data.file, data.name);
                 formData.append('newName', tipo);
                 formData.append('registro_id', this.activeRow.id);
-                let resp =  await this.peticionGeneral('administarFilesDelegacionesCoordinadores',formData)
+                let resp =  await this.peticionUpload('administarFilesDelegacionesCoordinadores',formData)
                 this.messageSweet({message:resp.message})
             },
             selectVoluntario(item){

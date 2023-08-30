@@ -36,10 +36,28 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faUserSecret,faHouse,faSignature,faStamp,faPeopleGroup,faUsers,faLaptopFile } from '@fortawesome/free-solid-svg-icons'
+import { 
+  faUserSecret,
+  faHouse,
+  faSignature,
+  faStamp,
+  faPeopleGroup,
+  faUsers,
+  faCameraRetro,
+  faLaptopFile 
+} from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
-library.add(faUserSecret,faHouse,faSignature,faStamp,faPeopleGroup,faUsers,faLaptopFile )
+library.add(
+  faUserSecret,
+  faHouse,
+  faSignature,
+  faStamp,
+  faPeopleGroup,
+  faUsers,
+  faLaptopFile,
+  faCameraRetro
+)
 
 /* add font awesome icon component */
 Vue.component('font-awesome-icon', FontAwesomeIcon)
