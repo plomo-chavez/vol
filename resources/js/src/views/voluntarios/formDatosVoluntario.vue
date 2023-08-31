@@ -442,7 +442,7 @@
             async handleExportFichaRegistro(){
                 let payload = {
                     voluntario_id : this.data.id,
-                    type:'credencialTemporal',
+                    documento:'fichaRegistro',
                 };
                 let response =  await this.peticionPDF('generatePDFVoluntarios',payload)
                 this.descargarPDF(response,this.data.id,'fichaRegistro',false)
@@ -450,9 +450,9 @@
             async handreCreateCredencialTemporal(){
                 let payload = {
                     voluntario_id : this.data.id,
-                    type:'credencialTemporal',
+                    documento:'credencialTemporal',
                 };
-                let response =  await this.peticionPDF('generatePDFCredencialTemporal',payload)
+                let response =  await this.peticionPDF('generatePDFVoluntarios',payload)
                 this.descargarPDF(response,this.data.id,'fichaRegistro')
             },
         }

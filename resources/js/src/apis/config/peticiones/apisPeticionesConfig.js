@@ -1,5 +1,6 @@
 export default {
   // Endpoints
+  apiHome               : '/api/home',
   apiUsuarios           : '/api/usuarios/listar',
   apiAdminUsuarios      : '/api/usuarios/administrar',
   apiGetHabitaciones    : '/api/habitaciones/listar',

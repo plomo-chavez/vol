@@ -220,7 +220,7 @@ class GuardiasHorasController extends BaseController {
 
     }
 
-    public function getDetallesMes($payload) {
+    public static function getDetallesMes($payload) {
         $data = HorasVoluntarias::whereYear('created_at', $payload['anio'])
             ->whereMonth('created_at', $payload['mes'])
             ->where('voluntario_id', $payload['voluntario_id'])
@@ -235,16 +235,6 @@ class GuardiasHorasController extends BaseController {
             true,
             $data
         );
-    }
-
-    public function minutosATiempo($totalMinutos) {
-        // Calcula los días, horas y minutos totales
-        $totalDias = floor($totalMinutos / (24 * 60));
-        $totalHoras = floor(($totalMinutos % (24 * 60)) / 60);
-        $totalMinutosRestantes = $totalMinutos % 60;
-
-        return "Dias: $totalDias, Horas: $totalHoras, Minutos: $totalMinutosRestantes";
-
     }
     
     /**

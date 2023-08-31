@@ -115,6 +115,24 @@ export default {
             }
           })
     },
+    getNameMes(index){
+
+        let nombresMeses  =  [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre"
+          ];
+          return nombresMeses[index] ?? ''
+    },
     formatoFechaYMD(value,withTime = false){
         if (value != null) {
             const fecha = new Date(value);

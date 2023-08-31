@@ -21,6 +21,9 @@ export default {
                 this.loading();
                 let response;
                 switch (method) {
+                    case 'home':
+                        response = await peticiones.home(payload);
+                    break;
                     case 'adminVoluntarioOut':
                         response = await peticiones.adminVoluntarioOut(payload);
                     break;
@@ -99,7 +102,7 @@ export default {
         async peticionPDF(method,payload){
             try {
                 this.loading();
-                let response;
+                let response = null;
                 switch (method) {
                     case 'generatePDFVoluntarios':
                         response = await  generatePDF.generatePDFVoluntarios(payload)
@@ -109,21 +112,29 @@ export default {
                     break;
                 }
                 this.loading(false);
-                const contentType = response.headers['content-type'];
-                if (contentType === 'application/pdf') {
-                    return response.data;
+                if (response != null) {
+                    const contentType = response.headers['content-type'];
+                    if (contentType === 'application/pdf') {
+                        return response.data;
+                    } else {
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                        try {
+                            const errorObject = JSON.parse(reader.result);
+                            this.messageSweet({
+                                message : errorObject.message,
+                                icon    : 'error',
+                            });
+                        } catch (error) { console.error('No se pudo analizar el objeto de error JSON:', reader.result); }
+                        };
+                        reader.readAsText(response.data);
+                    }
                 } else {
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                    try {
-                        const errorObject = JSON.parse(reader.result);
-                        this.messageSweet({
-                            message : errorObject.message,
-                            icon    : 'error',
-                        });
-                    } catch (error) { console.error('No se pudo analizar el objeto de error JSON:', reader.result); }
-                    };
-                    reader.readAsText(response.data);
+                    this.messageSweet({
+                        message : 'Ocurrio un error en la petición.',
+                        icon    : 'error',
+                    });
+                    console.log('Checa el metodo para la petición.');   
                 }
             } catch (error) {
                 this.catchError(error);

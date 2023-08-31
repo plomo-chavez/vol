@@ -16,6 +16,33 @@ use Carbon\Carbon;
 use PDF;
 
 class BaseController extends Controller{
+    public static function formatTime($fecha) {
+        if ($fecha === null) {
+            return '';
+        } else {
+            $fecha = $fecha == 'now' ? null : $fecha;
+            $carbon = Carbon::parse($fecha);
+            $carbon->setTimezone('America/Mexico_City');
+            return $carbon->format("Y/m/d g:i A");
+        }
+    }
+    public static function getNameMes($numero){
+        $meses = array(
+            1 => 'Enero',
+            2 => 'Febrero',
+            3 => 'Marzo',
+            4 => 'Abril',
+            5 => 'Mayo',
+            6 => 'Junio',
+            7 => 'Julio',
+            8 => 'Agosto',
+            9 => 'Septiembre',
+            10 => 'Octubre',
+            11 => 'Noviembre',
+            12 => 'Diciembre'
+        );
+        return $meses[$numero] ?? '';
+    }
     public static function response($message = 'Tenemos un error'){
         return array(
             'result'    => false,
@@ -36,6 +63,14 @@ class BaseController extends Controller{
         $fechaActual = Carbon::now('America/Mexico_City');
         // Formatear la fecha como cadena (opcional)
         return $fechaActual->format('Y-m-d');
+    }
+
+    public function minutosATiempo($totalMinutos) {
+        // Calcula los días, horas y minutos totales
+        $totalDias = floor($totalMinutos / (24 * 60));
+        $totalHoras = floor(($totalMinutos % (24 * 60)) / 60);
+        $totalMinutosRestantes = $totalMinutos % 60;
+        return "Dias: $totalDias, Horas: $totalHoras, Minutos: $totalMinutosRestantes";
     }
     public static function fechaNow($fecha = null, $formato = null,$aumentoDias = null){
         // Obtener la fecha actual utilizando Carbon
@@ -281,7 +316,7 @@ class BaseController extends Controller{
                 return Delegaciones::pluck('id')->toArray();
                 break;
             case 3:     // '3', 'CE -  Coordinador Estatal'
-                $delegacion = elegaciones::find($delegacionID);
+                $delegacion = Delegaciones::find($delegacionID);
                 return $delegacion == null ? null : Delegaciones::where('estado_id',$delegacion->estado_id)->pluck('id')->toArray();
                 break;
             case 4:     // '4', 'CL -  Coordinador Local'

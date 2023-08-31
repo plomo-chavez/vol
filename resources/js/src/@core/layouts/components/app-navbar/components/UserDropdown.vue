@@ -12,13 +12,13 @@
       </div>
       <b-avatar
         size="40"
-        :src="userData.avatar"
+        :src="userData.urlImagen"
         variant="light-primary"
         badge
         class="badge-minimal"
         badge-variant="success"
       >
-        <feather-icon v-if="!userData.fullName" icon="UserIcon" size="22" />
+        <feather-icon v-if="userData.urlImagen == null" icon="UserIcon" size="22" />
       </b-avatar>
     </template>
 

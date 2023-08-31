@@ -6,6 +6,7 @@ use App\Http\Middleware\UserAuthentication;
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CatalogosController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\Configuracion\UsuariosController;
 use App\Http\Controllers\Configuracion\HabitacionesController;
@@ -39,6 +40,7 @@ Route::post('/out/valid/code',          [VoluntariosController::class, 'validCod
 Route::post('/out/get/voluntario',      [VoluntariosController::class, 'getVoluntario']);
 Route::post('/out/admin/voluntario',    [VoluntariosController::class, 'handleAdministrar']);
 Route::post('/horasVoluntarias/guardias/getUltimo',  [GuardiasHorasController::class, 'getUltimaGuardia']);
+Route::middleware([UserAuthentication::class])->post('/home',                       [VoluntariosController::class, 'getHome']);
 Route::middleware([UserAuthentication::class])->post('/auth/pruebas2',              [AuthController::class, 'verificar']);
 Route::middleware([UserAuthentication::class])->post('/get/usuarios',               [UsuariosController::class, 'getUsuarios']);
 Route::middleware([UserAuthentication::class])->post('/usuarios/listar',            [UsuariosController::class, 'listarUsuarios']);
@@ -78,8 +80,8 @@ Route::post('/valid/curp',                  [VoluntariosController::class, 'vali
 Route::post('/catalogo/especial/delegaciones', [CatalogosController::class, 'delegacionesXTipoCoordinador']);
 Route::post('/catalogo/especial/voluntarios', [CatalogosController::class, 'voluntariosXDelegacion']);
 // Generador PDF
-Route::middleware([UserAuthentication::class])->post('/generate/voluntarios',           [VoluntariosController::class, 'generatePDFVoluntarios']);
-Route::middleware([UserAuthentication::class])->post('/generate/credencial-temporal',   [VoluntariosController::class, 'generatePDFCRedencialTemporal']);
+Route::middleware([UserAuthentication::class])->post('/generate/voluntarios',           [PDFController::class, 'generatePDFVoluntarios']);
+Route::middleware([UserAuthentication::class])->post('/generate/credencial-temporal',   [PDFController::class, 'generatePDFCRedencialTemporal']);
 // UploadFiles
 Route::post('/upload/delegacion/coordinadores',     [FileUploadController::class, 'uploadFilesDelegacionesCoordinadores']);
 Route::post('/upload/voluntario',                  [FileUploadController::class, 'uploadFilesVoluntarios']);

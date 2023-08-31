@@ -5,6 +5,8 @@ use App\Http\Controllers\QRController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\Email\MailController;
 use App\Http\Controllers\Sistema\Modelos\DelegacionAreasCoordinadores;
+use App\Http\Controllers\Sistema\Modelos\HorasVoluntarias;
+use App\Http\Controllers\Sistema\Modelos\HorasVoluntariasContadores;
 use App\Http\Controllers\Sistema\Modelos\Voluntarios as Modelo;
 
 
@@ -107,107 +109,37 @@ class VoluntariosController extends BaseController {
             $data,
         );
     }
-
-
-    public function generatePDFVoluntarios(Request $request){
+    public function getHome(Request $request){
+        $data = [];
         $payload = $request->all();
-        $pdfContent = self::generateFichaRegistro($payload);
-        if (isset($pdfContent['status']) && !$pdfContent['status']) {
-            return self::responsee(
-                $pdfContent['message'],
-                $pdfContent['status'],
-               [] ,
-            );
-        } else {
-            $response = response($pdfContent, 200, [ 'Content-Type' => 'application/pdf', ]);
-            return $response;
-        }
-    }
-    
-    public static function generateFichaRegistro($payload) {
-        try {
-            if (!($payload['voluntario_id'] ?? false)) {
-                return self::response($message = 'Falta voluntario_id');
-            } else {
-                $data = Modelo::find($payload['voluntario_id'])->toArray();
-                if ($data != null) {
-                    $path = 'voluntarios'.'/'.$data['numeroInterno'];
-                    $urlCodigoInterno = self::getURLCodeInterno($data['numeroInterno']);
-                    $data['qrCode'] = QRController::generateAndSaveQR($urlCodigoInterno,$path,'qrScanVoluntario');
-                    return array(
-                        'result'    => true,
-                        'message'   => 'PDF generado con exito',
-                        'data'      => PDFController::generatePDF($data,'pdf.voluntario-fichaRegistro','voluntario-fichaRegistro.pdf'),
-                    );
-                } else {
-                    return self::response($message = 'Problemas con la resevación');
-                }
-            }
-        } catch (Exception $e) {
-            // Manejar la excepción aquí
-            return self::response($message = 'Ha ocurrido una excepción: ' . $e->getMessage());
-        }
+        $ids = self::idsDelegacionesXTipoUsuario($payload['tipousuario_id'],$payload['delegacion_id']);
+        $voluntarios = Modelo::whereIn('delegacion_id',$ids)->pluck('id')->toArray();
+        $data['numeroVoluntarios'] = count($voluntarios);
+        $HVMes = HorasVoluntarias::whereIn('voluntario_id',$voluntarios)->pluck('tiempoMinutos')->toArray();
+        $totalMes = array_sum($HVMes);
+        // Obtiene el primer y último día del mes actual
+        $mesActual = self::fechaNow()->startOfMonth();
+        $ultimoDiaMes = self::fechaNow()->endOfMonth();
 
+        // Obtiene las horas voluntarias para los voluntarios seleccionados y el mes actual
+        $HVTotal = HorasVoluntarias::whereIn('voluntario_id', $voluntarios)
+            ->whereBetween('created_at', [$mesActual, $ultimoDiaMes])
+            ->pluck('tiempoMinutos')
+            ->toArray();
+        $totalTotal = array_sum($HVTotal);
+        $contador = HorasVoluntariasContadores::where('voluntario_id',$payload['voluntario_id'])->get()[0] ?? null;
+        $data['tiempoMes']              = self::minutosATiempo($totalMes);
+        $data['tiempoTotal']            = self::minutosATiempo($totalTotal);
+        $data['voluntarioTiempoMes']    = $contador->tiempoMes   ?? 'No hay registros.';
+        $data['voluntarioTiempoTotal']  = $contador->tiempoTotal ?? 'No hay registros.';
+        return self::responsee(
+            'Consulta realizada con exito.',
+            true,
+            $data,
+        );
     }
-    public function generatePDFCRedencialTemporal(Request $request){
-        $payload = $request->all();
-        $pdfContent = self::generateCredencialTemporal($payload);
-        if (isset($pdfContent['result']) && !$pdfContent['result']) {
-            return self::response($message = $pdfContent['message']);
-        } else {
-            return response($pdfContent['data'], 200, [ 'Content-Type' => 'application/pdf', ]);
-        }
-    }
-    public static function generateCredencialTemporal($payload) {
-        try {
-            if (!($payload['voluntario_id'] ?? false)) {
-                return self::response($message = 'Falta voluntario_id');
-            } else {
-                $data = Modelo::find($payload['voluntario_id'])->toArray();
-                $delegacion_id = $data['delegacion_id']; 
-                if ($data != null) {
-                    if (($delegacion_id == 0 || $delegacion_id == null)) {
-                        return self::response($message = 'Este voluntario no pertenece a una delegación');
-                    }
-                    if (($data['numeroInterno'] == null)) {
-                        return self::response($message = 'Este voluntario no tiene un numero interno');
-                    }
-                    $coordinador = self::coordinadorParaFirmas($delegacion_id);                 
-                    if ($coordinador == null) {
-                        return self::response($message = 'Error con el coordinador, checar datos de la delegación.');
-                    }
-                    if ($coordinador['uriFirma'] == null || $coordinador['uriSello'] == null ) {
-                        return self::response($message = 'Faltan archivos del coordinador.');
-                    }
-                    $duracion = $payload['duracion'] ?? 60;
-                    $data['coordinador']    = strtoupper($coordinador['nombre']);
-                    $data['uriFirma']       = $coordinador['uriFirma'];
-                    $data['uriSello']       = $coordinador['uriSello'];
-                    $data['urlVoluntario']  = $data['urlImagen'];
-                    $data['dias']           = $duracion;
-                    $data['fechaInicio']    = self::fechaNow($payload['duracion'] ?? null,'d/m/Y');
-                    $data['fechaFin']       = self::fechaNow($payload['duracion'] ?? null,'d/m/Y',$duracion);
-                    $data['nombre']         = strtoupper($data['nombre']);
-                    $data['primerApellido'] = strtoupper($data['primerApellido']);
-                    $data['segundoApellido']= strtoupper($data['segundoApellido']);
-                    $urlCodigoInterno = self::getURLCodeInterno($data['numeroInterno']);
-                    $path = 'voluntarios'.'/'.$data['numeroInterno'];
-                    $data['qrCode'] = QRController::generateAndSaveQR($data['numeroInterno'],$path,'qrCredencialTemporal');
-                    return array(
-                        'result'    => true,
-                        'message'   => 'PDF generado con exito',
-                        'data'      => PDFController::generatePDF($data,'pdf.voluntario-credencialTemporal','voluntario-credencialTemporal.pdf'),
-                    );
-                } else {
-                    return self::response($message = 'Problemas con la resevación');
-                }
-            }
-        } catch (Exception $e) {
-            // Manejar la excepción aquí
-            return self::response($message = 'Ha ocurrido una excepción: ' . $e->getMessage());
-        }
 
-    }
+
 
     public function insertVoluntarioWithCorreo($data){
         // dd('insertVoluntarioWithCorreo');

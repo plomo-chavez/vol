@@ -26,7 +26,7 @@
                             <div class="wwfull mb-2 text-center">
                                 <b-avatar
                                     size="60"
-                                    :src="null"
+                                    :src="data.urlImagen"
                                     variant="light-primary"
                                     class="mx-auto badge-minimal"
                                 />
@@ -59,7 +59,7 @@
                     <div class=" p-1" :class=" windowInnerWidth < 700 ? ' col-12 p-0 m-0 ' : ' ww-300A ' ">
                         <div class=" col-12 d-flex flex-wrap justify-content-between">
                             <div>
-                                <b-button size="sm" variant="relief-secondary" >Generar reporte de horas voluntarias</b-button>
+                                <b-button size="sm" @click="() => { this.handleReporteHoras() }" variant="relief-secondary" >Generar reporte de horas voluntarias</b-button>
                             </div>
                             <div>
                             </div>
@@ -96,7 +96,6 @@
                             :columnas="columnasActivas"
                             @mdoView="viewDetails"
                         />
-
                         <HorasVoluntarias
                             v-if="panelHistorico == 3 || panelHistorico == 2"
                             showMesLabel
@@ -369,6 +368,16 @@ export default {
         viewDetailsRegistro(data){
             this.actividad = this.copyObject(data);
             this.modalShow = !this.modalShow;
+        },
+        async handleReporteHoras(){
+            let payload = {
+                anio            : this.data.anio,
+                mes             : this.data.mes_actual,
+                voluntario_id   : this.data.voluntario_id,
+                documento       : 'reporteHoras',
+            };
+            let response =  await this.peticionPDF('generatePDFVoluntarios',payload,false)
+            this.descargarPDF(response,this.data.id,'ReporteHoras-'+ this.getNameMes(this.data.mes_actual - 1))
         },
     }
 }

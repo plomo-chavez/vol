@@ -94,7 +94,7 @@ class AuthController extends Controller{
 
             $users = User::where('email', $request->email)
                 ->with('tipoUsuario')
-                ->with('voluntario:id,nombre,primerApellido,segundoApellido,delegacion_id')
+                ->with('voluntario:id,nombre,primerApellido,segundoApellido,delegacion_id,urlImagen')
                 ->get();
             if (sizeof($users) == 1) {
                 $tmp  = $users[0];
@@ -103,6 +103,7 @@ class AuthController extends Controller{
                 [$id, $token] = explode('|', $tokenCreated, 2);
                 $user['tipoUsuario']    = $user['tipo_usuario']['nombre'] ?? 'Sin tipo de usuario';
                 $user['delegacion_id']  = $user['voluntario']['delegacion_id'] ?? null;
+                $user['urlImagen']  = $user['voluntario']['urlImagen'] ?? null;
                 $user['token'] = $token;
                 $tmp->token = $token;
                 $tmp->save();

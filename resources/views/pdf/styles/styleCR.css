@@ -9,11 +9,42 @@ td{ width: 33.3333%!important; }
 .text-primary { color: #DD0000!important; }
 .textJustify { text-align:justify!important; }
 .textCenter { text-align:center!important; }
+.text-sm { font-size: small; }
+.text-xsm { font-size: x-small; }
+.p2 { padding: 5px;}
+.m2 { margin: 5px;}
+.p0 { padding: 0px;}
+.mp-0 { margin:0px; padding: 0px;}
+.mb { margin-bottom: 1px;}
+.mb-0 { margin-bottom: 0px;}
+.mb-1 { margin-bottom: 5px;}
+.mb-2 { margin-bottom: 10px;}
+.ft-8 { font-size: 8px;}
+.ft-10 { font-size: 10px;}
+.ft-12 { font-size: 12px;}
+.ft-14 { font-size: 14px;}
+.ft-16 { font-size: 16px;}
+.ft-18 { font-size: 18px;}
+.ft-20 { font-size: 20px;}
 
+.w-10 { width: 10px!important; }
+.w-20 { width: 20px!important; }
+.w-30 { width: 30px!important; }
+.w-40 { width: 40px!important; }
+.w-50 { width: 50px!important; }
+.w-60 { width: 60px!important; }
+.w-70 { width: 70px!important; }
+.w-80 { width: 80px!important; }
+.w-90 { width: 90px!important; }
+.w-100 { width: 100px!important; }
+.w-110 { width: 110px!important; }
+.w-120 { width: 120px!important; }
+.w-130 { width: 130px!important; }
+.w-140 { width: 140px!important; }
+.w-tmp { width: 100px!important; }
+.w-fecha { width: 70px!important; }
 .table td,
-.table th {
-  border: 0.5px solid black;
-}
+.table th { border: 0.5px solid black; }
 .tableTitulo{
   font-size: small;
   border-collapse: collapse;
@@ -25,23 +56,30 @@ td{ width: 33.3333%!important; }
   line-height: 0!important;
   width: 100%;
 }
+span {
+  margin:0px; 
+  padding: 0px;
+}
 .table {
   font-size: x-small;
   border-collapse: collapse;
-  width: 100%;
-  border-collapse: collapse;
-  width: 100%;
+  width: 100%!important;
 }
 tfoot tr td{
   font-weight: bold;
   font-size: x-small;
+}
+.tmp {
+  padding: 5px!important;
+  text-align: center;
+  vertical-align: middle;
 }
 .titulo {
   background-color: #DD0000!important;
   color: #FFFFFF!important;
   font-weight: bold!important;
   text-align:center!important;
-  line-height: 0!important;
+  /* line-height: 0!important; */
 }
 .tituloFormato {
   margin-bottom:0px!important; 

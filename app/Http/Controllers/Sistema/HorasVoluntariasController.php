@@ -21,9 +21,10 @@ class HorasVoluntariasController extends BaseController
         $idsDelegacion = self::idsDelegacionesXVoluntarioID($payload['voluntario_id'] ?? null);
         if($idsDelegacion != null){
             $voluntariosID = Voluntarios::whereIn('delegacion_id',$idsDelegacion)->pluck('id')->toArray();
-            $data = HorasVoluntariasContadores::whereIn('voluntario_id',$voluntariosID)->with('voluntario:id,nombre,primerApellido,segundoApellido')->get();
+            $data = HorasVoluntariasContadores::whereIn('voluntario_id',$voluntariosID)->with('voluntario:id,nombre,primerApellido,segundoApellido,urlImagen')->get();
             $data = $data->toArray();
             foreach ($data as $index => $item) {
+                $data[$index]['urlImagen'] = $data[$index]['voluntario']['urlImagen'];
                 $data[$index]['voluntario'] = $data[$index]['voluntario']['nombreCompleto'];
             }
         }

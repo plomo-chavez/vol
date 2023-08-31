@@ -19,6 +19,7 @@ class HorasVoluntarias extends Model {
         'tiempoLabel',
         'tiempoMinutos',
         'guardia_id',
+        'minutos',
     ];
     public function area() {
         return $this->hasOne(Areas::class,'id','area_id')->select('id','nombre');
