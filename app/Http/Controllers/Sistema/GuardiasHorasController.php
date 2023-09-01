@@ -152,7 +152,7 @@ class GuardiasHorasController extends BaseController {
                     $diferencia = $timestamp1->diff($timestamp2);
                     $minutosDiferencia = ($diferencia->days * 24 * 60) + ($diferencia->h * 60) + $diferencia->i;
                     $tmp = [
-                        'coordinacion_id'   => $area->id,
+                        'area_id'           => $area->id,
                         'voluntario_id'     => $voluntario_id,
                         'actividad'         => 'Tiempo en servicio',
                         'fecha'             => self::fechaNow(),
@@ -224,11 +224,16 @@ class GuardiasHorasController extends BaseController {
         $data = HorasVoluntarias::whereYear('created_at', $payload['anio'])
             ->whereMonth('created_at', $payload['mes'])
             ->where('voluntario_id', $payload['voluntario_id'])
+            ->with('area')
             ->with('guardia')
             ->with('guardia.verificador')
             ->with('guardia.delegacion')
             ->with('guardia.delegacion.estado')
-            ->get();
+            ->get()->toArray();
+            $index = 0;
+            foreach ($data as $item) {
+                $data[$index]['area'] = $data[$index]['area'] == null ? '' : $data[$index]['area']['nombre'] ;
+            }
         // Retorna una respuesta con el mensaje y datos
         return self::responsee(
             'Consulta realizada con éxito.',

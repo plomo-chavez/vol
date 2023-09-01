@@ -33,9 +33,9 @@
         <td>Numero interno</td>
         <td>Numero asociado</td>
         <td>Voluntario</td>
-        <td>Tiempo</td>
         <td>Mes</td>
         <td>Año</td>
+        <td>Tiempo</td>
       </tr>
       <tr class="">
         <td class="w-30 textCenter " >{{$numeroInterno}}</td>

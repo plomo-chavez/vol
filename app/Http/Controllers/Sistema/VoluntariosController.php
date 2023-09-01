@@ -152,7 +152,7 @@ class VoluntariosController extends BaseController {
         $protocol = $isSecure ? 'https://' : 'http://';
         $data['link'] = $protocol . $_SERVER['HTTP_HOST'] . '/registro?code=' . $data['codeEmail'];
         $data['correoEnvio'] = $data['correo'];
-        // MailController::sendMailWithTemplate($data,'new-voluntario-out');
+        MailController::sendMailWithTemplate($data,'new-voluntario-out');
         return self::responsee(
             'Voluntario registrado correctamente.',
             true,

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Sistema\Modelos\Voluntarios;
+use App\Http\Controllers\Sistema\Modelos\DelegacionAreasCoordinadores;
 
 use Illuminate\Http\Request;
 

@@ -124,7 +124,7 @@ class PDFController extends BaseController {
                 foreach ($registros as $item) {
                     $t = array(
                         'index'         => $index,
-                        'area'          => $item['area']['nombre'] ?? '',
+                        'area'          => $item['area'] ?? '',
                         'actividad'     => $item['actividad'] ?? '',
                         'tiempo'        => $item['tiempoLabel'] ?? '',
                         'horaInicio'    => self::formatTime($item['horaInicio']) ?? '',
