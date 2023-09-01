@@ -18,7 +18,7 @@
         @decode="(a, b, c) => onDecode(a, b, c)"
         @loaded="() => onLoaded()"
       ></StreamBarcodeReader>
-      Input Value: {{ text || "Nothing" }}
+      <!-- Input Value: {{ text || "Nothing" }} -->
     </component>
   </template>
 
@@ -62,7 +62,7 @@
     },
     methods: {
       onDecode(a, b, c) {
-        console.log(a, b, c);
+        // console.log(a, b, c);
         this.text = a;
         if (this.id) clearTimeout(this.id);
         this.id = setTimeout(() => {

@@ -19,17 +19,26 @@ export default [
         action: 'read',
       },
     },
-  {
-    path: '/login',
-    name: 'auth-login',
-    component: () => import('@/views/pages/authentication/Login.vue'),
-    meta: {
-        validUser: false,
-      layout: 'full',
-      resource: 'Auth',
-      redirectIfLoggedIn: true,
+    {
+      path: '/login',
+      name: 'auth-login',
+      component: () => import('@/views/pages/authentication/Login.vue'),
+      meta: {
+          validUser: false,
+        layout: 'full',
+        resource: 'Auth',
+        redirectIfLoggedIn: true,
+      },
     },
-  },
+    {
+      path: '/scann',
+      name: 'scann-out',
+      component: () => import('@/views/out/ScannOut.vue'),
+      meta: {
+        validUser: false,
+        layout: 'full',
+      },
+    },
   {
     path: '/register',
     name: 'auth-register',

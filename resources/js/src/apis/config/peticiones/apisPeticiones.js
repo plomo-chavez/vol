@@ -9,6 +9,9 @@ export default class apiPeticiones {
     this.axiosIns = axiosIns
     this.apisConfig = { ...this.apisConfig, ...jwtOverrideConfig }
   }
+  scannOut(...args) {
+    return this.axiosIns.post(this.apisConfig.apiScannOut, ...args)
+  }
   home(...args) {
     return this.axiosIns.post(this.apisConfig.apiHome, ...args)
   }

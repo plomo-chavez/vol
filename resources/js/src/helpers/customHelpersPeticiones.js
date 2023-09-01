@@ -21,6 +21,9 @@ export default {
                 this.loading();
                 let response;
                 switch (method) {
+                    case 'scannOut':
+                        response = await peticiones.scannOut(payload);
+                    break;
                     case 'home':
                         response = await peticiones.home(payload);
                     break;

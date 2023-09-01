@@ -31,4 +31,5 @@ export default {
   apiAdminCatalogos       : '/api/catalogos/administrar',
 //   Sin autentificacion
   apiValidCURP          : '/api/valid/curp',
+  apiScannOut              : '/api/scann',
 }

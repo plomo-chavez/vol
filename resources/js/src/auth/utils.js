@@ -36,9 +36,9 @@ export const validarRutaPorTipoUsuarioEnMeta = (ruta,role) => {
       if(typeof ruta.meta != 'undefined'){
         if(typeof ruta.meta.permitidos != 'undefined'){
           if(typeof ruta.meta.permitidos == 'string'){
-            response = ruta.meta.permitidos == 'all' ? true : ruta.meta.permitidos.toLowerCase() == role.toLowerCase() 
+            response = ruta.meta.permitidos == 'all' ? true : ruta.meta.permitidos.toLowerCase() == (role != null ? role.toLowerCase() : '') 
           } else {
-            response = ruta.meta.permitidos.some(tipo => tipo.toLowerCase() === role.toLowerCase());
+            response = ruta.meta.permitidos.some(tipo => tipo.toLowerCase() === (role != null ? role.toLowerCase() : '') );
           }
         } else {
           response = false;

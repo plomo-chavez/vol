@@ -18,4 +18,8 @@ class CredencialTemporal extends Model {
         'emitio_id',
         'isActual',
     ];
+    
+    public function voluntario() {
+        return $this->belongsTo(Voluntarios::class, 'voluntario_id','id');
+    }
 }

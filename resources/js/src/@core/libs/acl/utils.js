@@ -23,7 +23,7 @@ export const otra = (item, rutas) => {
   return response
 } 
 export const validarRuta = (item, rutas) => {
-  let role = store.state.app.userData.role;
+  let role = store.state.app.userData?.role ?? null;
   let ruta = rutas.find(r => item.route === r.name);
   let response = validarRutaPorTipoUsuarioEnMeta(ruta,role);
   return response

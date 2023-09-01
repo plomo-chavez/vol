@@ -66,6 +66,11 @@ $sizes-per: (
 .pp-custom3 {padding: 15px!important;}
 .pp-custom4 {padding: 20px!important;}
 .mm-1 {margin: 2px!important;}
+.mt-1 {margin-top: 5px!important;}
+.mt-2 {margin-top: 10px!important;}
+.mt-3 {margin-top: 15px!important;}
+.mt-4 {margin-top: 20px!important;}
+.mt-5 {margin-top: 25px!important;}
 .mmb-1 {margin-bottom: 2px!important;}
 .mmb-2 {margin-bottom: 4px!important;}
 .mmb-3 {margin-bottom: 8px!important;}
@@ -93,6 +98,14 @@ $sizes-per: (
 .ww-500A { width: calc(100% - 500px)!important; }
 .ww-600  { width: 600px!important; }
 .ww-600A { width: calc(100% - 600px)!important; }
+.ww-700  { width: 700px!important; }
+.ww-700A { width: calc(100% - 700px)!important; }
+.ww-800  { width: 800px!important; }
+.ww-800A { width: calc(100% - 800px)!important; }
+.ww-900  { width: 900px!important; }
+.ww-900A { width: calc(100% - 900px)!important; }
+.ww-1000  { width: 1000px!important; }
+.ww-1000A { width: calc(100% - 1000px)!important; }
 
 .hh-25   { height: 25px!important; }
 .hh-25A  { height: calc(100% - 25px)!important; }

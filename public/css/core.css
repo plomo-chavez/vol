@@ -23140,6 +23140,26 @@ ul.list-inline.list-inline-pipe > li + li:before {
   margin: 2px !important;
 }
 
+[dir] .mt-1 {
+  margin-top: 5px !important;
+}
+
+[dir] .mt-2 {
+  margin-top: 10px !important;
+}
+
+[dir] .mt-3 {
+  margin-top: 15px !important;
+}
+
+[dir] .mt-4 {
+  margin-top: 20px !important;
+}
+
+[dir] .mt-5 {
+  margin-top: 25px !important;
+}
+
 [dir] .mmb-1 {
   margin-bottom: 2px !important;
 }
@@ -23246,6 +23266,38 @@ ul.list-inline.list-inline-pipe > li + li:before {
 
 .ww-600A {
   width: calc(100% - 600px) !important;
+}
+
+.ww-700 {
+  width: 700px !important;
+}
+
+.ww-700A {
+  width: calc(100% - 700px) !important;
+}
+
+.ww-800 {
+  width: 800px !important;
+}
+
+.ww-800A {
+  width: calc(100% - 800px) !important;
+}
+
+.ww-900 {
+  width: 900px !important;
+}
+
+.ww-900A {
+  width: calc(100% - 900px) !important;
+}
+
+.ww-1000 {
+  width: 1000px !important;
+}
+
+.ww-1000A {
+  width: calc(100% - 1000px) !important;
 }
 
 .hh-25 {

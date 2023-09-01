@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CatalogosController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\ScannController;
 use App\Http\Controllers\Configuracion\UsuariosController;
 use App\Http\Controllers\Configuracion\HabitacionesController;
 use App\Http\Controllers\Configuracion\PersonasController;
@@ -29,7 +30,8 @@ use App\Http\Controllers\Email\MailController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/newPass',   [AuthController::class, 'newPass']);
+Route::get('/newPass',                  [AuthController::class, 'newPass']);
+Route::post('/scann',                   [ScannController::class, 'getInfoScannOut']);
 Route::post('/auth/register',           [AuthController::class, 'createUser']);
 Route::post('/auth/login',              [AuthController::class, 'loginUser']);
 Route::post('/auth/details',            [AuthController::class, 'detailsUser']);
