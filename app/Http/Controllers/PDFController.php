@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Sistema\Modelos\HorasVoluntariasContadores;
 use App\Http\Controllers\Sistema\GuardiasHorasController;
 use App\Http\Controllers\Sistema\Modelos\Voluntarios;
+use App\Http\Controllers\Sistema\Modelos\CredencialTemporal;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\QRController;
 use Illuminate\Support\Facades\View;
@@ -177,20 +178,40 @@ class PDFController extends BaseController {
                     if ($coordinador['uriFirma'] == null || $coordinador['uriSello'] == null ) {
                         return self::response($message = 'Faltan archivos del coordinador.');
                     }
-                    $duracion = $payload['duracion'] ?? 60;
+                    do {
+                        $data['code']           = self::generateCodigoUUID();
+                        $tmp = CredencialTemporal::where('codigo',$data['code'])->get()->count();
+                    } while ($tmp > 0);
+                    // Buscar todos los registros donde voluntario_id sea igual a 4
+                    $registros = CredencialTemporal::where('voluntario_id', $payload['voluntario_id'])->get();
+
+                    // Actualizar la columna isActual a false en todos los registros encontrados
+                    foreach ($registros as $registro) {
+                        $registro->update(['isActual' => false]);
+                    }
+                    $duracion               = $payload['duracion'] ?? 60;
+                    CredencialTemporal::create([
+                        'voluntario_id'     => $payload['voluntario_id'],
+                        'codigo'            => $data['code'],
+                        'fechaEmision'      => self::fechaNow($payload['fechaInicio']   ?? null,'timestamp'),
+                        'fechaVencimiento'  => self::fechaNow($payload['fechaFin']      ?? null,'timestamp',$duracion),
+                        'isActual'          => true,
+                    ]);
+                    $data['fechaInicio']    = self::fechaNow($payload['fechaInicio'] ?? null,'d/m/Y');
+                    $data['fechaFin']       = self::fechaNow($payload['fechaFin'] ?? null,'d/m/Y',$duracion);
                     $data['coordinador']    = strtoupper($coordinador['nombre']);
                     $data['uriFirma']       = $coordinador['uriFirma'];
                     $data['uriSello']       = $coordinador['uriSello'];
                     $data['urlVoluntario']  = $data['urlImagen'];
                     $data['dias']           = $duracion;
-                    $data['fechaInicio']    = self::fechaNow($payload['duracion'] ?? null,'d/m/Y');
-                    $data['fechaFin']       = self::fechaNow($payload['duracion'] ?? null,'d/m/Y',$duracion);
                     $data['nombre']         = strtoupper($data['nombre']);
                     $data['primerApellido'] = strtoupper($data['primerApellido']);
                     $data['segundoApellido']= strtoupper($data['segundoApellido']);
                     $urlCodigoInterno = self::getURLCodeInterno($data['numeroInterno']);
                     $path = 'voluntarios'.'/'.$data['numeroInterno'];
-                    $data['qrCode'] = QRController::generateAndSaveQR($data['numeroInterno'],$path,'qrCredencialTemporal');
+                    $data['qrCode'] = QRController::generateAndSaveQR($data['code'],$path,'qrCredencialTemporal');
+                    
+                    CredencialTemporal::create($payload);
                     return array(
                         'result'    => true,
                         'message'   => 'PDF generado con exito',

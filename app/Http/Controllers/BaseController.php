@@ -11,12 +11,21 @@ use App\Http\Controllers\Sistema\Modelos\Voluntarios;
 use App\Http\Controllers\Sistema\Modelos\ContadorNumeroInterno;
 use App\Http\Controllers\Auth\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Ramsey\Uuid\Uuid;
 use Dompdf\Dompdf;
 use Carbon\Carbon;
 use PDF;
 
 class BaseController extends Controller{
-    public static function formatTime($fecha) {
+    public static function generateCodigoUUID() {
+        // Generar un nuevo UUID v4
+        $uuid = Uuid::uuid4();
+
+        // Convertir el UUID a Base64
+        return strtoupper(str_replace('-', '', $uuid->getHex()));
+        // return base64_encode($uuid->getBytes());
+    }
+    public static function formatTime ($fecha) {
         if ($fecha === null) {
             return '';
         } else {
@@ -72,7 +81,7 @@ class BaseController extends Controller{
         $totalMinutosRestantes = $totalMinutos % 60;
         return "Dias: $totalDias, Horas: $totalHoras, Minutos: $totalMinutosRestantes";
     }
-    public static function fechaNow($fecha = null, $formato = null,$aumentoDias = null){
+    public static function fechaNow($fecha = null, $formato = '',$aumentoDias = null){
         // Obtener la fecha actual utilizando Carbon
         if ($fecha == null){
             $response = Carbon::now('America/Mexico_City');
@@ -83,7 +92,11 @@ class BaseController extends Controller{
             $response = $response->addDays($aumentoDias);
         }
         if($formato != null){
-            $response = $response->format($formato);
+            if($formato == 'timestamp'){
+                $response = $response;
+            }else {
+                $response = $response->format($formato);
+            }
         }
         return $response;
     }
