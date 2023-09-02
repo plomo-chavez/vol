@@ -294,7 +294,7 @@ export default {
         panelHistorico(newValue, oldValue) {
             switch (newValue) {
                 case 1: this.titulo = 'Historico por meses'; break;
-                case 2: this.titulo = 'Horas voluntarias de ' +  this.mes; break;
+                case 2: this.titulo = 'Horas voluntarias de ' +  this.mesSelect.mes; break;
                 case 3: this.titulo = 'Detalles de la actividad'; break;
             }
         }

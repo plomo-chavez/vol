@@ -54,7 +54,7 @@
       </b-card>
     </div>
     <div v-else class="col-12  d-flex flex-wrap justify-content-center">
-      <div v-if="tipo == 'credencial'">
+      <div v-if="tipo == 'credencialTemporal'">
         <b-card  no-body class="ww-300 p-1">
           <div class="wwfull">
             <!-- User avatar -->
@@ -187,6 +187,9 @@ export default {
       openScann : false,
       hadScann  : false,
       showError : false,
+      permitidos : [
+        'credencialTemporal',
+      ]
     }
   },
   beforeMount() {},
@@ -199,7 +202,7 @@ export default {
           setTimeout(() => { this.openScann = true; }, 3);
       },
       validarFecha(fecha){
-        const fechaDada = new Date("2023-10-30 21:35:34");
+        const fechaDada = new Date(fecha);
         const fechaActual = new Date(); // Fecha y hora actual
 
         return fechaActual < fechaDada;
@@ -209,8 +212,10 @@ export default {
             setTimeout(() => { this.openScann = false; }, 3);
 
             let response = await this.peticionGeneral('scannOut',{codigo},false);
-            this.data = response.data.data;
-            this.tipo = response.data.tipo;
+            if(this.permitidos.includes(response.data.data)){
+              this.data = response.data.data;
+              this.tipo = response.data.tipo;
+            }
             this.showError = this.data == null;
       },
   },

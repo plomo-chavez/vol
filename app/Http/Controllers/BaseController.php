@@ -8,6 +8,7 @@ use App\Http\Controllers\Sistema\Modelos\Delegaciones;
 use App\Http\Controllers\Sistema\Modelos\DelegacionAreasCoordinadores;
 use App\Http\Controllers\Sistema\Modelos\Coordinadores;
 use App\Http\Controllers\Sistema\Modelos\Voluntarios;
+use App\Http\Controllers\Sistema\Modelos\CredencialTemporal;
 use App\Http\Controllers\Sistema\Modelos\ContadorNumeroInterno;
 use App\Http\Controllers\Auth\Models\User;
 use Illuminate\Support\Facades\Storage;
@@ -106,45 +107,68 @@ class BaseController extends Controller{
      * @param string|null $codigo El código escaneado.
      * @return int|null El ID del voluntario si se encuentra, o null si no se encuentra.
      */
-    public static function findVoluntarioIDPorCodigoEscaneado($codigo = null) {
+    public static function findByCodigo($codigo = null, $getVolunter = true) {
         $tmp = null;
+        $tipo = null;
+        $registro= null;
         if ($codigo != null) {
-            $busqueda = "http://sccrm.mx";
-            // Verifica si el código contiene la URL de búsqueda
-            if (strpos($codigo, $busqueda) !== false) {
-                $ultimoIgual = strrpos($codigo, "=");
-                // Extrae el texto después del último signo igual (=)
-                if ($ultimoIgual !== false) {
-                    $textoExtraido = substr($codigo, $ultimoIgual + 1);
-                    // Busca en la base de datos por el código de credencial extraído
-                    $data = Voluntarios::where('codigoCredencial', $textoExtraido)
-                        ->select('id')
-                        ->get();
-                    // Asigna el ID del voluntario si se encuentra un resultado único
-                    $tmp = sizeof($data) == 1 ? $data[0]->id : null;
+            if ($registro == null) {
+                $busqueda = "http://sccrm.mx";
+                // Verifica si el código contiene la URL de búsqueda
+                if (strpos($codigo, $busqueda) !== false) {
+                    $ultimoIgual = strrpos($codigo, "=");
+                    // Extrae el texto después del último signo igual (=)
+                    if ($ultimoIgual !== false) {
+                        $textoExtraido = substr($codigo, $ultimoIgual + 1);
+                        // Busca en la base de datos por el código de credencial extraído
+                        $tmp = Voluntarios::where('codigoCredencial', $textoExtraido)->get();
+                        // Asigna el ID del voluntario si se encuentra un resultado único
+                        $registro = $tmp->count() == 1 ? $tmp [0] : null;
+                        $tipo = 'voluntario';
+                    }
                 }
-            } else {
+            } 
+            if ($registro == null) {
                 $busqueda = "VOL";
                 // Verifica si el código contiene la cadena "VOL"
                 if (strpos($codigo, $busqueda) !== false) {
                     // Busca en la base de datos por el número de asociado
-                    $data = Voluntarios::where('numeroInterno', $codigo)
-                        ->select('id')
-                        ->get();
-                    // Asigna el ID del voluntario si se encuentra un resultado único
-                    $tmp = sizeof($data) == 1 ? $data[0]->id : null;
-                } else {
-                    // Busca en la base de datos por el número interno
-                    $data = Voluntarios::where('numeroAsociado', $codigo)
-                        ->select('id')
-                        ->get();
-                    // Asigna el ID del voluntario si se encuentra un resultado único
-                    $tmp = sizeof($data) == 1 ? $data[0]->id : null;
+                    $tmp = Voluntarios::where('numeroInterno', $codigo)->get();
+                    $registro = $tmp->count() == 1 ? $tmp [0] : null;
+                    $tipo = 'voluntario';
                 }
+            }  
+            if ($registro == null) {
+                $tmp = CredencialTemporal::where('codigo',$codigo)
+                ->with('voluntario:id,delegacion_id,nombre,primerApellido,segundoApellido,urlImagen')
+                ->with('voluntario.delegacion:id,nombre.estado_id')
+                ->with('voluntario.delegacion.estado:id,nombre')
+                ->get();
+                if($tmp->count() == 1){
+                    if($getVolunter){
+                        // dd($tmp[0]['voluntario_id']);
+                        $tmp = Voluntarios::where('id', $tmp[0]['voluntario_id'])->get();
+                        // Asigna el ID del voluntario si se encuentra un resultado único
+                        $registro = $tmp->count() == 1 ? $tmp [0] : null;
+                        $tipo = 'voluntario';
+                    } else {
+                        $registro = $tmp->count() == 1 ? $tmp [0] : null;
+                        $tipo = 'credencialTemporal';
+                    }
+                }
+            } 
+            if ($registro == null) {
+                // Busca en la base de datos por el número interno
+                $tmp = Voluntarios::where('numeroAsociado', $codigo)->get();
+                $registro = $tmp->count() == 1 ? $tmp [0] : null;
+                $tipo = 'voluntario';
             }
         }
         // Devuelve el ID del voluntario o null si no se encuentra
-        return $tmp;
+        return array(
+            'tipo' => $tipo,
+            'data' => $registro,
+        );
     }
 
     public static function getNombreDelegacion($delegacion = null){

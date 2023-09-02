@@ -117,6 +117,7 @@
                 urlImagen   : null,
                 viewForm    : true,
                 modalArchivos    : false,
+                disableInput : JSON.parse(localStorage.getItem('userData')).tipoUsuario_id > 2,
                 formSchemaFormVoluntario: [
                     {
                         classContainer:'col-lg-3  col-md-4 col-12',
@@ -125,7 +126,7 @@
                         value       : 'numeroAsociado',
                         label       : 'Numero de asociado',
                         placeholder : 'Introduce un numero de asociado',
-                        disabled    : true,
+                        disabled    :  JSON.parse(localStorage.getItem('userData')).tipoUsuario_id > 2,
                     },
                     {
                         classContainer:'col-lg-3  col-md-4 col-12',
@@ -360,12 +361,12 @@
         methods:{
             init(){
                 this.dataForm = this.copyObject(this.data)
-                if(this.dataForm.delegacion != null){
-                    this.formSchemaFormVoluntario[22].disabled = false;
-                    if(this.dataForm.delegacion.areas != null){
-                        this.formSchemaFormVoluntario[22].catalogo = this.formatoToCatalogo(this.dataForm.delegacion.areas);
-                    }
-                }       
+                // if(this.dataForm.delegacion != null){
+                //     this.formSchemaFormVoluntario[22].disabled = false;
+                //     if(this.dataForm.delegacion.areas != null){
+                //         this.formSchemaFormVoluntario[22].catalogo = this.formatoToCatalogo(this.dataForm.delegacion.areas);
+                //     }
+                // }       
                 this.dataForm.edad = this.dataForm.edad > 0 ? this.dataForm.edad : 0 
 
             },
@@ -397,7 +398,7 @@
                 payload.delegacion_id   = payload.delegacion?.value ?? null
                 payload.area_id         = payload.area?.value ?? null
                 payload.userID          = this.userData?.id ?? null
-                this.peticionAdministrar(payload)
+                this.peticionAdministrar({payload})
             },
             onSubmitFormVoluntario(){
                 this.$refs.formVoluntario.validationForm()
@@ -405,17 +406,17 @@
             changeForm(data){
                 let hayModificaciones = false;
                 let tmpDelegacion = (data.delegacion?.value ?? null) ;
-                if(tmpDelegacion != (this.dataForm.delegacion?.value ?? null)){
-                    if (tmpDelegacion != null) {
-                        this.formSchemaFormVoluntario[22].disabled = false;
-                        this.formSchemaFormVoluntario[22].catalogo = this.formatoToCatalogo(data['delegacion'].areas);
-                        hayModificaciones = true;
-                    } else {
-                        this.formSchemaFormVoluntario[22].disabled = true;
-                        this.formSchemaFormVoluntario[22].catalogo = [];
-                        hayModificaciones = true;
-                    }
-                }
+                // if(tmpDelegacion != (this.dataForm.delegacion?.value ?? null)){
+                //     if (tmpDelegacion != null) {
+                //         this.formSchemaFormVoluntario[22].disabled = false;
+                //         this.formSchemaFormVoluntario[22].catalogo = this.formatoToCatalogo(data['delegacion'].areas);
+                //         hayModificaciones = true;
+                //     } else {
+                //         this.formSchemaFormVoluntario[22].disabled = true;
+                //         this.formSchemaFormVoluntario[22].catalogo = [];
+                //         hayModificaciones = true;
+                //     }
+                // }
                 if((data?.fechaNacimiento ?? null) != (this.dataForm?.fechaNacimiento ?? null)){
                     var fechaActual = new Date();
                     var fecha = new Date(data.fechaNacimiento);

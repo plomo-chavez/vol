@@ -1,7 +1,7 @@
 <template>
   <div class="wwfull">
     <VistaUno
-      :title="'Registro de horas voluntarias ' + (showMesLabel ? 'de '+ nombresMeses[parseInt(mes, 10) - 1] : '')"
+      :title="titulo"
       :data="registros"
       :config="configHistorico"
       :columnas="columnasMes"
@@ -80,6 +80,7 @@
     },
     data() {
       return {
+        titulo          : '',
         modalShow       : false,
         horas           : [],
         registros       : [],
@@ -139,6 +140,7 @@
       };
     },
     beforeMount(){
+      this.titulo ='Registro de horas voluntarias ' + (this.showMesLabel ? 'de '+ this.getNameMes(parseInt(this.mes, 10) - 1) : '');
       this.inicializar();
     },
     props: {

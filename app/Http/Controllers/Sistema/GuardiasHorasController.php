@@ -167,7 +167,8 @@ class GuardiasHorasController extends BaseController {
                     $contador = HorasVoluntariasContadores::where('voluntario_id',$voluntario_id)->get();
                     if ($contador->count() == 1){
                         $contador = $contador[0];
-                        if($timestamp2->month == $contador->mes_actual){
+                        
+                        if($timestamp2->month != intval($contador->mes_actual, 10)){
                             setlocale(LC_TIME, 'es_ES'); // Establecer el locale en español
                             $mesNombre = ucfirst(Carbon::create()->month($contador->mes_actual)->locale('es_ES')->isoFormat('MMMM'));
 
@@ -233,6 +234,7 @@ class GuardiasHorasController extends BaseController {
             $index = 0;
             foreach ($data as $item) {
                 $data[$index]['area'] = $data[$index]['area'] == null ? '' : $data[$index]['area']['nombre'] ;
+                $index++;
             }
         // Retorna una respuesta con el mensaje y datos
         return self::responsee(
@@ -279,8 +281,8 @@ class GuardiasHorasController extends BaseController {
         
         if ($guardia != null) {
             // Busca el ID del voluntario basado en el código escaneado
-            $voluntarioID = self::findVoluntarioIDPorCodigoEscaneado($payload['codigo']);
-            
+            $tmp = self::findByCodigo($payload['codigo']);
+            $voluntarioID = $tmp['tipo'] == 'voluntario' ? ($tmp['data'] == null ?  null : $tmp['data']['id']) : null ;
             if ($voluntarioID != null) {
                 // Verifica si el voluntario ya está registrado en la misma guardia sin haber salido
                 $existe = GuardiasHorasVoluntarios::where('guardia_id', $payload['guardia_id'])
