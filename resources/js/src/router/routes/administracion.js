@@ -1,5 +1,12 @@
 export default [
     {
+      path: '/credenciales',
+      name: 'credenciales-temporales',
+      component: () => import('@/views/credenciales/CredencialesTemporales.vue'),
+      meta: {
+        pageTitle: 'Credenciales Temporales',
+      },
+    },    {
       path: '/usuarios',
       name: 'usuarios',
       component: () => import('@/views/usuarios/Usuarios.vue'),

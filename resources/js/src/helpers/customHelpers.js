@@ -42,6 +42,18 @@ export default {
         if (!value) return "";
         return value.charAt(0).toUpperCase() + value.slice(1);
     },
+    validarFechaMayorAHora(timestamp) {
+        console.log(typeof timestamp)
+        const fechaIngresada = new Date(timestamp);
+
+        const timestampActual = Date.now(); // Obtiene el timestamp actual en milisegundos
+        
+        if (fechaIngresada > timestampActual) {
+            return true; // El timestamp es válido (menor a la hora actual)
+        } else {
+            return false; // El timestamp no es válido
+        }
+    },
     messageSweet ({
         message='',
         color='success',
@@ -206,7 +218,7 @@ export default {
         this.loading(false);
         if(typeof response != 'undefined'){
             const tmpName = id !== '' ? String(id).padStart(6, '0') : String(new Date().getTime());
-            const fileName = (name !== '' ? name + '-' : '') + tmpName + '.pdf';
+            const fileName = tmpName + (name !== '' ? '-' + name : '') + '.pdf';
             const blob = new Blob([response], { type: 'application/pdf' });
             const url = window.URL.createObjectURL(blob);
             if (downloadFile){

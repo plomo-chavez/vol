@@ -21,6 +21,12 @@ export default {
                 this.loading();
                 let response;
                 switch (method) {
+                    case 'getCredencialesTemporales':
+                        response = await peticiones.getCredencialesTemporales(payload);
+                    break;
+                    case 'adminCredencialesTemporales':
+                        response = await peticiones.adminCredencialesTemporales(payload);
+                    break;
                     case 'scannOut':
                         response = await peticiones.scannOut(payload);
                     break;

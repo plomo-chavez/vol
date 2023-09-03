@@ -9,6 +9,12 @@ export default class apiPeticiones {
     this.axiosIns = axiosIns
     this.apisConfig = { ...this.apisConfig, ...jwtOverrideConfig }
   }
+  getCredencialesTemporales(...args) {
+    return this.axiosIns.post(this.apisConfig.apiGetCredencialesTemporales, ...args)
+  }
+  adminCredencialesTemporales(...args) {
+    return this.axiosIns.post(this.apisConfig.apiAdminCredencialesTemporales, ...args)
+  }
   scannOut(...args) {
     return this.axiosIns.post(this.apisConfig.apiScannOut, ...args)
   }

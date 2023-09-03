@@ -127,7 +127,9 @@ export default {
     
     beforeMount() {
         this.layoutVerificador = this.userData.tipoUsuario == 'Verificador Horas Voluntarias';
-        this.inicializar();
+        if (!this.layoutVerificador) {
+            this.inicializar();
+        }
     },        
     methods:{
         async inicializar(){

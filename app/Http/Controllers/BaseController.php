@@ -370,10 +370,10 @@ class BaseController extends Controller{
                 return $delegacion == null ? null : Delegaciones::where('estado_id',$delegacion->estado_id)->pluck('id')->toArray();
                 break;
             case 4:     // '4', 'CL -  Coordinador Local'
-                return $delegacionID;
+                return [$delegacionID];
                 break;
             case 5:     // '5', 'Verificador Horas Voluntarias'
-                return null;
+                return  [$delegacionID];
                 break;
         }
     }

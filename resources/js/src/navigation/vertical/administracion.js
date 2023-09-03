@@ -15,6 +15,11 @@ export default [
     route: 'verificador-horas',
   },
   {
+    title: 'Credenciales Temporales',
+    icon: 'HomeIcon',
+    route: 'credenciales-temporales',
+  },
+  {
     title: 'Delegaciones',
     icon: 'HomeIcon',
     route: 'delegaciones',

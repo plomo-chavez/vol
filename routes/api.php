@@ -14,6 +14,7 @@ use App\Http\Controllers\Configuracion\HabitacionesController;
 use App\Http\Controllers\Configuracion\PersonasController;
 use App\Http\Controllers\Configuracion\ReservacionesController;
 use App\Http\Controllers\Sistema\VoluntariosController;
+use App\Http\Controllers\Sistema\CredencialesTemporalesController;
 use App\Http\Controllers\Sistema\DelegacionesController;
 use App\Http\Controllers\Sistema\HorasVoluntariasController;
 use App\Http\Controllers\Sistema\GuardiasHorasController;
@@ -55,6 +56,9 @@ Route::middleware([UserAuthentication::class])->post('/reservaciones/administrar
 Route::middleware([UserAuthentication::class])->post('/reservaciones/listar',       [ReservacionesController::class, 'handleListar']);
 Route::middleware([UserAuthentication::class])->post('/voluntarios/listar',         [VoluntariosController::class, 'handleListar']);
 Route::middleware([UserAuthentication::class])->post('/voluntarios/administrar',    [VoluntariosController::class, 'handleAdministrar']);
+Route::middleware([UserAuthentication::class])->post('/reservaciones/listar',       [ReservacionesController::class, 'handleListar']);
+Route::middleware([UserAuthentication::class])->post('/credenciales-temporales/listar',         [CredencialesTemporalesController::class, 'handleListar']);
+Route::middleware([UserAuthentication::class])->post('/credenciales-temporales/administrar',    [CredencialesTemporalesController::class, 'handleAdministrar']);
 Route::middleware([UserAuthentication::class])->post('/horas/listar',               [HorasVoluntariasController::class, 'handleListar']);
 Route::middleware([UserAuthentication::class])->post('/templates-email/administrar',[TemplateEmailController::class, 'handleAdministrar']);
 Route::middleware([UserAuthentication::class])->post('/templates-email/listar',     [TemplateEmailController::class, 'handleListar']);

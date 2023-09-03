@@ -370,6 +370,7 @@ class GuardiasHorasController extends BaseController {
             // Realiza una consulta para obtener la última guardia activa en la delegación
             $data = Modelo::whereDate('inicio', self::fechaYMD())
                 ->where('delegacion_id',  $delegacion_id)
+                ->where('verificador_id',  $voluntario_id)
                 ->where('fin', null)
                 ->with('delegacion')
                 ->with('voluntarios')

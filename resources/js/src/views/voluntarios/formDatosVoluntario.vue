@@ -470,8 +470,9 @@
             },
             async handreCreateCredencialTemporal(){
                 let payload = {
-                    voluntario_id : this.data.id,
-                    documento:'credencialTemporal',
+                    voluntario_id   : this.data.id,
+                    emitio_id       : JSON.parse(localStorage.getItem('userData')).voluntario_id,
+                    documento       :'credencialTemporal',
                 };
                 let response =  await this.peticionPDF('generatePDFVoluntarios',payload)
                 this.descargarPDF(response,this.data.id,'fichaRegistro')

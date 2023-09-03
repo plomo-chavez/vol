@@ -204,7 +204,7 @@ export default {
   },
   mounted() {
     // Set the initial number of items
-    this.totalRows = this.data.length
+    this.totalRows = this.data == null ? 0 : this.data.length
     let tmp = this.copyObject(this.columnas)
     if (this.showCellActions) {
       tmp.unshift({

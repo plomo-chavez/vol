@@ -1,5 +1,7 @@
 export default {
   // Endpoints
+  apiAdminCredencialesTemporales               : '/api/credenciales-temporales/administrar',
+  apiGetCredencialesTemporales               : '/api/credenciales-temporales/listar',
   apiHome               : '/api/home',
   apiUsuarios           : '/api/usuarios/listar',
   apiAdminUsuarios      : '/api/usuarios/administrar',

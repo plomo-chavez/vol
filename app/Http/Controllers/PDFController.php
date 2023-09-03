@@ -70,6 +70,9 @@ class PDFController extends BaseController {
             case 'credencialTemporal':
                 $pdfContent = self::generateCredencialTemporal($payload);
             break;
+            case 'credencialTemporalReimpresion':
+                $pdfContent = self::generateCredencialTemporal($payload,false);
+            break;
         }
         if (isset($pdfContent['status']) && !$pdfContent['status']) {
             return self::responsee(
@@ -157,7 +160,7 @@ class PDFController extends BaseController {
             return self::response($message = 'Ha ocurrido una excepción: ' . $e->getMessage());
         }
     }
-    public static function generateCredencialTemporal($payload) {
+    public static function generateCredencialTemporal($payload,$registro = true) {
         try {
             if (!($payload['voluntario_id'] ?? false)) {
                 return self::response($message = 'Falta voluntario_id');
@@ -181,25 +184,34 @@ class PDFController extends BaseController {
                     if ($data['urlImagen'] == null ) {
                         return self::response($message = 'El voluntario no tiene imagen.');
                     }
-                    do {
-                        $data['code']           = self::generateCodigoUUID();
-                        $tmp = CredencialTemporal::where('codigo',$data['code'])->get()->count();
-                    } while ($tmp > 0);
-                    // Buscar todos los registros donde voluntario_id sea igual a 4
-                    $registros = CredencialTemporal::where('voluntario_id', $payload['voluntario_id'])->get();
-
-                    // Actualizar la columna isActual a false en todos los registros encontrados
-                    foreach ($registros as $registro) {
-                        $registro->update(['isActual' => false]);
-                    }
                     $duracion               = $payload['duracion'] ?? 60;
-                    CredencialTemporal::create([
-                        'voluntario_id'     => $payload['voluntario_id'],
-                        'codigo'            => $data['code'],
-                        'fechaEmision'      => self::fechaNow($payload['fechaInicio']   ?? null,'timestamp'),
-                        'fechaVencimiento'  => self::fechaNow($payload['fechaFin']      ?? null,'timestamp',$duracion),
-                        'isActual'          => true,
-                    ]);
+                    if ($registro) {
+                        do {
+                            $data['code']           = self::generateCodigoUUID();
+                            $tmp = CredencialTemporal::where('codigo',$data['code'])->get()->count();
+                        } while ($tmp > 0);
+                        // Buscar todos los registros donde voluntario_id sea igual a 4
+                        $registros = CredencialTemporal::where('voluntario_id', $payload['voluntario_id'])->get();
+    
+                        // Actualizar la columna isActual a false en todos los registros encontrados
+                        foreach ($registros as $registro) {
+                            $registro->update(['isActual' => false]);
+                        }
+                        CredencialTemporal::create([
+                            'voluntario_id'     => $payload['voluntario_id'],
+                            'emitio_id'     => $payload['emitio_id'],
+                            'codigo'            => $data['code'],
+                            'fechaEmision'      => self::fechaNow($payload['fechaInicio']   ?? null,'timestamp'),
+                            'fechaVencimiento'  => self::fechaNow($payload['fechaFin']      ?? null,'timestamp',$duracion),
+                            'isActual'          => true,
+                        ]);
+                    } else {
+                        $regitro = CredencialTemporal::find($payload['credencial_id']);
+                        if ($regitro == null ) {
+                            return self::response($message = 'No se encontro la credencial temporal.');
+                        }
+                        $data['code']           = $regitro->codigo;
+                    }
                     $data['fechaInicio']    = self::fechaNow($payload['fechaInicio'] ?? null,'d/m/Y');
                     $data['fechaFin']       = self::fechaNow($payload['fechaFin'] ?? null,'d/m/Y',$duracion);
                     $data['coordinador']    = strtoupper($coordinador['nombre']);
@@ -213,8 +225,6 @@ class PDFController extends BaseController {
                     $urlCodigoInterno = self::getURLCodeInterno($data['numeroInterno']);
                     $path = 'voluntarios'.'/'.$data['numeroInterno'];
                     $data['qrCode'] = QRController::generateAndSaveQR($data['code'],$path,'qrCredencialTemporal');
-                    
-                    CredencialTemporal::create($payload);
                     return array(
                         'result'    => true,
                         'message'   => 'PDF generado con exito',
