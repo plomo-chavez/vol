@@ -144,7 +144,7 @@
                             if (tmp.delegacion != null) {
                                 tmp.delegacion = {
                                     'value':tmp.delegacion.id,
-                                    'label':tmp.delegacion.nombre,
+                                    'label':tmp.delegacion.nombreLabel,
                                     'areas':tmp.delegacion.areas,
                                 };
 

@@ -25,7 +25,7 @@ class UsuariosController extends BaseController
     public function listarUsuarios(Request $request){
         $response = BaseController::response();
         $payload = $request->all();
-        $users = User::with('tipoUsuario')->get();
+        $users = User::with('tipoUsuario')->with('voluntario')->get();
         $response['result']    = true;
         $response['data']      = $users;
         $response['message']      =  'User Logged In Successfully';

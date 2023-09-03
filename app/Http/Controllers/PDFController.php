@@ -178,6 +178,9 @@ class PDFController extends BaseController {
                     if ($coordinador['uriFirma'] == null || $coordinador['uriSello'] == null ) {
                         return self::response($message = 'Faltan archivos del coordinador.');
                     }
+                    if ($data['urlImagen'] == null ) {
+                        return self::response($message = 'El voluntario no tiene imagen.');
+                    }
                     do {
                         $data['code']           = self::generateCodigoUUID();
                         $tmp = CredencialTemporal::where('codigo',$data['code'])->get()->count();

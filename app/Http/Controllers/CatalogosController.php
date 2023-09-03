@@ -72,6 +72,20 @@ class CatalogosController extends BaseController {
             return self::responsee('No existe una acción.', false);
         }
     }
+    public function getVoluntarios(Request $request){
+        $payload = $request->all();
+        $data = Voluntarios::orderBy('nombre',"asc")->select('id','nombre','primerApellido','segundoApellido','numeroInterno','numeroAsociado','correo');
+        if(isset($payload['tipoUsuario_id']) && isset($payload['delegacion_id']) ){
+            $ids = self::idsDelegacionesXTipoUsuario($payload['tipoUsuario_id'],$payload['delegacion_id']);
+            $data = $data->whereIn('delegacion_id',$ids);
+        }
+        $data = $data->get();
+        return self::responsee(
+            'Consulta realizada con exito.',
+            true,
+            $data,
+        );
+    }
     public function getTiposUsuarios(Request $request){
         $data = TipoUsuario::orderBy('nombre',"asc")
                 ->get();
@@ -117,7 +131,7 @@ class CatalogosController extends BaseController {
         $data = [
             ['id' => 'AB+', 'nombre' => 'AB+'],
             ['id' => 'AB-', 'nombre' => 'AB-'],
-            ['id' => 'A*', 'nombre' => 'A*'],
+            ['id' => 'A+', 'nombre' => 'A+'],
             ['id' => 'A-', 'nombre' => 'A-'],
             ['id' => 'B+', 'nombre' => 'B+'],
             ['id' => 'B-', 'nombre' => 'B-'],

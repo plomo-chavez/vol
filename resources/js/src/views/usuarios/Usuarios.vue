@@ -27,11 +27,14 @@
         </div>
         <div v-if="showForm">
             <FormFactory
+
                 class="col-10 mx-auto"
                 withCard
                 :data = 'activeRow'
                 :schema="schemaMain"
                 @formExport="save"
+                :formLive="true"
+                @exportLive="changeForm"
                 @cancelar="resetForm"
             />
         </div>
@@ -51,17 +54,22 @@
     data() {
       return {
         accion: 1,
-        activeRow : null,
+        row : null,
         schemaMain : null,
         showForm : false,
         data:[],
         formSchema: [
             {
-                classContainer:'col-lg-4 col-md-6 col-12',
+                classContainer:'col-12',
                 type        : 'input-select',
-                name        : 'persona',
-                value       : 'persona',
-                label       : 'Persona'
+                name        : 'voluntario',
+                value       : 'voluntario',
+                catalogo    : 'voluntarios',
+                data        : {
+                    delegacion_id   : JSON.parse(localStorage.getItem('userData')).delegacion_id,
+                    tipoUsuario_id   : JSON.parse(localStorage.getItem('userData')).tipoUsuario_id,
+                },
+                label       : 'Voluntario'
             },
             {
                 classContainer:'col-lg-4 col-md-6 col-12',
@@ -81,6 +89,7 @@
                 placeholder : 'Introduce un usuario',
                 rules       : 'required',
                 prefixIcon  : 'UserIcon',
+                disabled     : true
             },
             {
                 classContainer:'col-lg-4 col-md-6 col-12',
@@ -102,6 +111,7 @@
                 rules       : 'required|email',
                 label       : 'Correo electronico',
                 placeholder : 'Introduce un correo electronico',
+                disabled     : true
             },
             {
                 classContainer:'col-lg-4 col-md-6 col-12',
@@ -218,8 +228,8 @@
             },
             {
                 type    : 'text',
-                key     : 'persona',
-                label   : 'Persona',
+                key     : 'voluntarioName',
+                label   : 'Voluntario',
                 sortable: true
             },
             {
@@ -265,6 +275,18 @@
             this.schemaMain = this.copyObject(this.formSchema)
             this.reload()
         },
+
+        changeForm(data){
+            let hayModificaciones = false;
+            if((data?.voluntario ?? null) != (this.activeRow?.voluntario ?? null)){
+                data.email = data.voluntario.correo
+                data.usuario = data.voluntario.nombre
+                hayModificaciones = true;
+            }
+            if (hayModificaciones) {
+                this.activeRow = this.copyObject(data);
+            }
+        },
         reload () {
             peticiones
                 .getUsuarios({})
@@ -272,6 +294,7 @@
                     let tmp = response.data.data
                     tmp.map((item) => {
                         item.tipoUsuario = item.tipo_usuario?.nombre ?? '';
+                        item.voluntarioName = item.voluntario?.nombre ?? '';
                     });
                     this.data = tmp;
                 })
@@ -286,9 +309,11 @@
         save(data){
             let payload = this.copyObject(data);
             if (this.accion == 2 || this.accion == 4 ) {
-                payload.id = this.activeRow.id
+                payload.id = this.row.id
             }
             payload.tipoUsuario_id = payload.tipoUsuario.value
+            payload.voluntario_id  = payload.voluntario?.value ?? this.row.voluntario_id
+            payload.persona_id  = payload.voluntario?.value ?? this.row.voluntario_id
             payload.accion = this.accion
            this.peticionAdministrar(payload)
         },
@@ -320,7 +345,9 @@
             tmp.accesoMovil = typeof tmp.accesoMovil  == 'number' ? (tmp.accesoMovil ? true:false) : false
             tmp.accesoWeb   = typeof tmp.accesoWeb  == 'number' ? (tmp.accesoWeb ? true:false) : false
             tmp.bloqueado   = typeof tmp.bloqueado  == 'number' ? (tmp.bloqueado ? true:false) : false
+            tmp.voluntario = {...tmp.voluntario,value : tmp.voluntario_id, label : tmp.voluntario.label}
             this.activeRow  = this.copyObject(tmp)
+            this.row  = this.copyObject(tmp)
             let tmpSchema   = this.copyObject(this.formSchema)
             tmpSchema.splice(3,1)
             this.schemaMain = tmpSchema
@@ -335,6 +362,7 @@
             this.accion = 4;
             let tmp = this.copyObject(data)
             this.activeRow  = this.copyObject(tmp)
+            this.row  = this.copyObject(tmp)
             this.schemaMain = this.copyObject(this.formSchemaChange)
             this.showForm = true;
         },

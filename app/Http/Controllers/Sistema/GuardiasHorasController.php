@@ -335,7 +335,7 @@ class GuardiasHorasController extends BaseController {
             if ($delegacion_id != null) {
                 // Agrega el ID del voluntario como verificador y el ID de la delegación
                 $payload['verificador_id'] = $voluntario_id;
-                $payload['delegacion_id'] = $delegacion_id;
+                $payload['delegacion_id']  = $delegacion_id;
                 // Crea una nueva instancia del modelo y guarda los datos
                 $data = $modelo::create($payload);
                 // Arma un arreglo con información adicional

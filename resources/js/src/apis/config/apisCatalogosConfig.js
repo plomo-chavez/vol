@@ -1,5 +1,6 @@
 export default {
   // Endpoints
+  apiVoluntarios                : '/api/catalogo/voluntarios',
   apiTiposUsuarios              : '/api/catalogo/tiposUsuarios',
   areasApi                      : '/api/catalogo/areas',
   estadosApi                    : '/api/catalogo/estados',

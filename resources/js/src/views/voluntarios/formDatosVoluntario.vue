@@ -1,3 +1,4 @@
+
 <template>
     <div>
         <component v-bind:is="withCard ? 'b-card' : 'div'"
@@ -41,7 +42,12 @@
                 @formExport="handleSubmitFormVoluntario"
             />
             <div class=" col-12 d-flex flex-wrap justify-content-between">
-                <div>
+                <div v-if="btnCancel">
+                    <b-button
+                        size="sm"
+                        variant="relief-secondary"
+                        @click="() => { $emit('handleCancelar')}"
+                    >Cancelar</b-button>
                 </div>
                 <div>
                     <b-button
@@ -112,12 +118,11 @@
         mounted() {},
         data() {
             return {
-                userData    : JSON.parse(localStorage.getItem('userData')),
+                userData    : JSON.parse(localStorage.getItem('userData')) ?? null,
                 dataForm    : {},
                 urlImagen   : null,
                 viewForm    : true,
                 modalArchivos    : false,
-                disableInput : JSON.parse(localStorage.getItem('userData')).tipoUsuario_id > 2,
                 formSchemaFormVoluntario: [
                     {
                         classContainer:'col-lg-3  col-md-4 col-12',
@@ -126,7 +131,7 @@
                         value       : 'numeroAsociado',
                         label       : 'Numero de asociado',
                         placeholder : 'Introduce un numero de asociado',
-                        disabled    :  JSON.parse(localStorage.getItem('userData')).tipoUsuario_id > 2,
+                        disabled    :  (JSON.parse(localStorage.getItem('userData'))?.tipoUsuario_id ?? 1) > 2,
                     },
                     {
                         classContainer:'col-lg-3  col-md-4 col-12',
@@ -336,7 +341,7 @@
             },
             btnCancel:{
                 type    : Boolean,
-                default : true,
+                default : false,
             },
         },
         watch: {
@@ -353,6 +358,7 @@
 
         },
         beforeMount(){
+            console.log(JSON.parse(localStorage.getItem('userData')))
             this.urlImagen = this.data != null ? (this.data?.urlImagen ?? null) : null;
         },
         mounted(){
@@ -405,18 +411,6 @@
             },
             changeForm(data){
                 let hayModificaciones = false;
-                let tmpDelegacion = (data.delegacion?.value ?? null) ;
-                // if(tmpDelegacion != (this.dataForm.delegacion?.value ?? null)){
-                //     if (tmpDelegacion != null) {
-                //         this.formSchemaFormVoluntario[22].disabled = false;
-                //         this.formSchemaFormVoluntario[22].catalogo = this.formatoToCatalogo(data['delegacion'].areas);
-                //         hayModificaciones = true;
-                //     } else {
-                //         this.formSchemaFormVoluntario[22].disabled = true;
-                //         this.formSchemaFormVoluntario[22].catalogo = [];
-                //         hayModificaciones = true;
-                //     }
-                // }
                 if((data?.fechaNacimiento ?? null) != (this.dataForm?.fechaNacimiento ?? null)){
                     var fechaActual = new Date();
                     var fecha = new Date(data.fechaNacimiento);
@@ -434,7 +428,7 @@
                 console.log(payload)
                 this.loading();
                 if (this.isRegistro) {
-                    payload['codeEmail'] = null;
+                    payload['payload']['codeEmail'] = null;
                     await this.peticionGeneral('adminVoluntarioOut',payload,true,false);
                 } else {
                     await this.peticionGeneral('administrarVoluntarios',payload,true,false);

@@ -12,6 +12,9 @@ export default class apisCatalogos {
   tiposUsuarios(...args) {
     return this.axiosIns.post(this.apisConfig.apiTiposUsuarios, ...args)
   }
+  voluntarios(...args) {
+    return this.axiosIns.post(this.apisConfig.apiVoluntarios, ...args)
+  }
   habitaciones(...args) {
     return this.axiosIns.post(this.apisConfig.habitacionesApi, ...args)
   }

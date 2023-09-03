@@ -48,10 +48,16 @@ class MailController extends BaseController
     }
     
     public static  function prepararHTML($plantilla,$registro){
-        foreach ($registro as $propiedad => $valor)
-            {$plantilla = str_replace('@{'.$propiedad.'}', $valor, $plantilla);
+        try {
+            foreach ($registro as $propiedad => $valor) {
+                // dd($registro,$propiedad,$valor);
+                    $plantilla = str_replace('@{'.$propiedad.'}', $valor, $plantilla);
+            }
+            return json_decode($plantilla);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            // return self::responsee( $e->getMessage(),false);
         }
-        return json_decode($plantilla);
     }
     
     public static   function sendEmail($payload){

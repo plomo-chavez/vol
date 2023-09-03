@@ -5,6 +5,7 @@
             <VistaUno
                 :data="data"
                 :columnas="columnas"
+                :config="config"
                 @mdoEditar="editar"
                 @mdoEliminar="onEliminar"
                 @mtdNuevo="nuevoRegistro"
@@ -49,6 +50,20 @@
         schemaMain : null,
         showForm : false,
         data:[],
+        config :  {
+          showCellActions: true,
+          cellActions: {
+            btnEditar         : true,
+            btnEliminar       : true,
+            btnView           : false,
+            btnChangePassword : false,
+          },
+          index       : true,
+          buscador    : true,
+          btnNuevo    : true,
+          btnFiltrar  : false,
+          btnOtros    : null,
+        },
         formSchema: [
             {
                 classContainer:'col-lg-4 col-md-6 col-12',

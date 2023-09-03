@@ -40,13 +40,16 @@ class VoluntariosController extends BaseController {
                     return self::ifExisteVoluntario($payload);
                     break;
                 case 2:
-                    return self::actualizar($payload, $modelo);
+                    return self::ifExisteVoluntario($payload, $payload['id'] ?? null);
                     break;
                 case 3:
                     return self::eliminar($payload, $modelo);
                     break;
                 case 4:
                     return self::insertMulti($payload, $modelo);
+                    break;
+                case 5:
+                    return self::actualizarOut($payload, $modelo);
                     break;
                 default:
                     return self::responsee('Acción no válida', false);
@@ -83,14 +86,18 @@ class VoluntariosController extends BaseController {
 
     public function validCode(Request $request){
         $payload = $request->all();
-        $tmp = Modelo::where('codeEmail',$payload['code'])->get();
+        $tmp = Modelo::where('codeEmail',$payload['code'])
+        ->with('area')
+        ->with('delegacion')
+        ->with('delegacion.estado')
+        ->with('delegacion.areas')
+        ->get();
         return self::responsee(
             sizeof($tmp) == 1 ? 'Codigo valido':'Ocurrio un error, codigo invalido',
             true,
-            sizeof($tmp) == 1 ? $tmp[0]->id:null,
+            sizeof($tmp) == 1 ? $tmp[0]:null,
         );
     }
-
     public function registroOut(Request $request){
         $payload = $request->all();
         $payload = $payload['data'];
@@ -138,20 +145,22 @@ class VoluntariosController extends BaseController {
             $data,
         );
     }
-
-
+    
+    public function actualizarOut($payload, $modelo){
+        $payload['codeEmail'] = null;
+        return  self::actualizar($payload, $modelo);
+    }
 
     public function insertVoluntarioWithCorreo($data){
-        // dd('insertVoluntarioWithCorreo');
         $data['codeEmail'] = self::generateCode();
         $delegacionIDXUsuario = self::getDelegacionIDXUsuario($data['userID'] ?? null);
-        // $data['delegacion_id'] = $delegacionIDXUsuario == null ? (isset($data['delegacion_id']) ? $data['delegacion_id'] : null) : $delegacionIDXUsuario;
-        $data['numeroInterno'] = self::getNumeroInerno($data['delegacion_id']);
+        $data['numeroInterno'] = self::getNumeroInerno($data['delegacion_id'] ?? 2);
         Modelo::create($data);
         $isSecure = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
         $protocol = $isSecure ? 'https://' : 'http://';
         $data['link'] = $protocol . $_SERVER['HTTP_HOST'] . '/registro?code=' . $data['codeEmail'];
         $data['correoEnvio'] = $data['correo'];
+        unset($data['delegacion']);
         MailController::sendMailWithTemplate($data,'new-voluntario-out');
         return self::responsee(
             'Voluntario registrado correctamente.',
@@ -160,37 +169,24 @@ class VoluntariosController extends BaseController {
         );
     }
 
-    public function ifExisteVoluntario($data){
+    public function ifExisteVoluntario($data,$voluntarioId = null){
         if (($data['numeroAsociado'] ?? false ) && strlen($data['numeroAsociado']) === 5) {
             $query = Modelo::where('numeroAsociado', [$data['numeroAsociado']]);
+            if($voluntarioId != null ){ $query = $query->whereNot('id',$voluntarioId); }
             $query = $query->get();
-            if (sizeof($query) == 0) {
-                // dd('ifExisteVoluntario -> if');
-                return self::insertVoluntarioWithCorreo($data);
-            } else {
+            if ($query->count() != 0) {
                 return self::responsee(
                     'El numero de asociado ya esta registrado',
                     false,
                     [],
                 );
             }
-        }else {
+        }
+        if (isset($data['curp']))  {
             $query = Modelo::where('curp', [$data['curp']]);
+            if($voluntarioId != null ){ $query = $query->whereNot('id',$voluntarioId); }
             $query = $query->get();
-            if (sizeof($query) == 0) {
-                $query = Modelo::where('correo', [$data['correo']]);
-                $query = $query->get();
-                if (sizeof($query) == 0) {
-                    // dd('ifExisteVoluntario -> else');
-                    return self::insertVoluntarioWithCorreo($data);
-                } else {
-                    return self::responsee(
-                        'El correo electronico ya esta registrado',
-                        false,
-                        [],
-                    );
-                }
-            } else {
+            if ($query->count() != 0) {
                 return self::responsee(
                     'La curp ya esta registrada',
                     false,
@@ -198,5 +194,18 @@ class VoluntariosController extends BaseController {
                 );
             }
         }
+        if (isset($data['correo']))  {
+            $query = Modelo::where('correo', [$data['correo']]);
+            if($voluntarioId != null ){ $query = $query->whereNot('id',$voluntarioId); }
+            $query = $query->get();
+            if ($query->count() != 0) {
+                return self::responsee(
+                    'El correo ya esta registrado',
+                    false,
+                    [],
+                );
+            }
+        }
+        return $voluntarioId != null ? self::actualizar($data, new Modelo()) : self::insertVoluntarioWithCorreo($data, new Modelo());
     }
 }

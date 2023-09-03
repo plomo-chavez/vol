@@ -227,7 +227,7 @@ class BaseController extends Controller{
         return self::responsee('Registro guardado corrrectamente.');
     }
     public function actualizar($payload, $modelo) {
-       if($payload['id']){
+       if(isset($payload['id'])){
            $modelo::updateOrCreate(['id' => $payload['id']],$payload);
            return self::responsee('Registro actualizado corrrectamente.');
        } else {

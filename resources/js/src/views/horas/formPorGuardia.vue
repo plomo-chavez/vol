@@ -146,9 +146,7 @@ export default {
             }
             let data = await this.peticionGeneral('getUltimaGuardiaHoras',payload,false)
             data = data.data
-            console.log('data',data);
             this.guardia = data.length != 1 ? null : data[0];
-            console.log('this.guardia',this.guardia);
             this.voluntarios = this.guardia?.voluntarios ?? [];
             
         },

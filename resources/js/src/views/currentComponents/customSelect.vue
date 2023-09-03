@@ -106,6 +106,14 @@ export default {
                             })
                             .catch(error   => { console.log(error); })
                         break;
+                    case 'voluntarios':
+                        catalogos
+                            .voluntarios({})
+                            .then(response => {
+                                this.opciones = this.formatoToCatalogo(response.data.data,true,'id','label')
+                            })
+                            .catch(error   => { console.log(error); })
+                        break;
                     case 'areas':
                         catalogos
                             .areas({})

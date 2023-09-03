@@ -10,7 +10,10 @@ class Voluntarios extends Model
     use HasFactory;
     protected $table        = "voluntarios";
     protected $primaryKey   = "id";
-    protected $appends = ['nombreCompleto'];
+    protected $appends = [
+        'nombreCompleto',
+        'label',
+    ];
 
     protected $fillable = [
         'nombre',
@@ -55,6 +58,10 @@ class Voluntarios extends Model
     // Define el atributo accesor para concatenar nombre y primerApellido
     public function getNombreCompletoAttribute() {
         return ($this->attributes['nombre'] ?? '' ) . ' ' .($this->attributes['primerApellido'] ?? '' ) . ' ' .($this->attributes['segundoApellido'] ?? '' );
+    }
+    // Define el atributo accesor para concatenar nombre y primerApellido
+    public function getLabelAttribute() {
+        return ($this->attributes['numeroInterno'] ?? '' ).' - '.($this->attributes['numeroAsociado'] ?? 'N/A' ).' - '.($this->attributes['nombre'] ?? '' ) . ' ' .($this->attributes['primerApellido'] ?? '' ) . ' ' .($this->attributes['segundoApellido'] ?? '' );
     }
 
 }
