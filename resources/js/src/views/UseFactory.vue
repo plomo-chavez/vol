@@ -72,7 +72,6 @@ export default {
   created() {},
   methods: {
     formExport(form){
-      console.log('form',form);
     },
     cancelar(){
       console.log('Cancelando');

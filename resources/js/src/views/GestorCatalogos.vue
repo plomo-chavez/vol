@@ -92,7 +92,6 @@
     },
     methods: {
         console(){
-            console.log('this.$route',this.$route);
         },
         inicializar(){
             this.showModal = false;

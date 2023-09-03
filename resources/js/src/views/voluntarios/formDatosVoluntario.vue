@@ -377,20 +377,18 @@
 
         },
         beforeMount(){
-            console.log(JSON.parse(localStorage.getItem('userData')))
             this.urlImagen = this.data != null ? (this.data?.urlImagen ?? null) : null;
         },
         mounted(){
-            console.log(this.formSchemaFormVoluntario);
         },
         methods:{
             handleAddCodigoCredencialNacional(){
                 this.showScann = true;
-                setTimeout(() => { this.openScann = true; }, 3);
+                setTimeout(() => { this.openScann = true; }, 2);
             },
             handleChangeCodigo(codigo){
-                this.showScann = false;
-                setTimeout(() => { this.openScann = false; }, 3);
+                this.openScann = false;
+                setTimeout(() => { this.showScann = false; }, 2);
                 let payload = {
                     codigo,
                     accion:6,
@@ -409,7 +407,6 @@
                 formData.append('voluntario_id', this.data.id,);
                 formData.append('fileName', fileName,);
                 let response =  await this.peticionUpload('apiAdminnistrarArchivosVoluntarios',formData)
-                console.log(response);
                 this.urlImagen = response.data.url;
                 this.messageSweet({message:response.message})
                 this.modalArchivos = !this.modalArchivos;
@@ -451,7 +448,6 @@
                 }
             },
             async peticionAdministrar(payload){
-                console.log(payload)
                 this.loading();
                 if (this.isRegistro) {
                     payload['payload']['codeEmail'] = null;

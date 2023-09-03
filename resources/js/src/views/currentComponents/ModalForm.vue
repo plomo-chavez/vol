@@ -78,7 +78,6 @@ export default {
   },
   watch:{
     openModal(value){
-        console.log(value)
       if(value){
         this.showModal();
       } else {

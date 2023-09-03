@@ -177,7 +177,6 @@
             },);
 
             }
-            console.log('viewInputDelegacion: ', );
         },
         methods:{
             handleCancel() {

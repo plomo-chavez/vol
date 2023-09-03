@@ -85,7 +85,6 @@
           },
         },
         options: {
-          customJS: "console.log(1)",
           features: {
             undoRedo: false,
             audit: true,

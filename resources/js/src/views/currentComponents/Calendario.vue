@@ -82,7 +82,6 @@ export default {
                 defaultDate: new Date(),
                 defaultView: 'month',
 			    eventRender: function(event, element) {
-            	    console.log(event)
     		    },
                 eventClick: function(event, element) {
             	    console.log('event', event)

@@ -182,7 +182,6 @@ export default {
             this.peticion(payload)
         },
         handleClosePersonal(data){
-            console.log(data)
             let payload = {
                 payload : {
                     registroGuardiaVoluntario : data.id,
@@ -194,7 +193,6 @@ export default {
         async peticion(payload){
             this.loading();
             let response = await this.peticionGeneral('administrarGuardiaHoras',payload)
-            console.log('response',response)
             switch (payload.payload.accion) {
                 case 1: this.init(); break;
                 case 5:

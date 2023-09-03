@@ -786,7 +786,6 @@ import { data } from 'vue-echarts'
                             delete(this.errorsPersonalizados[field.name])
                         }
                     } else if (field.type == 'input-checkbox') {
-                        console.log(field.rules)
                     }
                 }
             })

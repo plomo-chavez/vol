@@ -54,7 +54,6 @@
     // http://sccrm.mx/c.php?t=DbyMvZc91nqhFNKLqA3wwphBk&a=42403
     watch:{
       openScann(value){
-        console.log('openScann',value);
         if(value){
           this.showModal();
           this.loading = true;
@@ -74,7 +73,6 @@
         this.$emit('changeOpenModal')
       },
       onDecode(a, b, c) {
-        // console.log(a, b, c);
         this.text = a;
         if (this.id) clearTimeout(this.id);
         this.id = setTimeout(() => {

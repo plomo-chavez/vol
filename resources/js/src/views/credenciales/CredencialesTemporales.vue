@@ -226,7 +226,6 @@
     },
     methods: {
         async reimprimir(data){
-            console.log()
             if(!data.isActual){
                 this.messageSweet({
                     message: 'Esta credencial no es la actual.',

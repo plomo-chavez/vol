@@ -269,7 +269,6 @@
             this.showForm = true;
         },
         onEliminar(data){
-            console.log('eliminar')
             this.messageConfirm({
                 confirmFunction: () => { this.peticionAdministrar({...data,accion : 3}) }
             })
