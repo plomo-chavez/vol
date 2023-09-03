@@ -144,9 +144,9 @@ class GuardiasHorasController extends BaseController {
                     $maxDias = 10; // Máximo de días a aumentar
 
                     // Genera un número aleatorio entre minDias y maxDias
-                    $diasAleatorios = rand($minDias, $maxDias);
+                    // $diasAleatorios = rand($minDias, $maxDias);
 
-                    $timestamp2 = $timestamp2->copy()->addHours($diasAleatorios);
+                    // $timestamp2 = $timestamp2->copy()->addHours($diasAleatorios);
 
                     // Ahora puedes continuar con el cálculo de la diferencia
                     $diferencia = $timestamp1->diff($timestamp2);

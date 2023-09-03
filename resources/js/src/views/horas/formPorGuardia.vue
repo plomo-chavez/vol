@@ -17,6 +17,7 @@
                     v-if="hadScann"
                     :openScann="openScann"
                     :isModal="true"
+                    @changeOpenModal="()=>{ openScann = false }"
                     @changeText="handleChangeCodigo"
                 />
                 <div class="col-12 p-0 m-0 mb-2">
@@ -134,6 +135,7 @@ export default {
         },
         handleChangeCodigo(codigo){
             this.hadScann = false;
+            this.openScann = false;
             setTimeout(() => { this.openScann = false; }, 3);
             this.codigo = codigo;
             this.addPersonal();

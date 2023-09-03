@@ -18,12 +18,6 @@
             Esta es una herramienta que la coordinación de voluntariado pone a tu disposicion para confirmar la validez de documentos, voluntarios y documentos.
           </b-card-text>
           <div>
-            <Scann 
-              v-if="hadScann"
-              :openScann="openScann"
-              :isModal="true"
-              @changeText="handleChangeCodigo"
-            />
             <div v-if="showError" class=" col-12">
               <h2 class="col-12 brand-text text-primary text-center"> Codigo invalido </h2>
               <h3 class=" col-12 brand-text text-secondary text-center"> No se encontro información para este codigo. </h3>
@@ -158,6 +152,12 @@
         </div>
       </div>
     </div>
+    <Scann 
+      :openScann="openScann"
+      :isModal="true"
+      @changeOpenModal="()=>{ openScann = false }"
+      @changeText="handleChangeCodigo"
+    />
 
   </div>
 </template>
@@ -244,8 +244,7 @@ export default {
         this.$router.push('/login');
       },
       handleOpenScann(){
-          this.hadScann = true;
-          setTimeout(() => { this.openScann = true; }, 3);
+        this.openScann = true;
       },
       validarFecha(fecha){
         const fechaDada = new Date(fecha);
@@ -255,16 +254,12 @@ export default {
       },
       async handleChangeCodigo(codigo){
             this.hadScann = false;
-            setTimeout(() => { this.openScann = false; }, 3);
-
+            this.openScann = false;
             let response = await this.peticionGeneral('scannOut',{codigo},false);
-            console.log(response);
             if(this.permitidos.includes(response.data.tipo)){
               this.data = response.data.data;
               this.tipo = response.data.tipo;
             }
-            console.log(this.data);
-            console.log(this.tipo);
             this.showError = this.data == null;
       },
   },

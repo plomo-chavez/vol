@@ -69,6 +69,7 @@
                 v-if="showScann"
                 :openScann="openScann"
                 :isModal="true"
+                @changeOpenModal="()=>{ openScann = false }"
                 @changeText="handleChangeCodigo"
             />
             <!-- Modal de administrador de archivos de los coordinadores -->
