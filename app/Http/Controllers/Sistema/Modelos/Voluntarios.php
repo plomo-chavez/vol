@@ -41,6 +41,7 @@ class Voluntarios extends Model
         'area_id',
         'comentarios',
         'urlImagen',
+        'codigoCredencial',
     ];
 
     // public function delegacion() {

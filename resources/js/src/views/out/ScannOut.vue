@@ -92,6 +92,51 @@
           </div>
         </b-card>
       </div>
+      <div v-if="tipo == 'voluntario'">
+        <b-card  no-body class="ww-300 p-1">
+          <div class="wwfull">
+            <!-- User avatar -->
+            <div class="wwfull mb-2 text-center">
+                <b-avatar
+                    size="80"
+                    :src="data.urlImagen"
+                    variant="light-primary"
+                    class="mx-auto badge-minimal"
+                    badge-variant="success"
+                />
+            </div>
+            <div class="d-flex flex-column">
+                <h4 class=" wwfull text-primary text-center font-weight-bolder mb-1">Datos del voluntario</h4>
+                <div class="wwfull">
+                  <div class=" col-12 mb-1">
+                    <h5 class="mb-0" >{{ data.nombre }}</h5>
+                      <small>Nombre</small>
+                  </div>
+                  <div class=" col-12 mb-1">
+                    <h5 class="mb-0" >{{ data.nombreLabel }}</h5>
+                      <small>Delegación</small>
+                  </div>
+                  <div class=" col-12 mb-1">
+                    <h5 class="mb-0" >{{ data.estado }}</h5>
+                      <small>Estado</small>
+                  </div>
+                  <div class=" col-12 mb-1">
+                    <h5 class="mb-0" >{{ data.area }}</h5>
+                      <small>Area</small>
+                  </div>
+                  <div class=" col-12 mb-1">
+                    <h5 class="mb-0" >{{ data.numeroAsociado }}</h5>
+                      <small>Numero de asociado</small>
+                  </div>
+                  <div class=" col-12 mb-1">
+                    <h5 class="mb-0" >Activo</h5>
+                      <small>Estatus</small>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </b-card>
+      </div>
       <div class="col-12  d-flex flex-wrap justify-content-center">
         <div class="ww-500">
           <div class=" col-12 d-flex flex-wrap justify-content-between">
@@ -189,6 +234,7 @@ export default {
       showError : false,
       permitidos : [
         'credencialTemporal',
+        'voluntario',
       ]
     }
   },
@@ -212,10 +258,13 @@ export default {
             setTimeout(() => { this.openScann = false; }, 3);
 
             let response = await this.peticionGeneral('scannOut',{codigo},false);
-            if(this.permitidos.includes(response.data.data)){
+            console.log(response);
+            if(this.permitidos.includes(response.data.tipo)){
               this.data = response.data.data;
               this.tipo = response.data.tipo;
             }
+            console.log(this.data);
+            console.log(this.tipo);
             this.showError = this.data == null;
       },
   },

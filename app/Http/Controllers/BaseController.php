@@ -101,6 +101,20 @@ class BaseController extends Controller{
         }
         return $response;
     }
+    public static function extraerCodigoCredencialNacional($codigo){
+        if($codigo == null ){
+            return null;
+        }
+        $ultimoIgual = strrpos($codigo, "=");
+        // Extrae el texto después del último signo igual (=)
+        if ($ultimoIgual !== false) {
+            $textoExtraido = substr($codigo, $ultimoIgual + 1);
+            return $textoExtraido;
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Encuentra el ID de un voluntario basado en un código escaneado.
      *
@@ -116,16 +130,15 @@ class BaseController extends Controller{
                 $busqueda = "http://sccrm.mx";
                 // Verifica si el código contiene la URL de búsqueda
                 if (strpos($codigo, $busqueda) !== false) {
-                    $ultimoIgual = strrpos($codigo, "=");
-                    // Extrae el texto después del último signo igual (=)
-                    if ($ultimoIgual !== false) {
-                        $textoExtraido = substr($codigo, $ultimoIgual + 1);
-                        // Busca en la base de datos por el código de credencial extraído
-                        $tmp = Voluntarios::where('codigoCredencial', $textoExtraido)->get();
-                        // Asigna el ID del voluntario si se encuentra un resultado único
-                        $registro = $tmp->count() == 1 ? $tmp [0] : null;
-                        $tipo = 'voluntario';
-                    }
+                    $codigoTmp = self::extraerCodigoCredencialNacional($codigo);
+                    $tmp = Voluntarios::where('codigoCredencial', $codigoTmp)
+                    ->with('area:id,nombre')
+                    ->with('delegacion:id,nombre.estado_id')
+                    ->with('delegacion.estado:id,nombre')
+                    ->get();
+                    // Asigna el ID del voluntario si se encuentra un resultado único
+                    $registro = $tmp->count() == 1 ? $tmp [0] : null;
+                    $tipo = 'voluntario';
                 }
             } 
             if ($registro == null) {

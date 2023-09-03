@@ -26,6 +26,12 @@
                         variant="relief-secondary"
                         @click="handreCreateCredencialTemporal"
                     >Generar Credencial Temporal</b-button>
+                    <b-button
+                    v-if="!isRegistro"
+                        size="sm"
+                        variant="relief-secondary"
+                        @click="handleAddCodigoCredencialNacional"
+                    >Vincular credencial nacional</b-button>
                 </div>
                 <div>
                 </div>
@@ -57,6 +63,14 @@
                     >Guardar</b-button>
                 </div>
             </div>
+            <!-- Escaner -->
+
+            <Scann 
+                v-if="showScann"
+                :openScann="openScann"
+                :isModal="true"
+                @changeText="handleChangeCodigo"
+            />
             <!-- Modal de administrador de archivos de los coordinadores -->
             <b-modal
                 id="modalArchivos"
@@ -88,6 +102,7 @@
     import customHelpers    from '@helpers/customHelpers'
     import FileUpload       from '@currentComponents/FileUpload.vue'
     import Ripple from 'vue-ripple-directive'
+    import Scann from '@currentComponents/ScannerCode.vue'
 
     import {
         BCard,
@@ -113,7 +128,8 @@
             BCardSubTitle,
             BCardBody,
             BModal,
-            BButton
+            BButton,
+            Scann
         },
         mounted() {},
         data() {
@@ -122,6 +138,8 @@
                 dataForm    : {},
                 urlImagen   : null,
                 viewForm    : true,
+                showScann   : false,
+                openScann   : false,
                 modalArchivos    : false,
                 formSchemaFormVoluntario: [
                     {
@@ -365,16 +383,23 @@
             console.log(this.formSchemaFormVoluntario);
         },
         methods:{
+            handleAddCodigoCredencialNacional(){
+                this.showScann = true;
+                setTimeout(() => { this.openScann = true; }, 3);
+            },
+            handleChangeCodigo(codigo){
+                this.showScann = false;
+                setTimeout(() => { this.openScann = false; }, 3);
+                let payload = {
+                    codigo,
+                    accion:6,
+                    id : this.data.id,
+                }
+                this.peticionAdministrar({payload})
+            },
             init(){
-                this.dataForm = this.copyObject(this.data)
-                // if(this.dataForm.delegacion != null){
-                //     this.formSchemaFormVoluntario[22].disabled = false;
-                //     if(this.dataForm.delegacion.areas != null){
-                //         this.formSchemaFormVoluntario[22].catalogo = this.formatoToCatalogo(this.dataForm.delegacion.areas);
-                //     }
-                // }       
+                this.dataForm = this.copyObject(this.data)     
                 this.dataForm.edad = this.dataForm.edad > 0 ? this.dataForm.edad : 0 
-
             },
             async guardarArchivo(data,fileName){
                 const formData = new FormData();

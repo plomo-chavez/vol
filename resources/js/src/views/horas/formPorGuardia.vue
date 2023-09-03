@@ -82,7 +82,6 @@ import {
     BFormCheckbox,
     BButton
 } from 'bootstrap-vue'
-import peticiones from '@/apis/usePeticiones'
 import customHelpers  from '@helpers/customHelpers'
 import OnoffToggle from 'vue-onoff-toggle'
 import Scann from '@currentComponents/ScannerCode.vue'

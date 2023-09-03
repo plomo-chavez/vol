@@ -47,10 +47,13 @@ class VoluntariosController extends BaseController {
                     break;
                 case 4:
                     return self::insertMulti($payload, $modelo);
-                    break;
+                break;
                 case 5:
                     return self::actualizarOut($payload, $modelo);
-                    break;
+                break;            
+                case 6:
+                    return self::actualizarCodigo($payload, $modelo);
+                break;
                 default:
                     return self::responsee('Acción no válida', false);
             }
@@ -148,6 +151,11 @@ class VoluntariosController extends BaseController {
     
     public function actualizarOut($payload, $modelo){
         $payload['codeEmail'] = null;
+        return  self::actualizar($payload, $modelo);
+    }
+    public function actualizarCodigo($payload, $modelo){
+        $codigo = self::extraerCodigoCredencialNacional($payload['codigo'] ?? null);
+        $payload['codigoCredencial'] = $codigo;
         return  self::actualizar($payload, $modelo);
     }
 
