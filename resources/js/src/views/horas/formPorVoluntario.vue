@@ -35,7 +35,10 @@
                         :formLive="true"
                         @exportLive="changeForm"
                         @formExport="saveHora"
-                        @cancelar="() => { viewForm = false }"
+                        @cancelar="() => { 
+                            viewForm = false 
+                            formView = false 
+                        }"
                     />
                             <!-- @formExport="save" -->
                     <div v-else class="wwfull">
