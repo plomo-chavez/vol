@@ -60,6 +60,17 @@ class BaseController extends Controller{
             'data'      => null,
         );
     }
+    public static function responsee(
+        $message = 'Tenemos un error',
+        $result = true,
+        $data = null
+    ) {
+        return response()->json(array(
+            'result'    => $result,
+            'message'   => $message,
+            'data'      => $data,
+        ), 200);
+    }
     public static function fechaWithHora($AM = true){
         // Obtener la fecha actual utilizando Carbon
         $fechaActual = Carbon::now('America/Mexico_City');
@@ -217,17 +228,6 @@ class BaseController extends Controller{
             }
         }
         return $numeroInterno;
-    }
-    public static function responsee(
-        $message = 'Tenemos un error',
-        $result = true,
-        $data = null
-    ) {
-        return response()->json(array(
-            'result'    => $result,
-            'message'   => $message,
-            'data'      => $data,
-        ), 200);
     }
     public function insertar($payload, $modelo) {
         $modelo::create($payload);

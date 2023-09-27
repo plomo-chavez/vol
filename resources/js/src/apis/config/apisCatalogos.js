@@ -9,6 +9,15 @@ export default class apisCatalogos {
     this.axiosIns = axiosIns
     this.apisConfig = { ...this.apisConfig, ...jwtOverrideConfig }
   }
+  getCatalogo(...args) {
+    return this.axiosIns.post(this.apisConfig.apiGetCatalogo, ...args)
+  }
+  tipoActividadesHV(...args) {
+    return this.axiosIns.post(this.apisConfig.apiTipoActividadesHV, ...args)
+  }
+  subTipoActividadesHV(...args) {
+    return this.axiosIns.post(this.apisConfig.apiSubTipoActividadesHV, ...args)
+  }
   tiposUsuarios(...args) {
     return this.axiosIns.post(this.apisConfig.apiTiposUsuarios, ...args)
   }

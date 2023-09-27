@@ -1,6 +1,9 @@
 export default {
   // Endpoints
   apiVoluntarios                : '/api/catalogo/voluntarios',
+  tipoActividadesHV             : '/api/catalogo/tipo/actividadesHV',
+  apiSubTipoActividadesHV       : '/api/catalogo/subtipo/actividadesHV',
+  apiVoluntarios                : '/api/catalogo/voluntarios',
   apiTiposUsuarios              : '/api/catalogo/tiposUsuarios',
   areasApi                      : '/api/catalogo/areas',
   estadosApi                    : '/api/catalogo/estados',
@@ -12,4 +15,5 @@ export default {
   getDelegacionesWithAreasApi   : '/api/catalogo/delegaciones',
   apiDelegacionesXTipoCoordinador   : '/api/catalogo/especial/delegaciones',
   apiVoluntariosXDelegacion   : '/api/catalogo/especial/voluntarios',
+  apiGetCatalogo              : '/api/get/catalogo',
 }

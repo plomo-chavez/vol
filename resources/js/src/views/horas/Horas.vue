@@ -13,19 +13,8 @@
             />
         </div>
         <div v-if="showForm">
-            <div class=" col-12 d-flex flex-wrap justify-content-between mb-2">
-                <div class="ww-100">
-                    <b-button
-                        size="sm"
-                        variant="outline-danger"
-                        @click="() => { resetForm() }"
-                    >Atrás</b-button>
-                </div>
-                <div class="ww-100A">
-                    <h3>Formularios de registros de hora voluntarias</h3>
-                </div>
-            </div>
             <formHoras
+                btnAtras
                 withCard
                 v-if="accion == 1"
                 :data = '{}'

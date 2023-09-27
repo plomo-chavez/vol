@@ -204,6 +204,7 @@ class PDFController extends BaseController {
                             'fechaEmision'      => self::fechaNow($payload['fechaInicio']   ?? null,'timestamp'),
                             'fechaVencimiento'  => self::fechaNow($payload['fechaFin']      ?? null,'timestamp',$duracion),
                             'isActual'          => true,
+                            'duracion'          => $duracion,
                         ]);
                     } else {
                         $regitro = CredencialTemporal::find($payload['credencial_id']);
@@ -211,6 +212,7 @@ class PDFController extends BaseController {
                             return self::response($message = 'No se encontro la credencial temporal.');
                         }
                         $data['code']           = $regitro->codigo;
+                        $duracion               = $regitro->duracion;
                     }
                     $data['fechaInicio']    = self::fechaNow($payload['fechaInicio'] ?? null,'d/m/Y');
                     $data['fechaFin']       = self::fechaNow($payload['fechaFin'] ?? null,'d/m/Y',$duracion);

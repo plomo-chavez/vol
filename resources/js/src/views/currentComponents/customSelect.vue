@@ -37,18 +37,11 @@
 <script>
 
 import vSelect from 'vue-select'
-import catalogos from '@/apis/useCatalogo'
 import customHelpers  from '@helpers/customHelpers'
-import store from '@/store'
-
-import {
-        BFormGroup,
-    } from 'bootstrap-vue'
-    import {
-      ValidationProvider,
-      ValidationObserver,
-    } from 'vee-validate'
+import { BFormGroup, } from 'bootstrap-vue'
+import { ValidationProvider, ValidationObserver, } from 'vee-validate'
 export default {
+    mixins : [customHelpers],
     components: {
         vSelect,
         BFormGroup,
@@ -78,7 +71,7 @@ export default {
     watch: {
         input: {
             handler(nuevoValor, antiguoValor) {
-                this.getCatalogo()
+                this.getCatalogoHelper()
             },
             deep: true, // Opcional: indica si se debe realizar una observación profunda (deep watch)
             immediate: true // Opcional: indica si se debe ejecutar el watcher inmediatamente después de su definición
@@ -87,118 +80,14 @@ export default {
     computed: {
     },
     beforeMount() {
-        this.getCatalogo()
+        this.getCatalogoHelper()
     },
     methods: {
         changeData(data) {
             this.$emit('changeData',{'value':data, 'field' : this.input.value})
         },
-        getCatalogo(){
-            if (typeof this.input.catalogo == 'string') {
-
-                let tmp = {};
-                switch (this.input.catalogo) {
-                    case 'tiposUsuario':
-                        catalogos
-                            .tiposUsuarios({})
-                            .then(response => {
-                                this.opciones = this.formatoToCatalogo(response.data.data)
-                            })
-                            .catch(error   => { console.log(error); })
-                        break;
-                    case 'voluntarios':
-                        catalogos
-                            .voluntarios({})
-                            .then(response => {
-                                this.opciones = this.formatoToCatalogo(response.data.data,true,'id','label')
-                            })
-                            .catch(error   => { console.log(error); })
-                        break;
-                    case 'areas':
-                        catalogos
-                            .areas({})
-                            .then(response => {
-                                this.opciones = this.formatoToCatalogo(response.data.data)
-                            })
-                            .catch(error   => { console.log(error); })
-                        break;
-                    case 'tiposAsociado':
-                        catalogos
-                            .tiposAsociado({})
-                            .then(response => {
-                                this.opciones = this.formatoToCatalogo(response.data.data)
-                            })
-                            .catch(error   => { console.log(error); })
-                        break;
-                    case 'estados':
-                        catalogos
-                            .estados({})
-                            .then(response => {
-                                this.opciones = this.formatoToCatalogo(response.data.data)
-                            })
-                            .catch(error   => { console.log(error); })
-                        break;
-                    case 'tiposSangre':
-                        catalogos
-                            .tiposSangre({})
-                            .then(response => {
-                                this.opciones = this.formatoToCatalogo(response.data.data)
-                            })
-                            .catch(error   => { console.log(error); })
-                        break;
-                    case 'sexo':
-                        catalogos
-                            .sexo({})
-                            .then(response => {
-                                this.opciones = this.formatoToCatalogo(response.data.data)
-                            })
-                            .catch(error   => { console.log(error); })
-                        break;
-                    case 'nacionalidad':
-                        catalogos
-                            .nacionalidad({})
-                            .then(response => {
-                                this.opciones = this.formatoToCatalogo(response.data.data)
-                            })
-                            .catch(error   => { console.log(error); })
-                        break;
-                    case 'estadoCivil':
-                        catalogos
-                            .estadoCivil({})
-                            .then(response => {
-                                this.opciones = this.formatoToCatalogo(response.data.data)
-                            })
-                            .catch(error   => { console.log(error); })
-                        break;
-                    case 'DelegacionesXTipoCoordinador':
-                        tmp = {};
-                        if ( store.state.app.userData ?? null) {
-                            tmp.tipoUsuario_id = store.state.app.userData.tipoUsuario_id;
-                        }
-                        catalogos
-                            .delegacionesXTipoCoordinador(tmp)
-                            .then(response => {
-                                this.opciones = this.formatoToCatalogo(response.data.data,true)
-                            })
-                            .catch(error   => { console.log(error); })
-                        break;
-                    case 'voluntariosXDelegacion':
-                        tmp = {...this.input.data}
-                        catalogos
-                            .voluntariosXDelegacion(tmp)
-                            .then(response => {
-                                this.opciones = this.formatoToCatalogo(response.data.data,true,'id','label')
-                            })
-                            .catch(error   => { console.log(error); })
-                        break;
-                    default:
-                        this.errorCatalogo = 'No se encontro ningun catalogo';
-                        break;
-                }
-            }
-            if (typeof this.input.catalogo == 'object') {
-                this.opciones = this.input.catalogo
-            }
+        async getCatalogoHelper(){
+            this.opciones = await this.getCatalogo(this.input);
         }
     },
 }

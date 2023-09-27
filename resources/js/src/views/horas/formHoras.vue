@@ -1,5 +1,17 @@
 <template>
     <div>
+        <div  class=" col-12 d-flex flex-wrap justify-content-between mb-2">
+            <div v-if="btnAtras" class="ww-100">
+                <b-button
+                    size="sm"
+                    variant="outline-danger"
+                    @click="() => { tipoRegistro != null ? tipoRegistro = null : resetForm() }"
+                >Atrás</b-button>
+            </div>
+            <div :class=" btnAtras ? 'ww-100A' : ' wwfull '">
+                <h3>Formularios de registros de hora voluntarias</h3>
+            </div>
+        </div>
         <div v-if="tipoRegistro == null" class=" col-10 mx-auto d-flex  flex-wrap justify-content-between">
             <b-button
                 size="sm"
@@ -10,17 +22,22 @@
             <b-button
                 size="sm"
                 variant="relief-secondary"
-                @click="() => { tipoRegistro = 'porEvento'}"
-            >Por evento</b-button>
+                @click="() => { tipoRegistro = 'porVoluntario'}"
+            >Por voluntario</b-button>
 
-            <b-button
+            <!-- <b-button
                 size="sm"
                 variant="relief-secondary"
                 @click="() => { tipoRegistro = 'porHora'}"
-            >Por Hora</b-button>
+            >Por Hora</b-button> -->
         </div>
         <div v-if="tipoRegistro == 'porGuardia'">
             <FormPorGuardia 
+            />
+        </div>
+        <div v-if="tipoRegistro == 'porVoluntario'">
+            <formPorVoluntario 
+            @handleAtras="() => { tipoRegistro = null }"
             />
         </div>
     </div>
@@ -38,8 +55,9 @@ import {
     BButton
 } from 'bootstrap-vue'
 import FormPorGuardia  from '@/views/horas/formPorGuardia.vue'
+import formPorVoluntario  from '@/views/horas/formPorVoluntario.vue'
 export default {
-    name: 'formPorGuardia',
+    name: 'formHoras',
     components: {
         BCard,
         BCardTitle,
@@ -47,7 +65,8 @@ export default {
         BCardBody,
         BModal,
         BButton,
-        FormPorGuardia
+        FormPorGuardia,
+        formPorVoluntario
     },
     mounted() {},
     data() {
@@ -57,6 +76,10 @@ export default {
     },
     props: {
 
+        btnAtras: {
+            type: Boolean,
+            default: false,
+        },
     },
     watch: {
 
@@ -71,7 +94,9 @@ export default {
 
     },
     methods:{
-
+        resetForm(){
+            this.$emit('handleCancelar');
+        },
     }
 }
 </script>

@@ -162,7 +162,9 @@ class VoluntariosController extends BaseController {
     public function insertVoluntarioWithCorreo($data){
         $data['codeEmail'] = self::generateCode();
         $delegacionIDXUsuario = self::getDelegacionIDXUsuario($data['userID'] ?? null);
-        $data['numeroInterno'] = self::getNumeroInerno($data['delegacion_id'] ?? 2);
+        if (isset($data['delegacion_id'])) {
+            $data['numeroInterno'] = self::getNumeroInerno($data['delegacion_id']);
+        }
         Modelo::create($data);
         $isSecure = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
         $protocol = $isSecure ? 'https://' : 'http://';
@@ -214,6 +216,20 @@ class VoluntariosController extends BaseController {
                 );
             }
         }
-        return $voluntarioId != null ? self::actualizar($data, new Modelo()) : self::insertVoluntarioWithCorreo($data, new Modelo());
+        return $voluntarioId != null ? self::actualizarNow($data, new Modelo()) : self::insertVoluntarioWithCorreo($data, new Modelo());
     }
+    public function actualizarNow($payload, $modelo) {
+        if(isset($payload['id'])){
+            $registro = $modelo::find($payload['id']);
+            if (($registro->numeroInterno == NULL )) {
+                if (isset($payload['delegacion_id'])) {
+                    $payload['numeroInterno'] = self::getNumeroInerno($payload['delegacion_id']);
+                }
+            }
+            $modelo::updateOrCreate(['id' => $payload['id']],$payload);
+            return self::responsee('Registro actualizado corrrectamente.');
+        } else {
+            return self::responsee('Actualizar no tiene id.', false);
+        }
+     }
 }

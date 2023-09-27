@@ -47,7 +47,7 @@ export default [
     {
       path: '/verificador/horas',
       name: 'verificador-horas',
-      component: () => import('@/views/horas/formPorGuardia.vue'),
+      component: () => import('@/views/horas/formHoras.vue'),
       meta: {
           pageTitle: 'Agregar horas voluntarias',
           // permitidos: 'verificador horas voluntarias',
@@ -107,6 +107,22 @@ export default [
       component: () => import('@/views/GestorCatalogos.vue'),
       meta: {
           pageTitle: 'Tipos de sangre',
+      },
+    },
+    {
+      path: '/catalogo/tipo-actividades-horas-voluntarias',
+      name: 'catalogo-tipo-actividades-horas-voluntarias',
+      component: () => import('@/views/GestorCatalogos.vue'),
+      meta: {
+          pageTitle: 'Tipos de actividades HV',
+      },
+    },
+    {
+      path: '/catalogo/tipo-subactividades-horas-voluntarias',
+      name: 'catalogo-tipo-subactividades-horas-voluntarias',
+      component: () => import('@/views/GestorCatalogos.vue'),
+      meta: {
+          pageTitle: 'Tipos de subactividades HV',
       },
     },
   {

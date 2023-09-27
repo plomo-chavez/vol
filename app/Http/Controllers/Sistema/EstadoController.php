@@ -14,8 +14,7 @@ class EstadoController extends BaseController
     }
 
     public function handleListar(Request $request){
-        $data = Modelo::orderBy('id',"asc")
-            ->get();
+        $data = Modelo::orderBy('id',"asc")->get();
         return self::responsee(
             'Consulta realizada con exito.',
             true,

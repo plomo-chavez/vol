@@ -2,12 +2,11 @@
     <b-modal
       ref="my-modal"
       hide-footer
-
+      v-model="show"
       ok-only
       no-close-on-backdrop
       :title="title"
     >
-    <pre>{{ formSchema }}</pre>
         <FormFactory
             class="col-12 mx-auto"
             :data = 'data'
@@ -55,7 +54,9 @@ export default {
     Ripple,
   },
   data() {
-    return {}
+    return {
+      show : false
+    }
   },
   mixins : [customHelpers],
   props: {
@@ -83,6 +84,13 @@ export default {
       } else {
         this.hideModal();
       }
+    },    
+    show(value){
+      if(value){
+        this.showModal();
+      } else {
+        this.hideModal();
+      }
     },
   },
 
@@ -101,6 +109,7 @@ export default {
     },
     hideModal() {
       this.$refs['my-modal'].hide()
+      this.$emit('handleCancelar')
     },
     toggleModal() {
       // We pass the ID of the button that we want to return focus to

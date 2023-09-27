@@ -10,9 +10,13 @@ class HorasVoluntarias extends Model {
     protected $primaryKey   = "id";
 
     protected $fillable = [
-        'area_id',
         'voluntario_id',
+        'area',
+        'area_id',
+        'subactividad_id',
+        'subactividad',
         'actividad',
+        'actividad_id',
         'fecha',
         'horaInicio',
         'horaFin',

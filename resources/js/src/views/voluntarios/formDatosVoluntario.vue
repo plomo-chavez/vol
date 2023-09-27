@@ -5,6 +5,30 @@
             class="col-12 p-2"
         >
             <div class=" col-12 d-flex flex-wrap justify-content-between">
+                <ModalForm
+                    :openModal="openModalForm"
+                    :data ="{}"
+                    :formSchema="[
+                        {
+                            classContainer:'col-12',
+                            type        : 'input-select',
+                            name        : 'duracion',
+                            value       : 'duracion',
+                            rules       : 'required',
+                            label       : 'Duración de la credencial',
+                            catalogo    : [
+                                {value : 10, label:'10 Días'},
+                                {value : 20, label:'20 Días'},
+                                {value : 30, label:'30 Días'},
+                                {value : 40, label:'40 Días'},
+                                {value : 50, label:'50 Días'},
+                                {value : 60, label:'60 Días'}
+                            ],
+                        }
+                    ]"
+                    @handleSubmit="changeDuracion"
+                    @handleCancelar="() => { openModalForm = false }"
+                />
                 <div>
                     <b-button
                     v-if="!isRegistro"
@@ -24,7 +48,7 @@
                     v-if="!isRegistro"
                         size="sm"
                         variant="relief-secondary"
-                        @click="handreCreateCredencialTemporal"
+                        @click="() => { openModalForm  = true }"
                     >Generar Credencial Temporal</b-button>
                     <b-button
                     v-if="!isRegistro"
@@ -104,6 +128,7 @@
     import FileUpload       from '@currentComponents/FileUpload.vue'
     import Ripple from 'vue-ripple-directive'
     import Scann from '@currentComponents/ScannerCode.vue'
+    import ModalForm from '@currentComponents/ModalForm.vue'
 
     import {
         BCard,
@@ -123,6 +148,7 @@
         },
         components: {
             FileUpload,
+            ModalForm,
             FormFactory,
             BCard,
             BCardTitle,
@@ -141,6 +167,7 @@
                 viewForm    : true,
                 showScann   : false,
                 openScann   : false,
+                openModalForm    : false,
                 modalArchivos    : false,
                 formSchemaFormVoluntario: [
                     {
@@ -196,8 +223,8 @@
                         value       : 'correo',
                         prefixIcon  : 'MailIcon',
                         rules       : 'required|email',
-                        label       : 'Correo electronico',
-                        placeholder : 'Introduce un correo electronico',
+                        label       : 'Correo electrónico',
+                        placeholder : 'Introduce un correo electrónico',
                     },
                     {
                         classContainer:'col-lg-6 col-md-6 col-12',
@@ -317,6 +344,7 @@
                         label       : 'Delegación',
                         catalogo    : 'DelegacionesXTipoCoordinador',
                         rules       : 'required',
+                        filtros     : { tipoUsuario_id: (JSON.parse(localStorage.getItem('userData')) ?? null)?.tipoUsuario_id ?? 0 }
                     },
                     {
                         classContainer:'col-lg-3   col-md-6   col-12',
@@ -364,6 +392,13 @@
             },
         },
         watch: {
+            // openModalForm(val) {
+            //     if (val) {
+            //         setTimeout(() => {
+            //             this.openModalForm = false;
+            //         }, 2);
+            //     }
+            // },
             data: {
                 handler(nuevoValor, antiguoValor) { this.init(); },
                 deep: true, // Opcional: indica si se debe realizar una observación profunda (deep watch)
@@ -377,6 +412,9 @@
 
         },
         beforeMount(){
+            if (this.isRegistro) {
+                this.formSchemaFormVoluntario.splice(-3);
+            }
             this.urlImagen = this.data != null ? (this.data?.urlImagen ?? null) : null;
         },
         mounted(){
@@ -464,9 +502,14 @@
                 let response =  await this.peticionPDF('generatePDFVoluntarios',payload)
                 this.descargarPDF(response,this.data.id,'fichaRegistro',false)
             },
-            async handreCreateCredencialTemporal(){
+            
+            changeDuracion(data){
+                this.handreCreateCredencialTemporal(data.duracion.value)
+            },
+            async handreCreateCredencialTemporal(data){
                 let payload = {
                     voluntario_id   : this.data.id,
+                    duracion        : data,
                     emitio_id       : JSON.parse(localStorage.getItem('userData')).voluntario_id,
                     documento       :'credencialTemporal',
                 };

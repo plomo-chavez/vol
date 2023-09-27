@@ -1,15 +1,30 @@
 <template>
     <div>
         <ModalForm
-            :openModal="showModal"
+            :openModal="openModalForm"
             :data ="activeRow"
             :formSchema="schema"
             @handleSubmit="save"
             @handleCancelar="inicializar"
         />
         <VistaUno
+            v-if="showV1"
             :data="data"
             :columnas="columnas"
+            :config="{
+                showCellActions: true,
+                cellActions: {
+                  btnEditar         : true,
+                  btnEliminar       : true,
+                  btnView           : false,
+                  btnChangePassword : false,
+                },
+                index     : true,
+                buscador  : true,
+                btnNuevo  : true,
+                btnFiltrar: false,
+                btnOtros  : null,
+            }"
             @mdoEditar="editar"
             @mdoEliminar="onEliminar"
             @mtdNuevo="nuevoRegistro"
@@ -20,28 +35,26 @@
   <script>
     import ModalForm from '@currentComponents/ModalForm.vue'
     import VistaUno from '@currentComponents/VistaUno.vue'
-    import peticiones from '@/apis/usePeticiones'
     import customHelpers  from '@helpers/customHelpers'
-    import formVoluntario  from '@/views/voluntarios/formVoluntario.vue'
-    import detallesVoluntario  from '@/views/voluntarios/detallesVoluntario.vue'
+import { timestamp } from '@vueuse/core'
 
   export default {
     components: {
         ModalForm,
         VistaUno,
-        detallesVoluntario,
-        formVoluntario
     },
     data() {
       return {
-        catalogo: null,
-        accion: 1,
-        activeRow : null,
-        schemaMain : null,
-        showModal : false,
-        data:[],
-        schema: [
-
+        accion          : 1,
+        showV1          : false,
+        catalogo        : null,
+        activeRow       : null,
+        schemaMain      : null,
+        openModalForm   : false,
+        data            : [],
+        schema          : [],
+        columnas          : [],
+        schemaMain: [
             {
                 classContainer:'col-12',
                 type        : 'input-text',
@@ -50,82 +63,113 @@
                 label       : 'Nombre',
                 placeholder : 'Introduce un nombre',
                 rules       : 'required',
-            },
-            {
-                classContainer:' col-4',
-                type        : 'input-switch',
-                name        : 'estatus',
-                value       : 'estatus',
-                label       : 'Activo',
-                rules       : 'required',
-                labels      : {
-                                'on' : "Si",
-                                'off': "No"
-                            },
+                focus: true
             },
         ],
-        columnas : [
-            {
-                type    : 'text',
-                key     : 'numeroAsociado',
-                label   : 'Numero de asociado',
-                sortable: true
-            },
+        columnasMain : [
             {
                 type    : 'text',
                 key     : 'nombre',
                 label   : 'Nombre',
                 sortable: true
-
             },
         ]
       }
     },
     watch: {
-        '$route'(newValue, oldValue) {
-            this.inicializar();
-        }
+        '$route'(newValue, oldValue) { this.inicializar(); }
     },
     mixins : [customHelpers],
     beforeMount() {
         this.inicializar();
     },
     methods: {
-        console(){
+        getNameCatalogo(){
+            return  this.$route.name.replace("catalogo-", "");
+        },
+        getSchema(){
+            this.showV1 = false;
+            let tmpSchema = [...this.schemaMain]
+            if(this.catalogo == 'tipo-subactividades-horas-voluntarias'){
+                let item = {
+                    classContainer:'col-12',
+                    type        : 'input-select',
+                    name        : 'actividad',
+                    value       : 'actividad',
+                    catalogo    : 'tipo-actividades-horas-voluntarias',
+                    rules       : 'required',
+                    label       : 'Tipo de acitvidades'
+                };
+                tmpSchema = [item,...tmpSchema]
+            }
+            this.schema = [...tmpSchema]
+            let tmpColumnas = [...this.columnasMain]
+            if(this.catalogo == 'tipo-subactividades-horas-voluntarias'){
+                let item = {
+                    type    : 'text',
+                    key     : 'actividad',
+                    label   : 'Tipo actividad',
+                    sortable: true
+                };
+                tmpColumnas = [item,...tmpColumnas]
+            }
+            this.columnas = this.copyObject(tmpColumnas)
+            this.reload()
+            setTimeout(() => { this.showV1 = true; }, 1);
         },
         inicializar(){
-            this.showModal = false;
-            this.catalogo = this.$route.name;
+            this.catalogo = this.getNameCatalogo();
+            this.getSchema();
+            this.reset()
+        },
+        reset(){
+            this.openModalForm = false;
+            this.accion = 1;
             this.reload()
         },
         async reload () {
-            let payload = { catalogo : this.catalogo, }
-            let response = await this.peticionGeneral('getCatalogos',payload,false);
-            this.data = response.data;
+            this.openModalForm = false;
+            let response = await this.peticionCatalogo(this.catalogo,{},{all:true });
+            let tmp = this.copyObject(response);
+
+            if(this.catalogo == 'tipo-subactividades-horas-voluntarias'){
+                tmp.map((item,index) => {
+                    tmp[index].actividad = item.actividad.nombre
+                })
+            }
+            this.data = this.copyObject(tmp);
         },
         nuevoRegistro () {
             this.activeRow = {};
-            setTimeout(() => { this.showModal = true; }, 10);
+            setTimeout(() => { this.openModalForm = true; }, 10);
         },
         async save(data){
+
             let payload = this.copyObject(data);
             payload.catalogo = this.catalogo;
             if (this.accion == 2) {
                 payload.id = this.activeRow.id
             }
+            if(this.catalogo == 'tipo-subactividades-horas-voluntarias'){
+                payload.actividad_id = payload.actividad.value
+                delete(payload.actividad)
+            }
             payload.accion = this.accion
-            let response = await this.peticionGeneral('administrarCatalogos',payload);
-            if(response.result){ this.reload(); }
+            let response = await this.peticionGeneral('adminCatalogos',payload);
+            if(response.result){ this.reset(); }
         },
         async handleEliminar(payload){
-            let response = await this.peticionGeneral('administrarCatalogos',payload);
+            let response = await this.peticionGeneral('adminCatalogos',payload);
             if(response.result){ this.reload(); }
         },
         editar (data) {
             this.accion = 2;
-            this.activeRow = this.copyObject(data)
-            this.showModal = true;
-            console.log('final editar');
+            let tmp = this.copyObject(data)
+            if(this.catalogo == 'subtratamientos'){
+                tmp.tratamiento = {value : tmp.tratamiento_id, label: tmp.tratamiento};
+            }
+            this.activeRow = this.copyObject(tmp)
+            this.openModalForm = true;
         },
         onEliminar(data){
             this.messageConfirm({

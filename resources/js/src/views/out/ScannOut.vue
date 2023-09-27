@@ -69,16 +69,20 @@
 
                 <h4 class=" wwfull text-primary text-center font-weight-bolder mb-1">Datos de la credencial</h4>
                 <div class="wwfull">
+                  <div v-if="!data.isActual" class=" col-12 mb-1">
+                      <h5 class="mb-0 text-danger" >Esta credencial no es la actual</h5>
+                      <small>Estatus de la credencial</small>
+                  </div>
                   <div class=" col-12 mb-1">
                       <h5 class="mb-0" :class="validarFecha(data.fechaVencimiento) ? ' text-success ' : ' text-danger '" >{{ validarFecha(data.fechaVencimiento) ? 'Credencial vigente' : 'Credencial caduca' }}</h5>
                       <small>Vigencia de la credencial</small>
                   </div>
                   <div class=" col-12 mb-1">
-                    <h5 class="mb-0" >{{ formatoFechaYMD(data.fechaVencimiento,true) }}</h5>
+                    <h5 class="mb-0" >{{ formatoFechaYMD(data.fechaEmision) }}</h5>
                       <small>Fecha de emisión</small>
                   </div>
                   <div class=" col-12 mb-1">
-                      <h5 class="mb-0" >{{ formatoFechaYMD(data.fechaVencimiento,true) }}</h5>
+                      <h5 class="mb-0" >{{ formatoFechaYMD(data.fechaVencimiento) }}</h5>
                       <small>Fecha de vencimiento</small>
                   </div>
                 </div>

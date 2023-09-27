@@ -74,6 +74,9 @@ class GuardiasHorasController extends BaseController {
                 case 8:
                     return self::getDetallesMes($payload, $modelo);
                     break;
+                case 9:
+                    return self::registarHoraVoluntaria($payload, $modelo);
+                    break;
                 default:
                     return self::responsee('Acción no válida', false);
             }
@@ -88,6 +91,24 @@ class GuardiasHorasController extends BaseController {
      * @param Model $modelo Una instancia del modelo relacionado con la guardia.
      * @return array Un arreglo con información sobre el resultado del cierre de la guardia.
      */
+    public function registarHoraVoluntaria($payload, $modelo) {
+        $msg = 'Se registro hora voluntaria con éxito.'; // Mensaje predeterminado de éxito
+        $data = []; // Inicializa el arreglo de datos vacío
+        // Busca el ID del voluntario basado en el código escaneado
+        $tmp = self::findByCodigo($payload['codigo']);
+        $voluntarioID = $tmp['data']->id;
+        if(isset($payload['cerrar'])){
+
+        } else {
+            $data = HorasVoluntarias::where('voluntario_id', $voluntarioID)->where('horaFin',null)->get()->toArray();
+        }
+        // Retorna una respuesta con el mensaje y datos
+        return self::responsee(
+            $msg,
+            true,
+            $data
+        );
+    }
     public function cerrarGuardia($payload, $modelo) {
         $msg = 'Guardia cerrada con éxito.'; // Mensaje predeterminado de éxito
         $data = []; // Inicializa el arreglo de datos vacío
@@ -142,13 +163,6 @@ class GuardiasHorasController extends BaseController {
                     $timestamp2 = Carbon::parse($fechaFin);
                     $minDias = 5; // Mínimo de días a aumentar
                     $maxDias = 10; // Máximo de días a aumentar
-
-                    // Genera un número aleatorio entre minDias y maxDias
-                    // $diasAleatorios = rand($minDias, $maxDias);
-
-                    // $timestamp2 = $timestamp2->copy()->addHours($diasAleatorios);
-
-                    // Ahora puedes continuar con el cálculo de la diferencia
                     $diferencia = $timestamp1->diff($timestamp2);
                     $minutosDiferencia = ($diferencia->days * 24 * 60) + ($diferencia->h * 60) + $diferencia->i;
                     $tmp = [
@@ -158,7 +172,7 @@ class GuardiasHorasController extends BaseController {
                         'fecha'             => self::fechaNow(),
                         'horaInicio'        => $registro->fechaInicio,
                         'horaFin'           => $fechaFin,
-                        'tiempoLabel'       => "Diferencia: {$diferencia->days} horas,{$diferencia->h} horas y {$diferencia->i} minutos",
+                        'tiempoLabel'       => "{$diferencia->days} dias,{$diferencia->h} horas y {$diferencia->i} minutos",
                         'tiempoMinutos'     => $minutosDiferencia,
                         'guardia_id'        => $guardia_id,
                     ];
@@ -167,11 +181,9 @@ class GuardiasHorasController extends BaseController {
                     $contador = HorasVoluntariasContadores::where('voluntario_id',$voluntario_id)->get();
                     if ($contador->count() == 1){
                         $contador = $contador[0];
-                        
                         if($timestamp2->month != intval($contador->mes_actual, 10)){
                             setlocale(LC_TIME, 'es_ES'); // Establecer el locale en español
                             $mesNombre = ucfirst(Carbon::create()->month($contador->mes_actual)->locale('es_ES')->isoFormat('MMMM'));
-
                             $historico = json_decode($contador->historico);
                             $tmp = [
                                 'mes'       => $mesNombre,
@@ -368,8 +380,8 @@ class GuardiasHorasController extends BaseController {
         $delegacion_id = $request->all()['delegacion_id'] ?? null;
         if ($delegacion_id != null) {
             // Realiza una consulta para obtener la última guardia activa en la delegación
-            $data = Modelo::whereDate('inicio', self::fechaYMD())
-                ->where('delegacion_id',  $delegacion_id)
+            $data = Modelo::where('delegacion_id',  $delegacion_id)
+                // ->whereDate('inicio', self::fechaYMD())
                 ->where('verificador_id',  $voluntario_id)
                 ->where('fin', null)
                 ->with('delegacion')

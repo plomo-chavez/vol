@@ -11,6 +11,16 @@ export default {
     loading(tipo = true){
       document.getElementById("loading-bg").style.display = tipo?"block":"none";
     },
+
+    async getCatalogo(input){
+        console.log('input', input);
+        if (typeof input.catalogo == 'string') {
+            return await this.peticionCatalogo(input.catalogo,input.filtros,input.formato);
+        }
+        if (typeof input.catalogo == 'object') {
+            return Promise.resolve(input.catalogo); // Devuelve una promesa resuelta
+        }
+    },
     isTypeUser(tipo){
         let response = false;
         let user = JSON.parse(localStorage.getItem('userData'))

@@ -9,6 +9,9 @@ export default class apiPeticiones {
     this.axiosIns = axiosIns
     this.apisConfig = { ...this.apisConfig, ...jwtOverrideConfig }
   }
+  getRegistroHV(...args) {
+    return this.axiosIns.post(this.apisConfig.apiGetRegistroHV, ...args)
+  }
   getCredencialesTemporales(...args) {
     return this.axiosIns.post(this.apisConfig.apiGetCredencialesTemporales, ...args)
   }
@@ -84,7 +87,7 @@ export default class apiPeticiones {
   getUltimaGuardiaHoras(...args) {
     return this.axiosIns.post(this.apisConfig.apiGetUltimaGuardiaHoras, ...args)
   }
-  administrarCatalogos(...args) {
+  adminCatalogos(...args) {
     return this.axiosIns.post(this.apisConfig.apiAdminCatalogos, ...args)
   }
   getCatalogos(...args) {

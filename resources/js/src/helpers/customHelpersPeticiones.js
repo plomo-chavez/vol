@@ -2,11 +2,11 @@
 import peticiones from '@/apis/usePeticiones'
 import uploadFiles from '@/apis/useUploadFiles'
 import generatePDF from '@/apis/useGeneratePDF'
+import catalogos    from '@/apis/useCatalogo'
 
 export default {
     methods: {
         catchError(error) {
- 
             this.loading(false);
             console.log(error); 
         
@@ -21,6 +21,9 @@ export default {
                 this.loading();
                 let response;
                 switch (method) {
+                    case 'getRegistroHV':
+                        response = await peticiones.getRegistroHV(payload);
+                    break;
                     case 'getCredencialesTemporales':
                         response = await peticiones.getCredencialesTemporales(payload);
                     break;
@@ -44,6 +47,9 @@ export default {
                     break;
                     case 'adminUsuarios':
                         response = await peticiones.adminUsuarios(payload);
+                    break;
+                    case 'adminCatalogos':
+                        response = await peticiones.adminCatalogos(payload);
                     break;
                     case 'getCatalogos':
                         response = await peticiones.getCatalogos(payload);
@@ -145,6 +151,28 @@ export default {
                     });
                     console.log('Checa el metodo para la petición.');   
                 }
+            } catch (error) {
+                this.catchError(error);
+            }
+        },
+        async peticionCatalogo(
+                method,
+                filtros = {},
+                formato = {},
+            ){
+            try {
+                let formatoLocal = {
+                    all         : formato.all ?? false,
+                    indexValue  : formato.indexValue ?? 'id',
+                    indexLabel  : formato.indexLabel ?? 'nombre',
+                }
+                let tmpPayload = { 
+                    catalogo    : method,
+                    filtro      : filtros
+                }
+                let response = await catalogos.getCatalogo(tmpPayload);
+
+                return this.formatoToCatalogo(response.data.data,formatoLocal.all,formatoLocal.indexValue,formatoLocal.indexLabel)
             } catch (error) {
                 this.catchError(error);
             }

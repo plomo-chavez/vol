@@ -55,7 +55,7 @@ export default [
         ],
       },
       {
-        title: 'Catalogos',
+        title: 'Catálogos',
         children: [
           {
               title: 'Areas',
@@ -80,6 +80,14 @@ export default [
           {
               title: 'Tipos de usuarios',
               route: 'catalogo-tipo-usuarios',
+          },
+          {
+              title: 'Tipos de actividades de HV',
+              route: 'catalogo-tipo-actividades-horas-voluntarias',
+          },
+          {
+              title: 'Tipos de subactividades de HV',
+              route: 'catalogo-tipo-subactividades-horas-voluntarias',
           },
         ],
       },

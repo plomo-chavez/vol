@@ -134,9 +134,8 @@ export default {
             setTimeout(() => { this.openScann = true; }, 3);
         },
         handleChangeCodigo(codigo){
-            this.hadScann = false;
             this.openScann = false;
-            setTimeout(() => { this.openScann = false; }, 3);
+            setTimeout(() => { this.hadScann = false; }, 3);
             this.codigo = codigo;
             this.addPersonal();
         },
