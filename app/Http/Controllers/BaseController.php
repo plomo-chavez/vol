@@ -86,7 +86,7 @@ class BaseController extends Controller{
         return $fechaActual->format('Y-m-d');
     }
 
-    public function minutosATiempo($totalMinutos) {
+    public static function minutosATiempo($totalMinutos) {
         // Calcula los días, horas y minutos totales
         $totalDias = floor($totalMinutos / (24 * 60));
         $totalHoras = floor(($totalMinutos % (24 * 60)) / 60);

@@ -64,10 +64,13 @@ export default {
                         response = await peticiones.getHorasVoluntarias(payload);
                     break;
                     case 'administrarHorasVoluntarias':
-                        response = await peticiones.administrarHorasVoluntarias(payload);
+                        response = await peticiones.adminisaºétrarHorasVoluntarias(payload);
                     break;
                     case 'administrarGuardiaHoras':
                         response = await  peticiones.administrarGuardiaHoras(payload)
+                    break;
+                    case 'getGuardiaHoras':
+                        response = await  peticiones.getGuardiaHoras(payload)
                     break;
                     case 'getUltimaGuardiaHoras':
                         response = await  peticiones.getUltimaGuardiaHoras(payload)

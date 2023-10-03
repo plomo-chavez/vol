@@ -10,6 +10,11 @@ export default [
     route: 'horas',
   },
   {
+    title: 'Guardias de HV',
+    icon: 'ClockIcon',
+    route: 'guardias-horas',
+  },
+  {
     title: 'Verificador HV',
     icon: 'ClockIcon',
     route: 'verificador-horas',

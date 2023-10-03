@@ -1,7 +1,7 @@
 <template>
     <div>
         <div  class=" col-12 d-flex flex-wrap justify-content-between mb-2">
-            <div v-if="btnAtras" class="ww-100">
+            <div v-if="btnAtras && tipoRegistro == null" class="ww-100">
                 <b-button
                     size="sm"
                     variant="outline-danger"

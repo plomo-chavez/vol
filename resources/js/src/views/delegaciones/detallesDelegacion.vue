@@ -199,7 +199,7 @@
                     label       : 'Volunatario:',
                     rules       : '',
                     catalogo    : 'voluntariosXDelegacion',
-                    data        : {
+                    filtros        : {
                         delegacion_id   : this.data.id,
                         isLocal         : this.data.isLocal,
                         estado_id       : this.data.estado_id

@@ -8,16 +8,16 @@
                 :config="{
                     showCellActions: true,
                     cellActions: {
-                        btnEditar: false,
-                        btnEliminar: false,
+                        btnEditar   : false,
+                        btnEliminar : false,
+                        btnView     : true,
                         btnChangePassword: false,
-                        btnView: true,
                     },
-                    index: true,
-                    buscador: true,
-                    btnNuevo: false,
-                    btnFiltrar: false,
-                    btnOtros: null,
+                    index       : true,
+                    buscador    : true,
+                    btnNuevo    : false,
+                    btnFiltrar  : false,
+                    btnOtros    : null,
                 }"
                 @mtdFiltrar="reload"
                 @mdoView="reimprimir"

@@ -3,7 +3,10 @@ import peticiones from '@/apis/usePeticiones'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 import '@resources/scss/vue/libs/vue-sweetalert.scss';
 import helpersPeticiones    from '@helpers/customHelpersPeticiones'
-
+// Importar moment y moment-timezone
+const moment = require('moment-timezone');
+// Establecer el huso horario a México (Ciudad de México)
+moment.tz.setDefault('America/Mexico_City');
 export default {
 
     mixins : [helpersPeticiones],
@@ -156,21 +159,28 @@ export default {
           return nombresMeses[index] ?? ''
     },
     formatoFechaYMD(value,withTime = false){
-        if (value != null) {
-            const fecha = new Date(value);
-            const fechaFormateada = fecha.toISOString().slice(0,10).replace(/-/g,"/");
+        if (value !== null) {
+            const fecha = moment(value);
+            const fechaFormateada = fecha.format('YYYY/MM/DD');
+            
             if (withTime) {
-                const horaFormateada = fecha.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-
+                const horaFormateada = fecha.format('hh:mm:ss');
                 return fechaFormateada + ' ' + horaFormateada;
             } else {
-                return fechaFormateada
+                return fechaFormateada;
             }
         } else {
             return '';
         }
     },
-    ajustarFecha(masMenos = '+', años = 0, meses = 0, dias = 0) {
+    fechaInput(masMenos = '+', años = 0, meses = 0, dias = 0,formato = 'YYYY-MM-DD HH:mm:ss') {
+        if (masMenos == '+'){
+            return  moment().add(dias, 'days').endOf('day').format(formato);
+        } else {
+            return moment().subtract(dias, 'days').startOf('day').format(formato);
+        }
+    },
+    ajustarFecha(masMenos = '+', años = 0, meses = 0, dias = 0,formato = 'DD-MM-YYYY') {
         // Obtener la fecha de hoy
         var fechaHoy = new Date();
     
@@ -194,7 +204,11 @@ export default {
         var fechaAjustada = new Date(año, mes - 1, día); // Restar 1 al mes ya que es indexado desde 0
     
         // Formatear la fecha en formato "DD-MM-YYYY"
-        var fechaFormateada = (día < 10 ? '0' : '') + día + '-' + (mes < 10 ? '0' : '') + mes + '-' + año;
+        if(formato == 'DD-MM-YYYY'){
+            var fechaFormateada = (día < 10 ? '0' : '') + día + '-' + (mes < 10 ? '0' : '') + mes + '-' + año;
+        } else {
+            var fechaFormateada = año + '-' + (mes < 10 ? '0' : '') + mes + '-' +  (día < 10 ? '0' : '') + día;
+        }
     
         return fechaFormateada;
     },

@@ -268,6 +268,68 @@
                         <p class="m-0 p-0" v-if="errors[0]"><small class=" m-0 p-0 font-weight-bolder text-danger">{{ errors[0] }}</small></p>
                         </validation-provider>
                       </div>
+                  <!-- input input-dateTimer  -->
+                      <div v-if="input.type === 'input-dateTimer'">
+                        <!-- Provider de validación -->
+                        <validation-provider
+                            #default="{ errors }"
+                            :name=" (typeof input.name  != 'undefined'?input.name:'')"
+                            :rules="(typeof input.rules != 'undefined'?input.rules:'')"
+                        >
+                        <!-- Label -->
+                        <p
+                            :for="input.name"
+                            :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                        >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
+                        
+                        <input
+                            :id="'input'+input.name"
+                            :class="' form-control col-12 '"
+                            type="text"
+                            v-model="form[input.value]"
+                            readonly
+                            @click="show = !show"
+                        />
+                        <date-picker 
+                            :show="show"
+                            :custom-input="'#input'+input.name"
+                            @close="show=false"
+                            :class="' col-12 m-0 p-0'"
+                            :min="getDate(input,'min')"
+                            :max="getDate(input,'max')"
+                            :id="   input.name"
+                            :ref="  input.name"
+                            :name=" input.name"
+                            format="YYYY-MM-DD HH:mm"
+                            display-format="YYYY-MM-DD HH:mm"
+                            v-model="form[input.value]"
+                            @onChange=" changeValueDatePicker(input.value) "
+                            :disabled=" formDisabled?true:(typeof input.disabled != 'undefined'?input.disabled:false) "
+                            locale="es" 
+                            type="datetime" 
+                            :color="'#ff0000d4'"
+                            :localeConfig="{
+                                es: {
+                                    dow: 0,
+                                    dir: 'ltr',
+                                    lang: {
+                                        label:     'Hola',
+                                        submit:    'Seleccionar',
+                                        cancel:    'Cancelar',
+                                        now:       'Hoy',
+                                        nextMonth: 'Siguiente mes',
+                                        prevMonth: 'Anterior mes',
+                                    }
+                                }
+                            }"
+                        />
+                            <!-- :min="(typeof input.minDate != 'undefined'?input.minDate:'')"
+                            :max="(typeof input.maxDate != 'undefined'?input.maxDate:'')" -->
+
+                        <!-- Errores de validación -->
+                        <p class="m-0 p-0" v-if="errors[0]"><small class=" m-0 p-0 font-weight-bolder text-danger">{{ errors[0] }}</small></p>
+                        </validation-provider>
+                      </div>
                   <!-- input input-phone -->
                       <div v-if="input.type === 'input-phone'">
                         <!-- Provider de validación -->
@@ -528,6 +590,7 @@
         BInputGroupAppend,
         BFormCheckboxGroup
     } from 'bootstrap-vue'
+    import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
     import vSelect from 'vue-select'
     import {
       ValidationProvider,
@@ -550,12 +613,15 @@
     import apis from '@/apis/useApis'
     import customSelect from '@currentComponents/customSelect.vue'
 import { data } from 'vue-echarts'
+    import moment from 'moment';
+    import 'moment-timezone';
 
   export default {
     directives: {
       Ripple,
     },
     components: {
+        datePicker: VuePersianDatetimePicker,
         VuePhoneNumberInput,
         BFormCheckboxGroup,
         BRow,
@@ -583,6 +649,7 @@ import { data } from 'vue-echarts'
     },
     data() {
         return {
+            show:false,
             calendarOptions: {
                 'z-index': 9999,
             },
@@ -606,7 +673,7 @@ import { data } from 'vue-echarts'
             },
             optionsInputAsociado : {
                 // Configuramos el bloque de dígitos enteros
-                blocks: [5],
+                blocks: [6],
                 // Permitimos solo valores numéricos
                 numericOnly: true,
                 // Establecemos el valor mínimo y máximo
@@ -661,6 +728,10 @@ import { data } from 'vue-echarts'
     },
     mixins : [customHelpers],
     created() {},
+    mounted() {
+    // Establecer el huso horario a México (Ciudad de México)
+    moment.tz.setDefault('America/Mexico_City');
+    },
     watch: {
       data(){
         this.inicializar();
@@ -767,6 +838,8 @@ import { data } from 'vue-echarts'
                     valor = this.data == null ? false : ( this.data.hasOwnProperty(item.value) ? this.data[item.value] : false )
                 }else if(item.type == 'input-money'){
                     valor = this.data == null ? 0 : ( this.data.hasOwnProperty(item.value) ? this.data[item.value] : 0 )
+                }else if(item.type == 'input-dateTimer'){
+                    valor = this.data == null ? 0 : ( this.data.hasOwnProperty(item.value) ? this.data[item.value] : this.ajustarFecha('+',0,0,0,'') )
                 }else{
                     valor = this.data == null ? null : ( this.data.hasOwnProperty(item.value) ? this.data[item.value] : null )
                 }

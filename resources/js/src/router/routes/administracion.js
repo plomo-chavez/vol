@@ -45,20 +45,21 @@ export default [
       },
     },
     {
+      path: '/guardias-horas',
+      name: 'guardias-horas',
+      component: () => import('@/views/guardias/Guardias.vue'),
+      meta: {
+          pageTitle: 'Guardias',
+          permitidos: 'all',
+      },
+    },
+    {
       path: '/verificador/horas',
       name: 'verificador-horas',
       component: () => import('@/views/horas/formHoras.vue'),
       meta: {
           pageTitle: 'Agregar horas voluntarias',
           // permitidos: 'verificador horas voluntarias',
-      },
-    },
-    {
-      path: '/delegaciones',
-      name: 'delegaciones',
-      component: () => import('@/views/delegaciones/Delegaciones.vue'),
-      meta: {
-          pageTitle: 'Delegaciones',
       },
     },
     {

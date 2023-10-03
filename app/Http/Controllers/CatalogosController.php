@@ -21,38 +21,62 @@ class CatalogosController extends BaseController {
     }
     public function getQuery($payload,$query = true) {
         switch ($payload['catalogo']) {
-            case 'catalogo-areas': 
-                return new Areas(); 
+            case 'sexo': 
+                return [
+                    ['id' => 'Masculino', 'nombre' => 'Masculino'],
+                    ['id' => 'Femenino', 'nombre' => 'Femenino'],
+                ];
             break;
-            case 'catalogo-tipo-autoridades': 
-                return new modelo(); 
+            case 'nacionalidad': 
+                return [
+                    ['id' => 'Mexicana', 'nombre' => 'Mexicana'],
+                ];
             break;
-            case 'catalogo-tipo-sangre': 
-                return new TipoUsuario(); 
+            case 'estadoCivil': 
+                return [
+                    ['id' => 'Soltero', 'nombre' => 'Soltero'],
+                    ['id' => 'Casado', 'nombre' => 'Casado'],
+                ];
             break;
-            case 'catalogo-actividades-horas-voluntarias': 
-                return new modelo(); 
+            case 'tiposSangre': 
+                return [
+                    ['id' => 'AB +', 'nombre' => 'AB +'],
+                    ['id' => 'AB -', 'nombre' => 'AB -'],
+                    ['id' => 'A +', 'nombre' => 'A +'],
+                    ['id' => 'A -', 'nombre' => 'A -'],
+                    ['id' => 'B +', 'nombre' => 'B +'],
+                    ['id' => 'B -', 'nombre' => 'B -'],
+                    ['id' => 'O +', 'nombre' => 'O +'],
+                    ['id' => 'O -', 'nombre' => 'O -'],
+                ];
             break;
-            case 'catalogo-estados': 
-                return new Estado(); 
-            break;
-            case 'catalogo-tipo-usuarios': 
-                return new TipoUsuario(); 
-            break;
-            case 'tipo-actividades-horas-voluntarias': 
+            case 'estados': 
                 if($query) {
-                    return tipoActividadesHV::orderBy('id', 'asc')->select('id','nombre');
+                    $tmp = Estado::orderBy('id', 'asc');
+                    return self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
                 } else {
-                    return new tipoActividadesHV();
+                    return new Estado();
                 }
+            break;
+            case 'voluntariosXDelegacion': 
+                $data = [];
+                $filtros = $payload['filtro'];
+                if ($filtros['isLocal']) {
+                    $data = Voluntarios::where('delegacion_id', $filtros['delegacion_id']);
+                } else {
+                    $ids = self::idsDelegacionXEstado($filtros['estado_id']);
+                    $data = Voluntarios::whereIn('delegacion_id',$ids);
+                }
+                $data = $data->select('id','nombre','primerApellido','segundoApellido','numeroInterno','numeroAsociado')->get()->toArray();
+                foreach ($data as $index => $item) {
+                    $data[$index]['label'] = ($item['numeroInterno'] ?? '').' - '.($item['numeroAsociado'] ?? '').' - '.($item['nombreCompleto'] ?? '');
+                }
+                return $data;
             break;
             case 'tipo-subactividades-horas-voluntarias': 
                 if($query) {
                     $tmp = subTipoActividadesHV::orderBy('id', 'asc')->select('id','actividad_id','nombre')->with('actividad');
-                    foreach ($payload['filtro'] as $key => $value) {
-                        $tmp = $tmp->where($key,$value);
-                    }
-                    return $tmp;
+                    return self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
                 } else {
                     return new subTipoActividadesHV();
                 }
@@ -60,9 +84,25 @@ class CatalogosController extends BaseController {
             case 'areas': 
                 if($query) {
                     $tmp = Areas::orderBy('id', 'asc')->select('id','nombre');
-                    return self::addFiltros($payload['filtro'],$tmp);
+                    return self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
                 } else {
                     return new Areas();
+                }
+            break;
+            case 'tipo-autoridades': 
+                if($query) {
+                    $tmp = Areas::orderBy('id', 'asc')->select('id','nombre');
+                    return self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
+                } else {
+                    return new Areas();
+                }
+            break;
+            case 'tipo-usuarios': 
+                if($query) {
+                    $tmp = TipoUsuario::orderBy('id', 'asc')->select('id','nombre');
+                    return self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
+                } else {
+                    return new TipoUsuario();
                 }
             break;
         }
@@ -72,10 +112,7 @@ class CatalogosController extends BaseController {
         $payload = $request->all();
         $data = [];
         if ($payload['catalogo'] != 'DelegacionesXTipoCoordinador' ){
-            $query = self::getQuery($payload);
-            if($query != null) {
-                $data = $query->get()->toArray();
-            }
+            $data = self::getQuery($payload);
         } else {
             $tipoUsuarioID = null;
             if (isset($payload['filtro']['tipoUsuario_id'])) {
@@ -126,6 +163,7 @@ class CatalogosController extends BaseController {
             $data,
         );
     }
+
     public function validarExistente($payload,$modelo, $isNew) {
         $query = $modelo::where('nombre',$payload['nombre']);
         if(!$isNew){
@@ -186,6 +224,7 @@ class CatalogosController extends BaseController {
             $data,
         );
     }
+    
     public function getTiposUsuarios(Request $request){
         $data = TipoUsuario::orderBy('nombre',"asc")
                 ->get();
@@ -195,55 +234,7 @@ class CatalogosController extends BaseController {
             $data,
         );
     }
-    public function getNacionalidad(Request $request){
-        $data = [
-            ['id' => 'Mexicana', 'nombre' => 'Mexicana'],
-        ];
-        return self::responsee(
-            'Consulta realizada con exito.',
-            true,
-            $data,
-        );
-    }
-    public function getSexo(Request $request){
-        $data = [
-            ['id' => 'Masculino', 'nombre' => 'Masculino'],
-            ['id' => 'Femenino', 'nombre' => 'Femenino'],
-        ];
-        return self::responsee(
-            'Consulta realizada con exito.',
-            true,
-            $data,
-        );
-    }
-    public function getEstadoCivil(Request $request){
-        $data = [
-            ['id' => 'Soltero', 'nombre' => 'Soltero'],
-            ['id' => 'Casado', 'nombre' => 'Casado'],
-        ];
-        return self::responsee(
-            'Consulta realizada con exito.',
-            true,
-            $data,
-        );
-    }
-    public function getTipoSangre(Request $request){
-        $data = [
-            ['id' => 'AB+', 'nombre' => 'AB+'],
-            ['id' => 'AB-', 'nombre' => 'AB-'],
-            ['id' => 'A+', 'nombre' => 'A+'],
-            ['id' => 'A-', 'nombre' => 'A-'],
-            ['id' => 'B+', 'nombre' => 'B+'],
-            ['id' => 'B-', 'nombre' => 'B-'],
-            ['id' => 'O+', 'nombre' => 'O+'],
-            ['id' => 'O-', 'nombre' => 'O-'],
-        ];
-        return self::responsee(
-            'Consulta realizada con exito.',
-            true,
-            $data,
-        );
-    }
+
     public function getDelegaciones(Request $request){
         $data = Delegaciones::orderBy('nombre',"asc")
                 ->get();
@@ -253,15 +244,7 @@ class CatalogosController extends BaseController {
             $data,
         );
     }
-    public function getAreas(Request $request){
-        $data = Areas::orderBy('nombre',"asc")
-                ->get();
-        return self::responsee(
-            'Consulta realizada con exito.',
-            true,
-            $data,
-        );
-    }
+
     public function getEstados(Request $request){
         $data = Estado::orderBy('nombre',"asc")
                 ->get();
@@ -271,6 +254,7 @@ class CatalogosController extends BaseController {
             $data,
         );
     }
+
     public function getTiposAsociado(Request $request){
         $data = TipoAsociado::orderBy('nombre',"asc")
                 ->get();
@@ -280,20 +264,11 @@ class CatalogosController extends BaseController {
             $data,
         );
     }
+
     public function voluntariosXDelegacion(Request $request) {
         $payload = $request->all();
         $data = null; // Inicializamos $data fuera de las condiciones
     
-        if ($payload['isLocal']) {
-            $data = Voluntarios::where('delegacion_id', $payload['delegacion_id']);
-        } else {
-            $ids = self::idsDelegacionXEstado($payload['estado_id']);
-            $data = Voluntarios::whereIn('delegacion_id',$ids);
-        }
-        $data = $data->select('id','nombre','primerApellido','segundoApellido','numeroInterno','numeroAsociado')->get()->toArray();
-        foreach ($data as $index => $item) {
-            $data[$index]['label'] = ($item['numeroInterno'] ?? '').' - '.($item['numeroAsociado'] ?? '').' - '.($item['nombreCompleto'] ?? '');
-        }
         if ($data !== null) { // Verificamos si se asignó un valor a $data
             return self::responsee(
                 'Consulta realizada con éxito.',
@@ -320,6 +295,7 @@ class CatalogosController extends BaseController {
             $data,
         );
     }
+
     public function delegacionesXTipoCoordinador(Request $request){
         $tipoUsuarioID = null;
         $payload = $request->all();

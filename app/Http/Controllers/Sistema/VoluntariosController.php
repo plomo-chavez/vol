@@ -226,6 +226,7 @@ class VoluntariosController extends BaseController {
                     $payload['numeroInterno'] = self::getNumeroInerno($payload['delegacion_id']);
                 }
             }
+            // dd($registro,$registro->numeroInterno == NULL,isset($payload['delegacion_id']),$payload);
             $modelo::updateOrCreate(['id' => $payload['id']],$payload);
             return self::responsee('Registro actualizado corrrectamente.');
         } else {
