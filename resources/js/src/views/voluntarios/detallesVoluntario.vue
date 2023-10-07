@@ -12,14 +12,15 @@
         <div>
         </div>
     </div>
-    <b-card class="col-12 p-2">
-        <b-tabs content-class="pt-1" fill v-if="voluntario != null" >
-            <b-tab>
+    <b-card class="wwfull p-2">
+        <b-tabs content-class="pt-1 p-0" fill v-if="voluntario != null"  @input="handleTabChange">
+            <b-tab class="wwfull pp-2" >
                 <template #title>
                     <feather-icon icon="ToolIcon" />
                     <span class="d-none d-sm-block">Información del voluntario</span>
                 </template>
                 <formDatosVoluntario
+                    v-if="tabID == 0 "
                     withCard
                     :isRegistro="isRegistro"
                     :data = 'voluntario'
@@ -27,14 +28,21 @@
                     exportActions
                 />
             </b-tab>
-            <b-tab>
+            <b-tab class="wwfull pp-2" >
                 <template #title>
                     <feather-icon icon="ToolIcon" />
                     <span class="d-none d-sm-block">Información personal</span>
                 </template>
-                <h3 class="col-12 text-center">Proximamente</h3>
+                <formDatosVoluntarioExtra
+                    v-if="tabID == 1 "
+                    withCard
+                    :isRegistro="isRegistro"
+                    :data = 'voluntario'
+                    :btnCancel="false"
+                    exportActions
+                />
             </b-tab>
-            <b-tab v-if="!isRegistro">
+            <b-tab class="wwfull pp-2"  v-if="!isRegistro">
                 <template #title>
                     <feather-icon icon="ToolIcon" />
                     <span class="d-none d-sm-block">Horas voluntarias</span>
@@ -43,10 +51,11 @@
                     :voluntario_id="voluntario_id"
                 /> -->
                 <HorasVoluntarias
+                    v-if="tabID == 2 "
                     :voluntario_id="voluntario_id"
                 />
             </b-tab>
-            <b-tab v-if="!isRegistro">
+            <b-tab class="wwfull pp-2"  v-if="!isRegistro">
                 <template #title>
                     <feather-icon icon="ToolIcon" />
                     <span class="d-none d-sm-block">Expediente</span>
@@ -62,6 +71,7 @@
 <script>
     import { BTabs, BTab, BCard, BButton, VBModal } from 'bootstrap-vue'
     import formDatosVoluntario  from '@/views/voluntarios/formDatosVoluntario.vue'
+    import formDatosVoluntarioExtra  from '@/views/voluntarios/formDatosVoluntarioExtra.vue'
     import tabHoras  from '@/views/voluntarios/tabHorasVoluntarias.vue'
     import peticiones from '@/apis/usePeticiones'
     import customHelpers  from '@helpers/customHelpers'
@@ -73,6 +83,7 @@
         mixins : [customHelpers],
         components: {
             HorasVoluntarias,
+            formDatosVoluntarioExtra,
             BCard,
             BTabs,
             BTab,
@@ -83,7 +94,8 @@
         mounted() {},
         data() {
             return {
-                voluntario : null,
+                voluntario  : null,
+                tabID       : 0,
             }
         },
         props: {
@@ -167,6 +179,9 @@
         },
         methods:{
 
+            handleTabChange(tabID) {
+            this.tabID = tabID
+        },
         }
     }
 </script>

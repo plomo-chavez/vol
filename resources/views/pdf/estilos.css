@@ -1,0 +1,56 @@
+
+body {
+  line-height: 115%;
+  font-family:Arial;
+  font-size: 11pt;
+  font-family: 'Arial Black';
+}
+.w5 { width: 5%!important;}
+.w8 { width: 8%!important;}
+.w10 { width: 10%!important;}
+.w15 { width: 15%!important;}
+.w20 { width: 20%!important;}
+.w21 { width: 21%!important;}
+.w25 { width: 25%!important;}
+.w33 { width: 33.33%!important;}
+.w40 { width: 40%!important;}
+.w50 { width: 50%!important;}
+.w60 { width: 60%!important;}
+tr { width: 1005;}
+.tdSubtitulo { 
+  background-color:#bfbfbf;
+  height: 10px!important;
+  vertical-align: middle!important;
+}
+.tdRed{ background-color:#DD0000; }
+.textTitulo { color: #fff; font-weight: bold;}
+span { font-family:Arial;} 
+p {
+  margin: 0pt 0pt 10pt;
+  margin-bottom:0pt; 
+  line-height:normal; 
+  font-size:9pt;
+}
+.tbRegistro td {
+  border:0.5pt solid #6b6b6b;
+  padding-right:2pt; 
+  padding-left:2pt; 
+  vertical-align:top;
+}
+.alignVB {
+  vertical-align: bottom!important;
+} 
+.alignVM {
+  vertical-align: middle!important;
+} 
+.h10 { height: 10px!important; } 
+.h50 { height: 50px!important; } 
+
+.tbRegistro {
+  margin-top: 0pt;
+  margin-bottom: 10pt;
+  width:100%; 
+  margin-bottom:0pt; 
+  border-collapse:collapse;
+  text-align: center!important;
+}

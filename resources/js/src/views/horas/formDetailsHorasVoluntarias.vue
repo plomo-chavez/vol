@@ -332,9 +332,6 @@ export default {
                 let response         = await this.peticionGeneral('administrarGuardiaHoras',payload,false);
                 this.horas     = this.copyObject(response.data)
         },
-        handleWindowResize() {
-            this.windowInnerWidth = window.innerWidth;
-        },
         atrasDetalleMes(){
             let tmp = this.panelHistorico == 3 ? 2 : 1;
             this.panelHistorico = 0;

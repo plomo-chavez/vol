@@ -23120,6 +23120,18 @@ ul.list-inline.list-inline-pipe > li + li:before {
   padding: 10px;
 }
 
+[dir] .pp-1 {
+  padding: 1px !important;
+}
+
+[dir] .pp-2 {
+  padding: 2px !important;
+}
+
+[dir] .pp-3 {
+  padding: 3px !important;
+}
+
 [dir] .pp-custom {
   padding: 5px !important;
 }
@@ -23160,6 +23172,14 @@ ul.list-inline.list-inline-pipe > li + li:before {
   margin-top: 25px !important;
 }
 
+[dir] .mmb-005 {
+  margin-bottom: 0.5px !important;
+}
+
+[dir] .mmb-05 {
+  margin-bottom: 1px !important;
+}
+
 [dir] .mmb-1 {
   margin-bottom: 2px !important;
 }
@@ -23186,6 +23206,10 @@ ul.list-inline.list-inline-pipe > li + li:before {
 
 .wwfull {
   width: 100% !important;
+}
+
+.ww-30 {
+  width: 30px !important;
 }
 
 .ww-50 {
@@ -23306,6 +23330,14 @@ ul.list-inline.list-inline-pipe > li + li:before {
 
 .hh-25A {
   height: calc(100% - 25px) !important;
+}
+
+.hh-35 {
+  height: 35px !important;
+}
+
+.hh-35A {
+  height: calc(100% - 35px) !important;
 }
 
 .hh-50 {

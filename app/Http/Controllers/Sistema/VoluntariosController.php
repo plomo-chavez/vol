@@ -7,6 +7,7 @@ use App\Http\Controllers\Email\MailController;
 use App\Http\Controllers\Sistema\Modelos\DelegacionAreasCoordinadores;
 use App\Http\Controllers\Sistema\Modelos\HorasVoluntarias;
 use App\Http\Controllers\Sistema\Modelos\HorasVoluntariasContadores;
+use App\Http\Controllers\Sistema\Modelos\VoluntariosExtraInfo;
 use App\Http\Controllers\Sistema\Modelos\Voluntarios as Modelo;
 
 
@@ -53,6 +54,9 @@ class VoluntariosController extends BaseController {
                 break;            
                 case 6:
                     return self::actualizarCodigo($payload, $modelo);
+                break;        
+                case 7:
+                    return self::actualizarExtraInfo($payload);
                 break;
                 default:
                     return self::responsee('Acción no válida', false);
@@ -61,7 +65,27 @@ class VoluntariosController extends BaseController {
             return self::responsee('No existe una acción.', false);
         }
     }
-    
+    public function actualizarExtraInfo($payload) {
+        if(isset($payload['query'])){
+            $tmp  = VoluntariosExtraInfo::where('voluntario_id' ,$payload['voluntario_id'])
+            ->with('estado')
+            ->first();
+            return self::responsee('Voluntario registrado correctamente.', true, $tmp);
+
+        } else {
+
+            // Obtén el modelo de VoluntariosExtraInfo y sus nombres de columna
+            $modelo = new VoluntariosExtraInfo();
+            $columnas = $modelo->getFillable();
+
+            // Filtra el arreglo $payload para incluir solo las columnas existentes en el modelo
+            $datosActualizables = array_intersect_key($payload, array_flip($columnas));
+
+            // Llama a updateOrInsert con los datos filtrados
+            VoluntariosExtraInfo::updateOrInsert(['voluntario_id' => $payload['voluntario_id']], $datosActualizables);
+            return self::responsee('Voluntario registrado correctamente.', true, []);
+        }
+    }
     public function getVoluntario(Request $request){
         $payload = $request->all();
         $payload = $payload['payload'];

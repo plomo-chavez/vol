@@ -14,9 +14,11 @@ export default {
     loading(tipo = true){
       document.getElementById("loading-bg").style.display = tipo?"block":"none";
     },
+    handleWindowResize() {
+        this.windowInnerWidth = window.innerWidth;
+    },
 
     async getCatalogo(input){
-        console.log('input', input);
         if (typeof input.catalogo == 'string') {
             return await this.peticionCatalogo(input.catalogo,input.filtros,input.formato);
         }

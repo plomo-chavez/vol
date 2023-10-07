@@ -1,9 +1,7 @@
 
 <template>
     <div>
-        <component v-bind:is="withCard ? 'b-card' : 'div'"
-            class="col-12 p-2"
-        >
+        <component v-bind:is="withCard ? 'b-card' : 'div'" class="col-12 pp-2" >
             <div class=" col-12 d-flex flex-wrap justify-content-between">
                 <ModalForm
                     :openModal="openModalForm"
@@ -29,8 +27,9 @@
                     @handleSubmit="changeDuracion"
                     @handleCancelar="() => { openModalForm = false }"
                 />
-                <div>
-                    <b-button
+                <div :class="' wwfull d-flex flex-wrap ' + (windowInnerWidth <= 600 ? ' justify-content-center ' : ' justify-content-start ') ">
+                    <b-button 
+                        class=" mm-1 "
                     v-if="!isRegistro"
                         size="sm"
                         v-ripple.400="'rgba(186, 191, 199, 0.15)'"
@@ -38,19 +37,22 @@
                         variant="relief-primary"
                     >Foto del voluntario</b-button>
                         <!-- @click="handleExportFichaRegistro" -->
-                        <b-button
+                        <b-button 
+                            class=" mm-1 "
                     v-if="!isRegistro"
                         size="sm"
                         variant="relief-secondary"
                         @click="handleExportFichaRegistro"
                     >Generar ficha de registro</b-button>
-                    <b-button
+                    <b-button 
+                        class=" mm-1 "
                     v-if="!isRegistro"
                         size="sm"
                         variant="relief-secondary"
                         @click="() => { openModalForm  = true }"
                     >Generar Credencial Temporal</b-button>
-                    <b-button
+                    <b-button 
+                        class=" mm-1 "
                     v-if="!isRegistro"
                         size="sm"
                         variant="relief-secondary"
@@ -64,6 +66,7 @@
                 v-if="viewForm"
                 ref="formVoluntario"
                 class="col-12 mx-auto"
+                classForm="''"
                 :btnsAccion="false"
                 :data = 'dataForm'
                 :schema="formSchemaFormVoluntario"
@@ -161,6 +164,7 @@
         mounted() {},
         data() {
             return {
+                windowInnerWidth: window.innerWidth,
                 userData    : JSON.parse(localStorage.getItem('userData')) ?? null,
                 dataForm    : {},
                 urlImagen   : null,
@@ -171,7 +175,7 @@
                 modalArchivos    : false,
                 formSchemaFormVoluntario: [
                     {
-                        classContainer:'col-lg-3  col-md-4 col-12',
+                        classContainer:'col-lg-3  col-md-6 col-6',
                         type        : 'input-asociado',
                         name        : 'numeroAsociado',
                         value       : 'numeroAsociado',
@@ -180,17 +184,13 @@
                         disabled    :  (JSON.parse(localStorage.getItem('userData'))?.tipoUsuario_id ?? 1) > 2,
                     },
                     {
-                        classContainer:'col-lg-3  col-md-4 col-12',
+                        classContainer:'col-lg-3  col-md-6 col-6',
                         type        : 'input-text',
                         name        : 'numeroInterno',
                         value       : 'numeroInterno',
                         label       : 'Numero Interno',
                         placeholder : 'Introduce un numero de interno',
                         disabled    : true,
-                    },
-                    {
-                        classContainer:'col-lg-6 col-4',
-                        type        : 'input-blank',
                     },
                     {
                         classContainer:'col-12 col-md-4',
@@ -408,9 +408,6 @@
         computed: {
 
         },
-        created() {
-
-        },
         beforeMount(){
             if (this.isRegistro) {
                 this.formSchemaFormVoluntario.splice(-3);
@@ -418,6 +415,12 @@
             this.urlImagen = this.data != null ? (this.data?.urlImagen ?? null) : null;
         },
         mounted(){
+        },
+        created() {
+            window.addEventListener('resize', this.handleWindowResize);
+        },
+        destroyed() {
+            window.removeEventListener('resize', this.handleWindowResize);
         },
         methods:{
             handleAddCodigoCredencialNacional(){

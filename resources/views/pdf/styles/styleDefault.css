@@ -13,6 +13,13 @@ body {
     margin-right: 1cm;
     margin-bottom: 1cm;
 }
+.tituloFormato {
+  margin: 0px!important;
+  padding: 0px!important;
+  text-align: right;
+  font-weight: bold!important;
+}
+.text-primary { color: #DD0000!important; }
 
 /** Define the header rules **/
 header {
@@ -36,4 +43,11 @@ footer {
     text-align: center;
     font-size: 10px; /* Tamaño de letra deseado */
     line-height: 0!important;
-  }
+}
+
+.tbHeader {
+  width: 100%;
+}
+.tdTitulo{
+  vertical-align: bottom!important;
+}

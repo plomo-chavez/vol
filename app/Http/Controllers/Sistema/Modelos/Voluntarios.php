@@ -53,6 +53,9 @@ class Voluntarios extends Model
     public function usuario() {
         return $this->hasOne(User::class,'voluntario_id','id');
     }
+    public function extraInfo() {
+        return $this->hasOne(VoluntariosExtraInfo::class,'voluntario_id','id');
+    }
     public function area() {
         return $this->hasOne(Areas::class,'id','area_id')->select('id','nombre');
     }

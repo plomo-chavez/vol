@@ -44,15 +44,15 @@ td{ width: 33.3333%!important; }
 .w-tmp { width: 100px!important; }
 .w-fecha { width: 70px!important; }
 .table td,
-.table th { border: 0.5px solid black; }
+/* .table th { border: 0.5px solid black; } */
 .tableTitulo{
   font-size: small;
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
   width: 100%;
 }
 .tableTitulo h4{
   font-size: small;
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
   line-height: 0!important;
   width: 100%;
 }
@@ -62,7 +62,7 @@ span {
 }
 .table {
   font-size: x-small;
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
   width: 100%!important;
 }
 tfoot tr td{

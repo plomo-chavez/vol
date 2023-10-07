@@ -174,8 +174,13 @@ export default {
                     filtro      : filtros
                 }
                 let response = await catalogos.getCatalogo(tmpPayload);
+                if(response.data.data != null){
 
-                return this.formatoToCatalogo(response.data.data,formatoLocal.all,formatoLocal.indexValue,formatoLocal.indexLabel)
+                    return this.formatoToCatalogo(response.data.data,formatoLocal.all,formatoLocal.indexValue,formatoLocal.indexLabel)
+                } else {
+                    console.log('Problemas con el catalogo: ', method)
+                    return [];
+                } 
             } catch (error) {
                 this.catchError(error);
             }

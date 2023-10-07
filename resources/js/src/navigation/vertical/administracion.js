@@ -5,16 +5,6 @@ export default [
     route: 'voluntarios',
   },
   {
-    title: 'Horas voluntarias',
-    icon: 'ClockIcon',
-    route: 'horas',
-  },
-  {
-    title: 'Guardias de HV',
-    icon: 'ClockIcon',
-    route: 'guardias-horas',
-  },
-  {
     title: 'Verificador HV',
     icon: 'ClockIcon',
     route: 'verificador-horas',
@@ -108,6 +98,21 @@ export default [
       //     title: 'Voluntarios',
       //     route: 'voluntarios',
       //   },
+    ],
+  },
+  {
+    title: 'Horas Voluntarias',
+    icon: 'ClockIcon',
+    children: [
+      
+      {
+        title: 'Horas voluntarias',
+        route: 'horas',
+      },
+      {
+        title: 'Guardias de HV',
+        route: 'guardias-horas',
+      },
     ],
   },
 ]

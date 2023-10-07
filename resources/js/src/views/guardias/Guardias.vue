@@ -108,7 +108,7 @@
         userData    : JSON.parse(localStorage.getItem('userData')),
         data        : null,
         accion      : 1,
-        itemVoluntario : null,
+        itemVoluntario  : null,
         openModalForm   : false,
         showForm    : false,
         activeRow   : null,
@@ -116,7 +116,7 @@
         canClose    : false,
         schemaMain: [
             {
-                classContainer:'col-lg-4 col-md-6 col-12',
+                classContainer:'col-12 col-lg-6 col-md-6 col-sm-12',
                 type        : 'input-text',
                 disabled    : true,
                 name        : 'delegación',
@@ -124,7 +124,7 @@
                 label       : 'Delegación'
             },
             {
-                classContainer:'col-lg-4 col-md-6 col-12',
+                classContainer:'col-12 col-lg-6 col-md-6 col-sm-12',
                 type        : 'input-text',
                 disabled    : true,
                 name        : 'verificador',
@@ -132,7 +132,7 @@
                 label       : 'Verificador',
             },
             {
-                classContainer:'col-lg-4 col-md-6 col-12',
+                classContainer:'col-12 col-lg-6 col-md-6 col-sm-12',
                 type        : 'input-dateTimer',
                 disabled    : true,
                 name        : 'inicio',
@@ -140,7 +140,7 @@
                 label       : 'Inicio',
             },
             {
-                classContainer:'col-lg-4 col-md-6 col-12',
+                classContainer:'col-12 col-lg-6 col-md-6 col-sm-12',
                 type        : 'input-dateTimer',
                 rules       : 'required',
                 disabled    : true,

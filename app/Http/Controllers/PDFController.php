@@ -15,11 +15,7 @@ class PDFController extends BaseController {
     public static function generatePDF($data,$viewTemplate,$fileName) {
         try {
             $dompdf = new Dompdf();
-            if (strpos($viewTemplate,'credencialTemporal') !== false) {
-                $data['imgCR'] = self::getMainURL().'/images/elementos/crHorizontal.jpeg';
-                $data['imgVoluntariado'] = self::getMainURL().'/images/elementos/voluntariado.png';
-                $data['imgVoluntario'] = self::getMainURL().'/images/elementos/perfilDefault.jpg';
-            }
+            $data['cr_pdf'] = self::getMainURL().'/storage/galeria/CR_PDF.jpg';
             // Renderizar la vista a HTML
             $data['fechaImpresa'] = self::fechaWithHora();
             $html = View::make($viewTemplate, $data)->render();
@@ -27,16 +23,27 @@ class PDFController extends BaseController {
             $cssPathDefault = resource_path('views/pdf/styles/styleDefault.css');
             $cssDefault = file_get_contents($cssPathDefault);
             $html = $html . '<style>' . $cssDefault . '</style>';
+            // $html = $html . '<style>' . $cssDefault . '</style>';
             if (strpos($viewTemplate,'credencialTemporal') !== false) {
                 $cssPath = resource_path('views/pdf/styles/styleCredencialTemporal.css');
                 $css = file_get_contents($cssPath);
                 $html = $html . '<style>' . $css . '</style>';
-            } else {
-                // Cargar el archivo CSS externo
-                $cssPathDefault = resource_path('views/pdf/styles/styleCR.css');
-                $cssDefault = file_get_contents($cssPathDefault);
-                $html = $html . '<style>' . $cssDefault . '</style>';
+                $data['imgCR'] = self::getMainURL().'/images/elementos/crHorizontal.jpeg';
+                $data['imgVoluntariado'] = self::getMainURL().'/images/elementos/voluntariado.png';
+                $data['imgVoluntario'] = self::getMainURL().'/images/elementos/perfilDefault.jpg';
             }
+            if (strpos($viewTemplate,'fichaRegistro') !== false) {
+                $cssEstilos = resource_path('views/pdf/estilos.css');
+                $cssEstilos = file_get_contents($cssEstilos);
+                $html = $html . '<style>' . $cssEstilos . '</style>';
+            } 
+            // dd($data);
+            foreach ($data as $key => $value) {
+                if ($value === null) {
+                    $data[$key] = " &nbsp; ";
+                }
+            }
+            // dd($data);
             $dompdf->loadHtml($html);
             // Habilitar el procesamiento de CSS
             $options = $dompdf->getOptions();
@@ -91,11 +98,24 @@ class PDFController extends BaseController {
             if (!($payload['voluntario_id'] ?? false)) {
                 return self::response($message = 'Falta voluntario_id');
             } else {
-                $data = Voluntarios::find($payload['voluntario_id'])->toArray();
+                $data = Voluntarios::where('id',$payload['voluntario_id'])
+                ->with('area')
+                ->with(['extraInfo' => function ($query) {
+                    $query->with('estado');
+                }])
+                ->first()->toArray();
+                if(isset($data['extra_info'])){
+                    $data = array_merge($data, $data['extra_info']);
+                    unset($data['extra_info']);
+                }
+                $data['area'] = $data['area']['nombre'] ?? '';
+                $data['estado'] = $data['estado']['nombre'] ?? '';
+                // dd($data);
                 if ($data != null) {
                     $path = 'voluntarios'.'/'.$data['numeroInterno'];
                     $urlCodigoInterno = self::getURLCodeInterno($data['numeroInterno']);
                     $data['qrCode'] = QRController::generateAndSaveQR($urlCodigoInterno,$path,'qrScanVoluntario');
+                    $data['tituloDocumento'] = 'PRIMER CONTACTO Y REGISTRO DE ASPIRANTE';
                     return array(
                         'result'    => true,
                         'message'   => 'PDF generado con exito',

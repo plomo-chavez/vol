@@ -25,23 +25,21 @@
     input-checkbox: Campo de entrada de casilla de verificación.
     input-switch: Campo de entrada de interruptor. 
 -->
-
-
-
 <template>
     <component v-bind:is="withCard ? 'b-card' : 'div'" :class="classForm">
         <!-- Title & SubTitle -->
         <div v-if="title || subtitle" class="mb-2 col-12 p-0">
-            <component v-bind:is="withCard ? 'b-card-title' : 'h1'" v-if="title">{{ title }}</component>
+            <component v-bind:is="withCard ? 'b-card-title'     : 'h1'" v-if="title">{{ title }}</component>
             <component v-bind:is="withCard ? 'b-card-sub-title' : 'h3'" v-if="subtitle">{{ subtitle }}</component>
         </div>
-        <div class="col-12 p-11 pt-0 pb-0">
+        <div class="col-12 p-11 pt-0 pb-0" @keyup.enter="validationForm">
             <validation-observer ref="simpleRules">
-              <b-row>
+              <b-row :class="classRow">
                   <b-col
                       v-for="(input,indxInput) in schema"
                       :key="'input-'+indxInput"
-                      :class="(typeof input.classContainer != 'undefined'? input.classContainer : ' col-12 ' ) + ' mb-1' "
+                      class=" m-0 p-0 p-0 pp-3"
+                      :class="' mmb-1' + (typeof input.classContainer != 'undefined'? input.classContainer : ' col-12 ' ) "
                   >
                   <!-- input blank -->
                       <div v-if="input.type === 'input-blank'" ></div>
@@ -54,9 +52,9 @@
                         >
                         <p
                             :for="input.name"
-                            :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                            :class="'  text-truncate ' + (typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
                         >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
-                            <label class="bg-white col-12 p-0 m-0">
+                            <label v-if="form[input.value]" class="bg-white col-12 p-0 m-0">
                                 {{ form[input.value] }}
                             </label>
                             </validation-provider>
@@ -64,7 +62,7 @@
                       <div v-if="input.type === 'titulo-seccion'">
                         <p
                             :for="input.name"
-                            :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0 borderPrimary' "
+                            :class="'  text-truncate ' + (typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0 borderPrimary' "
                         >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
                         </div>
                   <!-- input text -->
@@ -76,7 +74,7 @@
                         >
                         <p
                             :for="input.name"
-                            :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                            :class="'  text-truncate ' + (typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
                         >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
                             <b-form-group
                             class=" p-0 m-0"
@@ -91,6 +89,7 @@
                                 </b-input-group-prepend>
                                 <b-form-input
                                     :id="   input.name"
+                                    :autofocus=" typeof input.focus != 'undefined' ? input.focus : false"
                                     :autocomplete="'false'"
                                     :ref="  input.name"
                                     :name=" input.name"
@@ -118,7 +117,7 @@
                         >
                         <p
                             :for="input.name"
-                            :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                            :class="'  text-truncate ' + (typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
                         >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
                             <b-form-group
                             class=" p-0 m-0"
@@ -159,7 +158,7 @@
                         >
                         <p
                             :for="input.name"
-                            :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                            :class="'  text-truncate ' + (typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
                         >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
                             <b-form-group
                             class=" p-0 m-0"
@@ -203,7 +202,7 @@
                         <!-- Label -->
                         <p
                             :for="input.name"
-                            :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                            :class="'  text-truncate ' + (typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
                         >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
                         <!-- Input -->
                         <b-form-textarea
@@ -238,7 +237,7 @@
                         <!-- Label -->
                         <p
                             :for="input.name"
-                            :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                            :class="'  text-truncate ' + (typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
                         >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
                         <!-- input -->
                         <VueDatePicker
@@ -268,8 +267,8 @@
                         <p class="m-0 p-0" v-if="errors[0]"><small class=" m-0 p-0 font-weight-bolder text-danger">{{ errors[0] }}</small></p>
                         </validation-provider>
                       </div>
-                  <!-- input input-dateTimer  -->
-                      <div v-if="input.type === 'input-dateTimer'">
+                  <!-- input input-timer -->
+                      <div v-if="input.type === 'input-timer'">
                         <!-- Provider de validación -->
                         <validation-provider
                             #default="{ errors }"
@@ -279,50 +278,38 @@
                         <!-- Label -->
                         <p
                             :for="input.name"
-                            :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                            :class="'  text-truncate ' + (typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
                         >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
-                        
-                        <input
-                            :id="'input'+input.name"
-                            :class="' form-control col-12 '"
-                            type="text"
-                            v-model="form[input.value]"
-                            readonly
-                            @click="show = !show"
-                        />
-                        <date-picker 
-                            :show="show"
-                            :custom-input="'#input'+input.name"
-                            @close="show=false"
-                            :class="' col-12 m-0 p-0'"
-                            :min="getDate(input,'min')"
-                            :max="getDate(input,'max')"
-                            :id="   input.name"
-                            :ref="  input.name"
-                            :name=" input.name"
-                            format="YYYY-MM-DD HH:mm"
-                            display-format="YYYY-MM-DD HH:mm"
-                            v-model="form[input.value]"
-                            @onChange=" changeValueDatePicker(input.value) "
-                            :disabled=" formDisabled?true:(typeof input.disabled != 'undefined'?input.disabled:false) "
-                            locale="es" 
-                            type="datetime" 
-                            :color="'#ff0000d4'"
-                            :localeConfig="{
-                                es: {
-                                    dow: 0,
-                                    dir: 'ltr',
-                                    lang: {
-                                        label:     'Hola',
-                                        submit:    'Seleccionar',
-                                        cancel:    'Cancelar',
-                                        now:       'Hoy',
-                                        nextMonth: 'Siguiente mes',
-                                        prevMonth: 'Anterior mes',
-                                    }
-                                }
-                            }"
-                        />
+
+                        <b-input-group
+                                class="input-group-merge"
+                            >
+                                <b-input-group-prepend is-text>
+                                <feather-icon :icon="'ClockIcon'" class="text-primary" />
+                                </b-input-group-prepend>
+                                <VuePersianDatetimePicker
+                                    type="time"
+                                    locale="es"
+                                    class="wwfull"
+                                    v-model="form[input.value]"
+                                    simple
+                                    min="08:08"
+                                    max="22:00"
+                                    :jump-minute="10"
+                                    :locale-config="{
+                                        'es': {
+                                            lang: {
+                                                label: 'Es',
+                                                submit: 'Seleccionar',
+                                                cancel: 'Cancelar',
+                                                now: 'Ahora',
+                                                nextMonth: 'Mes Anterior',
+                                                prevMonth: 'Mes Siguiente'
+                                            }
+                                        }
+                                    }"
+                                />
+                            </b-input-group>
                             <!-- :min="(typeof input.minDate != 'undefined'?input.minDate:'')"
                             :max="(typeof input.maxDate != 'undefined'?input.maxDate:'')" -->
 
@@ -341,7 +328,7 @@
                             <!-- Label -->
                         <p
                             :for="input.name"
-                            :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                            :class="'  text-truncate ' + (typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
                         >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
                         <!-- input -->
                         <VuePhoneNumberInput
@@ -378,7 +365,7 @@
                           >                <!-- Label -->
                               <p
                                   :for="input.name"
-                                  :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                                  :class="'  text-truncate ' + (typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
                               >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
                               <!-- input -->
 
@@ -410,7 +397,7 @@
                         >                <!-- Label -->
                             <p
                                 :for="input.name"
-                                :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                                :class="'  text-truncate ' + (typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
                             >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
                             <!-- input -->
 
@@ -434,7 +421,6 @@
                             <p class="m-0 p-0"><small v-if="errorsPersonalizados[input.name]" class="m-0 p-0 font-weight-bolder text-danger col-12">{{ errorsPersonalizados[input.name] }}</small></p>
                         </validation-provider>
                     </div>
-
                 <!-- input input-number -->
                     <div v-if="input.type === 'input-number'">
                         <!-- Provider de validación -->
@@ -445,26 +431,20 @@
                         >                <!-- Label -->
                             <p
                                 :for="input.name"
-                                :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                                :class="'  text-truncate ' + (typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
                             >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
-                            <!-- input -->
-
                             <cleave
-                            :id="input.name"
-                            :ref="input.name"
-                            :name="input.name"
-                            :value="form[input.value]"
-                            @input="changeData(input.value, $event)"
-                            class="bg-white w-100 char-textarea form-control"
-                            :disabled="formDisabled || Boolean(input.disabled)"
-                            :placeholder="input.placeholder || ''"
-                            :raw="false"
-                            :options="optionsInputNumerico"
-                        />
-                        <!-- blocks: [1]
-                            :options="optionsInputNumerico" -->
-
-                            <!-- Errores de validación -->
+                                :id="input.name"
+                                :ref="input.name"
+                                :name="input.name"
+                                :value="form[input.value]"
+                                @input="changeData(input.value, $event)"
+                                class="bg-white w-100 char-textarea form-control"
+                                :disabled="formDisabled || Boolean(input.disabled)"
+                                :placeholder="input.placeholder || ''"
+                                :raw="false"
+                                :options="input.options"
+                            />
                             <p class="m-0 p-0" v-if="errors[0]"><small class=" m-0 p-0 font-weight-bolder text-danger col-12">{{ errors[0] }}</small></p>
                             <p class="m-0 p-0"><small v-if="errorsPersonalizados[input.name]" class="m-0 p-0 font-weight-bolder text-danger col-12">{{ errorsPersonalizados[input.name] }}</small></p>
                         </validation-provider>
@@ -492,7 +472,7 @@
                               <!-- Label -->
                               <p
                                   :for="input.name"
-                                  :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                                  :class="'  text-truncate ' + (typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
                               >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
                               <!-- input -->
                               <div>
@@ -511,7 +491,7 @@
                           </validation-provider>
                       </div>
                   <!-- input input-switch -->
-                      <div v-if="input.type === 'input-switch'">
+                      <div v-if="input.type === 'input-switch'" >
                           <!-- Provider de validación -->
                           <validation-provider
                               #default="{ errors }"
@@ -521,10 +501,10 @@
                               <!-- Label -->
                               <p
                                   :for="input.name"
-                                  :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                                  :class="'  text-truncate ' + (typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
                               >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
                               <!-- input -->
-                              <div>
+                              <div class="hh-35 d-flex justify-content-between align-items-center ">
                                   <b-form-checkbox
                                   switch
                                   v-model="form[input.value]"
@@ -536,6 +516,15 @@
                               </div>
                               <!-- Errores de validación -->
                           </validation-provider>
+                      </div>
+                  <!-- input input-multiple -->
+                      <div v-if="input.type === 'input-multiple'" class="">
+                          <!-- Provider de validación -->
+                            <CustomSwitchMultiple
+                                :input="input"
+                                :data="form[input.value]"
+                                @changeData="(data) => { changeData(input.value, data)}"
+                            />
                       </div>
                   </b-col>
               </b-row>
@@ -590,7 +579,6 @@
         BInputGroupAppend,
         BFormCheckboxGroup
     } from 'bootstrap-vue'
-    import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
     import vSelect from 'vue-select'
     import {
       ValidationProvider,
@@ -610,19 +598,25 @@
     import 'vue-phone-number-input/dist/vue-phone-number-input.css';
     import Cleave from 'vue-cleave-component'
     import 'cleave.js/dist/addons/cleave-phone.us'
-    import apis from '@/apis/useApis'
     import customSelect from '@currentComponents/customSelect.vue'
-import { data } from 'vue-echarts'
-    import moment from 'moment';
-    import 'moment-timezone';
+    import CustomSwitchMultiple from '@currentComponents/CustomSwitchMultiple.vue'
+    import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
 
   export default {
     directives: {
-      Ripple,
+        Ripple,
+        focus: {
+            // Definición de la directiva
+            inserted(el) {
+                // Cuando se inserta el elemento en el DOM, establece el foco en él
+                el.focus();
+            }
+        }
     },
     components: {
-        datePicker: VuePersianDatetimePicker,
+        CustomSwitchMultiple,
         VuePhoneNumberInput,
+        VuePersianDatetimePicker,
         BFormCheckboxGroup,
         BRow,
         Cleave,
@@ -649,7 +643,6 @@ import { data } from 'vue-echarts'
     },
     data() {
         return {
-            show:false,
             calendarOptions: {
                 'z-index': 9999,
             },
@@ -664,6 +657,8 @@ import { data } from 'vue-echarts'
                 prefix: '$ ',
                 numeralThousandsGroupStyle: 'thousand',
             },
+            optionsMultiple:[],
+            selectedOptions:{},
             optionsInputNumerico : {
                 // Configuramos el bloque de dígitos enteros
                 blocks: [2],
@@ -724,19 +719,22 @@ import { data } from 'vue-echarts'
       btnLblSubmit : {
         type: String,
         default : 'Guardar'
+      },
+      classRow : {
+        type: String,
+        default : ''
       }
     },
     mixins : [customHelpers],
     created() {},
-    mounted() {
-    // Establecer el huso horario a México (Ciudad de México)
-    moment.tz.setDefault('America/Mexico_City');
-    },
     watch: {
       data(){
         this.inicializar();
       },
       form(){
+      },
+      tmpMultiple(){
+        console.log(this.tmpMultiple);
       },
 
     },
@@ -747,16 +745,35 @@ import { data } from 'vue-echarts'
         localize('es',es);
         this.inicializar();
     },
+    mounted() {
+    },
     methods: {
+        handleOptionChange(value) {
+            const selected = Object.keys(this.selectedOptions[value]).filter(
+                (key) => this.selectedOptions[key]
+            );
+        },
         getFormato(input){
             let response = 'DD-MM-YYYY';
-            // switch (input.typeDate) {
-            //     case 'date': $response = '';break;
-            
-            //     default:
-            //         break;
-            // }
             return input.formato ?? response;
+        },
+        getOptionsNumber(input){
+            let options = {
+                // Configuramos el bloque de dígitos enteros
+                blocks: [2],
+                // Permitimos solo valores numéricos
+                numericOnly: true,
+                // Establecemos el valor mínimo y máximo
+            };
+            
+            if( typeof input.digitos != 'undefined' ){
+                options.blocks = [input.digitos];
+            }
+            if( typeof input.options != 'undefined' ){
+                options = input.options;
+            }
+
+            return options;
         },
         getDate(input,type){
             if (type == 'min'){
@@ -764,15 +781,6 @@ import { data } from 'vue-echarts'
             } else {
                 return input.max ?? null ;
             }
-            // let typeDate = input.typeDate ??  'date';
-            // if (type == 'min'){»
-            //         case 'date': return input.min ?? null ; break;
-            //         case 'date': return input.min ?? null ; break;
-            //     }
-            // } else if (type == 'min'){ 
-            // } else {
-            //     return null;
-            // }
         },
         expotFormLive(){
             if (this.formLive == true) {
@@ -797,6 +805,19 @@ import { data } from 'vue-echarts'
         },
         changeValueDatePicker(field){
             this.changeData(field,this.form[field])
+        },
+        changeValueMultiple(input,value,indx){
+            let data = this.copyObject(this.form[input.value])
+            let tmp =  [];
+            let t = this.optionsMultiple[input.name][indx]
+            if(value !== false ){
+                tmp = [...data,t]
+            } else {
+                if(data != null){
+                    tmp = data.filter((element) => element !== t);
+                }
+            }
+            this.changeData(input.value,this.copyObject(tmp))
         },
         getLabelSwitch(valor,labels){
             let texto = 'Faltan los labels'
@@ -828,23 +849,29 @@ import { data } from 'vue-echarts'
                 this.$emit('cancelar');
             }
         },
-        inicializar(){
+        async inicializar(){
             let tmp = {};
-            this.schema.forEach(item => {
+            let index = 0;
+            for (const item of this.schema) {
                 let valor = null
                 if(item.type == 'input-checkbox'){
                     valor = this.data == null ? [] : ( this.data.hasOwnProperty(item.value) ? this.data[item.value] : [] )
+                }else if(item.type == 'input-number'){
+                    item.options = this.getOptionsNumber(item);
+                    valor = this.data == null ? null : ( this.data.hasOwnProperty(item.value) ? parseInt(this.data[item.value]) : null )
                 }else if(item.type == 'input-switch'){
                     valor = this.data == null ? false : ( this.data.hasOwnProperty(item.value) ? this.data[item.value] : false )
                 }else if(item.type == 'input-money'){
                     valor = this.data == null ? 0 : ( this.data.hasOwnProperty(item.value) ? this.data[item.value] : 0 )
-                }else if(item.type == 'input-dateTimer'){
-                    valor = this.data == null ? 0 : ( this.data.hasOwnProperty(item.value) ? this.data[item.value] : this.ajustarFecha('+',0,0,0,'') )
+                }else if(item.type == 'input-multiple'){
+                    this.optionsMultiple[item.value] = await this.getCatalogo(item);
+                    valor = this.data == null ? [] : ( this.data.hasOwnProperty(item.value) ? this.data[item.value] : [] )
                 }else{
                     valor = this.data == null ? null : ( this.data.hasOwnProperty(item.value) ? this.data[item.value] : null )
                 }
                 tmp[item.value] = valor;
-            })
+                index++;
+            }
             this.$set(this,'form',tmp);
         },
         validacionesExternas(){
@@ -859,6 +886,7 @@ import { data } from 'vue-echarts'
                             delete(this.errorsPersonalizados[field.name])
                         }
                     } else if (field.type == 'input-checkbox') {
+                        console.log(field.rules)
                     }
                 }
             })
@@ -922,6 +950,15 @@ import { data } from 'vue-echarts'
     }
     .card-body{
         padding: 0px;
+    }
+    .vpd-icon-btn {
+        display: none!important;
+    }
+    .vpd-input-group {
+        width: 100%!important;
+    }
+    div.input-group.input-group-merge {
+        flex-wrap: nowrap!important;
     }
     .borderPrimary {
         margin-top: 10px!important;
