@@ -74,9 +74,10 @@
                 @exportLive="changeForm"
                 @formExport="handleSubmitFormVoluntario"
             />
-            <div class=" col-12 d-flex flex-wrap justify-content-between">
-                <div v-if="btnCancel">
+            <div class="mt-2 col-12 d-flex flex-wrap justify-content-between">
+                <div>
                     <b-button
+                        v-if="btnCancel"
                         size="sm"
                         variant="relief-secondary"
                         @click="() => { $emit('handleCancelar')}"
