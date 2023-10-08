@@ -43,6 +43,66 @@
                   >
                   <!-- input blank -->
                       <div v-if="input.type === 'input-blank'" ></div>
+
+                <!-- input input-dateTimer  -->
+                <div v-if="input.type === 'input-dateTimer'">
+                    <!-- Provider de validación -->
+                    <validation-provider
+                        #default="{ errors }"
+                        :name=" (typeof input.name  != 'undefined'?input.name:'')"
+                        :rules="(typeof input.rules != 'undefined'?input.rules:'')"
+                    >
+                    <!-- Label -->
+                    <p
+                        :for="input.name"
+                        :class="(typeof input.classLabel != 'undefined'?input.classLabel + ' m-0 p-0 ':'') + ' font-weight-bolder p-0 m-0' "
+                    >{{(typeof input.label != 'undefined'?input.label:'')}}</p>
+                    
+                    <input
+                        :id="'input'+input.name"
+                        :class="' form-control col-12 '"
+                        type="text"
+                        v-model="form[input.value]"
+                        readonly
+                    />
+                    <VuePersianDatetimePicker
+                        :custom-input="'#input'+input.name"
+                        :class="' col-12 m-0 p-0'"
+                        :min="getDate(input,'min')"
+                        :max="getDate(input,'max')"
+                        :id="   input.name"
+                        :ref="  input.name"
+                        :name=" input.name"
+                        format="YYYY-MM-DD HH:mm"
+                        display-format="YYYY-MM-DD HH:mm"
+                        v-model="form[input.value]"
+                        @onChange=" changeValueDatePicker(input.value) "
+                        :disabled=" formDisabled?true:(typeof input.disabled != 'undefined'?input.disabled:false) "
+                        locale="es" 
+                        type="datetime" 
+                        :color="'#ff0000d4'"
+                        :localeConfig="{
+                            es: {
+                                dow: 0,
+                                dir: 'ltr',
+                                lang: {
+                                    label:     'Hola',
+                                    submit:    'Seleccionar',
+                                    cancel:    'Cancelar',
+                                    now:       'Hoy',
+                                    nextMonth: 'Siguiente mes',
+                                    prevMonth: 'Anterior mes',
+                                }
+                            }
+                        }"
+                    />
+                        <!-- :min="(typeof input.minDate != 'undefined'?input.minDate:'')"
+                        :max="(typeof input.maxDate != 'undefined'?input.maxDate:'')" -->
+
+                    <!-- Errores de validación -->
+                    <p class="m-0 p-0" v-if="errors[0]"><small class=" m-0 p-0 font-weight-bolder text-danger">{{ errors[0] }}</small></p>
+                    </validation-provider>
+                </div>
                   <!-- Label -->
                       <div v-if="input.type === 'input-label'">
                         <validation-provider
@@ -859,7 +919,7 @@
                 }else if(item.type == 'input-number'){
                     item.options = this.getOptionsNumber(item);
                     valor = this.data == null ? null : ( this.data.hasOwnProperty(item.value) ? parseInt(this.data[item.value]) : null )
-                }else if(item.type == 'input-switch'){
+                }else if(item.type == 'input-switch'){                                                                  
                     valor = this.data == null ? false : ( this.data.hasOwnProperty(item.value) ? this.data[item.value] : false )
                 }else if(item.type == 'input-money'){
                     valor = this.data == null ? 0 : ( this.data.hasOwnProperty(item.value) ? this.data[item.value] : 0 )

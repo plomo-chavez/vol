@@ -130,7 +130,7 @@ export default {
             activeRow   : {},
             formSchema: [
                 {
-                    classContainer:'col-12',
+                    classContainer:' col-12 ',
                     type        : 'input-text',
                     name        : 'voluntario',
                     value       : 'voluntario',
@@ -141,7 +141,7 @@ export default {
                     focus: true
                 },
                 {
-                    classContainer:'col-12',
+                    classContainer:' col-12 ',
                     type        : 'input-select',
                     name        : 'area',
                     value       : 'area',
@@ -150,7 +150,7 @@ export default {
                     label       : 'Area',
                 },
                 {
-                    classContainer:'col-12',
+                    classContainer:' col-12 ',
                     type        : 'input-select',
                     name        : 'actividad',
                     value       : 'actividad',
@@ -159,7 +159,7 @@ export default {
                     label       : 'Actividad',
                 },
                 {
-                    classContainer:'col-12',
+                    classContainer:' col-12 ',
                     type        : 'input-select',
                     name        : 'subactividad',
                     value       : 'subactividad',

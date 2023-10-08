@@ -71,16 +71,12 @@ class VoluntariosController extends BaseController {
             ->with('estado')
             ->first();
             return self::responsee('Voluntario registrado correctamente.', true, $tmp);
-
         } else {
-
             // Obtén el modelo de VoluntariosExtraInfo y sus nombres de columna
             $modelo = new VoluntariosExtraInfo();
             $columnas = $modelo->getFillable();
-
             // Filtra el arreglo $payload para incluir solo las columnas existentes en el modelo
             $datosActualizables = array_intersect_key($payload, array_flip($columnas));
-
             // Llama a updateOrInsert con los datos filtrados
             VoluntariosExtraInfo::updateOrInsert(['voluntario_id' => $payload['voluntario_id']], $datosActualizables);
             return self::responsee('Voluntario registrado correctamente.', true, []);

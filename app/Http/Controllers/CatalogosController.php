@@ -73,6 +73,14 @@ class CatalogosController extends BaseController {
                 }
                 return $data;
             break;
+            case 'tipo-actividades-horas-voluntarias': 
+                if($query) {
+                    $tmp = tipoActividadesHV::orderBy('id', 'asc')->select('id','nombre');
+                    return self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
+                } else {
+                    return new tipoActividadesHV();
+                }
+            break;
             case 'tipo-subactividades-horas-voluntarias': 
                 if($query) {
                     $tmp = subTipoActividadesHV::orderBy('id', 'asc')->select('id','actividad_id','nombre')->with('actividad');

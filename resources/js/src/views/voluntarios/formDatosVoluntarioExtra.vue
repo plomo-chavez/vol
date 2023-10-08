@@ -515,13 +515,17 @@ import { init } from 'echarts/lib/echarts'
                     voluntario_id : this.data.id,
                 };
                 const response = await this.peticionGeneral('administrarVoluntarios',{payload},false,true);
-                 let tmp = {...response.data};
-                 tmp.estado = tmp.estado ? {label:tmp.estado.nombre, value: tmp.estado_id} : null;
-                 tmp.disponibilidadDias     = JSON.parse(tmp.disponibilidadDias)
-                 tmp.disponibilidadTurnos   = JSON.parse(tmp.disponibilidadTurnos)
-                 tmp.medios                 = JSON.parse(tmp.medios)
-                 tmp.miembroInstitucion = tmp.miembroInstitucion == 1 ? true : false;
-                 this.dataForm = {...tmp}
+                let tmp = [];
+                this.dataForm = [];
+                if (response.data != null ){
+                    let tmp = {...response.data};
+                     tmp.estado = tmp.estado ? {label:tmp.estado.nombre, value: tmp.estado_id} : null;
+                     tmp.disponibilidadDias     = JSON.parse(tmp.disponibilidadDias)
+                     tmp.disponibilidadTurnos   = JSON.parse(tmp.disponibilidadTurnos)
+                     tmp.medios                 = JSON.parse(tmp.medios)
+                     tmp.miembroInstitucion = tmp.miembroInstitucion == 1 ? true : false;
+                     this.dataForm = {...tmp}
+                }
                  this.viewForm = true;
             },
             handleCancel() {

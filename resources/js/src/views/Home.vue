@@ -1,6 +1,6 @@
 <template>
   <div>
-      <FormPorGuardia  v-if="layoutVerificador"/>
+      <FormPorGuardia  v-if="layoutVerificador" />
       <div v-else class="d-flex justify-content-center">
           <div v-if="data != null" class="ww-600 d-flex flex-wrap justify-content-between">
               <div class="wwfull d-flex justify-content-center">
@@ -101,7 +101,10 @@ import {
 } from 'bootstrap-vue'
   import { avatarText } from '@core/utils/filter'
   import customHelpers    from '@helpers/customHelpers'
-  import FormPorGuardia  from '@/views/horas/formPorGuardia.vue'
+//   import FormPorGuardia  from '@/views/horas/formPorGuardia.vue'
+  import FormPorGuardia  from '@/views/horas/formHoras.vue'
+// component: () => import('@/views/horas/formHoras.vue'),
+
   import FileUpload from '@currentComponents/FileUpload.vue'
 
 export default {

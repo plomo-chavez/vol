@@ -1,7 +1,9 @@
 <template>
     <div>
         <div v-if="activeRow == null">
+            <h3 v-if=" data == null " class="wwfull text-center">Cargando datos ..!!</h3>
             <VistaUno
+                v-else
                 :data="data"
                 :config="{
                     showCellActions: true,
@@ -29,6 +31,7 @@
             <BTNAtras @handleAtras="resetForm" />
             <b-card class="p-1 ww-600 mx-auto">
                 <FormFactory
+                    :btnLblSubmit="'Cerrar guardia'"
                     :btnsAccion="canClose"
                     :data ="activeRow"
                     @formExport="save"
@@ -110,6 +113,7 @@
         accion      : 1,
         itemVoluntario  : null,
         openModalForm   : false,
+        viewForm    : true,
         showForm    : false,
         activeRow   : null,
         showDetails : false,
@@ -134,7 +138,6 @@
             {
                 classContainer:'col-12 col-lg-6 col-md-6 col-sm-12',
                 type        : 'input-dateTimer',
-                disabled    : true,
                 name        : 'inicio',
                 value       : 'inicio',
                 label       : 'Inicio',
@@ -143,7 +146,6 @@
                 classContainer:'col-12 col-lg-6 col-md-6 col-sm-12',
                 type        : 'input-dateTimer',
                 rules       : 'required',
-                disabled    : true,
                 name        : 'fin',
                 value       : 'fin',
                 label       : 'Fin',
@@ -183,7 +185,6 @@
     },
     methods: {
         handelOpenModal(data){
-            console.log('data',data);
             this.itemVoluntario = {...data}
             this.openModalForm = true;
         },
@@ -196,7 +197,7 @@
                 element.verificador = element.verificador?.nombreCompleto    ?? '';
                 element.delegacion = element.delegacion?.nombreLabel ?? '';
             });
-            let data = response.data;
+            let data = response.data.reverse();
             this.data = data;
         },
         resetForm(){
@@ -232,8 +233,8 @@
         editar (data) {
             this.canClose = data.fin == null;
             this.schemaMain[3].disabled = (data.fin != null)
-            // this.schemaMain[3].min= this.fechaInput('-',0,0,1,''),
-            // this.schemaMain[3].max= this.fechaInput('+',0,0,0,''),
+            this.schemaMain[3].min= this.fechaInput('-',0,0,1,''),
+            this.schemaMain[3].max= this.fechaInput('+',0,0,0,''),
             // this.schemaMain[3].min = fechaActual.setDate(fechaActual.getDate() - 2),
             this.activeRow = this.copyObject(data)
             this.showDetails = true;

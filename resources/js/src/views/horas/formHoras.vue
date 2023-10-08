@@ -33,11 +33,12 @@
         </div>
         <div v-if="tipoRegistro == 'porGuardia'">
             <FormPorGuardia 
+                @handleAtras="() => { tipoRegistro = null }"
             />
         </div>
         <div v-if="tipoRegistro == 'porVoluntario'">
             <formPorVoluntario 
-            @handleAtras="() => { tipoRegistro = null }"
+                @handleAtras="() => { tipoRegistro = null }"
             />
         </div>
     </div>

@@ -31,7 +31,7 @@ export default {
   apiGetGuardiaHoras              : '/api/horasVoluntarias/guardias/listar',
   apiAdminGuardiaHoras            : '/api/horasVoluntarias/guardias/administrar',
   apiGetCatalogos                 : '/api/catalogos/listar',
-  apiA3dminCatalogos               : '/api/catalogos/administrar',
+  apiAdminCatalogos               : '/api/catalogos/administrar',
 //   Sin autentificacion
   apiValidCURP                    : '/api/valid/curp',
   apiScannOut                     : '/api/scann',

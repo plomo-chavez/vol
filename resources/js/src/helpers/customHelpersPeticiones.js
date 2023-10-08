@@ -17,6 +17,7 @@ export default {
                 showMessage = true,
                 needReturn = true,
             ){
+                console.log(method , 'method');
             try {
                 this.loading();
                 let response;

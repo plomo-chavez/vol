@@ -1,5 +1,9 @@
 <template>
     <div>
+
+        <BTNAtras
+            @handleAtras="() => { $emit('handleAtras') }"
+        />
         <div v-if="guardia == null" class=" ">
             <h3 class=" font-weight-bolder class-12 text-center">No hay un turno abierto.</h3>
             <div class="col-12 p-0 m-0 d-flex flex-wrap">
@@ -83,6 +87,7 @@ import {
     BFormCheckbox,
     BButton
 } from 'bootstrap-vue'
+import BTNAtras from '@currentComponents/BTNAtras.vue'
 import customHelpers  from '@helpers/customHelpers'
 import OnoffToggle from 'vue-onoff-toggle'
 import Scann from '@currentComponents/ScannerCode.vue'
@@ -92,6 +97,7 @@ export default {
     name: 'formPorGuardia',
     components: {
         Scann,
+        BTNAtras,
         BCard,
         BCardTitle,
         BCardSubTitle,
