@@ -39,55 +39,29 @@
                     @cancelar="resetForm"
                 />
                 <div>
-                    <ModalForm
-                        :openModal="openModalForm"
-                        :data ="itemVoluntario"
-                        :formSchema="[
-                            {
-                                classContainer:'col-lg-4 col-md-6 col-12',
-                                type        : 'input-dateTimer',
-                                rules       : 'required',
-                                name        : 'horaFinal',
-                                value       : 'horaFinal',
-                                label       : 'Hora Final',
-                                today       : true
-                            },
-                        ]"
-                        @handleSubmit="handleClosePersonal"
-                        @handleCancelar="() => { openModalForm = false}"
+                    <AdminHoraVoluntaria  
+                        :key="index+'d'"
+                        v-for ="(item,index) in activeRow.voluntarios" 
+                        :data="item"
+                        @reset="resetForm"
                     />
-                    <div v-for ="(item) in activeRow.voluntarios" class="col-12 p-1 d-flex align-items-center">
-                        <b-avatar variant="light-primary" rounded > <feather-icon icon="ClockIcon" size="18" /> </b-avatar>
-                        <div class="ml-1">
-                            <h6 class="mb-0">{{ item.voluntario.nombreCompleto }}</h6>
-                            <p class="col-12 p-0 m-0"><small >Inicio: {{formatoFechaYMD(item.fechaInicio, true)}}</small></p>
-                            <p class="col-12 p-0 m-0"><small >Fin: {{formatoFechaYMD(item.fechaFin, true)}}</small></p>
-                            <div class="col-12 p-0 m-0 mt-1" v-if="item.fechaFin == null">
-                                <b-button
-                                    size="sm"
-                                    block
-                                    variant="relief-danger"
-                                    class="mx-auto"
-                                    @click="() => { handelOpenModal(item) }"
-                                >Checar salida</b-button>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- v-for ="(item) in activeRow.voluntarios"> -->
                 </div>
             </b-card>
         </div>
     </div>
   </template>
   <script>
-  import { BCard, BCardBody, BButton, BAvatar} from 'bootstrap-vue'
+  import { BCard , BCardBody , BButton, BAvatar} from 'bootstrap-vue'
+
     import FormFactory from '@currentComponents/FormFactory.vue'
     import VistaUno from '@currentComponents/VistaUno.vue'
     import customHelpers  from '@helpers/customHelpers'
     import formHoras  from '@/views/horas/formHoras.vue'
     import BTNAtras from '@currentComponents/BTNAtras.vue'
+    import AdminHoraVoluntaria from '@currentComponents/adminHoraVoluntaria.vue'
     import formDetailsHorasVoluntarias  from '@/views/horas/formDetailsHorasVoluntarias.vue'
 
-    import ModalForm from '@currentComponents/ModalForm.vue'
     const moment = require('moment-timezone');
     // Establecer el huso horario a México (Ciudad de México)
     moment.tz.setDefault('America/Mexico_City');
@@ -96,15 +70,15 @@
     mixins  : [customHelpers],
     components: {
         FormFactory,
+        AdminHoraVoluntaria,
         BTNAtras,
         BCard, 
         BCardBody,
-        BButton,
         VistaUno,
         formHoras,
         formDetailsHorasVoluntarias,
+        BButton,
         BAvatar,
-        ModalForm,
     },
     data() {
       return {
@@ -184,10 +158,6 @@
         this.inicializar()
     },
     methods: {
-        handelOpenModal(data){
-            this.itemVoluntario = {...data}
-            this.openModalForm = true;
-        },
         inicializar(){
             this.reload()
         },
@@ -233,8 +203,10 @@
         editar (data) {
             this.canClose = data.fin == null;
             this.schemaMain[3].disabled = (data.fin != null)
-            this.schemaMain[3].min= this.fechaInput('-',0,0,1,''),
-            this.schemaMain[3].max= this.fechaInput('+',0,0,0,''),
+            if (!this.isAdmin()) {
+                this.schemaMain[3].min= this.fechaInput(data.inicio,'-',0,0,1,'');
+                this.schemaMain[3].max= this.fechaInput(data.inicio,'+',0,0,0,'');
+            }
             // this.schemaMain[3].min = fechaActual.setDate(fechaActual.getDate() - 2),
             this.activeRow = this.copyObject(data)
             this.showDetails = true;

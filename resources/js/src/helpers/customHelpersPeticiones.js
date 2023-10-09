@@ -17,7 +17,6 @@ export default {
                 showMessage = true,
                 needReturn = true,
             ){
-                console.log(method , 'method');
             try {
                 this.loading();
                 let response;
@@ -65,7 +64,7 @@ export default {
                         response = await peticiones.getHorasVoluntarias(payload);
                     break;
                     case 'administrarHorasVoluntarias':
-                        response = await peticiones.adminisaºétrarHorasVoluntarias(payload);
+                        response = await peticiones.administrarHorasVoluntarias(payload);
                     break;
                     case 'administrarGuardiaHoras':
                         response = await  peticiones.administrarGuardiaHoras(payload)

@@ -175,11 +175,15 @@ export default {
             return '';
         }
     },
-    fechaInput(masMenos = '+', años = 0, meses = 0, dias = 0,formato = 'YYYY-MM-DD HH:mm:ss') {
+    isAdmin() {
+        return  (JSON.parse(localStorage.getItem('userData')).tipoUsuario_id ?? 0 ) == 1;
+
+    },
+    fechaInput(fecha = null,masMenos = '+', años = 0, meses = 0, dias = 0,formato = 'YYYY-MM-DD HH:mm:ss') {
         if (masMenos == '+'){
-            return  moment().add(dias, 'days').endOf('day').format(formato);
+            return  moment(fecha).add(dias, 'days').endOf('day').format(formato);
         } else {
-            return moment().subtract(dias, 'days').startOf('day').format(formato);
+            return moment(fecha).subtract(dias, 'days').startOf('day').format(formato);
         }
     },
     ajustarFecha(masMenos = '+', años = 0, meses = 0, dias = 0,formato = 'DD-MM-YYYY') {

@@ -48,18 +48,50 @@
                       <p class="col-12 m-0 p-0  font-weight-bolder mr-1 ">Verificador:</p>
                       <p class="col-12 m-0 p-0 " > {{ actividad.guardia.verificador.nombreCompleto }} </p>
                   </div>
+              </div> 
+              <div v-else >
+                  <div class="mb-1 d-flex flex-wrap justify-content-between ">
+                      <p class="col-12 m-0 p-0  font-weight-bolder mr-1 ">Fecha inicio:</p>
+                      <p class="col-12 m-0 p-0 " > {{ formatoFechaYMD(actividad.horaInicio,true) }} </p>
+                  </div>
+                  <div class="mb-1 d-flex flex-wrap justify-content-between ">
+                      <p class="col-12 m-0 p-0  font-weight-bolder mr-1 ">Fecha fin:</p>
+                      <p class="col-12 m-0 p-0 " > {{ formatoFechaYMD(actividad.horaFin,true) }} </p>
+                  </div>
+
               </div>
+
+              <div class="col-12 p-0 m-0 mt-1" v-if="actividad.horaFin == null && isAdmin()">
+                
+                <ModalForm
+                    :openModal="openModalForm"
+                    :data ="actividad"
+                    :btnLblSubmit="'Cerrar guardia'"
+                    :formSchema="schemaFormModal"
+                    @handleSubmit="handleClosePersonal"
+                    @handleCancelar="() => { openModalForm = false}"
+                />
+                <b-button
+                    size="sm"
+                    block
+                    variant="relief-danger"
+                    class="mx-auto"
+                    @click="() => { openModalForm = true }"
+                >Checar salida</b-button>
+            </div>
           </div>
       </b-card-text>
     </b-modal>
   </div>
   </template>
-
+F
   <script>
   import VistaUno from '@currentComponents/VistaUno.vue'
   import { BTabs, BTab, BCard, BButton, BAvatar, VBModal, BCardText, } from 'bootstrap-vue'
   import Ripple from 'vue-ripple-directive'
   import customHelpers  from '@helpers/customHelpers'
+  import AdminHoraVoluntaria from '@currentComponents/adminHoraVoluntaria.vue'
+    import ModalForm from '@currentComponents/ModalForm.vue'
 
 
   export default {
@@ -73,6 +105,8 @@
         BCardText,
         BButton,
         VistaUno,
+        AdminHoraVoluntaria,
+        ModalForm,
     },
     directives: {
         'b-modal': VBModal,
@@ -82,6 +116,7 @@
       return {
         titulo          : '',
         modalShow       : false,
+        openModalForm   : false,
         horas           : [],
         registros       : [],
         actividad       : null,
@@ -137,6 +172,17 @@
                 sortable: true
             },
         ],
+        schemaFormModal : [
+            {
+                classContainer:'col-lg-4 col-md-6 col-12',
+                type        : 'input-dateTimer',
+                rules       : 'required',
+                name        : 'horaFin',
+                value       : 'horaFin',
+                label       : 'Hora Final',
+                today       : true
+            },
+        ],
       };
     },
     beforeMount(){
@@ -185,12 +231,30 @@
             }
         };
         let response    = await this.peticionGeneral('administrarGuardiaHoras',payload,false);
-        this.registros  = this.copyObject(response.data)
+        let tmp = response.data.reverse()
+        this.registros  = this.copyObject(tmp)
       },
+      
       viewDetailsRegistro(data){
           this.actividad = this.copyObject(data);
           this.modalShow = !this.modalShow;
       },
+      async handleClosePersonal(data){
+        let payload = {
+            payload : {
+              accion:5,
+              hora_id : this.actividad.id,
+              horaFin : data.horaFin,
+            }
+        };
+        await this.peticionGeneral('administrarHorasVoluntarias',payload);
+        this.modalShow = false;
+        setTimeout(() => {
+          this.actividad = false;
+          this.openModalForm = false;
+        }, 2)
+        this.inicializar();
+      }
     },
   };
   </script>

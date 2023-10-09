@@ -10,6 +10,7 @@
         <FormFactory
             class="col-12 mx-auto"
             :data = 'data'
+            :btnLblSubmit="btnLblSubmit"
             :schema="formSchema"
             @formExport="handleSubmit"
             @cancelar="handleCancelar"
@@ -67,6 +68,10 @@ export default {
     title: {
       type    : String,
       default : 'Nuevo registro'
+    },
+    btnLblSubmit: {
+      type    : String,
+      default : 'Guardar'
     },
     formSchema: {
       type    : Array,

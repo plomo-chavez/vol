@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Sistema;
 use App\Http\Controllers\BaseController;
 
+use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\Sistema\Modelos\HorasVoluntarias as Modelo;
 use App\Http\Controllers\Sistema\Modelos\HorasVoluntariasContadores;
 use App\Http\Controllers\Sistema\Modelos\Voluntarios;
@@ -43,6 +44,36 @@ class HorasVoluntariasController extends BaseController
         return self::administrar($payload['payload'], new Modelo());
     }
 
+    public function administrar(array $payload = [], Model $modelo = null) {
+        if (isset($payload['accion'])) {
+            switch($payload['accion']){
+                case 1:
+                    return self::insertar($payload, $modelo);
+                    break;
+                case 2:
+                    return self::actualizar($payload, $modelo);
+                    break;
+                case 3:
+                    return self::eliminar($payload, $modelo);
+                    break;
+                case 4:
+                    return self::insertMulti($payload, $modelo);
+                    break;
+                case 5:
+                    return self::cerrarHora($payload);
+                    break;
+                default:
+                    return self::responsee('Acción no válida', false);
+            }
+        } else {
+            return self::responsee('No existe una acción.', false);
+        }
+    }
+    public function cerrarHora($payload){
+        $data = [];
+        $registro = self::managerHoraVoluntaria(null,true,$payload['hora_id'],$payload['horaFin']);
+        return self::responsee( $registro == null ? 'Ups ocurrió un error, inténtalo de nuevo.' : 'Este registro actualizado correctamente.', $registro != null , $data);
+    }
     public function handleListar(Request $request){
         $data = [];
         $payload = $request->all();
@@ -152,10 +183,11 @@ class HorasVoluntariasController extends BaseController
                             'tiempo'    => self::minutosATiempo($contador->minutos_mes),
                         ];
                 
+                        $fechaActual = Carbon::now();
                         $historico[]                = $nuevoRegistro;
                         $contador->historico        = json_encode($historico);
-                        $contador->mes_actual       = str_pad($timestamp2->month, 2, '0', STR_PAD_LEFT);
-                        $contador->anio             = $timestamp2->year;
+                        $contador->mes_actual       = str_pad($fechaActual->month, 2, '0', STR_PAD_LEFT);
+                        $contador->anio             = $fechaActual->year;
                         $contador->minutos_mes      += $minutosDiferencia;
                         $contador->horas_mes        = floor($contador->minutos_mes / 60);
                         $contador->minutos_total    += $minutosDiferencia;
