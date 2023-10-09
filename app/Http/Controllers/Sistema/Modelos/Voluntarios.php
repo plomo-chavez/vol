@@ -42,6 +42,7 @@ class Voluntarios extends Model
         'comentarios',
         'urlImagen',
         'codigoCredencial',
+        'horarioLaboral',
     ];
 
     // public function delegacion() {

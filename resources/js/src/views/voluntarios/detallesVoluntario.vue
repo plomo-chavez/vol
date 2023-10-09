@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div class=" col-12 d-flex flex-wrap justify-content-between mb-2">
         <div>
             <b-button

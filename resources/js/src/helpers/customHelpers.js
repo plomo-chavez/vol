@@ -160,21 +160,24 @@ export default {
           ];
           return nombresMeses[index] ?? ''
     },
-    formatoFechaYMD(value,withTime = false){
+
+    
+    formatoFechaYMD(value, withTime = false) {
         if (value !== null) {
-            const fecha = moment(value);
-            const fechaFormateada = fecha.format('YYYY/MM/DD');
-            
-            if (withTime) {
-                const horaFormateada = fecha.format('hh:mm:ss');
-                return fechaFormateada + ' ' + horaFormateada;
-            } else {
-                return fechaFormateada;
-            }
+          const fecha = moment.tz(value, 'America/Mexico_City'); // Establecer la zona horaria a la de México
+          const fechaFormateada = fecha.format('YYYY/MM/DD');
+          
+          if (withTime) {
+            const horaFormateada = fecha.format('HH:mm:ss'); // Usar 'HH' para el formato de hora en 24 horas
+            return fechaFormateada + ' ' + horaFormateada;
+          } else {
+            return fechaFormateada;
+          }
         } else {
-            return '';
+          return '';
         }
     },
+      
     isAdmin() {
         return  (JSON.parse(localStorage.getItem('userData')).tipoUsuario_id ?? 0 ) == 1;
 

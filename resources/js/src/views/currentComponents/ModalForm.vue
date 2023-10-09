@@ -7,11 +7,14 @@
       no-close-on-backdrop
       :title="title"
     >
+    <!-- v-if="showForm" -->
         <FormFactory
             class="col-12 mx-auto"
             :data = 'data'
             :btnLblSubmit="btnLblSubmit"
             :schema="formSchema"
+            :formLive="formLive"
+            @exportLive="changeForm"
             @formExport="handleSubmit"
             @cancelar="handleCancelar"
         />
@@ -56,7 +59,8 @@ export default {
   },
   data() {
     return {
-      show : false
+      show      : false,
+      showForm  : true,
     }
   },
   mixins : [customHelpers],
@@ -72,6 +76,14 @@ export default {
     btnLblSubmit: {
       type    : String,
       default : 'Guardar'
+    },
+    formLive:{
+      type    : Boolean,
+      default : false,
+    },
+    formLive:{
+      type    : Boolean,
+      default : false,
     },
     formSchema: {
       type    : Array,
@@ -103,6 +115,9 @@ export default {
     this.user = store.state.app.userData.name;
   },
   methods: {
+    changeForm(data){
+        this.$emit('exportLive',data)
+    },
     handleSubmit(data){
         this.$emit('handleSubmit',data)
     },

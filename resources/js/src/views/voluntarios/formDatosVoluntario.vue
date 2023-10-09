@@ -58,6 +58,12 @@
                         variant="relief-secondary"
                         @click="handleAddCodigoCredencialNacional"
                     >Vincular credencial nacional</b-button>
+                    <b-button 
+                        class=" mm-1 "
+                        size="sm"
+                        variant="relief-secondary"
+                        @click="() => { openModalHorarioLaboral = true }"
+                    >Gestionar Horario Laboral</b-button>
                 </div>
                 <div>
                 </div>
@@ -122,12 +128,17 @@
                     </div>
                 </div>
             </b-modal>
+            <AdminHorarioLaboralVoluntario 
+                :data = 'dataForm'
+                :openModal="openModalHorarioLaboral"
+            />
         </component>
     </div>
 </template>
 
 <script>
     import FormFactory      from '@currentComponents/FormFactory.vue'
+    import AdminHorarioLaboralVoluntario      from '@currentComponents/adminHorarioLaboralVoluntario.vue'
     import customHelpers    from '@helpers/customHelpers'
     import FileUpload       from '@currentComponents/FileUpload.vue'
     import Ripple from 'vue-ripple-directive'
@@ -151,6 +162,7 @@
             Ripple,
         },
         components: {
+            AdminHorarioLaboralVoluntario,
             FileUpload,
             ModalForm,
             FormFactory,
@@ -172,6 +184,7 @@
                 viewForm    : true,
                 showScann   : false,
                 openScann   : false,
+                openModalHorarioLaboral   : false,
                 openModalForm    : false,
                 modalArchivos    : false,
                 formSchemaFormVoluntario: [
