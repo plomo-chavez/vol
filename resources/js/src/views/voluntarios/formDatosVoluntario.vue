@@ -62,7 +62,7 @@
                         class=" mm-1 "
                         size="sm"
                         variant="relief-secondary"
-                        @click="() => { openModalHorarioLaboral = true }"
+                        @click="handleModalHorarioLaboral"
                     >Gestionar Horario Laboral</b-button>
                 </div>
                 <div>
@@ -437,6 +437,10 @@
             window.removeEventListener('resize', this.handleWindowResize);
         },
         methods:{
+            handleModalHorarioLaboral(){
+                this.openModalHorarioLaboral = true;
+                setTimeout(() => { this.openModalHorarioLaboral = false; }, 5);
+            },
             handleAddCodigoCredencialNacional(){
                 this.showScann = true;
                 setTimeout(() => { this.openScann = true; }, 2);

@@ -72,6 +72,8 @@ class BaseController extends Controller{
         ), 200);
     }
     public static function fechaWithHora($AM = true){
+        // Establecer la configuración regional de Carbon en español
+        Carbon::setLocale('es');
         // Obtener la fecha actual utilizando Carbon
         $fechaActual = Carbon::now('America/Mexico_City');
         // Formatear la fecha como cadena (opcional)
@@ -81,11 +83,27 @@ class BaseController extends Controller{
     }
     public static function fechaYMD(){
         // Obtener la fecha actual utilizando Carbon
+        Carbon::setLocale('es');
         $fechaActual = Carbon::now('America/Mexico_City');
+        // Establecer la configuración regional de Carbon en español
         // Formatear la fecha como cadena (opcional)
         return $fechaActual->format('Y-m-d');
     }
-
+    public static function getCarbonNow(){
+        // Establecer la configuración regional de Carbon en español
+        Carbon::setLocale('es');
+        // Obtener la fecha actual utilizando Carbon
+        $fechaActual = Carbon::now('America/Mexico_City');
+        // Formatear la fecha como cadena (opcional)
+        return $fechaActual;
+    }
+    
+    public function quitarAcentos($cadena) {
+        $acentos = ['á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú'];
+        $sinAcentos = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+    
+        return str_replace($acentos, $sinAcentos, $cadena);
+    }
     public static function minutosATiempo($totalMinutos) {
         // Calcula los días, horas y minutos totales
         $totalDias = floor($totalMinutos / (24 * 60));

@@ -69,11 +69,160 @@ class HorasVoluntariasController extends BaseController
             return self::responsee('No existe una acción.', false);
         }
     }
-    public function cerrarHora($payload){
-        $data = [];
-        $registro = self::managerHoraVoluntaria(null,true,$payload['hora_id'],$payload['horaFin']);
-        return self::responsee( $registro == null ? 'Ups ocurrió un error, inténtalo de nuevo.' : 'Este registro actualizado correctamente.', $registro != null , $data);
+
+    public function validarInHorarioLaboral(Request $request){
+        $horaInicio = "13/10/23 21:00";
+        $horaFin = "14/10/23 08:00";
+    
+        $tiempo = self::validarHVWithHorarioLaboral(1, $horaInicio, $horaFin);
+    
+        if ($tiempo !== null) {
+
+            echo self::minutosATiempo($tiempo); 
+            echo '<br>'; 
+            echo $tiempo;
+        }
     }
+    
+    public function validarHVWithHorarioLaboral($voluntarioID, $horaInicio, $horaFin) {
+        Carbon::setLocale('es');
+        $horaInicio = Carbon::createFromFormat('d/m/y H:i', $horaInicio);
+        $horaFin    = Carbon::createFromFormat('d/m/y H:i', $horaFin);
+        $voluntario = Voluntarios::find($voluntarioID);
+        $horario = json_decode($voluntario->horarioLaboral);
+        switch($horario->tipoHorario->value){
+            case '12x12':
+                $horarioInicio  = Carbon::parse($horario->horaInicio);
+                $horarioFin     = Carbon::parse($horario->horaFin);
+            break;
+            case 'Cecom 8 Hrs':
+                $horarioInicio  = Carbon::parse($horario->turno->horario->horaInicio);
+                $horarioFin     = Carbon::parse($horario->turno->horario->horafin);
+            break;
+        }
+    
+        // // Establecer el mismo día en $horaInicio y $horaFin que $horaEvaluando
+        $horarioInicio->setDate($horaInicio->year, $horaInicio->month, $horaInicio->day);
+           $horarioFin->setDate($horaInicio->year, $horaInicio->month, $horaInicio->day);
+
+        $responseHoraInicio = self::validarIsHorarioLaboral($horario, $horaInicio);
+        $responseHoraFin    = self::validarIsHorarioLaboral($horario, $horaFin);
+    
+        if ($responseHoraInicio !== null && $responseHoraFin !== null) {
+            if ($responseHoraInicio == true && $responseHoraFin  == false) { // La hora de inicio esta dentro del horario laboral y la de fin no.
+                return self::calcularTiempoFueraHorario($horarioFin, $horaFin);
+            } elseif ($responseHoraInicio == false && $responseHoraFin  == true) {// La hora de inicio esta fuera del horario laboral y la de fin no.
+                return self::calcularTiempoFueraHorario($horaInicio, $horarioInicio);
+            } elseif ($responseHoraInicio == false && $responseHoraFin  == false) {
+                $horaInicioEsMayorHorarioInicio = $horaInicio->greaterThan($horarioInicio);
+                $horaFinEsMayorHorarioFin = $horaFin->greaterThan($horarioFin);
+                if ($horaInicioEsMayorHorarioInicio) {
+                    echo 'horaInicio '.$horaInicio.' es mayor que horarioInicio '. $horarioInicio;
+                } else {
+                    echo 'horaInicio '.$horaInicio.' no es mayor que horarioInicio '. $horarioInicio;
+                } 
+                echo '<br>';
+                if ($horaFinEsMayorHorarioFin) {
+                    echo 'horaFin '.$horaFin.' es mayor que horarioFin '. $horarioFin;
+                } else {
+                    echo 'horaFin '.$horaFin.' no es mayor que horarioFin '. $horarioFin;
+                } 
+                echo '<br>';
+                echo '<br>';
+                echo '$horaInicioEsMayorHorarioInicio => '. ($horaInicioEsMayorHorarioInicio? 'Si' : 'No' );
+                echo '<br>';
+                echo '$horaFinEsMayorHorarioFin => '. ($horaFinEsMayorHorarioFin? 'Si' : 'No' );
+                echo '<br>';
+                echo '<br>';
+                $tmp = 0;
+                if ( $horaInicioEsMayorHorarioInicio && $horaFinEsMayorHorarioFin){
+                    $tmp = self::calcularTiempoFueraHorario($horaInicio, $horaFin);
+                } else if ( !$horaInicioEsMayorHorarioInicio && !$horaFinEsMayorHorarioFin){
+                    $tmp = self::calcularTiempoFueraHorario($horaFin, $horaInicio);
+                } else {
+                    $tiempoInicio = self::calcularTiempoFueraHorario($horaInicio, $horarioInicio);
+                    echo '<br>';
+                    $tiempoFin    = self::calcularTiempoFueraHorario($horaFin, $horarioFin);
+                    $tmp = $tiempoInicio + $tiempoFin;
+                }
+                return $tmp;
+            }
+        }
+    
+        return null;
+    }
+    
+    public function validarIsHorarioLaboral($horario, $horaAEvaluar) {
+        $horaEvaluando = $horaAEvaluar;
+        // dd($horario);
+        // echo '<br>';
+        if ($horaEvaluando->isValid() && isset($horario->tipoHorario->value)) {
+            $tipoHorario = $horario->tipoHorario->value;
+            $response = null;
+            switch ($tipoHorario) {
+                case '12x12':
+                case 'Cecom 8 Hrs':
+                    $dias = $horario->dias;
+                    $diaActual = $horaEvaluando->translatedFormat('l');
+    
+                    // Crear un nuevo array para almacenar los valores en minúsculas
+                    $diasEnMinusculas = array_map('strtolower', array_column($dias, 'value'));
+    
+                    // Quitar acentos
+                    $diaActual = self::quitarAcentos($diaActual);
+
+                    if (in_array(strtolower($diaActual), $diasEnMinusculas)) {
+                        $nombreTurno = isset($horario->turno->value) ? $horario->turno->value : '';
+                        if ($tipoHorario == '12x12'){    
+                            $horaInicio = Carbon::parse($horario->horaInicio);
+                            $horaFin = Carbon::parse($horario->horaFin);
+                        } else {
+                            $horaInicio = Carbon::parse($horario->turno->horario->horaInicio);
+                            $horaFin = Carbon::parse($horario->turno->horario->horafin);
+                        }
+                        $esNocturno = ($nombreTurno == 'Nocturno');
+                        // Establecer el mismo día en $horaInicio y $horaFin que $horaEvaluando
+                        $horaInicio->setDate($horaEvaluando->year, $horaEvaluando->month, $horaEvaluando->day);
+                        $horaFin->setDate($horaEvaluando->year, $horaEvaluando->month, $horaEvaluando->day);
+
+                        if ($esNocturno) {
+                            $horaFin->addDay();
+                            $response = ($horaEvaluando->lt($horaInicio) && $horaEvaluando->gte($horaFin));
+                        } else {
+                            $response = $horaEvaluando->between($horaInicio, $horaFin);
+                        }
+                        echo($response);
+                        echo 'horaEvaluando : '. $horaEvaluando . ' <br>';
+                        echo 'horaInicio : '. $horaInicio . ' <br>';
+                        echo 'horaFin : '. $horaFin . ' <br>';
+                        echo 'Response => '.($response ? 'Si' : 'No');
+                        echo ' <br><br>';
+                    }
+                    return $response;
+    
+                default:
+                    return null;
+            }
+        }
+    
+        return null;
+    }
+    
+    public function calcularTiempoFueraHorario($horaLaboral, $horaFuera) {
+        echo 'horaLaboral : '. $horaLaboral . ' <br>';
+        echo 'horaFuera : '. $horaFuera . ' <br>';
+        $tiempo = $horaLaboral->diffInMinutes($horaFuera);  
+        return $tiempo;
+    }
+    
+    public function quitarAcentos($cadena) {
+        $acentos = ['á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú'];
+        $sinAcentos = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+    
+        return str_replace($acentos, $sinAcentos, $cadena);
+    }
+    
+
     public function handleListar(Request $request){
         $data = [];
         $payload = $request->all();

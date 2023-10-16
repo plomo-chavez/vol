@@ -31,6 +31,7 @@ use App\Http\Controllers\Email\MailController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/pruebas',                  [HorasVoluntariasController::class, 'validarInHorarioLaboral']);
 Route::get('/newPass',                  [AuthController::class, 'newPass']);
 Route::post('/scann',                   [ScannController::class, 'getInfoScannOut']);
 Route::post('/auth/register',           [AuthController::class, 'createUser']);

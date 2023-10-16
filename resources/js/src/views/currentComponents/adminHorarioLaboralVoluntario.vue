@@ -35,7 +35,7 @@ import { BButton, BAvatar} from 'bootstrap-vue'
         data() {
             return {
                 openModalForm : false,
-                dataForm : null,
+                dataForm : {},
                 schemaFormModal : [],
                 schemaMain : [
                     {
@@ -137,7 +137,7 @@ import { BButton, BAvatar} from 'bootstrap-vue'
         props: {
             data: {
                 type    : Object,
-                default : null
+                default : {}
             },
             openModal:{
                 type    : Boolean,
@@ -149,8 +149,10 @@ import { BButton, BAvatar} from 'bootstrap-vue'
             },
         },
         watch: {
-            openModal () {
-                this.handelOpenModal();
+            openModal (value) {
+                if (value) {
+                    this.handelOpenModal();
+                }
             }
 
         },
@@ -174,56 +176,60 @@ import { BButton, BAvatar} from 'bootstrap-vue'
                 let tmp = []
                 let hayModificaciones = false;
                 let  dataTmp = {...data};
-                if((data?.turno ?? null) != (this.dataForm?.turno ?? null)){
-                    dataTmp = {...dataTmp,...this.dataForm.turno.horario}
+                if((data.turno ) != (this.dataForm.turno)){
+                    console.log(this.dataForm,'this.dataForm')
+                    if (this.dataForm?.turno?.horario ?? false) 
+                        dataTmp = {...dataTmp,...this.dataForm.turno.horario}
                 }
-                if((data?.tipoHorario ?? null) != (this.dataForm?.tipoHorario ?? null)){       
-                    switch(data.tipoHorario.value){
-                        case '24x48':
-                            let tmpFecha = moment();
-                            dataTmp.numeroDias = 24
-                            dataTmp.fechaInicio = tmpFecha;
-                            dataTmp.horaInicio = '07:00:00'
-                        tmp = [
-                            ...this.schemaMain,
-                            ...this.form24,
-                        ]
-                        break;
-                        case '12x12':
-                            dataTmp.dias = [
-                                {label : 'Miercoles', value: 'Miercoles'},
-                                {label : 'Jueves', value: 'Jueves'},
-                                {label : 'Viernes', value: 'Viernes'},
-                                {label : 'Sabado', value: 'Sabado'},
-                                {label : 'Domingo', value: 'Domingo'},
-                            ];
-                            dataTmp.horaInicio = '08:00:00'
-                            dataTmp.horaFin = '20:00:00'
-
-                        tmp = [
-                            ...this.schemaMain,
-                            ...this.formHoras,
-                            ...this.formDias,
-                        ]
-                        break;
-                        case 'Cecom 8 Hrs':
-                            dataTmp.dias = [
-                                {label : 'Lunes', value: 'Lunes'},
-                                {label : 'Martes', value: 'Martes'},
-                                {label : 'Miercoles', value: 'Miercoles'},
-                                {label : 'Jueves', value: 'Jueves'},
-                                {label : 'Viernes', value: 'Viernes'},
-                                {label : 'Sabado', value: 'Sabado'},
-                                {label : 'Domingo', value: 'Domingo'},
-                            ];
-                        tmp = [
-                            ...this.schemaMain,
-                            ...this.formTurnos,
-                            ...this.formDias,
-                        ]
-                        break;
-                    }
-                    hayModificaciones = true;
+                if((data.tipoHorario) != (this.dataForm.tipoHorario)){      
+                    if(data?.tipoHorario?.value ?? false){
+                        switch(data.tipoHorario.value){
+                            case '24x48':
+                                let tmpFecha = moment();
+                                dataTmp.numeroDias = 24
+                                dataTmp.fechaInicio = tmpFecha;
+                                dataTmp.horaInicio = '07:00:00'
+                            tmp = [
+                                ...this.schemaMain,
+                                ...this.form24,
+                            ]
+                            break;
+                            case '12x12':
+                                dataTmp.dias = [
+                                    {label : 'Miercoles', value: 'Miercoles'},
+                                    {label : 'Jueves', value: 'Jueves'},
+                                    {label : 'Viernes', value: 'Viernes'},
+                                    {label : 'Sabado', value: 'Sabado'},
+                                    {label : 'Domingo', value: 'Domingo'},
+                                ];
+                                dataTmp.horaInicio = '08:00:00'
+                                dataTmp.horaFin = '20:00:00'
+    
+                            tmp = [
+                                ...this.schemaMain,
+                                ...this.formHoras,
+                                ...this.formDias,
+                            ]
+                            break;
+                            case 'Cecom 8 Hrs':
+                                dataTmp.dias = [
+                                    {label : 'Lunes', value: 'Lunes'},
+                                    {label : 'Martes', value: 'Martes'},
+                                    {label : 'Miercoles', value: 'Miercoles'},
+                                    {label : 'Jueves', value: 'Jueves'},
+                                    {label : 'Viernes', value: 'Viernes'},
+                                    {label : 'Sabado', value: 'Sabado'},
+                                    {label : 'Domingo', value: 'Domingo'},
+                                ];
+                            tmp = [
+                                ...this.schemaMain,
+                                ...this.formTurnos,
+                                ...this.formDias,
+                            ]
+                            break;
+                        }
+                        hayModificaciones = true;
+                    } 
                 }
                 if (hayModificaciones) {
                     this.dataForm = {...dataTmp};
