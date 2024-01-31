@@ -81,6 +81,9 @@ export default {
                     case 'getUltimaGuardiaHoras':
                         response = await  peticiones.getUltimaGuardiaHoras(payload)
                     break;
+                    case 'getVoluntario':
+                        response = await  peticiones.getVoluntario(payload)
+                    break;
                 }
                 this.loading(false);
                 if (showMessage) {

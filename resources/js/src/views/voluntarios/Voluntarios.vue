@@ -35,6 +35,7 @@
     import customHelpers  from '@helpers/customHelpers'
     import formVoluntario  from '@/views/voluntarios/formVoluntario.vue'
     import detallesVoluntario  from '@/views/voluntarios/detallesVoluntario.vue'
+    import store from '@/store'
 
   export default {
     components: {
@@ -45,11 +46,12 @@
     },
     data() {
       return {
-        accion: 1,
-        activeRow : null,
-        schemaMain : null,
-        showForm : false,
-        data:[],
+        userData    : store.state.app.userData,
+        accion      : 1,
+        activeRow   : null,
+        schemaMain  : null,
+        showForm    : false,
+        data        :[],
         config :  {
           showCellActions: true,
           cellActions: {
@@ -209,7 +211,10 @@
         },
         reload () {
             peticiones
-                .getVoluntarios({})
+                .getVoluntarios({
+                    tipousuario_id:this.userData.tipoUsuario_id,
+                    delegacion_id:this.userData.delegacion_id
+                })
                 .then(response => {
                     this.data = response.data.data
                 })
@@ -260,10 +265,10 @@
                 tmp.tipoUsuario = {value : tmp.tipoUsuario_id, label : tmp.tipo_usuario.nombre}
             }
             tmp.accesoMovil = typeof tmp.accesoMovil  == 'number' ? (tmp.accesoMovil ? true:false) : false
-            tmp.accesoWeb = typeof tmp.accesoWeb  == 'number' ? (tmp.accesoWeb ? true:false) : false
-            tmp.bloqueado = typeof tmp.bloqueado  == 'number' ? (tmp.bloqueado ? true:false) : false
-            this.activeRow = this.copyObject(tmp)
-            let tmpSchema = this.copyObject(this.formSchema)
+            tmp.accesoWeb   = typeof tmp.accesoWeb  == 'number' ? (tmp.accesoWeb ? true:false) : false
+            tmp.bloqueado   = typeof tmp.bloqueado  == 'number' ? (tmp.bloqueado ? true:false) : false
+            this.activeRow  = this.copyObject(tmp)
+            let tmpSchema   = this.copyObject(this.formSchema)
             tmpSchema.splice(3,1)
             this.schemaMain = tmpSchema
             this.showForm = true;

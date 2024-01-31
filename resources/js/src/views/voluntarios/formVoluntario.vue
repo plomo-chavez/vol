@@ -74,8 +74,9 @@
         data() {
             return {
                 // viewInputDelegacion:false,
-                viewInputDelegacion:true,
-                activeform:{},
+                viewInputDelegacion : false,
+                viewInputEstatal    : false,
+                activeform          : {},
                 userData: store.state.app.userData,
                 formSchemaFormVoluntario: [
                     {
@@ -167,11 +168,9 @@
 
         },
         beforeMount(){
-            this.activeform = this.data
-            this.viewInputEstatal    = true;
-            this.viewInputDelegacion = true;
-            // this.viewInputEstatal = !this.isTypeUser('admin');
-            // this.viewInputDelegacion = !this.isTypeUser('local');
+            this.activeform             = this.data
+            this.viewInputEstatal       = this.isTypeUser('admin');
+            this.viewInputDelegacion    = !this.isTypeUser('local');
             if (this.viewInputDelegacion) {
                 this.formSchemaFormVoluntario.unshift(
                     {

@@ -291,8 +291,9 @@ class CatalogosController extends BaseController {
 
     public function getVoluntarios(Request $request){
         $payload = $request->all();
+        dd($payload);
         $data = Voluntarios::orderBy('nombre',"asc")->select('id','nombre','primerApellido','segundoApellido','numeroInterno','numeroAsociado','correo');
-        if(isset($payload['tipoUsuario_id']) && isset($payload['delegacion_id']) ){
+        if(isset($payload['tipousuario_id']) && isset($payload['delegacion_id']) ){
             $ids = self::idsDelegacionesXTipoUsuario($payload['tipoUsuario_id'],$payload['delegacion_id']);
             $data = $data->whereIn('delegacion_id',$ids);
         }

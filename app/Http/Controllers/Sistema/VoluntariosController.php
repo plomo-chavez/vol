@@ -27,10 +27,23 @@ class VoluntariosController extends BaseController {
     }
 
     public function handleListar(Request $request){
+        $filtros = ($request->all());
+        if (empty($filtros)) {
+            $data = self::filtrar($request->all(), new Modelo());
+        } else {
+
+            $modelo =  new Modelo();
+            $query = $modelo::query()->orderBy('id', 'asc');
+            if(isset($filtros['tipousuario_id']) && isset($filtros['delegacion_id']) ){
+                $ids = self::idsDelegacionesXTipoUsuario($filtros['tipousuario_id'],$filtros['delegacion_id']);
+                $query = $query->whereIn('delegacion_id',$ids);
+            }
+            $data = $query->get()->toArray();
+        }
         return self::responsee(
             'Consulta realizada con exito.',
             true,
-            self::filtrar($request->all(), new Modelo()),
+            $data,
         );
     }
 
