@@ -72,7 +72,8 @@ class HorasVoluntariasController extends BaseController
 
     public function validarInHorarioLaboral(Request $request){
         $horaInicio = "13/10/23 21:00";
-        $horaFin = "14/10/23 08:00";
+        $horaInicio = "13/10/23 07:00";
+        $horaFin    = "14/10/23 08:00";
     
         $tiempo = self::validarHVWithHorarioLaboral(1, $horaInicio, $horaFin);
     
@@ -90,72 +91,90 @@ class HorasVoluntariasController extends BaseController
         $horaFin    = Carbon::createFromFormat('d/m/y H:i', $horaFin);
         $voluntario = Voluntarios::find($voluntarioID);
         $horario = json_decode($voluntario->horarioLaboral);
-        switch($horario->tipoHorario->value){
-            case '12x12':
-                $horarioInicio  = Carbon::parse($horario->horaInicio);
-                $horarioFin     = Carbon::parse($horario->horaFin);
-            break;
-            case 'Cecom 8 Hrs':
-                $horarioInicio  = Carbon::parse($horario->turno->horario->horaInicio);
-                $horarioFin     = Carbon::parse($horario->turno->horario->horafin);
-            break;
-        }
-    
-        // // Establecer el mismo día en $horaInicio y $horaFin que $horaEvaluando
-        $horarioInicio->setDate($horaInicio->year, $horaInicio->month, $horaInicio->day);
-           $horarioFin->setDate($horaInicio->year, $horaInicio->month, $horaInicio->day);
+        $isSameDay = $horaInicio->isSameDay($horaFin);
+        echo 'isSameDay => '. ($isSameDay ? 'Si' : 'No') . '<br>';
+        if ($isSameDay) {
 
-        $responseHoraInicio = self::validarIsHorarioLaboral($horario, $horaInicio);
-        $responseHoraFin    = self::validarIsHorarioLaboral($horario, $horaFin);
-    
-        if ($responseHoraInicio !== null && $responseHoraFin !== null) {
-            if ($responseHoraInicio == true && $responseHoraFin  == false) { // La hora de inicio esta dentro del horario laboral y la de fin no.
-                return self::calcularTiempoFueraHorario($horarioFin, $horaFin);
-            } elseif ($responseHoraInicio == false && $responseHoraFin  == true) {// La hora de inicio esta fuera del horario laboral y la de fin no.
-                return self::calcularTiempoFueraHorario($horaInicio, $horarioInicio);
-            } elseif ($responseHoraInicio == false && $responseHoraFin  == false) {
-                $horaInicioEsMayorHorarioInicio = $horaInicio->greaterThan($horarioInicio);
-                $horaFinEsMayorHorarioFin = $horaFin->greaterThan($horarioFin);
-                if ($horaInicioEsMayorHorarioInicio) {
-                    echo 'horaInicio '.$horaInicio.' es mayor que horarioInicio '. $horarioInicio;
-                } else {
-                    echo 'horaInicio '.$horaInicio.' no es mayor que horarioInicio '. $horarioInicio;
-                } 
-                echo '<br>';
-                if ($horaFinEsMayorHorarioFin) {
-                    echo 'horaFin '.$horaFin.' es mayor que horarioFin '. $horarioFin;
-                } else {
-                    echo 'horaFin '.$horaFin.' no es mayor que horarioFin '. $horarioFin;
-                } 
+        } else {
+            $tmpInicio = clone $horaInicio;
+            $tmpInicio->setTime(0, 0, 0);
+            $tmpFin = clone $horaFin;
+            $tmpFin->setTime(0, 0, 0);
+            $numeroDias = $tmpInicio->diffInDays($tmpFin,true);
+            if ($numeroDias == 1) {
+                $responseFin = self::validarIsHorarioLaboral($horario,$horaFin);
+                $responseInicio = self::validarIsHorarioLaboral($horario,$horaInicio);
+                echo $tiempo = self::nose($responseInicio,$responseFin,$isSameDay);
                 echo '<br>';
                 echo '<br>';
-                echo '$horaInicioEsMayorHorarioInicio => '. ($horaInicioEsMayorHorarioInicio? 'Si' : 'No' );
-                echo '<br>';
-                echo '$horaFinEsMayorHorarioFin => '. ($horaFinEsMayorHorarioFin? 'Si' : 'No' );
-                echo '<br>';
-                echo '<br>';
-                $tmp = 0;
-                if ( $horaInicioEsMayorHorarioInicio && $horaFinEsMayorHorarioFin){
-                    $tmp = self::calcularTiempoFueraHorario($horaInicio, $horaFin);
-                } else if ( !$horaInicioEsMayorHorarioInicio && !$horaFinEsMayorHorarioFin){
-                    $tmp = self::calcularTiempoFueraHorario($horaFin, $horaInicio);
-                } else {
-                    $tiempoInicio = self::calcularTiempoFueraHorario($horaInicio, $horarioInicio);
-                    echo '<br>';
-                    $tiempoFin    = self::calcularTiempoFueraHorario($horaFin, $horarioFin);
-                    $tmp = $tiempoInicio + $tiempoFin;
-                }
-                return $tmp;
+                echo self::minutosATiempo($tiempo); 
             }
         }
-    
         return null;
     }
-    
-    public function validarIsHorarioLaboral($horario, $horaAEvaluar) {
-        $horaEvaluando = $horaAEvaluar;
-        // dd($horario);
-        // echo '<br>';
+    public function nose ($inicio,$fin,$isSameDay){
+        echo 'Inicio -> Result =>' . ($inicio['result']? 'Si' : 'No' ).'<br>';
+        echo 'Inicio -> Hora  => ' . $inicio['hora']->format('d/m/Y H:i:s').'<br>';
+        echo 'Inicio -> HoraInicio' . $inicio['horario']['inicio']->format('d/m/Y H:i:s').'<br>';
+        echo 'Inicio -> HoraFin'    . $inicio['horario']['fin']->format('d/m/Y H:i:s').'<br>';
+        echo '   Fin -> Result =>' . ($fin['result']? 'Si' : 'No' ).'<br>';
+        echo '   Fin -> Hora  => ' . $fin['hora']->format('d/m/Y H:i:s').'<br>';
+        echo '   Fin -> HoraInicio' . $fin['horario']['inicio']->format('d/m/Y H:i:s').'<br>';
+        echo '   Fin -> HoraFin'    . $fin['horario']['fin']->format('d/m/Y H:i:s').'<br>';
+        echo '<br><br>';
+        if ($inicio !== null && $fin !== null) {
+            if ($inicio['result'] == true && $fin['result']  == false && $isSameDay) { 
+                echo 'Caso #1: <br>';
+                // La hora de inicio esta dentro del horario laboral y la de fin no.
+                return self::calcularTiempoFueraHorario($fin['horario']['fin'], $fin['hora']);
+            } else if ($inicio['result'] == false && $fin['result']  == true && $isSameDay) {
+                echo 'Caso #2: <br>';
+                // La hora de inicio esta fuera del horario laboral y la de fin no.
+                return self::calcularTiempoFueraHorario($inicio['hora'], $inicio['horario']['inicio']);
+            } else {
+                echo 'Caso #3: <br>';
+
+                $horaInicioEsMayorHorarioInicio = $inicio['hora']->greaterThan($inicio['horario']['inicio']) ? 'inicio' : null;
+                $horaInicioEsMayorHorarioInicio = $horaInicioEsMayorHorarioInicio != null ? $horaInicioEsMayorHorarioInicio : $inicio['hora']->greaterThan($inicio['horario']['fin']);
+
+                echo 'horaInicioEsMayorHorarioInicio =>' . ($horaInicioEsMayorHorarioInicio).'<br>';
+                echo 'isSameDay =>' . ($isSameDay? 'Si' : 'No' ).'<br>';
+                // $horaFinEsMayorHorarioFin = $horaFin->greaterThan($horarioFin);
+                // if ($horaInicioEsMayorHorarioInicio) {
+                //     echo 'horaInicio '.$horaInicio.' es mayor que horarioInicio '. $horarioInicio;
+                // } else {
+                //     echo 'horaInicio '.$horaInicio.' no es mayor que horarioInicio '. $horarioInicio;
+                // } 
+                // echo '<br>';
+                // if ($horaFinEsMayorHorarioFin) {
+                //     echo 'horaFin '.$horaFin.' es mayor que horarioFin '. $horarioFin;
+                // } else {
+                //     echo 'horaFin '.$horaFin.' no es mayor que horarioFin '. $horarioFin;
+                // } 
+                // echo '<br>';
+                // echo '<br>';
+                // echo '$horaInicioEsMayorHorarioInicio => '. ($horaInicioEsMayorHorarioInicio? 'Si' : 'No' );
+                // echo '<br>';
+                // echo '$horaFinEsMayorHorarioFin => '. ($horaFinEsMayorHorarioFin? 'Si' : 'No' );
+                // echo '<br>';
+                // echo '<br>';
+                // $tmp = 0;
+                // if ( $horaInicioEsMayorHorarioInicio && $horaFinEsMayorHorarioFin){
+                //     $tmp = self::calcularTiempoFueraHorario($horaInicio, $horaFin);
+                // } else if ( !$horaInicioEsMayorHorarioInicio && !$horaFinEsMayorHorarioFin){
+                //     $tmp = self::calcularTiempoFueraHorario($horaFin, $horaInicio);
+                // } else {
+                //     $tiempoInicio = self::calcularTiempoFueraHorario($horaInicio, $horarioInicio);
+                //     echo '<br>';
+                //     $tiempoFin    = self::calcularTiempoFueraHorario($horaFin, $horarioFin);
+                //     $tmp = $tiempoInicio + $tiempoFin;
+                // }
+                // return $tmp;
+            }
+        }
+    }
+
+    public function validarIsHorarioLaboral($horario, $horaEvaluando) {
         if ($horaEvaluando->isValid() && isset($horario->tipoHorario->value)) {
             $tipoHorario = $horario->tipoHorario->value;
             $response = null;
@@ -164,10 +183,8 @@ class HorasVoluntariasController extends BaseController
                 case 'Cecom 8 Hrs':
                     $dias = $horario->dias;
                     $diaActual = $horaEvaluando->translatedFormat('l');
-    
                     // Crear un nuevo array para almacenar los valores en minúsculas
                     $diasEnMinusculas = array_map('strtolower', array_column($dias, 'value'));
-    
                     // Quitar acentos
                     $diaActual = self::quitarAcentos($diaActual);
 
@@ -175,10 +192,10 @@ class HorasVoluntariasController extends BaseController
                         $nombreTurno = isset($horario->turno->value) ? $horario->turno->value : '';
                         if ($tipoHorario == '12x12'){    
                             $horaInicio = Carbon::parse($horario->horaInicio);
-                            $horaFin = Carbon::parse($horario->horaFin);
+                            $horaFin    = Carbon::parse($horario->horaFin);
                         } else {
                             $horaInicio = Carbon::parse($horario->turno->horario->horaInicio);
-                            $horaFin = Carbon::parse($horario->turno->horario->horafin);
+                            $horaFin    = Carbon::parse($horario->turno->horario->horafin);
                         }
                         $esNocturno = ($nombreTurno == 'Nocturno');
                         // Establecer el mismo día en $horaInicio y $horaFin que $horaEvaluando
@@ -187,16 +204,24 @@ class HorasVoluntariasController extends BaseController
 
                         if ($esNocturno) {
                             $horaFin->addDay();
-                            $response = ($horaEvaluando->lt($horaInicio) && $horaEvaluando->gte($horaFin));
+                            $response = [
+                                'result'  => ($horaEvaluando->lt($horaInicio) && $horaEvaluando->gte($horaFin)),
+                                'hora'    => $horaEvaluando,
+                                'horario' => [
+                                    'inicio' => $horaInicio,
+                                    'fin' => $horaFin,
+                                ],
+                            ];
                         } else {
-                            $response = $horaEvaluando->between($horaInicio, $horaFin);
+                            $response = [
+                                'result' => $horaEvaluando->between($horaInicio, $horaFin),
+                                'hora'    => $horaEvaluando,
+                                'horario' => [
+                                    'inicio' => $horaInicio,
+                                    'fin' => $horaFin,
+                                ],
+                            ];
                         }
-                        echo($response);
-                        echo 'horaEvaluando : '. $horaEvaluando . ' <br>';
-                        echo 'horaInicio : '. $horaInicio . ' <br>';
-                        echo 'horaFin : '. $horaFin . ' <br>';
-                        echo 'Response => '.($response ? 'Si' : 'No');
-                        echo ' <br><br>';
                     }
                     return $response;
     
@@ -204,13 +229,10 @@ class HorasVoluntariasController extends BaseController
                     return null;
             }
         }
-    
         return null;
     }
     
     public function calcularTiempoFueraHorario($horaLaboral, $horaFuera) {
-        echo 'horaLaboral : '. $horaLaboral . ' <br>';
-        echo 'horaFuera : '. $horaFuera . ' <br>';
         $tiempo = $horaLaboral->diffInMinutes($horaFuera);  
         return $tiempo;
     }

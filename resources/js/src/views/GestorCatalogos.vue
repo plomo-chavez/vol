@@ -90,6 +90,7 @@ import { timestamp } from '@vueuse/core'
         getSchema(){
             this.showV1 = false;
             let tmpSchema = [...this.schemaMain]
+            console.log('this.catalogo',this.catalogo);
             if(this.catalogo == 'tipo-subactividades-horas-voluntarias'){
                 let item = {
                     classContainer:'col-12',
@@ -101,6 +102,20 @@ import { timestamp } from '@vueuse/core'
                     label       : 'Tipo de acitvidades'
                 };
                 tmpSchema = [item,...tmpSchema]
+            }
+            if(this.catalogo == 'areas') {
+
+                let item =  {
+                    classContainer:'col-12',
+                    classSwitch : ' col-6 ',
+                    type        : 'input-multiple',
+                    name        : 'cargos',
+                    value       : 'cargos',
+                    stacked     : true,
+                    label       : 'Cargos:',
+                    catalogo    : 'cargos',
+                };
+                tmpSchema = [...tmpSchema,item]
             }
             this.schema = [...tmpSchema]
             let tmpColumnas = [...this.columnasMain]
@@ -167,6 +182,9 @@ import { timestamp } from '@vueuse/core'
             let tmp = this.copyObject(data)
             if(this.catalogo == 'subtratamientos'){
                 tmp.tratamiento = {value : tmp.tratamiento_id, label: tmp.tratamiento};
+            }
+            if(this.catalogo == 'areas'){
+                tmp.cargos = this.formatoToCatalogo(tmp.cargos);
             }
             this.activeRow = this.copyObject(tmp)
             this.openModalForm = true;

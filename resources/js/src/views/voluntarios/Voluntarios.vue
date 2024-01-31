@@ -66,7 +66,7 @@
         },
         formSchema: [
             {
-                classContainer:'col-lg-4 col-md-6 col-12',
+                classContainer:' col-lg-4 col-md-6 col-12 ',
                 type        : 'input-select',
                 name        : 'persona',
                 value       : 'persona',

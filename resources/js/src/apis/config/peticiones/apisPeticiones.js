@@ -9,6 +9,9 @@ export default class apiPeticiones {
     this.axiosIns = axiosIns
     this.apisConfig = { ...this.apisConfig, ...jwtOverrideConfig }
   }
+  getAntiguedades(...args) {
+    return this.axiosIns.post(this.apisConfig.apiGetAntiguedades, ...args)
+  }
   getRegistroHV(...args) {
     return this.axiosIns.post(this.apisConfig.apiGetRegistroHV, ...args)
   }

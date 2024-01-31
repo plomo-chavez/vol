@@ -9,6 +9,8 @@ use App\Http\Controllers\Sistema\Modelos\Voluntarios;
 use App\Http\Controllers\Auth\Models\TipoUsuario;
 use App\Http\Controllers\Sistema\Modelos\Estado;
 use App\Http\Controllers\Sistema\Modelos\Areas;
+use App\Http\Controllers\Sistema\Modelos\Cargos;
+use App\Http\Controllers\Sistema\Modelos\AreaCargos;
 use App\Http\Controllers\BaseController;
 use Illuminate\Database\Eloquent\Model;
 
@@ -91,7 +93,19 @@ class CatalogosController extends BaseController {
             break;
             case 'areas': 
                 if($query) {
-                    $tmp = Areas::orderBy('id', 'asc')->select('id','nombre');
+                    $tmp = Areas::orderBy('id', 'asc')
+                    ->select('id','nombre')
+                    ->with('cargos');
+                    $tmp = self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
+                    foreach ($tmp as &$item) { foreach ($item['cargos'] as &$cargo) { unset($cargo['pivot']); } }
+                    return $tmp;
+                } else {
+                    return new Areas();
+                }
+            break;
+            case 'cargos': 
+                if($query) {
+                    $tmp = Cargos::orderBy('id', 'asc')->select('id','nombre');
                     return self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
                 } else {
                     return new Areas();
@@ -187,6 +201,37 @@ class CatalogosController extends BaseController {
         );        
     }
 
+    public function actualizar($payload, $modelo) {
+        if(isset($payload['id'])){
+            if ($payload['catalogo'] == 'areas') {
+                $esNull = true; // Suponemos que todos los elementos son null inicialmente
+
+                foreach ($payload['cargos'] as $elemento) {
+                    if ($elemento !== null) {
+                        $esNull = false; // Si encontramos un elemento que no es null, cambiamos la bandera a false
+                        break; // Salimos del bucle, ya que no es necesario seguir verificando
+                    }
+                }
+                if (!$esNull) {
+                    // Eliminar todos los registros de Cargos relacionados con el área
+                    AreaCargos::where('area_id', $payload['id'])->delete();
+                    // Agregar registros de Cargos relacionados con el área
+                    foreach ($payload['cargos'] as $index => $item) {
+                        AreaCargos::create([
+                            'area_id' => $payload['id'],
+                            'cargo_id' => $item['value'],
+                            'status' => 1,
+                        ]);
+                    }
+                }
+            }
+            
+            $modelo::updateOrCreate(['id' => $payload['id']],$payload);
+            return self::responsee('Registro actualizado corrrectamente.');
+        } else {
+            return self::responsee('Actualizar no tiene id.', false);
+        }
+     }
     public function administrar(array $payload = [], Model $modelo = null) {
         if (isset($payload['accion'])) {
             switch($payload['accion']){

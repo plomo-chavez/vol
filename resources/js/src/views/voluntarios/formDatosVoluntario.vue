@@ -356,8 +356,8 @@
                         name        : 'delegación',
                         value       : 'delegacion',
                         label       : 'Delegación',
-                        catalogo    : 'DelegacionesXTipoCoordinador',
                         rules       : 'required',
+                        catalogo    : 'DelegacionesXTipoCoordinador',
                         filtros     : { tipoUsuario_id: (JSON.parse(localStorage.getItem('userData')) ?? null)?.tipoUsuario_id ?? 0 }
                     },
                     {
@@ -368,6 +368,27 @@
                         label       : 'Area:',
                         rules       : 'required',
                         catalogo    : 'areas',
+                    },
+                    {
+                        classContainer:'col-lg-3   col-md-6   col-12',
+                        type        : 'input-select',
+                        name        : 'cargo',
+                        value       : 'cargo',
+                        label       : 'Cargo',
+                        rules       : 'required',
+                        catalogo    : [],
+                    },
+                    {
+                        classContainer:' col-lg-4 col-md-4 col-sm-12 col-12',
+                        type        : 'input-switch',
+                        name        : 'isAsalariado',
+                        value       : 'isAsalariado',
+                        label       : 'Es asalariado?',
+                        rules       : 'required',
+                        labels      : {
+                                        'on' : "Si",
+                                        'off': "No"
+                                    },
                     },
                     {
                         classContainer:'col-12',
@@ -427,6 +448,7 @@
                 this.formSchemaFormVoluntario.splice(-3);
             }
             this.urlImagen = this.data != null ? (this.data?.urlImagen ?? null) : null;
+            this.formSchemaFormVoluntario[22].catalogo = this.formatoToCatalogo(this.dataForm.area.cargos ?? []);
         },
         mounted(){
         },

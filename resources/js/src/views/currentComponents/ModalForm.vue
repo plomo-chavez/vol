@@ -11,6 +11,7 @@
         <FormFactory
             class="col-12 mx-auto"
             :data = 'data'
+            :classRow=" ' col-12 ' "
             :btnLblSubmit="btnLblSubmit"
             :schema="formSchema"
             :formLive="formLive"

@@ -8,10 +8,11 @@
       <div class="wwfull d-flex justify-content-between">
 
         <div class=" d-flex align-items-end flex-wrap " >
-          <h4 v-if="title != null" class="col-12 m-0 p-0">{{ title }} </h4>
-          <div  v-if="config.btnNuevo || config.btnFiltrar || typeof config.btnOtros == 'array'">
+          <h4 v-if="title != null" class="col-12 m-0 p-0 mb-1">{{ title }} </h4>
+          <div  v-if="config.btnNuevo || config.btnFiltrar || config.btnExportar || typeof config.btnOtros == 'array'">
               <b-button v-if="config.btnNuevo"   @click="() => { $emit('mtdNuevo') }"   >Nuevo</b-button>
               <b-button v-if="config.btnFiltrar" @click="() => { $emit('mtdFiltrar') }" >Filtrar</b-button>
+              <b-button v-if="config.btnExportar" @click="() => { $emit('mtdExportar') }" >Exportar</b-button>
               <b-dropdown v-if="typeof config.btnOtros == 'array'" right text="Otras acciones">
                 <template v-for="(btnOtro, index) in config.btnOtros">
                     <b-dropdown-item v-if="typeof btnOtro.function == 'function'" :key="index" @click="btnOtro.function()">{{ btnOtro.label }}</b-dropdown-item>
@@ -20,8 +21,8 @@
           </div>
         </div>
         <!-- filter -->
-        <div class=" d-flex align-items-end flex-wrap " >
-        <b-form-group v-if="config.buscador" >
+        <div class="col-6 d-flex align-items-end flex-wrap " >
+        <b-form-group v-if="config.buscador" class="wwfull">
             <b-input-group size="sm">
               <b-form-input
                 id="filterInput"

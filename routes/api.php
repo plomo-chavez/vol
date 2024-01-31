@@ -74,6 +74,7 @@ Route::middleware([UserAuthentication::class])->post('/get/voluntario',         
 Route::middleware([UserAuthentication::class])->post('/catalogos/listar',                       [CatalogosController::class, 'handleListar']);
 Route::middleware([UserAuthentication::class])->post('/catalogos/administrar',                  [CatalogosController::class, 'handleAdministrar']);
 Route::middleware([UserAuthentication::class])->post('/hv/registro',                            [HorasVoluntariasController::class, 'getRegistro']);
+Route::middleware([UserAuthentication::class])->post('/voluntarios/antiguedades',               [VoluntariosController::class, 'getAntiguedades']);
 // Route::middleware([UserAuthentication::class])->post('/auth/verificar',    [AuthController::class, 'verificar']);
 Route::post('/get/catalogo',    [CatalogosController::class, 'getCatalogo']);
 Route::post('/catalogo/tipo/actividadesHV',     [CatalogosController::class, 'getTipoactividadesHV']);
@@ -93,6 +94,7 @@ Route::post('/catalogo/especial/delegaciones', [CatalogosController::class, 'del
 Route::post('/catalogo/especial/voluntarios', [CatalogosController::class, 'voluntariosXDelegacion']);
 // Generador PDF
 Route::middleware([UserAuthentication::class])->post('/generate/voluntarios',           [PDFController::class, 'generatePDFVoluntarios']);
+Route::middleware([UserAuthentication::class])->post('/generate/antiguedades',          [PDFController::class, 'generatePDFAntiguedades']);
 Route::middleware([UserAuthentication::class])->post('/generate/credencial-temporal',   [PDFController::class, 'generatePDFCRedencialTemporal']);
 // UploadFiles
 Route::post('/upload/delegacion/coordinadores',     [FileUploadController::class, 'uploadFilesDelegacionesCoordinadores']);

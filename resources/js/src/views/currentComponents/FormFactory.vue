@@ -34,12 +34,12 @@
         </div>
         <div class="col-12 p-11 pt-0 pb-0" @keyup.enter="validationForm">
             <validation-observer ref="simpleRules">
-              <b-row :class="classRow">
+              <div class=" wwfull d-flex flex-wrap ">
                   <b-col
                       v-for="(input,indxInput) in schema"
                       :key="'input-'+indxInput"
                       class=" m-0 p-0 p-0 pp-3"
-                      :class="' mmb-1' + (typeof input.classContainer != 'undefined'? input.classContainer : ' col-12 ' ) "
+                      :class="' mmb-1 ' + (typeof input.classContainer != 'undefined'? input.classContainer : ' col-12 ' ) "
                   >
                   <!-- input blank -->
                       <div v-if="input.type === 'input-blank'" ></div>
@@ -587,7 +587,7 @@
                             />
                       </div>
                   </b-col>
-              </b-row>
+                </div>
             </validation-observer>
             <!-- Botones de acción -->
             <div v-if="btnsAccion" class="col-12 m-0 p-0 mt-1 d-flex justify-content-end">

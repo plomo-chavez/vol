@@ -60,6 +60,9 @@ class Voluntarios extends Model
     public function area() {
         return $this->hasOne(Areas::class,'id','area_id')->select('id','nombre');
     }
+    public function horasContador() {
+        return $this->hasOne(HorasVoluntariasContadores::class,'voluntario_id','id');
+    }
     // Define el atributo accesor para concatenar nombre y primerApellido
     public function getNombreCompletoAttribute() {
         return ($this->attributes['nombre'] ?? '' ) . ' ' .($this->attributes['primerApellido'] ?? '' ) . ' ' .($this->attributes['segundoApellido'] ?? '' );

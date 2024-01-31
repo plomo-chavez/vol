@@ -65,6 +65,31 @@ class VoluntariosController extends BaseController {
             return self::responsee('No existe una acción.', false);
         }
     }
+    public function getAntiguedades(Request $request){
+        $payload = $request->all();
+        $IDSDelegaciones = self::idsDelegacionesXVoluntarioID($payload['voluntario_id']);
+        $voluntarios = Modelo::whereIn('delegacion_id',$IDSDelegaciones)->with('horasContador')->get()->toArray();
+        $data = [];
+        foreach ($voluntarios as $index => $voluntario) {
+            $anios = $voluntario['fechaIngresoCR'] != null ? Carbon::createFromFormat('Y-m-d',$voluntario['fechaIngresoCR'])->diffInYears(Carbon::now()) : 0;
+
+            $tmp = array(
+                'voluntario_id'     => $voluntario['id'],
+                'numeroInterno'     => $voluntario['numeroInterno'],
+                'numeroAsociado'    => $voluntario['numeroAsociado'],
+                'nombre'            => $voluntario['nombre'],
+                'primerApellido'    => $voluntario['primerApellido'],
+                'segundoApellido'   => $voluntario['segundoApellido'],
+                'nombreCompleto'    => $voluntario['nombreCompleto'],
+                'fechaIngresoCR'    =>$voluntario['fechaIngresoCR'] != null ? $voluntario['fechaIngresoCR'] : 'Falta fecha',
+                'antiguedad'        => $anios. ($anios == 1 ? ' año' : ' años') ,
+                'tiempo_mes'        => $voluntario['horas_contador']['tiempo_mes'] ?? 'No tiene contador.',
+                'tiempo_total'      => $voluntario['horas_contador']['tiempo_total'] ?? 'No tiene contador.',
+            );
+            array_push($data,$tmp);
+        }
+        return self::responsee('Consulta realizada correctamente.', true, $data);
+    }
     public function actualizarExtraInfo($payload) {
         if(isset($payload['query'])){
             $tmp  = VoluntariosExtraInfo::where('voluntario_id' ,$payload['voluntario_id'])
@@ -87,12 +112,16 @@ class VoluntariosController extends BaseController {
         $payload = $payload['payload'];
         $tmp = Modelo::where('id',$payload['id'])
         ->with('area')
+        ->with('area.cargos')
         ->with('delegacion')
         ->with('delegacion.estado')
         ->with('delegacion.areas')
         ->get();
         $tmp = sizeof($tmp) == 1 ? $tmp[0]->toArray() : null;
         if ($tmp != null) {
+            if($tmp['area'] != null){
+                foreach ($tmp['area']['cargos'] as &$cargo) { unset($cargo['pivot']); }
+            }
             if($tmp['delegacion_id'] != 0){
                 $name = self::getNombreDelegacion($tmp['delegacion']);
                 if ($name != null) {

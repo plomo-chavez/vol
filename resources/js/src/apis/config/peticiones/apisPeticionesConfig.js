@@ -1,5 +1,6 @@
 export default {
   // Endpoints
+  apiGetAntiguedades              : '/api/voluntarios/antiguedades',
   apiGetRegistroHV                : '/api/hv/registro',
   apiAdminCredencialesTemporales  : '/api/credenciales-temporales/administrar',
   apiGetCredencialesTemporales    : '/api/credenciales-temporales/listar',

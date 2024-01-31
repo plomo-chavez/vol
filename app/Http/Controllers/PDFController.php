@@ -21,9 +21,10 @@ class PDFController extends BaseController {
             $html = View::make($viewTemplate, $data)->render();
             // Cargar el archivo CSS externo
             $cssPathDefault = resource_path('views/pdf/styles/styleDefault.css');
-            $cssDefault = file_get_contents($cssPathDefault);
+            $cssDefault     = file_get_contents($cssPathDefault);
             $html = $html . '<style>' . $cssDefault . '</style>';
             // $html = $html . '<style>' . $cssDefault . '</style>';
+            // dd(strpos($viewTemplate,'credencialTemporal'),$viewTemplate);
             if (strpos($viewTemplate,'credencialTemporal') !== false) {
                 $cssPath = resource_path('views/pdf/styles/styleCredencialTemporal.css');
                 $css = file_get_contents($cssPath);
@@ -64,6 +65,10 @@ class PDFController extends BaseController {
         }        
     }
 
+    public function generatePDFAntiguedades(Request $request){
+        $payload = $request->all();
+        dd($payload);
+    }
     public function generatePDFVoluntarios(Request $request){
         $payload = $request->all();
         $pdfContent = null;
@@ -116,6 +121,23 @@ class PDFController extends BaseController {
                     $urlCodigoInterno = self::getURLCodeInterno($data['numeroInterno']);
                     $data['qrCode'] = QRController::generateAndSaveQR($urlCodigoInterno,$path,'qrScanVoluntario');
                     $data['tituloDocumento'] = 'PRIMER CONTACTO Y REGISTRO DE ASPIRANTE';
+                    // Verifica si la propiedad 'medios' existe en $data
+                    if (!isset($data['medios'])) {
+                        // Si 'medios' no existe, la agregas con un valor vacío (puede ser un arreglo vacío, un string vacío, etc., dependiendo de tus necesidades)
+                        $data['medios'] = json_encode([]); // o puedes usar '' si debe ser una cadena vacía
+                    }
+                    if (!isset($data['disponibilidadDias'])) {
+                        // Si 'medios' no existe, la agregas con un valor vacío (puede ser un arreglo vacío, un string vacío, etc., dependiendo de tus necesidades)
+                        $data['disponibilidadDias'] = json_encode([]); // o puedes usar '' si debe ser una cadena vacía
+                    }
+                    if (!isset($data['medios'])) {
+                        // Si 'medios' no existe, la agregas con un valor vacío (puede ser un arreglo vacío, un string vacío, etc., dependiendo de tus necesidades)
+                        $data['medios'] = json_encode([]); // o puedes usar '' si debe ser una cadena vacía
+                    }
+                    if (!isset($data['disponibilidadTurnos'])) {
+                        // Si 'disponibilidadTurnos' no existe, la agregas con un valor vacío (puede ser un arreglo vacío, un string vacío, etc., dependiendo de tus necesidades)
+                        $data['disponibilidadTurnos'] = json_encode([]); // o puedes usar '' si debe ser una cadena vacía
+                    }
                     return array(
                         'result'    => true,
                         'message'   => 'PDF generado con exito',

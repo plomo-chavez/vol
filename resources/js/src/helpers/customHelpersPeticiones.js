@@ -21,6 +21,9 @@ export default {
                 this.loading();
                 let response;
                 switch (method) {
+                    case 'getAntiguedades':
+                        response = await peticiones.getAntiguedades(payload);
+                    break;
                     case 'getRegistroHV':
                         response = await peticiones.getRegistroHV(payload);
                     break;
@@ -122,6 +125,9 @@ export default {
                 this.loading();
                 let response = null;
                 switch (method) {
+                    case 'generatePDFAntiguedades':
+                        response = await  generatePDF.generatePDFAntiguedades(payload)
+                    break;
                     case 'generatePDFVoluntarios':
                         response = await  generatePDF.generatePDFVoluntarios(payload)
                     break;

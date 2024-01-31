@@ -1,12 +1,21 @@
 export default [
+  {
+    path: '/credenciales',
+    name: 'credenciales-temporales',
+    component: () => import('@/views/credenciales/CredencialesTemporales.vue'),
+    meta: {
+      pageTitle: 'Credenciales Temporales',
+    },
+  },
+  {
+    path: '/formatos',
+    name: 'formatos',
+    component: () => import('@/views/formatos/Formatos.vue'),
+    meta: {
+      pageTitle: 'Formatos',
+    },
+  },
     {
-      path: '/credenciales',
-      name: 'credenciales-temporales',
-      component: () => import('@/views/credenciales/CredencialesTemporales.vue'),
-      meta: {
-        pageTitle: 'Credenciales Temporales',
-      },
-    },    {
       path: '/usuarios',
       name: 'usuarios',
       component: () => import('@/views/usuarios/Usuarios.vue'),

@@ -125,6 +125,7 @@
                         this.loading(false)
                         if (response.data.data != null) {
                             let tmp = this.copyObject(response.data.data);
+                            console.log('tmp',tmp);
                             if (tmp.delegacion != null) {
                                 tmp.delegacion = {
                                     'value':tmp.delegacion.id,
@@ -140,7 +141,7 @@
                             tmp.tipoSangre      = tmp.tipoSangre != null ? { value: tmp.tipoSangre, label : tmp.tipoSangre} : null;
                             tmp.sexo            = tmp.sexo != null ? { value: tmp.sexo, label : tmp.sexo} : null;
                             tmp.estadoCivil     = tmp.estadoCivil != null ? { value: tmp.estadoCivil, label : tmp.estadoCivil} : null;
-                            tmp.area            = tmp.area != null ? { label: tmp.area.nombre, value : tmp.area.id} : null;
+                            tmp.area            = tmp.area != null ? { label: tmp.area.nombre, value : tmp.area.id,cargos:tmp.area.cargos} : null;
 
                             this.voluntario = tmp;
                         }
@@ -167,7 +168,8 @@
                             tmp.tipoSangre      = tmp.tipoSangre != null ? { value: tmp.tipoSangre, label : tmp.tipoSangre} : null;
                             tmp.sexo            = tmp.sexo != null ? { value: tmp.sexo, label : tmp.sexo} : null;
                             tmp.estadoCivil     = tmp.estadoCivil != null ? { value: tmp.estadoCivil, label : tmp.estadoCivil} : null;
-                            tmp.area            = tmp.area != null ? { label: tmp.area.nombre, value : tmp.area.id} : null;
+                            tmp.area            = tmp.area != null ? { label: tmp.area.nombre, value : tmp.area.id,cargos:tmp.area.cargos} : null;
+                            tmp.cargo           = tmp.cargo != null ? { label: tmp.cargo.nombre, value : tmp.cargo.id} : null;
 
                             this.voluntario = tmp;
                         }
