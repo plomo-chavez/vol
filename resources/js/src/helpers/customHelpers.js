@@ -29,12 +29,16 @@ export default {
     isTypeUser(tipo){
         let response = false;
         let user = JSON.parse(localStorage.getItem('userData'))
+        const admin     = 'Administrador';
         const local     = 'CL -  Coordinador Local';
         const estatal   = 'CE -  Coordinador Estal';
+        const nacional  = 'CN -  Coordinador Nacional';
         switch (tipo) {
+            case 'admin':               response = (user.tipoUsuario == admin); break;
             case 'local':               response = (user.tipoUsuario == local); break;
             case 'estatal':             response = (user.tipoUsuario == estatal); break;
             case 'local y estatal':     response = (user.tipoUsuario == local || user.tipoUsuario == estatal); break;
+            case 'admin y Nacional':    response = (user.tipoUsuario == admin || user.tipoUsuario == nacional); break;
             // case '':  response = (user.tipoUsuario == local || user.tipoUsuario == estatal); break;
         }
         return response;

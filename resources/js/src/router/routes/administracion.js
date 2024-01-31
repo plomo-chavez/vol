@@ -72,6 +72,18 @@ export default [
       },
     },
     {
+      path: '/delegaciones',
+      name: 'delegaciones',
+      component: () => import('@/views/delegaciones/Delegaciones.vue'),
+      meta: {
+          pageTitle: 'Delegaciones',
+          permitidos: [
+            'CE -  Coordinador Estatal',
+            'CN -  Coordinador Nacional',
+          ],
+      },
+    },
+    {
       path: '/catalogo/areas',
       name: 'catalogo-areas',
       component: () => import('@/views/GestorCatalogos.vue'),

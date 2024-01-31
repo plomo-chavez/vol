@@ -13,6 +13,7 @@ export default {
   estadoCivilApi                : '/api/catalogo/estadoCivil',
   sexoApi                       : '/api/catalogo/sexo',
   getDelegacionesWithAreasApi   : '/api/catalogo/delegaciones',
+  apiEstadosConDelegaciones     : '/api/catalogo/estados/delegaciones',
   apiDelegacionesXTipoCoordinador   : '/api/catalogo/especial/delegaciones',
   apiVoluntariosXDelegacion   : '/api/catalogo/especial/voluntarios',
   apiGetCatalogo              : '/api/get/catalogo',

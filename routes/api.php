@@ -83,6 +83,7 @@ Route::post('/catalogo/voluntarios',            [CatalogosController::class, 'ge
 Route::post('/catalogo/areas',                  [CatalogosController::class, 'getAreas']);
 Route::post('/catalogo/tiposUsuarios',          [CatalogosController::class, 'getTiposUsuarios']);
 Route::post('/catalogo/estados',                [CatalogosController::class, 'getEstados']);
+Route::post('/catalogo/estados/delegaciones',   [CatalogosController::class, 'getEstadosConDelegaciones']);
 Route::post('/catalogo/tipoAsociado',           [CatalogosController::class, 'getTiposAsociado']);
 Route::post('/catalogo/delegaciones',           [CatalogosController::class, 'getDelegacionesWithAreas']);
 Route::post('/catalogo/nacionalidad',           [CatalogosController::class, 'getNacionalidad']);

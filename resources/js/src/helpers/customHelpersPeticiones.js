@@ -24,6 +24,9 @@ export default {
                     case 'getAntiguedades':
                         response = await peticiones.getAntiguedades(payload);
                     break;
+                    case 'apiEstadosConDelegaciones':
+                        response = await peticiones.getAntiguedades(payload);
+                    break;
                     case 'getRegistroHV':
                         response = await peticiones.getRegistroHV(payload);
                     break;
@@ -177,11 +180,11 @@ export default {
                 }
                 let tmpPayload = { 
                     catalogo    : method,
-                    filtro      : filtros
+                    filtro      : filtros,
+                    formato     : formatoLocal
                 }
                 let response = await catalogos.getCatalogo(tmpPayload);
                 if(response.data.data != null){
-
                     return this.formatoToCatalogo(response.data.data,formatoLocal.all,formatoLocal.indexValue,formatoLocal.indexLabel)
                 } else {
                     console.log('Problemas con el catalogo: ', method)

@@ -7,7 +7,9 @@
                 ref="formVoluntario"
                 class="col-12 mx-auto"
                 :btnsAccion="false"
-                :data = 'data'
+                :data = 'activeform'
+                :formLive="true"
+                @exportLive="changeForm"
                 :schema="formSchemaFormVoluntario"
                 @formExport="handleSubmitFormVoluntario"
             />
@@ -71,7 +73,9 @@
         mounted() {},
         data() {
             return {
-                viewInputDelegacion:false,
+                // viewInputDelegacion:false,
+                viewInputDelegacion:true,
+                activeform:{},
                 userData: store.state.app.userData,
                 formSchemaFormVoluntario: [
                     {
@@ -163,24 +167,54 @@
 
         },
         beforeMount(){
-            this.viewInputDelegacion = !this.isTypeUser('local');
+            this.activeform = this.data
+            this.viewInputEstatal    = true;
+            this.viewInputDelegacion = true;
+            // this.viewInputEstatal = !this.isTypeUser('admin');
+            // this.viewInputDelegacion = !this.isTypeUser('local');
             if (this.viewInputDelegacion) {
                 this.formSchemaFormVoluntario.unshift(
-            {
-                classContainer:'col-12',
-                type        : 'input-select',
-                name        : 'delegacion',
-                value       : 'delegacion',
-                label       : 'Delegación:',
-                rules       : 'required',
-                catalogo    : 'DelegacionesXTipoCoordinador',
-            },);
+                    {
+                        classContainer:'col-12',
+                        type        : 'input-select',
+                        name        : 'delegacion',
+                        value       : 'delegacion',
+                        label       : 'Delegación:',
+                        rules       : 'required',
+                        catalogo    :  this.viewInputEstatal ? [] : 'delegaciones',
+                    },
+                );
+
+            }
+            if (this.viewInputEstatal) {
+                this.formSchemaFormVoluntario.unshift(
+                    {
+                        classContainer:'col-12',
+                        type        : 'input-select',
+                        name        : 'estado',
+                        value       : 'estado',
+                        label       : 'Estados:',
+                        rules       : 'required',
+                        catalogo    : 'EstadosConDelegaciones',
+                        formato     : {all:true}
+                    },
+                );
 
             }
         },
         methods:{
             handleCancel() {
                 this.$emit('handleCancelar')
+            },
+            changeForm(data) {
+                let hayModificaciones = false;
+                if((data?.estado ?? null) != (this.activeRow?.estado ?? null)){
+                    this.formSchemaFormVoluntario[1].catalogo = this.formatoToCatalogo(data.estado.delegaciones,true,'id','nombreLabel') 
+                    hayModificaciones = true;
+                }
+                if (hayModificaciones) {
+                    this.activeRow = this.copyObject(data);
+                }
             },
             handleSubmitFormVoluntario(info) {
                 info['delegacion_id'] = this.viewInputDelegacion ? info['delegacion']['value'] : JSON.parse(localStorage.getItem('userData')).delegacion_id;

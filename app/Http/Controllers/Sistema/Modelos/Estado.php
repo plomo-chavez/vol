@@ -8,4 +8,8 @@ class Estado extends Model {
     use HasFactory;
     protected $table        = "estados";
     protected $primaryKey   = "id";
+
+    public function delegaciones() {
+        return $this->hasMany(Delegaciones::class, 'estado_id', 'id');
+    }
 }

@@ -63,4 +63,7 @@ export default class apisCatalogos {
   voluntariosXDelegacion(...args) {
     return this.axiosIns.post(this.apisConfig.apiVoluntariosXDelegacion, ...args)
   }
+  EstadosConDelegaciones(...args) {
+    return this.axiosIns.post(this.apisConfig.apiEstadosConDelegaciones, ...args)
+  }
 }

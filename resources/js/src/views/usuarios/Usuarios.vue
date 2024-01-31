@@ -45,6 +45,7 @@
     import VistaUno from '@currentComponents/VistaUno.vue'
     import peticiones from '@/apis/usePeticiones'
     import customHelpers  from '@helpers/customHelpers'
+    import store from '@/store'
 
   export default {
     components: {
@@ -53,23 +54,21 @@
     },
     data() {
       return {
-        accion: 1,
-        row : null,
-        schemaMain : null,
-        showForm : false,
-        data:[],
-        formSchema: [
+        viewInputEstatal    : this.isTypeUser('admin y Nacional'),
+        userData            : store.state.app.userData,
+        accion              : 1,
+        row                 : null,
+        schemaMain          : null,
+        showForm            : false,
+        data                : [],
+        formSchema          : [
             {
                 classContainer:'col-12',
                 type        : 'input-select',
                 name        : 'voluntario',
                 value       : 'voluntario',
-                catalogo    : 'voluntarios',
-                data        : {
-                    delegacion_id   : JSON.parse(localStorage.getItem('userData')).delegacion_id,
-                    tipoUsuario_id   : JSON.parse(localStorage.getItem('userData')).tipoUsuario_id,
-                },
-                label       : 'Voluntario'
+                label       : 'Voluntario',
+                catalogo    : [],
             },
             {
                 classContainer:'col-lg-4 col-md-6 col-12',
@@ -78,7 +77,10 @@
                 value       : 'tipoUsuario',
                 label       : 'Tipo de usuario',
                 rules       : 'required',
-                catalogo    : 'tiposUsuario',
+                catalogo    : 'tipo-usuarios',
+                filtros        : {
+                    tipoUsuario_id : JSON.parse(localStorage.getItem('userData')).tipoUsuario_id
+                }
             },
             {
                 classContainer:'col-lg-4 col-md-6 col-12',
@@ -269,18 +271,57 @@
     mixins : [customHelpers],
     beforeMount() {
         this.inicializar()
+
     },
     methods: {
+        selectSchema(){
+            let tmp = this.copyObject(this.formSchema);
+            if (this.viewInputEstatal) {
+                tmp = [
+                    {
+                        classContainer:'col-12',
+                        type        : 'input-select',
+                        name        : 'estado',
+                        value       : 'estado',
+                        label       : 'Estados:',
+                        rules       : 'required',
+                        catalogo    : 'estados',
+                        formato     : {all:true}
+                    },
+                    ...tmp
+                ]
+            }
+            console.log('tmp', tmp)
+            this.schemaMain = tmp;
+        },
         inicializar(){
-            this.schemaMain = this.copyObject(this.formSchema)
+            this.selectSchema();
             this.reload()
         },
 
-        changeForm(data){
+        async changeForm(data){
             let hayModificaciones = false;
             if((data?.voluntario ?? null) != (this.activeRow?.voluntario ?? null)){
-                data.email = data.voluntario.correo
+
+                data.email = data.voluntario.nombre.toLowerCase() + '@gmail.com'
                 data.usuario = data.voluntario.nombre
+                hayModificaciones = true;
+            }
+            if((data?.estado ?? null) != (this.activeRow?.estado ?? null)){
+                let tmpPayload = { 
+                    catalogo    : 'voluntariosXDelegacion',
+                    filtros      : {
+                        isLocal:false,
+                        estado_id:data.estado.value,
+                    },
+                    formato:{
+                        all         : true,
+                        indexLabel  : 'label',
+                    }
+                }
+                let response = await this.getCatalogo(tmpPayload);
+                console.log(response)
+                this.schemaMain[1].catalogo = this.formatoToCatalogo(response,true,'id','label') 
                 hayModificaciones = true;
             }
             if (hayModificaciones) {
@@ -332,7 +373,7 @@
                 .catch(error   => { console.log(error); })
         },
         nuevoRegistro () {
-            this.schemaMain = this.copyObject(this.formSchema)
+            this.selectSchema();
             this.activeRow = {};
             setTimeout(() => { this.showForm = true; }, 10);
         },

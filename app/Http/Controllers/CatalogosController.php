@@ -59,6 +59,25 @@ class CatalogosController extends BaseController {
                 } else {
                     return new Estado();
                 }
+            case 'EstadosConDelegaciones': 
+                if($query) {
+                    $tmp = Estado::orderBy('id', 'asc')
+                    ->select('id','abbr','nombre')
+                    ->with('delegaciones');
+                    return self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
+                } else {
+                    return new Estado();
+                }
+            break;
+            case 'voluntarios': 
+                if($query) {
+                    $tmp = Estado::orderBy('id', 'asc')
+                    ->select('id','abbr','nombre')
+                    ->with('delegaciones');
+                    return self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
+                } else {
+                    return new Estado();
+                }
             break;
             case 'voluntariosXDelegacion': 
                 $data = [];
@@ -121,8 +140,15 @@ class CatalogosController extends BaseController {
             break;
             case 'tipo-usuarios': 
                 if($query) {
+                    $ids = $payload['filtro']['tipoUsuario_id'] == 1 ? [2,3,4,5] : [3,4,5] ;
                     $tmp = TipoUsuario::orderBy('id', 'asc')->select('id','nombre');
-                    return self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
+                    // Filtra los registros basándote en la condición
+                    if ($payload['filtro']['tipoUsuario_id'] == 1) {
+                        $tmp = $tmp->whereIn('id', [2, 3, 4, 5]);
+                    } else {
+                        $tmp = $tmp->whereIn('id', [3, 4, 5]);
+                    }
+                    return $tmp->get()->toArray();
                 } else {
                     return new TipoUsuario();
                 }
