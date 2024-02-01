@@ -111,8 +111,8 @@
                 value       : 'email',
                 prefixIcon  : 'MailIcon',
                 rules       : 'required|email',
-                label       : 'Correo electronico',
-                placeholder : 'Introduce un correo electronico',
+                label       : 'Correo electrónico',
+                placeholder : 'Introduce un correo electrónico',
                 disabled     : true
             },
             {
@@ -302,8 +302,7 @@
         async changeForm(data){
             let hayModificaciones = false;
             if((data?.voluntario ?? null) != (this.activeRow?.voluntario ?? null)){
-
-                data.email = data.voluntario.nombre.toLowerCase() + '@gmail.com'
+                data.email = data.voluntario.correo
                 data.usuario = data.voluntario.nombre
                 hayModificaciones = true;
             }
@@ -320,7 +319,6 @@
                     }
                 }
                 let response = await this.getCatalogo(tmpPayload);
-                console.log(response)
                 this.schemaMain[1].catalogo = this.formatoToCatalogo(response,true,'id','label') 
                 hayModificaciones = true;
             }

@@ -74,17 +74,17 @@
         data() {
             return {
                 // viewInputDelegacion:false,
-                viewInputDelegacion : false,
-                viewInputEstatal    : false,
+                viewInputDelegacion : true,
+                viewInputEstatal    : !this.isTypeUser('local y estatal'),
                 activeform          : {},
-                userData: store.state.app.userData,
+                userData            : store.state.app.userData,
                 formSchemaFormVoluntario: [
                     {
                         classContainer:'col-4',
                         type        : 'input-asociado',
                         name        : 'numeroAsociado',
                         value       : 'numeroAsociado',
-                        label       : 'Numero de asociado',
+                        label       : 'Numero de asociadoss',
                         placeholder : 'Introduce un numero de asociado',
                     },
                     {
@@ -121,9 +121,9 @@
                         name        : 'correo',
                         value       : 'correo',
                         prefixIcon  : 'MailIcon',
-                        rules       : 'required|email',
-                        label       : 'Correo electronico',
-                        placeholder : 'Introduce un correo electronico',
+                        rules       : 'required',
+                        label       : 'Correo electrónico',
+                        placeholder : 'Introduce un correo electrónico',
                     },
                     {
                         classContainer:'col-lg-6 col-md-6 col-12',
@@ -169,8 +169,8 @@
         },
         beforeMount(){
             this.activeform             = this.data
-            this.viewInputEstatal       = this.isTypeUser('admin');
-            this.viewInputDelegacion    = !this.isTypeUser('local');
+            console.log(this.viewInputDelegacion);
+            console.log(this.viewInputEstatal);
             if (this.viewInputDelegacion) {
                 this.formSchemaFormVoluntario.unshift(
                     {
@@ -178,9 +178,13 @@
                         type        : 'input-select',
                         name        : 'delegacion',
                         value       : 'delegacion',
-                        label       : 'Delegación:',
+                        label       : 'Delegaciónes:',
                         rules       : 'required',
-                        catalogo    :  this.viewInputEstatal ? [] : 'delegaciones',
+                        filtros : {
+                            tipoUsuario_id : this.userData.tipoUsuario_id,
+                            delegacion_id : this.userData.delegacion_id
+                        },
+                        catalogo    :  this.viewInputEstatal ? [] : 'DelegacionesXTipoCoordinador',
                     },
                 );
 

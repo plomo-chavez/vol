@@ -31,7 +31,7 @@ export default {
         let user = JSON.parse(localStorage.getItem('userData'))
         const admin     = 'Administrador';
         const local     = 'CL -  Coordinador Local';
-        const estatal   = 'CE -  Coordinador Estal';
+        const estatal   = 'CE -  Coordinador Estatal';
         const nacional  = 'CN -  Coordinador Nacional';
         switch (tipo) {
             case 'admin':               response = (user.tipoUsuario == admin); break;

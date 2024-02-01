@@ -88,7 +88,7 @@ class CatalogosController extends BaseController {
                     $ids = self::idsDelegacionXEstado($filtros['estado_id']);
                     $data = Voluntarios::whereIn('delegacion_id',$ids);
                 }
-                $data = $data->select('id','nombre','primerApellido','segundoApellido','numeroInterno','numeroAsociado')->get()->toArray();
+                $data = $data->select('id','nombre','primerApellido','segundoApellido','numeroInterno','numeroAsociado','correo')->get()->toArray();
                 foreach ($data as $index => $item) {
                     $data[$index]['label'] = ($item['numeroInterno'] ?? '').' - '.($item['numeroAsociado'] ?? '').' - '.($item['nombreCompleto'] ?? '');
                 }
@@ -163,11 +163,13 @@ class CatalogosController extends BaseController {
             $data = self::getQuery($payload);
         } else {
             $tipoUsuarioID = null;
+            $delegacionID = null;
             if (isset($payload['filtro']['tipoUsuario_id'])) {
                 $tipoUsuarioID = $payload['filtro']['tipoUsuario_id'];
+                $delegacionID = $payload['filtro']['delegacion_id'];
             }
-            if ($tipoUsuarioID != null) {
-                $idsDelegaciones = self::idsDelegacionesXTipoUsuario($tipoUsuarioID);
+            if ($tipoUsuarioID != null && $delegacionID != null) {
+                $idsDelegaciones = self::idsDelegacionesXTipoUsuario($tipoUsuarioID,$delegacionID);
                 $data = Delegaciones::whereIn('id',$idsDelegaciones)
                 ->orderBy('ciudad',"asc")
                 ->select('id','ciudad','estado_id','isLocal')
