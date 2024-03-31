@@ -61,7 +61,7 @@
 
               </div>
 
-              <div class="col-12 p-0 m-0 mt-1" v-if="actividad.horaFin == null && isAdmin()">
+              <div class="col-12 p-0 m-0 mt-1" v-if="actividad.horaFin == null && getIsAdmin()">
                 
                 <ModalForm
                     :openModal="openModalForm"

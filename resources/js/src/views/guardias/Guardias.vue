@@ -203,7 +203,7 @@
         editar (data) {
             this.canClose = data.fin == null;
             this.schemaMain[3].disabled = (data.fin != null)
-            if (!this.isAdmin()) {
+            if (!this.getIsAdmin()) {
                 this.schemaMain[3].min= this.fechaInput(data.inicio,'-',0,0,1,'');
                 this.schemaMain[3].max= this.fechaInput(data.inicio,'+',0,0,0,'');
             }

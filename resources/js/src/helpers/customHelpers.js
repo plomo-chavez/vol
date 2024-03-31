@@ -17,7 +17,15 @@ export default {
     handleWindowResize() {
         this.windowInnerWidth = window.innerWidth;
     },
+    getUserData(){
+        return JSON.parse(localStorage.getItem('userData'));
+    },
+    getIsAdmin(tipoUsuario_id = null){
+        const tiposPermitidos = [1,2]
+        tipoUsuario_id = tipoUsuario_id == null ? (JSON.parse(localStorage.getItem('userData')).tipoUsuario_id ?? 0 ) : tipoUsuario_id;
+        return tiposPermitidos.includes(tipoUsuario_id) 
 
+    },
     async getCatalogo(input){
         if (typeof input.catalogo == 'string') {
             return await this.peticionCatalogo(input.catalogo,input.filtros,input.formato);
@@ -182,10 +190,10 @@ export default {
         }
     },
       
-    isAdmin() {
-        return  (JSON.parse(localStorage.getItem('userData')).tipoUsuario_id ?? 0 ) == 1;
+    // isAdmin() {
+    //     return  (JSON.parse(localStorage.getItem('userData')).tipoUsuario_id ?? 0 ) == 1;
 
-    },
+    // },
     fechaInput(fecha = null,masMenos = '+', años = 0, meses = 0, dias = 0,formato = 'YYYY-MM-DD HH:mm:ss') {
         if (masMenos == '+'){
             return  moment(fecha).add(dias, 'days').endOf('day').format(formato);

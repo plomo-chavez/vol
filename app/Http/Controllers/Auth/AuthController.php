@@ -95,6 +95,7 @@ class AuthController extends Controller{
             $users = User::where('email', $request->email)
                 ->with('tipoUsuario')
                 ->with('voluntario:id,nombre,primerApellido,segundoApellido,delegacion_id,urlImagen')
+                ->with('voluntario.delegacion')
                 ->get();
             if (sizeof($users) == 1) {
                 $tmp  = $users[0];

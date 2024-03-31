@@ -92,7 +92,7 @@ import { BButton, BAvatar} from 'bootstrap-vue'
         methods:{
             handelOpenModal(){
                 this.itemVoluntario = {...this.data}
-                if (!this.isAdmin()) {
+                if (!this.getIsAdmin()) {
                     this.schemaFormModal[0].min= this.fechaInput(this.itemVoluntario.fechaInicio,'-',0,0,1,'');
                     this.schemaFormModal[0].max= this.fechaInput(this.itemVoluntario.fechaInicio,'+',0,0,0,'');
                 }

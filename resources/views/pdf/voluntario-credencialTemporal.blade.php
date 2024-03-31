@@ -70,7 +70,7 @@
                         </div>
                         
                         <div class="wwCard2 texto-negritas mb-1">
-                            <p class="subtitulo texto-negritas">DELEGACIÓN ESTATAL GUERRERO</p>
+                            <p class="subtitulo texto-negritas">DELEGACIÓN ESTATAL {{$estado}}</p>
                         </div>
                     </div>
                 </div>

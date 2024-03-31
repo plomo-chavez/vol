@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\Http\Controllers\Sistema\Modelos\Delegaciones;
 use App\Http\Controllers\Sistema\Modelos\HorasVoluntariasContadores;
 use App\Http\Controllers\Sistema\GuardiasHorasController;
 use App\Http\Controllers\Sistema\Modelos\Voluntarios;
@@ -208,74 +209,83 @@ class PDFController extends BaseController {
                 return self::response($message = 'Falta voluntario_id');
             } else {
                 $data = Voluntarios::find($payload['voluntario_id'])->toArray();
-                $delegacion_id = $data['delegacion_id']; 
-                if ($data != null) {
-                    if (($delegacion_id == 0 || $delegacion_id == null)) {
-                        return self::response($message = 'Este voluntario no pertenece a una delegación');
-                    }
-                    if (($data['numeroInterno'] == null)) {
-                        return self::response($message = 'Este voluntario no tiene un numero interno');
-                    }
-                    $coordinador = self::coordinadorParaFirmas($delegacion_id);                 
-                    if ($coordinador == null) {
-                        return self::response($message = 'Error con el coordinador, checar datos de la delegación.');
-                    }
-                    if ($coordinador['uriFirma'] == null || $coordinador['uriSello'] == null ) {
-                        return self::response($message = 'Faltan archivos del coordinador.');
-                    }
-                    if ($data['urlImagen'] == null ) {
-                        return self::response($message = 'El voluntario no tiene imagen.');
-                    }
-                    $duracion               = $payload['duracion'] ?? 60;
-                    if ($registro) {
-                        do {
-                            $data['code']           = self::generateCodigoUUID();
-                            $tmp = CredencialTemporal::where('codigo',$data['code'])->get()->count();
-                        } while ($tmp > 0);
-                        // Buscar todos los registros donde voluntario_id sea igual a 4
-                        $registros = CredencialTemporal::where('voluntario_id', $payload['voluntario_id'])->get();
+                $delegacion_id = self::getCoordinadorEstatalXVoluntarioID($payload['voluntario_id']);
+                if ($delegacion_id != null) {
+                    if ($data != null) {
+                        if (($delegacion_id == 0 || $delegacion_id == null)) {
+                            return self::response($message = 'Este voluntario no pertenece a una delegación');
+                        }
+                        if (($data['numeroInterno'] == null)) {
+                            return self::response($message = 'Este voluntario no tiene un numero interno');
+                        }
+                        $coordinador = self::coordinadorParaFirmas($delegacion_id); 
+                        if ($coordinador == null) {
+                            return self::response($message = 'Error con el coordinador, checar datos de la delegación.');
+                        }
+                        if ($coordinador['uriFirma'] == null || $coordinador['uriSello'] == null ) {
+                            return self::response($message = 'Faltan archivos del coordinador.');
+                        }
+                        if ($data['urlImagen'] == null ) {
+                            return self::response($message = 'El voluntario no tiene imagen.');
+                        }
+                        $duracion               = $payload['duracion'] ?? 60;
+                        if ($registro) {
+                            do {
+                                $data['code']           = self::generateCodigoUUID();
+                                $tmp = CredencialTemporal::where('codigo',$data['code'])->get()->count();
+                            } while ($tmp > 0);
+                            // Buscar todos los registros donde voluntario_id sea igual a 4
+                            $registros = CredencialTemporal::where('voluntario_id', $payload['voluntario_id'])->get();
+        
+                            // Actualizar la columna isActual a false en todos los registros encontrados
+                            foreach ($registros as $registro) {
+                                $registro->update(['isActual' => false]);
+                            }
+                            CredencialTemporal::create([
+                                'voluntario_id'     => $payload['voluntario_id'],
+                                'emitio_id'     => $payload['emitio_id'],
+                                'codigo'            => $data['code'],
+                                'fechaEmision'      => self::fechaNow($payload['fechaInicio']   ?? null,'timestamp'),
+                                'fechaVencimiento'  => self::fechaNow($payload['fechaFin']      ?? null,'timestamp',$duracion),
+                                'isActual'          => true,
+                                'duracion'          => $duracion,
+                            ]);
+                        } else {
+                            $regitro = CredencialTemporal::find($payload['credencial_id']);
+                            if ($regitro == null ) {
+                                return self::response($message = 'No se encontro la credencial temporal.');
+                            }
+                            $data['code']           = $regitro->codigo;
+                            $duracion               = $regitro->duracion;
+                        }
     
-                        // Actualizar la columna isActual a false en todos los registros encontrados
-                        foreach ($registros as $registro) {
-                            $registro->update(['isActual' => false]);
-                        }
-                        CredencialTemporal::create([
-                            'voluntario_id'     => $payload['voluntario_id'],
-                            'emitio_id'     => $payload['emitio_id'],
-                            'codigo'            => $data['code'],
-                            'fechaEmision'      => self::fechaNow($payload['fechaInicio']   ?? null,'timestamp'),
-                            'fechaVencimiento'  => self::fechaNow($payload['fechaFin']      ?? null,'timestamp',$duracion),
-                            'isActual'          => true,
-                            'duracion'          => $duracion,
-                        ]);
+                        $data['imgCR'] = self::getMainURL().'/images/elementos/crHorizontal.jpeg';
+                        $data['imgVoluntariado'] = self::getMainURL().'/images/elementos/voluntariado.png';
+        
+                        $data['fechaInicio']    = self::fechaNow($payload['fechaInicio'] ?? null,'d/m/Y');
+                        $data['fechaFin']       = self::fechaNow($payload['fechaFin'] ?? null,'d/m/Y',$duracion);
+                        $data['coordinador']    = mb_strtoupper($coordinador['nombre']);
+                        $data['uriFirma']       = $coordinador['uriFirma'];
+                        $data['uriSello']       = $coordinador['uriSello'];
+                        $data['estado']         = $coordinador['estado'];
+                        $data['urlVoluntario']  = $data['urlImagen'];
+                        $data['dias']           = $duracion;
+                        $data['nombre']         = mb_strtoupper($data['nombre']);
+                        $data['primerApellido'] = mb_strtoupper($data['primerApellido']);
+                        $data['segundoApellido']= mb_strtoupper($data['segundoApellido']);
+                        $urlCodigoInterno = self::getURLCodeInterno($data['numeroInterno']);
+                        $path = 'voluntarios'.'/'.$data['numeroInterno'];   
+                        $data['qrCode'] = QRController::generateAndSaveQR($data['code'],$path,'qrCredencialTemporal');
+                        return array(
+                            'result'    => true,
+                            'message'   => 'PDF generado con exito',
+                            'data'      => self::generatePDF($data,'pdf.voluntario-credencialTemporal','voluntario-credencialTemporal.pdf'),
+                        );
                     } else {
-                        $regitro = CredencialTemporal::find($payload['credencial_id']);
-                        if ($regitro == null ) {
-                            return self::response($message = 'No se encontro la credencial temporal.');
-                        }
-                        $data['code']           = $regitro->codigo;
-                        $duracion               = $regitro->duracion;
+                        return self::response($message = 'Problemas con la creación de la credencial temporal');
                     }
-                    $data['fechaInicio']    = self::fechaNow($payload['fechaInicio'] ?? null,'d/m/Y');
-                    $data['fechaFin']       = self::fechaNow($payload['fechaFin'] ?? null,'d/m/Y',$duracion);
-                    $data['coordinador']    = strtoupper($coordinador['nombre']);
-                    $data['uriFirma']       = $coordinador['uriFirma'];
-                    $data['uriSello']       = $coordinador['uriSello'];
-                    $data['urlVoluntario']  = $data['urlImagen'];
-                    $data['dias']           = $duracion;
-                    $data['nombre']         = strtoupper($data['nombre']);
-                    $data['primerApellido'] = strtoupper($data['primerApellido']);
-                    $data['segundoApellido']= strtoupper($data['segundoApellido']);
-                    $urlCodigoInterno = self::getURLCodeInterno($data['numeroInterno']);
-                    $path = 'voluntarios'.'/'.$data['numeroInterno'];
-                    $data['qrCode'] = QRController::generateAndSaveQR($data['code'],$path,'qrCredencialTemporal');
-                    return array(
-                        'result'    => true,
-                        'message'   => 'PDF generado con exito',
-                        'data'      => self::generatePDF($data,'pdf.voluntario-credencialTemporal','voluntario-credencialTemporal.pdf'),
-                    );
                 } else {
-                    return self::response($message = 'Problemas con la resevación');
+                    return self::response($message = 'No hay coordinación estatal para este voluntario');
                 }
             }
         } catch (Exception $e) {

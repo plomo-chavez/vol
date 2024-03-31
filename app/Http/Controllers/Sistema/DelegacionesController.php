@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Sistema;
 use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Auth\Models\User;
 use App\Http\Controllers\Sistema\Modelos\DelegacionAreasCoordinadores;
 use App\Http\Controllers\Sistema\Modelos\Delegaciones as Modelo;
 use App\Http\Controllers\Sistema\Modelos\Areas;
@@ -44,9 +45,25 @@ class DelegacionesController extends BaseController {
     }
 
     public function handleListar(Request $request){
-        $data = Modelo::orderBy('id', "asc")
-            ->with('estado')
-            ->get();
+        $payload = $request->all();
+        $user = null;
+        $idsDelegacion = [];
+
+        // Verificar si el usuario_id fue proporcionado en el payload
+        if (!empty($payload['usuario_id'])) {
+            $user = User::find($payload['usuario_id']);
+            $idsDelegacion = self::idsDelegacionesXVoluntarioID($user->voluntario_id ?? null);
+        }
+
+        $query = Modelo::orderBy('id', "asc")->with('estado');
+
+        // Si $idsDelegacion no está vacío, aplicar el whereIn
+        if (!empty($idsDelegacion)) {
+            $query->whereIn('id', $idsDelegacion);
+        }
+
+        $data = $query->get();
+
         $resp = [];
         foreach ($data as $elemento) {
             $tmp = $elemento->toArray(); // Convertir el objeto $elemento en un array

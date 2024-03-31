@@ -434,14 +434,41 @@ class BaseController extends Controller{
         }])
         ->get();
         if ($coordinador->count() == 1){
+            $delegacion = Delegaciones::where('id',$delegacionID)->with('estado')->get();
+            $nameEstado = strtoupper($delegacion[0]['estado']['nombre']);
             $coordinador =$coordinador->toArray()[0];
             $response = [
-                'nombre'   => $coordinador['voluntario']['nombreCompleto'],
+                'nombre'   => mb_strtoupper($coordinador['voluntario']['nombreCompleto']),
                 'uriFirma' => $coordinador['uriFirma'],
                 'uriSello' => $coordinador['uriSello'],
+                'estado' => $nameEstado,
             ];
         }
-        // dd($registros);
+        // dd($response['estado'],$nameEstado);
+        // dd($response['estado']);
         return $response;
+    }
+    public static function getCoordinadorEstatalXVoluntarioID($voluntario_id){
+        // $delegacion = Delegaciones::find($delegacionID);
+        $estado_id = null;
+        $delegacionVoluntario = null;
+        $voluntario = Voluntarios::where('id', $voluntario_id)->get();
+        if ($voluntario->count() == 1){
+            $voluntario =$voluntario->toArray()[0];
+            $delegacionVoluntario = Delegaciones::where('id',$voluntario['delegacion_id'])->with('estado')->get();
+            $delegacionVoluntario = $delegacionVoluntario->count() == 1 ? $delegacionVoluntario[0] : null;
+            if ($delegacionVoluntario) {
+                if ($delegacionVoluntario->isLocal){
+                    $delegacionVoluntario = Delegaciones::where('estado_id',$delegacionVoluntario['estado_id'])
+                    ->where('isLocal',0)
+                    ->with('estado')->get();
+                    $delegacionVoluntario = $delegacionVoluntario->count() == 1 ? $delegacionVoluntario[0] : null;
+                }
+                if ($delegacionVoluntario) {
+                    $estado_id = $delegacionVoluntario['id'];
+                }
+            }
+        }
+        return $estado_id;
     }
 }

@@ -35,12 +35,24 @@ class GuardiasHorasController extends BaseController {
      * @return array Un arreglo con información sobre el resultado de la consulta y los datos obtenidos.
      */
     public function handleListar(Request $request) {
+        $payload = $request->all();
+        $user = null;
+        $idsDelegacion = [];
+        if (!empty($payload['voluntario_id'])) {
+            $idsDelegacion = self::idsDelegacionesXVoluntarioID($payload['voluntario_id']);
+        }
+        $query = Modelo::orderBy('id', "asc")->with('estado');
+
         // Obtiene todos los registros de la entidad y los ordena por ID de manera ascendente
-        $data = Modelo::orderBy('id', "asc")
+        $query = Modelo::orderBy('id', "asc")
         ->with('delegacion')
         ->with('verificador')
-        ->with('voluntarios')
-        ->get();
+        ->with('voluntarios');
+        if (!empty($idsDelegacion)) {
+            $query->whereIn('delegacion_id', $idsDelegacion);
+        }
+
+        $data = $query->get();
         return self::responsee(
             'Consulta realizada con éxito.',
             true,

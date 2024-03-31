@@ -48,6 +48,7 @@
     },
     data() {
       return {
+        userData: this.getUserData(),
         config:{
             cellActions: {
                 btnEditar: true,
@@ -61,6 +62,8 @@
             btnFiltrar: false,
             btnOtros: null,
         },
+        estado_id  : 0,
+        isAdmin : false,
         accion: 1,
         activeRow : null,
         schemaMain : null,
@@ -124,14 +127,23 @@
     mixins : [customHelpers],
     beforeMount() {
         this.inicializar()
+        this.isAdmin = this.getIsAdmin(this.userData.tipoUsuario_id) 
+        this.estado_id = this.userData?.voluntario?.delegacion?.estado_id ?? null;
+        if (!this.isAdmin){
+            this.formSchema.splice(1, 1);
+        }
     },
     methods: {
         inicializar(){
             this.reload()
         },
         reload () {
+            const payload  = {}
+            if ( this.userData.tipoUsuario_id == 3) {
+                payload.usuario_id  =  this.userData.id;
+            }
             peticiones
-                .getDelegaciones({})
+                .getDelegaciones(payload)
                 .then(response => {
                     this.data = response.data.data
                 })
@@ -149,7 +161,7 @@
                 payload.id = this.activeRow.id
             }
             payload.accion = this.accion
-            payload.estado_id = payload.estado.value
+            payload.estado_id =  !this.isAdmin ? this.estado_id : payload.estado.value
             payload.isLocal = !payload.isEstatal
            this.peticionAdministrar(payload)
         },

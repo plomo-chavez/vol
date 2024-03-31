@@ -367,6 +367,7 @@
                         value       : 'area',
                         label       : 'Area:',
                         rules       : 'required',
+                        formato     : { all:true },
                         catalogo    : 'areas',
                     },
                     {
@@ -524,6 +525,21 @@
                     data.edad =  diferencia < 0 ? 0 : Math.floor(aniosDiferencia);
                     hayModificaciones = true;
                 }
+                if((data?.fechaNacimiento ?? null) != (this.dataForm?.fechaNacimiento ?? null)){
+                    var fechaActual = new Date();
+                    var fecha = new Date(data.fechaNacimiento);
+                    var diferenciaMilisegundos = fechaActual - fecha;
+                    var aniosDiferencia = diferenciaMilisegundos / (1000 * 60 * 60 * 24 * 365.25);
+                    let diferencia = Math.floor(aniosDiferencia)
+                    data.edad =  diferencia < 0 ? 0 : Math.floor(aniosDiferencia);
+                    hayModificaciones = true;
+                }
+                if((data?.area ?? null) != (this.dataForm?.area ?? null)){
+                    data.cargo = null
+                    this.formSchemaFormVoluntario[22].catalogo = this.formatoToCatalogo(data.area.cargos) ?? [] 
+                    hayModificaciones = true;
+                } 
+
                 if (hayModificaciones) {
                     this.dataForm = this.copyObject(data);
                 }
