@@ -22,8 +22,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'persona_id',
-        'voluntario_id',
         'tipoUsuario_id',
         'usuario',
         'email',
@@ -32,7 +30,6 @@ class User extends Authenticatable
         'intentos',
         'accesoMovil',
         'accesoWeb',
-        'activo',
         'estatus',
         'bloqueado',
         'validado',
@@ -41,13 +38,6 @@ class User extends Authenticatable
 
     public function tipoUsuario() {
         return $this->belongsTo(TipoUsuario::class, 'tipoUsuario_id');
-    }
-    public function voluntario() {
-        return $this->belongsTo(Voluntarios::class, 'persona_id','id');
-    }
-
-    public function getTipoUsuarioAttribute(){
-        return optional($this->tipo_usuario)['nombre'] ?? '';
     }
 
     protected $casts = [

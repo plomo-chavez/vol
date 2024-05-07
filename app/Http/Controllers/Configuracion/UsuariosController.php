@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Configuracion;
 use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Auth\Resources\UsuarioResource;
 
 use App\Http\Controllers\Auth\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -10,8 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 
-class UsuariosController extends BaseController
-{
+class UsuariosController extends BaseController {
     public function getUsuarios(Request $request){
         $response = BaseController::response();
         $payload = $request->all();
@@ -25,10 +25,10 @@ class UsuariosController extends BaseController
     public function listarUsuarios(Request $request){
         $response = BaseController::response();
         $payload = $request->all();
-        $users = User::with('tipoUsuario')->with('voluntario')->get();
-        $response['result']    = true;
-        $response['data']      = $users;
-        $response['message']      =  'User Logged In Successfully';
+        $users = User::with('tipoUsuario')->get();
+        $response['result']     = true;
+        $response['data']       = UsuarioResource::collection($users);
+        $response['message']    =  'Consulta realizada con éxito';
         return response()->json($response, 200);
     }
 

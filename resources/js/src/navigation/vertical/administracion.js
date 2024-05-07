@@ -1,28 +1,23 @@
 export default [
   {
-    title: 'Voluntarios',
+    title: 'Eventos',
     icon: 'UsersIcon',
-    route: 'voluntarios',
+    route: 'eventos',
   },
   {
-    title: 'Verificador HV',
-    icon: 'ClockIcon',
-    route: 'verificador-horas',
+    title: 'Accesos',
+    icon: 'UsersIcon',
+    route: 'accesos',
   },
   {
-    title: 'Credenciales Temporales',
-    icon: 'HomeIcon',
-    route: 'credenciales-temporales',
+    title: 'Mapas',
+    icon: 'MapIcon',
+    route: 'mapas',
   },
   {
-    title: 'Delegaciones',
-    icon: 'HomeIcon',
-    route: 'delegaciones',
-  },
-  {
-    title: 'Formatos',
-    icon: 'FileTextIcon',
-    route: 'formatos',
+    title: 'Pasarelas de pago',
+    icon: 'UsersIcon',
+    route: 'pasarelas',
   },
   {
     title: 'Configuración',
@@ -91,8 +86,8 @@ export default [
         route: 'usuarios',
       },
       {
-        title: 'Log',
-        route: 'log',
+        title: 'Plantilla de correo',
+        route: 'template-email',
       },
       //   {
       //     title: 'Voluntarios',

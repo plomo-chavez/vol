@@ -26,7 +26,7 @@ class CatalogosController extends BaseController {
             case 'sexo': 
                 return [
                     ['id' => 'Masculino', 'nombre' => 'Masculino'],
-                    ['id' => 'Femenino', 'nombre' => 'Femenino'],
+                    ['id' => 'Femenino',  'nombre' => 'Femenino'],
                 ];
             break;
             case 'nacionalidad': 
@@ -37,7 +37,7 @@ class CatalogosController extends BaseController {
             case 'estadoCivil': 
                 return [
                     ['id' => 'Soltero', 'nombre' => 'Soltero'],
-                    ['id' => 'Casado', 'nombre' => 'Casado'],
+                    ['id' => 'Casado',  'nombre' => 'Casado'],
                 ];
             break;
             case 'tiposSangre': 
@@ -52,102 +52,9 @@ class CatalogosController extends BaseController {
                     ['id' => 'O -', 'nombre' => 'O -'],
                 ];
             break;
-            case 'estados': 
-                if($query) {
-                    $tmp = Estado::orderBy('id', 'asc');
-                    return self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
-                } else {
-                    return new Estado();
-                }
-            case 'EstadosConDelegaciones': 
-                if($query) {
-                    $tmp = Estado::orderBy('id', 'asc')
-                    ->select('id','abbr','nombre')
-                    ->with('delegaciones');
-                    return self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
-                } else {
-                    return new Estado();
-                }
-            break;
-            case 'voluntarios': 
-                if($query) {
-                    $tmp = Estado::orderBy('id', 'asc')
-                    ->select('id','abbr','nombre')
-                    ->with('delegaciones');
-                    return self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
-                } else {
-                    return new Estado();
-                }
-            break;
-            case 'voluntariosXDelegacion': 
-                $data = [];
-                $filtros = $payload['filtro'];
-                if ($filtros['isLocal']) {
-                    $data = Voluntarios::where('delegacion_id', $filtros['delegacion_id']);
-                } else {
-                    $ids = self::idsDelegacionXEstado($filtros['estado_id']);
-                    $data = Voluntarios::whereIn('delegacion_id',$ids);
-                }
-                $data = $data->select('id','nombre','primerApellido','segundoApellido','numeroInterno','numeroAsociado','correo')->get()->toArray();
-                foreach ($data as $index => $item) {
-                    $data[$index]['label'] = ($item['numeroInterno'] ?? '').' - '.($item['numeroAsociado'] ?? '').' - '.($item['nombreCompleto'] ?? '');
-                }
-                return $data;
-            break;
-            case 'tipo-actividades-horas-voluntarias': 
-                if($query) {
-                    $tmp = tipoActividadesHV::orderBy('id', 'asc')->select('id','nombre');
-                    return self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
-                } else {
-                    return new tipoActividadesHV();
-                }
-            break;
-            case 'tipo-subactividades-horas-voluntarias': 
-                if($query) {
-                    $tmp = subTipoActividadesHV::orderBy('id', 'asc')->select('id','actividad_id','nombre')->with('actividad');
-                    return self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
-                } else {
-                    return new subTipoActividadesHV();
-                }
-            break;
-            case 'areas': 
-                if($query) {
-                    $tmp = Areas::orderBy('id', 'asc')
-                    ->select('id','nombre')
-                    ->with('cargos');
-                    $tmp = self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
-                    foreach ($tmp as &$item) { foreach ($item['cargos'] as &$cargo) { unset($cargo['pivot']); } }
-                    return $tmp;
-                } else {
-                    return new Areas();
-                }
-            break;
-            case 'cargos': 
-                if($query) {
-                    $tmp = Cargos::orderBy('id', 'asc')->select('id','nombre');
-                    return self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
-                } else {
-                    return new Areas();
-                }
-            break;
-            case 'tipo-autoridades': 
-                if($query) {
-                    $tmp = Areas::orderBy('id', 'asc')->select('id','nombre');
-                    return self::addFiltros($payload['filtro'],$tmp)->get()->toArray();
-                } else {
-                    return new Areas();
-                }
-            break;
             case 'tipo-usuarios': 
                 if($query) {
-                    $ids = $payload['filtro']['tipoUsuario_id'] == 1 ? [2,3,4,5] : [3,4,5] ;
                     $tmp = TipoUsuario::orderBy('id', 'asc')->select('id','nombre');
-                    // Filtra los registros basándote en la condición
-                    if ($payload['filtro']['tipoUsuario_id'] == 1) {
-                        $tmp = $tmp->whereIn('id', [2, 3, 4, 5]);
-                    } else {
-                        $tmp = $tmp->whereIn('id', [3, 4, 5]);
-                    }
                     return $tmp->get()->toArray();
                 } else {
                     return new TipoUsuario();

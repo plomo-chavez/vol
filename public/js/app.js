@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "js/chunks/" + ({}[chunkId]||chunkId) + "." + {"0":"39fc7ae3b9568038c731","1":"b5f0b73dfcc3cbf4496a","2":"76a9f3e5d03ef5119812","3":"0f1f61b73a2019d8f7c0","4":"85c7972e7ef874b7bd16","5":"2f77215124e1fb99527f","6":"72499c16e61bdbffd6da","7":"226966bfdca29a29cd1a","8":"28697dcf90a92ac86cca","9":"77522556e0eab6b5b817","10":"93bdcd09575f6afff78b","11":"20bf163df17a9259b23d","12":"3e4a23a83199ccaf26ab","13":"7862730d9ebf1b74e4d3","14":"e46735067f293f54ada7","15":"b0355e095261bb241341","16":"dcffdc5bd7d4a08e1c1a","19":"4f6ecb27acceae9c916c","20":"b0d57067b2443c5ed639","21":"896b88b0a6625caa107c","22":"5591c3aa278bb279c3bf","23":"17c6dd36212e15131f7d","24":"929df105614cc3e348ea","25":"f7e706eb8ceff1bda368","26":"d223ba4031f3aa0ccfd8","27":"0b7dedc2eea998a2ef6e","28":"d1aaba78c30d9c44410d","29":"fe0f312f48643252991e","30":"1b5753585f94f4cbb75c","31":"95b406f54920ecbb6f2a","32":"71d383638de8816243c7","33":"e1d6695153e67fe4ffe4","34":"4d78348a6225139fabb8","35":"04c96c0f3189273b3135","36":"469f41808127a8f2ce5a","37":"7c3b544e675e50a7350a","38":"22a325181dd4b2d094c4","39":"82350fb890f9a030310d","40":"5b422024b9bf78ee6da3","41":"89065a1be4ea3c5f91b4","42":"ca6b70ba07637e8347da","43":"13c7ecbde3420909a01c","44":"ed0701c688bb539b1268","46":"391affceec4425447ccd","47":"85d28dadf59f67bbb661"}[chunkId] + ".js"
+/******/ 		return __webpack_require__.p + "js/chunks/" + ({}[chunkId]||chunkId) + "." + {"0":"39fc7ae3b9568038c731","1":"a6e957bcff0fb3a993f1","2":"76a9f3e5d03ef5119812","3":"3923ed6f61625d799418","4":"da2d43eabf76b6d58286","5":"e7047643bfd3cefc9b5b","6":"f8fb88ec78230c7c196b","7":"375f56c86a5829d2c3d4","8":"277fd88db283eb09d660","9":"a1c294ab4cea82e18093","10":"364466a8604464afbdfb","11":"b56533f8d5c656d958ad","12":"0eb2cbd357167d759c83","13":"1f440db0d4c433ef3bd7","14":"17fa4e0bea3700aa79d3","15":"664d4b1e02889d8699b1","16":"b0427b84a9a567389cdd","17":"0b750bda47e42abf3cbc","18":"0cff5acd7ae7d2ca97fe","19":"200fa0d5611665b0d5b1","20":"2222a57243fac35d0f42","21":"3a6e7fa5f04f043c06ea","22":"2697f7751455e81b187d","23":"d0211e0d0fab83618f7b","24":"6e8da509eb893c2cde58","25":"5e100de7bb2f868eb6a9","26":"c5a010641600f6a18911","27":"127a15c064f03dea6f57","28":"1c2915ca31aaab74fe2a","29":"15fedd096e6cd912e687","30":"52ace8bd32aa4cc760a3","31":"189a5ef44c9b753cf2e4","32":"7d0d7a52d89d194bd6e9","33":"ea1993f9ce7322276807","34":"f890aa56951765aa6d46","35":"56bfc6626283ae4c06fc"}[chunkId] + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -28259,7 +28259,7 @@ function mergeFn (a, b) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
 /* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.number.constructor.js */ "./node_modules/core-js/modules/es.number.constructor.js");
 /* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_feather_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-feather-icons */ "./node_modules/vue-feather-icons/dist/vue-feather-icons.es.js");
@@ -28291,7 +28291,7 @@ __webpack_require__.r(__webpack_exports__);
     var props = _ref.props,
       data = _ref.data;
     // Create Feather Icon
-    var svg = h(vue_feather_icons__WEBPACK_IMPORTED_MODULE_2__[props.icon], Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    var svg = h(vue_feather_icons__WEBPACK_IMPORTED_MODULE_2__[props.icon], Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({
       props: {
         size: props.size
       }
@@ -28522,13 +28522,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var LayoutVertical = function LayoutVertical() {
-  return Promise.all(/*! import() */[__webpack_require__.e(5), __webpack_require__.e(14), __webpack_require__.e(20), __webpack_require__.e(4), __webpack_require__.e(16), __webpack_require__.e(22)]).then(__webpack_require__.bind(null, /*! @/layouts/vertical/LayoutVertical.vue */ "./resources/js/src/layouts/vertical/LayoutVertical.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(6), __webpack_require__.e(5), __webpack_require__.e(12), __webpack_require__.e(4), __webpack_require__.e(10), __webpack_require__.e(15)]).then(__webpack_require__.bind(null, /*! @/layouts/vertical/LayoutVertical.vue */ "./resources/js/src/layouts/vertical/LayoutVertical.vue"));
 };
 var LayoutHorizontal = function LayoutHorizontal() {
-  return Promise.all(/*! import() */[__webpack_require__.e(14), __webpack_require__.e(20), __webpack_require__.e(16), __webpack_require__.e(21)]).then(__webpack_require__.bind(null, /*! @/layouts/horizontal/LayoutHorizontal.vue */ "./resources/js/src/layouts/horizontal/LayoutHorizontal.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(5), __webpack_require__.e(12), __webpack_require__.e(10), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, /*! @/layouts/horizontal/LayoutHorizontal.vue */ "./resources/js/src/layouts/horizontal/LayoutHorizontal.vue"));
 };
 var LayoutFull = function LayoutFull() {
-  return __webpack_require__.e(/*! import() */ 34).then(__webpack_require__.bind(null, /*! @/layouts/full/LayoutFull.vue */ "./resources/js/src/layouts/full/LayoutFull.vue"));
+  return __webpack_require__.e(/*! import() */ 26).then(__webpack_require__.bind(null, /*! @/layouts/full/LayoutFull.vue */ "./resources/js/src/layouts/full/LayoutFull.vue"));
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -199485,10 +199485,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return JwtService; });
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/createClass.js */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/defineProperty.js */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/createClass.js */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/defineProperty.js */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.filter.js */ "./node_modules/core-js/modules/es.array.filter.js");
 /* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
@@ -199517,15 +199517,15 @@ var JwtService = /*#__PURE__*/function () {
   // For Refreshing Token
 
   function JwtService(axiosIns, jwtOverrideConfig) {
-    Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__["default"])(this, JwtService);
-    Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "axiosIns", null);
-    Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "jwtConfig", Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _jwtDefaultConfig__WEBPACK_IMPORTED_MODULE_8__["default"]));
-    Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "isAlreadyFetchingAccessToken", false);
-    Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "subscribers", []);
+    Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__["default"])(this, JwtService);
+    Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "axiosIns", null);
+    Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "jwtConfig", Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _jwtDefaultConfig__WEBPACK_IMPORTED_MODULE_8__["default"]));
+    Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "isAlreadyFetchingAccessToken", false);
+    Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "subscribers", []);
     this.axiosIns = axiosIns;
-    this.jwtConfig = Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, this.jwtConfig), jwtOverrideConfig);
+    this.jwtConfig = Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, this.jwtConfig), jwtOverrideConfig);
   }
-  Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__["default"])(JwtService, [{
+  Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__["default"])(JwtService, [{
     key: "onAccessTokenFetched",
     value: function onAccessTokenFetched(accessToken) {
       this.subscribers = this.subscribers.filter(function (callback) {
@@ -205160,8 +205160,8 @@ _fake_db_mock__WEBPACK_IMPORTED_MODULE_0__["default"].onGet('/blog/list/data/edi
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_slicedToArray_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_slicedToArray_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
@@ -205314,7 +205314,7 @@ _fake_db_mock__WEBPACK_IMPORTED_MODULE_8__["default"].onGet('/faq/data').reply(f
   var queryLowered = q.toLowerCase();
   var filteredData = {};
   Object.entries(data.faqData).forEach(function (entry) {
-    var _entry = Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_slicedToArray_js__WEBPACK_IMPORTED_MODULE_1__["default"])(entry, 2),
+    var _entry = Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_slicedToArray_js__WEBPACK_IMPORTED_MODULE_1__["default"])(entry, 2),
       categoryName = _entry[0],
       categoryObj = _entry[1];
     // eslint-disable-next-line arrow-body-style
@@ -205322,7 +205322,7 @@ _fake_db_mock__WEBPACK_IMPORTED_MODULE_8__["default"].onGet('/faq/data').reply(f
       return qAndAObj.question.toLowerCase().includes(queryLowered);
     });
     if (filteredQAndAOfCategory.length) {
-      filteredData[categoryName] = Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, categoryObj), {}, {
+      filteredData[categoryName] = Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, categoryObj), {}, {
         qandA: filteredQAndAOfCategory
       });
     }
@@ -205995,7 +205995,7 @@ _mock__WEBPACK_IMPORTED_MODULE_0__["default"].onAny().passThrough(); // forwards
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
 /* harmony import */ var core_js_modules_es_array_find_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.array.find.js */ "./node_modules/core-js/modules/es.array.find.js");
 /* harmony import */ var core_js_modules_es_array_find_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_find_js__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
@@ -206079,7 +206079,7 @@ _fake_db_mock__WEBPACK_IMPORTED_MODULE_4__["default"].onPost('/jwt/login').reply
       }, jwtConfig.refreshTokenSecret, {
         expiresIn: jwtConfig.refreshTokenExpireTime
       });
-      var userData = Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, user);
+      var userData = Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, user);
       delete userData.password;
       var response = {
         userData: userData,
@@ -206153,7 +206153,7 @@ _fake_db_mock__WEBPACK_IMPORTED_MODULE_4__["default"].onPost('/jwt/register').re
     }, jwtConfig.secret, {
       expiresIn: jwtConfig.expireTime
     });
-    var user = Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, userData);
+    var user = Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, userData);
     delete user.password;
     var response = {
       userData: user,
@@ -206171,7 +206171,7 @@ _fake_db_mock__WEBPACK_IMPORTED_MODULE_4__["default"].onPost('/jwt/refresh-token
   try {
     var _jwt$verify = jsonwebtoken__WEBPACK_IMPORTED_MODULE_5___default.a.verify(refreshToken, jwtConfig.refreshTokenSecret),
       id = _jwt$verify.id;
-    var userData = Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, data.users.find(function (user) {
+    var userData = Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, data.users.find(function (user) {
       return user.id === id;
     }));
     var newAccessToken = jsonwebtoken__WEBPACK_IMPORTED_MODULE_5___default.a.sign({
@@ -206398,10 +206398,10 @@ axiosCurrent.interceptors.response.use(function (response) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return apisCatalogos; });
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/createClass.js */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/defineProperty.js */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/createClass.js */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/defineProperty.js */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _apisCatalogosConfig__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./apisCatalogosConfig */ "./resources/js/src/apis/config/apisCatalogosConfig.js");
@@ -206417,13 +206417,13 @@ var apisCatalogos = /*#__PURE__*/function () {
   // apisConfig <= Will be used by this service
 
   function apisCatalogos(axiosIns, jwtOverrideConfig) {
-    Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__["default"])(this, apisCatalogos);
-    Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "axiosIns", null);
-    Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "apisConfig", Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _apisCatalogosConfig__WEBPACK_IMPORTED_MODULE_5__["default"]));
+    Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__["default"])(this, apisCatalogos);
+    Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "axiosIns", null);
+    Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "apisConfig", Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _apisCatalogosConfig__WEBPACK_IMPORTED_MODULE_5__["default"]));
     this.axiosIns = axiosIns;
-    this.apisConfig = Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, this.apisConfig), jwtOverrideConfig);
+    this.apisConfig = Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, this.apisConfig), jwtOverrideConfig);
   }
-  Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__["default"])(apisCatalogos, [{
+  Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__["default"])(apisCatalogos, [{
     key: "getCatalogo",
     value: function getCatalogo() {
       var _this$axiosIns;
@@ -206610,7 +206610,7 @@ var apisCatalogos = /*#__PURE__*/function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/defineProperty.js */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/defineProperty.js */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 
 var _apiVoluntarios$tipoA;
 /* harmony default export */ __webpack_exports__["default"] = (_apiVoluntarios$tipoA = {
@@ -206618,7 +206618,7 @@ var _apiVoluntarios$tipoA;
   apiVoluntarios: '/api/catalogo/voluntarios',
   tipoActividadesHV: '/api/catalogo/tipo/actividadesHV',
   apiSubTipoActividadesHV: '/api/catalogo/subtipo/actividadesHV'
-}, Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "apiVoluntarios", '/api/catalogo/voluntarios'), Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "apiTiposUsuarios", '/api/catalogo/tiposUsuarios'), Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "areasApi", '/api/catalogo/areas'), Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "estadosApi", '/api/catalogo/estados'), Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "tipoAsociadoApi", '/api/catalogo/tipoAsociado'), Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "nacionalidadesApi", '/api/catalogo/nacionalidad'), Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "tiposSangreApi", '/api/catalogo/tipoSangre'), Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "estadoCivilApi", '/api/catalogo/estadoCivil'), Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "sexoApi", '/api/catalogo/sexo'), Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "getDelegacionesWithAreasApi", '/api/catalogo/delegaciones'), Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "apiEstadosConDelegaciones", '/api/catalogo/estados/delegaciones'), Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "apiDelegacionesXTipoCoordinador", '/api/catalogo/especial/delegaciones'), Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "apiVoluntariosXDelegacion", '/api/catalogo/especial/voluntarios'), Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "apiGetCatalogo", '/api/get/catalogo'), _apiVoluntarios$tipoA);
+}, Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "apiVoluntarios", '/api/catalogo/voluntarios'), Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "apiTiposUsuarios", '/api/catalogo/tiposUsuarios'), Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "areasApi", '/api/catalogo/areas'), Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "estadosApi", '/api/catalogo/estados'), Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "tipoAsociadoApi", '/api/catalogo/tipoAsociado'), Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "nacionalidadesApi", '/api/catalogo/nacionalidad'), Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "tiposSangreApi", '/api/catalogo/tipoSangre'), Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "estadoCivilApi", '/api/catalogo/estadoCivil'), Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "sexoApi", '/api/catalogo/sexo'), Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "getDelegacionesWithAreasApi", '/api/catalogo/delegaciones'), Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "apiEstadosConDelegaciones", '/api/catalogo/estados/delegaciones'), Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "apiDelegacionesXTipoCoordinador", '/api/catalogo/especial/delegaciones'), Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "apiVoluntariosXDelegacion", '/api/catalogo/especial/voluntarios'), Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_0__["default"])(_apiVoluntarios$tipoA, "apiGetCatalogo", '/api/get/catalogo'), _apiVoluntarios$tipoA);
 
 /***/ }),
 
@@ -206632,10 +206632,10 @@ var _apiVoluntarios$tipoA;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return apiPeticiones; });
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/createClass.js */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/defineProperty.js */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/createClass.js */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/defineProperty.js */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _apisGeneratePDFConfig__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./apisGeneratePDFConfig */ "./resources/js/src/apis/config/generatePDF/apisGeneratePDFConfig.js");
@@ -206651,13 +206651,13 @@ var apiPeticiones = /*#__PURE__*/function () {
   // apisConfig <= Will be used by this service
 
   function apiPeticiones(axiosIns, jwtOverrideConfig) {
-    Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__["default"])(this, apiPeticiones);
-    Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "axiosIns", null);
-    Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "apisConfig", Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _apisGeneratePDFConfig__WEBPACK_IMPORTED_MODULE_5__["default"]));
+    Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__["default"])(this, apiPeticiones);
+    Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "axiosIns", null);
+    Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "apisConfig", Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _apisGeneratePDFConfig__WEBPACK_IMPORTED_MODULE_5__["default"]));
     this.axiosIns = axiosIns;
-    this.apisConfig = Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, this.apisConfig), jwtOverrideConfig);
+    this.apisConfig = Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, this.apisConfig), jwtOverrideConfig);
   }
-  Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__["default"])(apiPeticiones, [{
+  Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__["default"])(apiPeticiones, [{
     key: "generatePDFAntiguedades",
     value: function generatePDFAntiguedades() {
       var _this$axiosIns;
@@ -206748,10 +206748,10 @@ function useGeneratePDF(axiosIns, overrideConfig) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return apiPeticiones; });
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/createClass.js */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/defineProperty.js */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/createClass.js */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/defineProperty.js */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _apisPeticionesConfig__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./apisPeticionesConfig */ "./resources/js/src/apis/config/peticiones/apisPeticionesConfig.js");
@@ -206767,13 +206767,13 @@ var apiPeticiones = /*#__PURE__*/function () {
   // apisConfig <= Will be used by this service
 
   function apiPeticiones(axiosIns, jwtOverrideConfig) {
-    Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__["default"])(this, apiPeticiones);
-    Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "axiosIns", null);
-    Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "apisConfig", Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _apisPeticionesConfig__WEBPACK_IMPORTED_MODULE_5__["default"]));
+    Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__["default"])(this, apiPeticiones);
+    Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "axiosIns", null);
+    Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "apisConfig", Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _apisPeticionesConfig__WEBPACK_IMPORTED_MODULE_5__["default"]));
     this.axiosIns = axiosIns;
-    this.apisConfig = Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, this.apisConfig), jwtOverrideConfig);
+    this.apisConfig = Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, this.apisConfig), jwtOverrideConfig);
   }
-  Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__["default"])(apiPeticiones, [{
+  Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__["default"])(apiPeticiones, [{
     key: "getAntiguedades",
     value: function getAntiguedades() {
       var _this$axiosIns;
@@ -207123,10 +207123,10 @@ function usePeticiones(axiosIns, overrideConfig) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return apiPeticiones; });
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/createClass.js */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/defineProperty.js */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/createClass.js */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/defineProperty.js */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _apisUploadFilesConfig__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./apisUploadFilesConfig */ "./resources/js/src/apis/config/uploadFiles/apisUploadFilesConfig.js");
@@ -207142,13 +207142,13 @@ var apiPeticiones = /*#__PURE__*/function () {
   // apisConfig <= Will be used by this service
 
   function apiPeticiones(axiosIns, jwtOverrideConfig) {
-    Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__["default"])(this, apiPeticiones);
-    Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "axiosIns", null);
-    Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "apisConfig", Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _apisUploadFilesConfig__WEBPACK_IMPORTED_MODULE_5__["default"]));
+    Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_classCallCheck_js__WEBPACK_IMPORTED_MODULE_1__["default"])(this, apiPeticiones);
+    Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "axiosIns", null);
+    Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_defineProperty_js__WEBPACK_IMPORTED_MODULE_3__["default"])(this, "apisConfig", Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _apisUploadFilesConfig__WEBPACK_IMPORTED_MODULE_5__["default"]));
     this.axiosIns = axiosIns;
-    this.apisConfig = Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, this.apisConfig), jwtOverrideConfig);
+    this.apisConfig = Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, this.apisConfig), jwtOverrideConfig);
   }
-  Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__["default"])(apiPeticiones, [{
+  Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_createClass_js__WEBPACK_IMPORTED_MODULE_2__["default"])(apiPeticiones, [{
     key: "administarFilesDelegacionesCoordinadores",
     value: function administarFilesDelegacionesCoordinadores() {
       var _this$axiosIns;
@@ -208784,10 +208784,10 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(_mathieustan_vue_datepicker__WEBP
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/regeneratorRuntime.js */ "./node_modules/@babel/runtime/helpers/esm/regeneratorRuntime.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_typeof_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/typeof.js */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js */ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/regeneratorRuntime.js */ "./node_modules/@babel/runtime/helpers/esm/regeneratorRuntime.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_typeof_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/typeof.js */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
 /* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.includes.js */ "./node_modules/core-js/modules/es.array.includes.js");
 /* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
@@ -208866,8 +208866,8 @@ moment.tz.setDefault('America/Mexico_City');
     },
     getCatalogo: function getCatalogo(input) {
       var _this = this;
-      return Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_3__["default"])( /*#__PURE__*/Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_1__["default"])().mark(function _callee() {
-        return Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_1__["default"])().wrap(function _callee$(_context) {
+      return Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_3__["default"])( /*#__PURE__*/Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_1__["default"])().mark(function _callee() {
+        return Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_1__["default"])().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -208880,7 +208880,7 @@ moment.tz.setDefault('America/Mexico_City');
               case 3:
                 return _context.abrupt("return", _context.sent);
               case 4:
-                if (!(Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_typeof_js__WEBPACK_IMPORTED_MODULE_2__["default"])(input.catalogo) == 'object')) {
+                if (!(Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_typeof_js__WEBPACK_IMPORTED_MODULE_2__["default"])(input.catalogo) == 'object')) {
                   _context.next = 6;
                   break;
                 }
@@ -208948,7 +208948,7 @@ moment.tz.setDefault('America/Mexico_City');
       return value.charAt(0).toUpperCase() + value.slice(1);
     },
     validarFechaMayorAHora: function validarFechaMayorAHora(timestamp) {
-      console.log(Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_typeof_js__WEBPACK_IMPORTED_MODULE_2__["default"])(timestamp));
+      console.log(Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_typeof_js__WEBPACK_IMPORTED_MODULE_2__["default"])(timestamp));
       var fechaIngresada = new Date(timestamp);
       var timestampActual = Date.now(); // Obtiene el timestamp actual en milisegundos
 
@@ -209139,7 +209139,7 @@ moment.tz.setDefault('America/Mexico_City');
       var tmp = [];
       data.map(function (item, index) {
         var _item$indexLabel, _item$indexValue, _item$indexLabel2, _item$indexValue2;
-        if (all) tmp.push(Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, item), {}, {
+        if (all) tmp.push(Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_objectSpread2_js__WEBPACK_IMPORTED_MODULE_0__["default"])({}, item), {}, {
           'label': (_item$indexLabel = item[indexLabel]) !== null && _item$indexLabel !== void 0 ? _item$indexLabel : '',
           'value': (_item$indexValue = item[indexValue]) !== null && _item$indexValue !== void 0 ? _item$indexValue : ''
         }));else tmp.push({
@@ -209221,8 +209221,8 @@ moment.tz.setDefault('America/Mexico_City');
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/regeneratorRuntime.js */ "./node_modules/@babel/runtime/helpers/esm/regeneratorRuntime.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/regeneratorRuntime.js */ "./node_modules/@babel/runtime/helpers/esm/regeneratorRuntime.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
 /* harmony import */ var _apis_usePeticiones__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/apis/usePeticiones */ "./resources/js/src/apis/usePeticiones.js");
 /* harmony import */ var _apis_useUploadFiles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/apis/useUploadFiles */ "./resources/js/src/apis/useUploadFiles.js");
 /* harmony import */ var _apis_useGeneratePDF__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/apis/useGeneratePDF */ "./resources/js/src/apis/useGeneratePDF.js");
@@ -209242,9 +209242,9 @@ __webpack_require__.r(__webpack_exports__);
     peticionGeneral: function peticionGeneral(method, payload) {
       var _arguments = arguments,
         _this = this;
-      return Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().mark(function _callee() {
+      return Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().mark(function _callee() {
         var showMessage, needReturn, response;
-        return Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().wrap(function _callee$(_context) {
+        return Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -209405,9 +209405,9 @@ __webpack_require__.r(__webpack_exports__);
     peticionUpload: function peticionUpload(method, payload) {
       var _arguments2 = arguments,
         _this2 = this;
-      return Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().mark(function _callee2() {
+      return Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().mark(function _callee2() {
         var showMessage, needReturn, response;
-        return Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().wrap(function _callee2$(_context2) {
+        return Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
@@ -209453,9 +209453,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     peticionPDF: function peticionPDF(method, payload) {
       var _this3 = this;
-      return Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().mark(function _callee3() {
+      return Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().mark(function _callee3() {
         var response, contentType, reader;
-        return Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().wrap(function _callee3$(_context3) {
+        return Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
@@ -209536,9 +209536,9 @@ __webpack_require__.r(__webpack_exports__);
     peticionCatalogo: function peticionCatalogo(method) {
       var _arguments3 = arguments,
         _this4 = this;
-      return Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().mark(function _callee4() {
+      return Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().mark(function _callee4() {
         var filtros, formato, _formato$all, _formato$indexValue, _formato$indexLabel, formatoLocal, tmpPayload, response;
-        return Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().wrap(function _callee4$(_context4) {
+        return Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
@@ -210071,9 +210071,9 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/regeneratorRuntime.js */ "./node_modules/@babel/runtime/helpers/esm/regeneratorRuntime.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
-/* harmony import */ var _Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_toConsumableArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/regeneratorRuntime.js */ "./node_modules/@babel/runtime/helpers/esm/regeneratorRuntime.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var _Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_toConsumableArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -210108,81 +210108,50 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]({
       y: 0
     };
   },
-  routes: [].concat(Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_toConsumableArray_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_routes_routesDefault__WEBPACK_IMPORTED_MODULE_7__["default"]), Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_toConsumableArray_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_routes_administracion__WEBPACK_IMPORTED_MODULE_10__["default"]), Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_toConsumableArray_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_routes_usuarios__WEBPACK_IMPORTED_MODULE_11__["default"]), [{
-    path: '/',
-    redirect: {
-      name: 'home'
-    }
-  }, {
+  routes: [].concat(Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_toConsumableArray_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_routes_routesDefault__WEBPACK_IMPORTED_MODULE_7__["default"]), Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_toConsumableArray_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_routes_administracion__WEBPACK_IMPORTED_MODULE_10__["default"]), Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_toConsumableArray_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_routes_usuarios__WEBPACK_IMPORTED_MODULE_11__["default"]), [
+  // { path: '/', redirect: { name: 'home' } },
+  {
     path: '*',
     redirect: 'error-404'
   }])
 });
 router.beforeEach( /*#__PURE__*/function () {
-  var _ref = Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().mark(function _callee(to, _, next) {
+  var _ref = Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().mark(function _callee(to, _, next) {
     var _to$meta$validUser, _to$meta;
-    var isLoggedIn, validUser, response;
-    return Object(_Users_plomo_Documents_MAMP_vol_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().wrap(function _callee$(_context) {
+    var isLoggedIn, validUser;
+    return Object(_Users_plomo_Documents_MAMP_boletera_node_modules_babel_runtime_helpers_esm_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__["default"])().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             isLoggedIn = Object(_auth_utils__WEBPACK_IMPORTED_MODULE_6__["isUserLoggedIn"])();
-            validUser = (_to$meta$validUser = (_to$meta = to.meta) === null || _to$meta === void 0 ? void 0 : _to$meta.validUser) !== null && _to$meta$validUser !== void 0 ? _to$meta$validUser : true;
-            if (!validUser) {
-              _context.next = 23;
-              break;
-            }
-            if (!(isLoggedIn === null)) {
-              _context.next = 7;
-              break;
-            }
-            next({
-              name: 'auth-login'
-            });
-            _context.next = 23;
-            break;
-          case 7:
-            if (Object(_auth_utils__WEBPACK_IMPORTED_MODULE_6__["validarRutaPorTipoUsuarioEnMeta"])(to, _store__WEBPACK_IMPORTED_MODULE_9__["default"].state.app.userData.role)) {
-              _context.next = 11;
-              break;
-            }
-            next({
-              name: 'home'
-            });
-            _context.next = 23;
-            break;
-          case 11:
-            _context.prev = 11;
-            Object(_auth_utils__WEBPACK_IMPORTED_MODULE_6__["loading"])();
-            _context.next = 15;
-            return _auth_jwt_useJwt__WEBPACK_IMPORTED_MODULE_8__["default"].validateUser({
-              tk: _store__WEBPACK_IMPORTED_MODULE_9__["default"].state.app.userData.token
-            });
-          case 15:
-            response = _context.sent;
-            Object(_auth_utils__WEBPACK_IMPORTED_MODULE_6__["loading"])(false);
-            if (!response.data.data) {
-              Object(_auth_utils__WEBPACK_IMPORTED_MODULE_6__["goToLogout"])();
-            }
-            _context.next = 23;
-            break;
-          case 20:
-            _context.prev = 20;
-            _context.t0 = _context["catch"](11);
-            console.log(_context.t0);
-          case 23:
-            if (to.meta.redirectIfLoggedIn && isLoggedIn) {
-              next({
-                name: 'home'
-              });
-            }
+            validUser = (_to$meta$validUser = (_to$meta = to.meta) === null || _to$meta === void 0 ? void 0 : _to$meta.validUser) !== null && _to$meta$validUser !== void 0 ? _to$meta$validUser : true; // if (validUser) {
+            //   if (isLoggedIn === null) {
+            //     next({ name: 'auth-login' });
+            //   } else {
+            //     if (!validarRutaPorTipoUsuarioEnMeta(to,store.state.app.userData.role)) {
+            //       next({ name: 'home' }); 
+            //     } else {  
+            //       try {
+            //         loading()
+            //         const response = await useJwt.validateUser({ tk: store.state.app.userData.token });
+            //         loading(false)
+            //         if (!response.data.data) {
+            //           goToLogout();
+            //         }
+            //       } catch (error) { console.log(error); }
+            //     }
+            //   }
+            // }
+            // if (to.meta.redirectIfLoggedIn && isLoggedIn) { 
+            //   next({ name: 'home' }); 
+            // }
             next();
-          case 25:
+          case 3:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[11, 20]]);
+    }, _callee);
   }));
   return function (_x, _x2, _x3) {
     return _ref.apply(this, arguments);
@@ -210218,171 +210187,44 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ([{
-  path: '/credenciales',
-  name: 'credenciales-temporales',
-  component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(39)]).then(__webpack_require__.bind(null, /*! @/views/credenciales/CredencialesTemporales.vue */ "./resources/js/src/views/credenciales/CredencialesTemporales.vue"));
-  },
-  meta: {
-    pageTitle: 'Credenciales Temporales'
-  }
-}, {
-  path: '/formatos',
-  name: 'formatos',
-  component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(33)]).then(__webpack_require__.bind(null, /*! @/views/formatos/Formatos.vue */ "./resources/js/src/views/formatos/Formatos.vue"));
-  },
-  meta: {
-    pageTitle: 'Formatos'
-  }
-}, {
   path: '/usuarios',
   name: 'usuarios',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(40)]).then(__webpack_require__.bind(null, /*! @/views/usuarios/Usuarios.vue */ "./resources/js/src/views/usuarios/Usuarios.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(31)]).then(__webpack_require__.bind(null, /*! @/views/usuarios/Usuarios.vue */ "./resources/js/src/views/usuarios/Usuarios.vue"));
   },
   meta: {
-    pageTitle: 'Usuarios'
-  }
-}, {
-  path: '/voluntarios',
-  name: 'voluntarios',
-  component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(5), __webpack_require__.e(11), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(8), __webpack_require__.e(9), __webpack_require__.e(10), __webpack_require__.e(13), __webpack_require__.e(19)]).then(__webpack_require__.bind(null, /*! @/views/voluntarios/Voluntarios.vue */ "./resources/js/src/views/voluntarios/Voluntarios.vue"));
-  },
-  meta: {
-    pageTitle: 'Voluntarios',
-    permitidos: ['CL -  Coordinador Local', 'CE -  Coordinador Estatal', 'CN -  Coordinador Nacional']
-  }
-}, {
-  path: '/voluntarios',
-  name: 'confguracionGeneral',
-  component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(5), __webpack_require__.e(11), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(8), __webpack_require__.e(9), __webpack_require__.e(10), __webpack_require__.e(13), __webpack_require__.e(19)]).then(__webpack_require__.bind(null, /*! @/views/voluntarios/Voluntarios.vue */ "./resources/js/src/views/voluntarios/Voluntarios.vue"));
-  },
-  meta: {
-    pageTitle: 'Voluntarios'
-  }
-}, {
-  path: '/horas',
-  name: 'horas',
-  component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(5), __webpack_require__.e(15), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(8), __webpack_require__.e(9), __webpack_require__.e(10), __webpack_require__.e(12), __webpack_require__.e(47), __webpack_require__.e(43)]).then(__webpack_require__.bind(null, /*! @/views/horas/Horas.vue */ "./resources/js/src/views/horas/Horas.vue"));
-  },
-  meta: {
-    pageTitle: 'Horas voluntarias',
+    pageTitle: 'Usuarios',
     permitidos: 'all'
   }
 }, {
-  path: '/guardias-horas',
-  name: 'guardias-horas',
+  path: '/eventos',
+  name: 'eventos',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(5), __webpack_require__.e(15), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(8), __webpack_require__.e(9), __webpack_require__.e(10), __webpack_require__.e(12), __webpack_require__.e(47), __webpack_require__.e(42)]).then(__webpack_require__.bind(null, /*! @/views/guardias/Guardias.vue */ "./resources/js/src/views/guardias/Guardias.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(30)]).then(__webpack_require__.bind(null, /*! @/views/eventos/Eventos.vue */ "./resources/js/src/views/eventos/Eventos.vue"));
   },
   meta: {
-    pageTitle: 'Guardias',
+    pageTitle: 'Eventos',
     permitidos: 'all'
-  }
-}, {
-  path: '/verificador/horas',
-  name: 'verificador-horas',
-  component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(15), __webpack_require__.e(1), __webpack_require__.e(12), __webpack_require__.e(41)]).then(__webpack_require__.bind(null, /*! @/views/horas/formHoras.vue */ "./resources/js/src/views/horas/formHoras.vue"));
-  },
-  meta: {
-    pageTitle: 'Agregar horas voluntarias'
-    // permitidos: 'verificador horas voluntarias',
-  }
-}, {
-  path: '/delegaciones',
-  name: 'delegaciones',
-  component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(5), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(8), __webpack_require__.e(9), __webpack_require__.e(27)]).then(__webpack_require__.bind(null, /*! @/views/delegaciones/Delegaciones.vue */ "./resources/js/src/views/delegaciones/Delegaciones.vue"));
-  },
-  meta: {
-    pageTitle: 'Delegaciones',
-    permitidos: ['CE -  Coordinador Estatal', 'CN -  Coordinador Nacional']
-  }
-}, {
-  path: '/catalogo/areas',
-  name: 'catalogo-areas',
-  component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! @/views/GestorCatalogos.vue */ "./resources/js/src/views/GestorCatalogos.vue"));
-  },
-  meta: {
-    pageTitle: 'Areas'
-  }
-}, {
-  path: '/catalogo/tipo-autoridades',
-  name: 'catalogo-tipo-autoridades',
-  component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! @/views/GestorCatalogos.vue */ "./resources/js/src/views/GestorCatalogos.vue"));
-  },
-  meta: {
-    pageTitle: 'Tipo de autoridades'
-  }
-}, {
-  path: '/catalogo/actividades-horas-voluntarias',
-  name: 'catalogo-actividades-horas-voluntarias',
-  component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! @/views/GestorCatalogos.vue */ "./resources/js/src/views/GestorCatalogos.vue"));
-  },
-  meta: {
-    pageTitle: 'Actividades de horas voluntarias'
   }
 }, {
   path: '/catalogo/estados',
   name: 'catalogo-estados',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! @/views/GestorCatalogos.vue */ "./resources/js/src/views/GestorCatalogos.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(20)]).then(__webpack_require__.bind(null, /*! @/views/GestorCatalogos.vue */ "./resources/js/src/views/GestorCatalogos.vue"));
   },
   meta: {
-    pageTitle: 'Estados'
-  }
-}, {
-  path: '/catalogo/tipo-autoridades',
-  name: 'catalogo-tipo-usuarios',
-  component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! @/views/GestorCatalogos.vue */ "./resources/js/src/views/GestorCatalogos.vue"));
-  },
-  meta: {
-    pageTitle: 'Tipos de usuarios'
-  }
-}, {
-  path: '/catalogo/tipo-sangre',
-  name: 'catalogo-tipo-sangre',
-  component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! @/views/GestorCatalogos.vue */ "./resources/js/src/views/GestorCatalogos.vue"));
-  },
-  meta: {
-    pageTitle: 'Tipos de sangre'
-  }
-}, {
-  path: '/catalogo/tipo-actividades-horas-voluntarias',
-  name: 'catalogo-tipo-actividades-horas-voluntarias',
-  component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! @/views/GestorCatalogos.vue */ "./resources/js/src/views/GestorCatalogos.vue"));
-  },
-  meta: {
-    pageTitle: 'Tipos de actividades HV'
-  }
-}, {
-  path: '/catalogo/tipo-subactividades-horas-voluntarias',
-  name: 'catalogo-tipo-subactividades-horas-voluntarias',
-  component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! @/views/GestorCatalogos.vue */ "./resources/js/src/views/GestorCatalogos.vue"));
-  },
-  meta: {
-    pageTitle: 'Tipos de subactividades HV'
+    pageTitle: 'Estados',
+    permitidos: 'all'
   }
 }, {
   path: '/config/notificaciones/template-email',
   name: 'config-notificaciones-templateEmail',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(44), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(24)]).then(__webpack_require__.bind(null, /*! @/views/configuracion/notificaciones/template/TemplateEmails.vue */ "./resources/js/src/views/configuracion/notificaciones/template/TemplateEmails.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(34), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(17)]).then(__webpack_require__.bind(null, /*! @/views/configuracion/notificaciones/template/TemplateEmails.vue */ "./resources/js/src/views/configuracion/notificaciones/template/TemplateEmails.vue"));
   },
   meta: {
-    pageTitle: 'Delegaciones'
+    pageTitle: 'Delegaciones',
+    permitidos: 'all'
   }
 }]);
 
@@ -210407,20 +210249,32 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ([{
-  path: '/home',
-  name: 'home',
+  path: '/inicio',
+  name: 'inicio',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(14), __webpack_require__.e(15), __webpack_require__.e(1), __webpack_require__.e(8), __webpack_require__.e(12), __webpack_require__.e(36)]).then(__webpack_require__.bind(null, /*! @/views/Home.vue */ "./resources/js/src/views/Home.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(32), __webpack_require__.e(33)]).then(__webpack_require__.bind(null, /*! @/views/Inicio.vue */ "./resources/js/src/views/Inicio.vue"));
   },
   meta: {
     validUser: true,
     permitidos: 'all'
   }
 }, {
+  path: '/home',
+  name: 'home',
+  component: function component() {
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(7), __webpack_require__.e(35), __webpack_require__.e(1), __webpack_require__.e(8), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, /*! @/views/Home.vue */ "./resources/js/src/views/Home.vue"));
+  },
+  meta: {
+    validUser: false,
+    layout: 'full',
+    resource: 'Auth',
+    action: 'read'
+  }
+}, {
   path: '/error-404',
   name: 'error-404',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 28).then(__webpack_require__.bind(null, /*! @/views/error/Error404.vue */ "./resources/js/src/views/error/Error404.vue"));
+    return __webpack_require__.e(/*! import() */ 21).then(__webpack_require__.bind(null, /*! @/views/error/Error404.vue */ "./resources/js/src/views/error/Error404.vue"));
   },
   meta: {
     validUser: false,
@@ -210432,7 +210286,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/login',
   name: 'auth-login',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(23)]).then(__webpack_require__.bind(null, /*! @/views/pages/authentication/Login.vue */ "./resources/js/src/views/pages/authentication/Login.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(16)]).then(__webpack_require__.bind(null, /*! @/views/pages/authentication/Login.vue */ "./resources/js/src/views/pages/authentication/Login.vue"));
   },
   meta: {
     validUser: false,
@@ -210444,7 +210298,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/scann',
   name: 'scann-out',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(5), __webpack_require__.e(11), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(8), __webpack_require__.e(9), __webpack_require__.e(10), __webpack_require__.e(13), __webpack_require__.e(46), __webpack_require__.e(38)]).then(__webpack_require__.bind(null, /*! @/views/out/ScannOut.vue */ "./resources/js/src/views/out/ScannOut.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(7), __webpack_require__.e(9), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(8), __webpack_require__.e(11), __webpack_require__.e(29)]).then(__webpack_require__.bind(null, /*! @/views/out/ScannOut.vue */ "./resources/js/src/views/out/ScannOut.vue"));
   },
   meta: {
     validUser: false,
@@ -210454,7 +210308,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/register',
   name: 'auth-register',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(25)]).then(__webpack_require__.bind(null, /*! @/views/pages/authentication/Register.vue */ "./resources/js/src/views/pages/authentication/Register.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(18)]).then(__webpack_require__.bind(null, /*! @/views/pages/authentication/Register.vue */ "./resources/js/src/views/pages/authentication/Register.vue"));
   },
   meta: {
     validUser: false,
@@ -210466,7 +210320,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/registro',
   name: 'registro',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(5), __webpack_require__.e(11), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(8), __webpack_require__.e(9), __webpack_require__.e(10), __webpack_require__.e(13), __webpack_require__.e(46), __webpack_require__.e(35)]).then(__webpack_require__.bind(null, /*! @/views/out/Registro.vue */ "./resources/js/src/views/out/Registro.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(7), __webpack_require__.e(9), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(8), __webpack_require__.e(11), __webpack_require__.e(27)]).then(__webpack_require__.bind(null, /*! @/views/out/Registro.vue */ "./resources/js/src/views/out/Registro.vue"));
   },
   meta: {
     layout: 'full',
@@ -210477,7 +210331,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/forgot-password',
   name: 'auth-forgot-password',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(26)]).then(__webpack_require__.bind(null, /*! @/views/pages/authentication/ForgotPassword.vue */ "./resources/js/src/views/pages/authentication/ForgotPassword.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(19)]).then(__webpack_require__.bind(null, /*! @/views/pages/authentication/ForgotPassword.vue */ "./resources/js/src/views/pages/authentication/ForgotPassword.vue"));
   },
   meta: {
     validUser: false,
@@ -210489,7 +210343,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/pages/coming-soon',
   name: 'page-coming-soon',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 29).then(__webpack_require__.bind(null, /*! @/views/pages/miscellaneous/ComingSoon.vue */ "./resources/js/src/views/pages/miscellaneous/ComingSoon.vue"));
+    return __webpack_require__.e(/*! import() */ 22).then(__webpack_require__.bind(null, /*! @/views/pages/miscellaneous/ComingSoon.vue */ "./resources/js/src/views/pages/miscellaneous/ComingSoon.vue"));
   },
   meta: {
     validUser: false,
@@ -210499,7 +210353,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/pages/not-authorized',
   name: 'page-not-authorized',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 31).then(__webpack_require__.bind(null, /*! @/views/pages/miscellaneous/NotAuthorized.vue */ "./resources/js/src/views/pages/miscellaneous/NotAuthorized.vue"));
+    return __webpack_require__.e(/*! import() */ 24).then(__webpack_require__.bind(null, /*! @/views/pages/miscellaneous/NotAuthorized.vue */ "./resources/js/src/views/pages/miscellaneous/NotAuthorized.vue"));
   },
   meta: {
     validUser: false,
@@ -210510,7 +210364,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/pages/under-maintenance',
   name: 'page-under-maintenance',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 32).then(__webpack_require__.bind(null, /*! @/views/pages/miscellaneous/UnderMaintenance.vue */ "./resources/js/src/views/pages/miscellaneous/UnderMaintenance.vue"));
+    return __webpack_require__.e(/*! import() */ 25).then(__webpack_require__.bind(null, /*! @/views/pages/miscellaneous/UnderMaintenance.vue */ "./resources/js/src/views/pages/miscellaneous/UnderMaintenance.vue"));
   },
   meta: {
     validUser: false,
@@ -210520,7 +210374,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/pages/error',
   name: 'page-error',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 30).then(__webpack_require__.bind(null, /*! @/views/pages/miscellaneous/Error.vue */ "./resources/js/src/views/pages/miscellaneous/Error.vue"));
+    return __webpack_require__.e(/*! import() */ 23).then(__webpack_require__.bind(null, /*! @/views/pages/miscellaneous/Error.vue */ "./resources/js/src/views/pages/miscellaneous/Error.vue"));
   },
   meta: {
     validUser: false,
@@ -210552,7 +210406,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/perfil',
   name: 'perfil',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(14), __webpack_require__.e(37)]).then(__webpack_require__.bind(null, /*! @/views/Perfil.vue */ "./resources/js/src/views/Perfil.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(5), __webpack_require__.e(28)]).then(__webpack_require__.bind(null, /*! @/views/Perfil.vue */ "./resources/js/src/views/Perfil.vue"));
   },
   meta: {
     pageTitle: 'Información del usuario'
@@ -210887,8 +210741,8 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/plomo/Documents/MAMP/vol/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/plomo/Documents/MAMP/vol/resources/scss/core.scss */"./resources/scss/core.scss");
+__webpack_require__(/*! /Users/plomo/Documents/MAMP/boletera/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/plomo/Documents/MAMP/boletera/resources/scss/core.scss */"./resources/scss/core.scss");
 
 
 /***/ }),

@@ -16,35 +16,35 @@ const router = new VueRouter({
       ...routesDefault,
       ...administracion,
       ...usuarios,
-      { path: '/', redirect: { name: 'home' } },
+      // { path: '/', redirect: { name: 'home' } },
       { path: '*', redirect: 'error-404', },
   ],
 })
 router.beforeEach(async (to, _, next) => {
     const isLoggedIn = isUserLoggedIn();
     let validUser = to.meta?.validUser ?? true;
-    if (validUser) {
-      if (isLoggedIn === null) {
-        next({ name: 'auth-login' });
-      } else {
-        if (!validarRutaPorTipoUsuarioEnMeta(to,store.state.app.userData.role)) {
-          next({ name: 'home' }); 
-        } else {  
-          try {
-            loading()
-            const response = await useJwt.validateUser({ tk: store.state.app.userData.token });
+    // if (validUser) {
+    //   if (isLoggedIn === null) {
+    //     next({ name: 'auth-login' });
+    //   } else {
+    //     if (!validarRutaPorTipoUsuarioEnMeta(to,store.state.app.userData.role)) {
+    //       next({ name: 'home' }); 
+    //     } else {  
+    //       try {
+    //         loading()
+    //         const response = await useJwt.validateUser({ tk: store.state.app.userData.token });
             
-            loading(false)
-            if (!response.data.data) {
-              goToLogout();
-            }
-          } catch (error) { console.log(error); }
-        }
-      }
-    }
-    if (to.meta.redirectIfLoggedIn && isLoggedIn) { 
-      next({ name: 'home' }); 
-    }
+    //         loading(false)
+    //         if (!response.data.data) {
+    //           goToLogout();
+    //         }
+    //       } catch (error) { console.log(error); }
+    //     }
+    //   }
+    // }
+    // if (to.meta.redirectIfLoggedIn && isLoggedIn) { 
+    //   next({ name: 'home' }); 
+    // }
     next();
   });
 router.afterEach(() => {

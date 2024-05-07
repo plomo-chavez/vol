@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Auth\Models\PersonalAccessToken;
 use App\Http\Controllers\Auth\Resources\AuthResources;
+use App\Http\Controllers\Auth\Resources\UserResource;
 use App\Http\Controllers\Auth\Models\User;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
@@ -71,64 +72,39 @@ class AuthController extends Controller{
      * @return User
      */
     public function loginUser(Request $request){
+        $parametros = $request->all();
         $response = BaseController::response();
         try {
-            $validateUser = Validator::make($request->all(),
-            [
-                'email' => 'required|email',
-                'password' => 'required'
-            ]);
+            $filtros = [
+                'email' => $parametros['email']
+            ];
+            $users = $this->listarWithFiltros(new User,$filtros);
+            
+            if ($users->count() == 1) { // Verifica si hay exactamente un usuario
+                $userInDB = $users->first(); // Obtén el primer usuario de la colección
+                $user = new UserResource($userInDB); // Crea una instancia de UserResource con el usuario
 
-            if($validateUser->fails()){
-                $response['message'] = 'validation error';
-                $response['data']    = $validateUser->errors();
-                return response()->json($response, 200);
-            }
-
-            if(!Auth::attempt($request->only(['email', 'password']))){
-                $response['message'] = 'Email & Password does not match with our record.';
-                return response()->json($response, 200);
-            }
-
-            // $user = User::where('email', $request->email)->with('tipoUsuario')->first();
-
-            $users = User::where('email', $request->email)
-                ->with('tipoUsuario')
-                ->with('voluntario:id,nombre,primerApellido,segundoApellido,delegacion_id,urlImagen')
-                ->with('voluntario.delegacion')
-                ->get();
-            if (sizeof($users) == 1) {
-                $tmp  = $users[0];
-                $user = $users[0]->toArray();
-                $tokenCreated  = $tmp->createToken("API TOKEN")->plainTextToken;
+                $tokenCreated = $userInDB->createToken("API TOKEN")->plainTextToken;
                 [$id, $token] = explode('|', $tokenCreated, 2);
-                $user['tipoUsuario']    = $user['tipo_usuario']['nombre'] ?? 'Sin tipo de usuario';
-                $user['delegacion_id']  = $user['voluntario']['delegacion_id'] ?? null;
-                $user['urlImagen']  = $user['voluntario']['urlImagen'] ?? null;
-                $user['token'] = $token;
-                $tmp->token = $token;
-                $tmp->save();
+
+                // Modifica los valores del modelo User original
+                $userInDB->token = $token;
+                $userInDB->save();
+
                 $tokenBD = PersonalAccessToken::find($id);
-                $tokenBD->expires_at =  now()->addMinute(180);
-                // $tokenBD->expires_at =  now()->addMinute(2);  // Se agregan 3 horas en minutos.
-                // $tokenBD->expires_at =  now()->addSecond(5);  // Se agregan 3 horas en minutos.
-                $tokenBD->tokenFront =  $tokenCreated;
+                $tokenBD->expires_at = now()->addMinutes(180);
+                $tokenBD->tokenFront = $tokenCreated;
                 $tokenBD->save();
-                $user['role'] = strtolower($user['tipoUsuario']);
-                // $user['role'] = 'verificador';
-                $user['ability'] = [
-                    array(
-                    "action"  => "manage",
-                    "subject" => "verificador"
-                    )
+
+
+                $data = [
+                    'user' => $user,
+                    'token' => $token
                 ];
-                $data = array(
-                    'user'  => $user,
-                    'token' =>  $token
-                );
-                $response['result']    = true;
-                $response['data']      = $data;
-                $response['message']      =  'User Logged In Successfully';
+
+                $response['result'] = true;
+                $response['data'] = $data;
+                $response['message'] = 'User Logged In Successfully';
             } else {
                 return response()->json([
                     'status'  => false,

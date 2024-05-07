@@ -44,7 +44,7 @@
             Bienvenido! 👋
           </b-card-title>
           <b-card-text class="mb-2">
-            Para poder acceder requieres tener un cuenta activa en el sitema y la forma de acceder es con el correo electronico y contraseña regitrada.
+            Para poder acceder requieres tener un cuenta activa en el sistema y la forma de acceder es con el correo electrónico y contraseña registrada.
           </b-card-text>
 
           <!-- form -->

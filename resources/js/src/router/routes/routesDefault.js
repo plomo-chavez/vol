@@ -1,12 +1,23 @@
 export default [
     {
-      path: '/home',
-      name: 'home',
-      component: () => import('@/views/Home.vue'),
+      path: '/inicio',
+      name: 'inicio',
+      component: () => import('@/views/Inicio.vue'),
       meta: {
         validUser: true,
         permitidos : 'all',
       },
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: () => import('@/views/Home.vue'),
+      meta: {
+        validUser: false,
+      layout: 'full',
+      resource: 'Auth',
+      action: 'read',
+    },
     },
     {
       path: '/error-404',
