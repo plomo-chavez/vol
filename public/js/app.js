@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "js/chunks/" + ({}[chunkId]||chunkId) + "." + {"0":"39fc7ae3b9568038c731","1":"a6e957bcff0fb3a993f1","2":"76a9f3e5d03ef5119812","3":"3923ed6f61625d799418","4":"da2d43eabf76b6d58286","5":"e7047643bfd3cefc9b5b","6":"f8fb88ec78230c7c196b","7":"375f56c86a5829d2c3d4","8":"277fd88db283eb09d660","9":"a1c294ab4cea82e18093","10":"364466a8604464afbdfb","11":"b56533f8d5c656d958ad","12":"0eb2cbd357167d759c83","13":"1f440db0d4c433ef3bd7","14":"17fa4e0bea3700aa79d3","15":"664d4b1e02889d8699b1","16":"b0427b84a9a567389cdd","17":"0b750bda47e42abf3cbc","18":"0cff5acd7ae7d2ca97fe","19":"200fa0d5611665b0d5b1","20":"2222a57243fac35d0f42","21":"3a6e7fa5f04f043c06ea","22":"2697f7751455e81b187d","23":"d0211e0d0fab83618f7b","24":"6e8da509eb893c2cde58","25":"5e100de7bb2f868eb6a9","26":"c5a010641600f6a18911","27":"127a15c064f03dea6f57","28":"1c2915ca31aaab74fe2a","29":"15fedd096e6cd912e687","30":"52ace8bd32aa4cc760a3","31":"189a5ef44c9b753cf2e4","32":"7d0d7a52d89d194bd6e9","33":"ea1993f9ce7322276807","34":"f890aa56951765aa6d46","35":"56bfc6626283ae4c06fc"}[chunkId] + ".js"
+/******/ 		return __webpack_require__.p + "js/chunks/" + ({}[chunkId]||chunkId) + "." + {"0":"39fc7ae3b9568038c731","1":"a6e957bcff0fb3a993f1","2":"76a9f3e5d03ef5119812","3":"3923ed6f61625d799418","4":"da2d43eabf76b6d58286","5":"e7047643bfd3cefc9b5b","6":"f8fb88ec78230c7c196b","7":"375f56c86a5829d2c3d4","8":"277fd88db283eb09d660","9":"a1c294ab4cea82e18093","10":"364466a8604464afbdfb","11":"b56533f8d5c656d958ad","12":"0eb2cbd357167d759c83","13":"1f440db0d4c433ef3bd7","14":"17fa4e0bea3700aa79d3","15":"664d4b1e02889d8699b1","16":"b0427b84a9a567389cdd","17":"0b750bda47e42abf3cbc","18":"0cff5acd7ae7d2ca97fe","19":"200fa0d5611665b0d5b1","20":"2222a57243fac35d0f42","21":"3a6e7fa5f04f043c06ea","22":"2697f7751455e81b187d","23":"d0211e0d0fab83618f7b","24":"6e8da509eb893c2cde58","25":"5e100de7bb2f868eb6a9","26":"c5a010641600f6a18911","27":"8f82c5cb5d5135b84926","28":"f207d84afe148cc691d0","29":"ded12eb1f02cc7bb7cea","30":"852ebc58fcc1b856b272","31":"2bc85f44179b95977193","32":"26b50acb7f74cbfb00b9","33":"e6f9687dff2d273d7d3e","34":"6199e6ecdca70e9ec4b8"}[chunkId] + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -210190,7 +210190,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/usuarios',
   name: 'usuarios',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(31)]).then(__webpack_require__.bind(null, /*! @/views/usuarios/Usuarios.vue */ "./resources/js/src/views/usuarios/Usuarios.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(32)]).then(__webpack_require__.bind(null, /*! @/views/usuarios/Usuarios.vue */ "./resources/js/src/views/usuarios/Usuarios.vue"));
   },
   meta: {
     pageTitle: 'Usuarios',
@@ -210200,7 +210200,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/eventos',
   name: 'eventos',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(30)]).then(__webpack_require__.bind(null, /*! @/views/eventos/Eventos.vue */ "./resources/js/src/views/eventos/Eventos.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(31)]).then(__webpack_require__.bind(null, /*! @/views/eventos/Eventos.vue */ "./resources/js/src/views/eventos/Eventos.vue"));
   },
   meta: {
     pageTitle: 'Eventos',
@@ -210220,7 +210220,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/config/notificaciones/template-email',
   name: 'config-notificaciones-templateEmail',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(34), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(17)]).then(__webpack_require__.bind(null, /*! @/views/configuracion/notificaciones/template/TemplateEmails.vue */ "./resources/js/src/views/configuracion/notificaciones/template/TemplateEmails.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(33), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(17)]).then(__webpack_require__.bind(null, /*! @/views/configuracion/notificaciones/template/TemplateEmails.vue */ "./resources/js/src/views/configuracion/notificaciones/template/TemplateEmails.vue"));
   },
   meta: {
     pageTitle: 'Delegaciones',
@@ -210252,17 +210252,18 @@ __webpack_require__.r(__webpack_exports__);
   path: '/inicio',
   name: 'inicio',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(32), __webpack_require__.e(33)]).then(__webpack_require__.bind(null, /*! @/views/Inicio.vue */ "./resources/js/src/views/Inicio.vue"));
+    return __webpack_require__.e(/*! import() */ 27).then(__webpack_require__.bind(null, /*! @/views/Inicio.vue */ "./resources/js/src/views/Inicio.vue"));
   },
   meta: {
-    validUser: true,
-    permitidos: 'all'
+    layout: 'full',
+    resource: 'Auth',
+    action: 'read'
   }
 }, {
   path: '/home',
   name: 'home',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(7), __webpack_require__.e(35), __webpack_require__.e(1), __webpack_require__.e(8), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, /*! @/views/Home.vue */ "./resources/js/src/views/Home.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(7), __webpack_require__.e(34), __webpack_require__.e(1), __webpack_require__.e(8), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, /*! @/views/Home.vue */ "./resources/js/src/views/Home.vue"));
   },
   meta: {
     validUser: false,
@@ -210298,7 +210299,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/scann',
   name: 'scann-out',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(7), __webpack_require__.e(9), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(8), __webpack_require__.e(11), __webpack_require__.e(29)]).then(__webpack_require__.bind(null, /*! @/views/out/ScannOut.vue */ "./resources/js/src/views/out/ScannOut.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(7), __webpack_require__.e(9), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(8), __webpack_require__.e(11), __webpack_require__.e(30)]).then(__webpack_require__.bind(null, /*! @/views/out/ScannOut.vue */ "./resources/js/src/views/out/ScannOut.vue"));
   },
   meta: {
     validUser: false,
@@ -210320,7 +210321,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/registro',
   name: 'registro',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(7), __webpack_require__.e(9), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(8), __webpack_require__.e(11), __webpack_require__.e(27)]).then(__webpack_require__.bind(null, /*! @/views/out/Registro.vue */ "./resources/js/src/views/out/Registro.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(7), __webpack_require__.e(9), __webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(8), __webpack_require__.e(11), __webpack_require__.e(28)]).then(__webpack_require__.bind(null, /*! @/views/out/Registro.vue */ "./resources/js/src/views/out/Registro.vue"));
   },
   meta: {
     layout: 'full',
@@ -210406,7 +210407,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/perfil',
   name: 'perfil',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(5), __webpack_require__.e(28)]).then(__webpack_require__.bind(null, /*! @/views/Perfil.vue */ "./resources/js/src/views/Perfil.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(5), __webpack_require__.e(29)]).then(__webpack_require__.bind(null, /*! @/views/Perfil.vue */ "./resources/js/src/views/Perfil.vue"));
   },
   meta: {
     pageTitle: 'Información del usuario'

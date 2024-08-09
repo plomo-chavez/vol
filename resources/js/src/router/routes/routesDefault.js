@@ -4,8 +4,9 @@ export default [
       name: 'inicio',
       component: () => import('@/views/Inicio.vue'),
       meta: {
-        validUser: true,
-        permitidos : 'all',
+        layout: 'full',
+        resource: 'Auth',
+        action: 'read',
       },
     },
     {
